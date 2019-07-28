@@ -6999,6 +6999,22 @@ Weight: ^808080300^000000
 Weapon Level: ^8080803^000000
 Requires Level: ^80808099^000000
 Usable By: ^808080Mechanic^000000
+^800080Set Bonus^000000
+^008080Guardian Processor^000000
+^008080Pile Bunker^000000
+If ^008080Pile Bunker^000000 upgrade level is +7 or higher,
+Aspd + 10%
+Increases the skill damage bonus of ^0000FFKnuckle Boost^000000 by 30%.
+Increases the skill damage bonus of ^0000FFVulcan Arm^000000 by 50%.
+
+If ^008080Pile Bunker^000000 upgrade level is +9 or higher,
+Aspd + 10%
+Increases the skill damage bonus of ^0000FFKnuckle Boost^000000 by an additional 30%.
+Increases the skill damage bonus of ^0000FFVulcan Arm^000000 by an additional 50%.
+
+If ^008080Pile Bunker^000000 upgrade level is +10 or higher,
+Reduces/Increases the cooldown of ^0000FFPile Bunker^000000 by 1 second.
+
 #
 1550#
 A book that's been put together sturdily enough to be wielded as a weapon in an emergency situation.
@@ -9764,18 +9780,43 @@ Property: ^808080Holy^000000
 Weight: ^8080800.2^000000
 #
 1752#
-^808080A flaming arrow that will inflict Fire property damage.^000000
-^FFFFFF_^000000
-Type: Ammunition
-Class: Arrow
-Attack: 30
-Property: Fire
-Weight: 0.2
-^FFFFFF_^000000
+A flaming arrow that will inflict Fire property damage.
+Class: ^808080Arrow^000000
+Attack: ^80808030^000000
+Property: ^808080Fire^000000
+Weight: ^8080800.2^000000
 ^800080Set Bonus^000000
 ^008080Burning Bow [1]^000000
 ^008080Fire Arrow^000000
 Increases long-ranged damage on targets by 25%.
+
+^800080Set Bonus^000000
+^008080Elemental Tights [1]^000000
+^008080Burning Bow [1]^000000
+^008080Fire Arrow^000000
+Increases long-ranged damage on targets by 20%.
+Disables the following effects of ^008080Burning Bow [1]^000000, Reduces damage taken from Fire property attacks by 10%.
+If ^008080Burning Bow [1]^000000 upgrade level is +10 or higher,
+Aspd + 1
+
+^800080Set Bonus^000000
+^008080Elemental Towel [1]^000000
+^008080Burning Bow [1]^000000
+^008080Fire Arrow^000000
+Increases the damage of ^0000FFArrow Storm^000000 by 5% per upgrade level of ^008080Elemental Towel [1]^000000.
+Increases the damage of ^0000FFSevere Rainstorm^000000 by 5% per upgrade level of ^008080Elemental Towel [1]^000000.
+If ^008080Burning Bow [1]^000000 upgrade level is +10 or higher,
+Aspd + 1
+
+^800080Set Bonus^000000
+^008080Rainbow Muffler^000000
+^008080Fire Arrow^000000
+Reduces damage taken from Fire property attacks by 75%.
+
+^800080Set Bonus^000000
+^008080Prism Rangers Scarf^000000
+^008080Fire Arrow^000000
+Reduces damage taken from Fire property attacks by 75%.
 #
 1753#
 An arrow constructed from hardened steel.
@@ -12637,25 +12678,31 @@ Requires Level: ^808080100^000000
 Usable By: ^808080Rune Knight, Royal Guard^000000
 #
 2149#
-MHP + 3%
-Class: ^777777Shield^000000 DEF: ^7777775^000000
-Weight : ^77777715^000000
-Required Level: ^7777771^000000
-Jobs: ^777777All Jobs^000000
+A guard coated with a mixture of gold and elunium.
+Class: ^808080Shield^000000
+Defense: ^80808025^000000
+Weight: ^80808015^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
+Max HP + 3%
 #
 2150#
-MHP + 3%
-Class: ^777777Shield^000000 DEF: ^7777776^000000
-Weight : ^77777730^000000
-Required Level: ^7777771^000000
-Jobs: ^777777Swordman Class, Acolyte Class, Merchant Class, Thief Class, Bard, Dancer^000000
+A buckler coated with a mixture of gold and elunium.
+Class: ^808080Shield^000000
+Defense: ^80808045^000000
+Weight: ^80808030^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080Swordman Jobs, Merchant Jobs, Thief Jobs, Acolyte Jobs, Bard Jobs, Dancer Jobs^000000
+Max HP + 3%
 #
 2151#
-MHP + 3%
-Class: ^777777Shield^000000 DEF: ^7777778^000000
-Weight : ^77777765^000000
-Required Level: ^7777771^000000
-Jobs: ^777777Swordman Class^000000
+A shield coated with a mixture of gold and elunium.
+Class: ^808080Shield^000000
+Defense: ^80808065^000000
+Weight: ^80808065^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080Swordman Jobs^000000
+Max HP + 3%
 #
 2153#
 A beautiful shield engraved with the patterns of the Rune Kingdom.
@@ -14951,6 +14998,17 @@ Increases the recovery rate of recovery skills by 6%.
 ^008080Diabolus Ring [1]^000000
 Atk + 3%
 Matk + 3%
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Robe^000000
+MDef + 25
+MaxSP + 350
+Reduces the cast delay of skills by 10%
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+mAtk + 15 for every upgrade level of ^008080Diabolus Robe^000000,
+Increases the recovery rate of recovery skills by 2% for every upgrade level of ^008080Diabolus Robe^000000
 #
 2375#
 An Armor which is made of an unknown metal in the human-world. Mysterious power is hidden in the armor.
@@ -14969,6 +15027,16 @@ Increases resistance to ^800000Stone^000000 and ^800000Stun^000000 by 5%.
 ^008080Diabolus Ring [1]^000000
 Atk + 3%
 Matk + 3%
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Armor^000000
+Str + 8
+Dex + 4
+MaxHP + 1350
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+Atk + 15 for every upgrade level of ^008080Diabolus Armor^000000,
 #
 2376#
 Designed for brave warriors who face enemies at the forefront. It gives off multiple effects when compounded as a set.
@@ -15708,6 +15776,14 @@ Max HP + 10 for every base level.
 ^008080Diabolus Boots [1]^000000
 ^008080Diabolus Manteau [1]^000000
 Max HP + 6%
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Boots^000000
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+MaxHP + 100 for every Base Level
+Atk/mAtk + 20 for every upgrade level of ^008080Diabolus Boots^000000
 #
 2434#
 A pair of boots made of light, resilient leather that makes you want to run when you wear them.
@@ -15993,18 +16069,22 @@ SP Recovery + 6%
 This item cannot be upgraded.
 #
 2459#
-MHP + 3%
-Class: ^777777Shoes^000000 DEF: ^7777774^000000
-Weight : ^77777720^000000
-Required Level: ^7777771^000000
-Jobs: ^777777All Jobs except Novice^000000
+Shoes coated with a mixture of gold and elunium.
+Class: ^808080Shoes^000000
+Defense: ^80808015^000000
+Weight: ^80808020^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs except Novice Jobs^000000
+Max HP + 3%
 #
 2460#
-MHP + 3%
-Class: ^777777Shoes^000000 DEF: ^7777776^000000
-Weight : ^77777730^000000
-Required Level: ^7777771^000000
-Jobs: ^777777Swordman,Merchant,Thief Classes,Archer,Taekwon Class,Gunslinger^000000
+Boots coated with a mixture of gold and elunium.
+Class: ^808080Shoes^000000
+Defense: ^80808021^000000
+Weight: ^80808030^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080Swordman Jobs, Merchant Jobs, Thief Jobs, Archer Jobs, Taekwon, Taekwon Master, Gunslinger Jobs^000000
+Max HP + 3%
 #
 2461#
 MHP + 3%
@@ -16964,6 +17044,15 @@ Increases physical damage on Satan Morocc and Wounded Morocc by 10%.
 ^008080Diabolus Boots [1]^000000
 ^008080Diabolus Manteau [1]^000000
 Max HP + 6%
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Manteau^000000
+MaxHP + 900
+Reduces damage taken from long-ranged attacks by 10%.
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+Reduces damage taken from Fire, Water, and Wind property attacks by 3% for every upgrade level of ^008080Diabolus Manteau^000000
 #
 2538#
 A dignified, splendid Manteau that is provided to any warrior who brings great honor from the battlefield.
@@ -18111,7 +18200,7 @@ Class: ^808080Accessory^000000
 Weight: ^80808010^000000
 Requires Level: ^80808040^000000
 Usable By: ^808080All Jobs^000000
-Increases critical damage on targets by 6%.
+Crit + 6
 Adds a chance of inflicting ^800000Curse^000000 on the user when performing a physical attack.
 #
 2653#
@@ -18987,6 +19076,15 @@ Matk + 3%
 ^008080Diabolus Ring [1]^000000
 Atk + 3%
 Matk + 3%
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Ring^000000
+MaxHP + 2000
+MaxSp + 200
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+Increases the recovery rate of recovery skills by 15%
 #
 2730#
 A royal gift to a member of the Continental Guard.
@@ -28895,169 +28993,276 @@ Matk + 7%
 #
 4908#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-^FF0000Caution: This is a special enchant item. It is exempt from card protection and card desocketing.^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
 Class: ^808080Essence^000000
 Compounds On: ^808080All^000000
 Weight: ^8080801^000000
 Str + 1
 Int - 1
 Atk + 3
+
+^800080Set Bonus^000000
+^008080Darklord Essence Force1^000000
+^008080Demon God's Ring [1]^000000
+Atk + 5%
 #
 4909#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-STR + 2
-ATK + 6
-INT - 2
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item. It is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Str + 2
+Int - 2
+Atk + 6
+
+^800080Set Bonus^000000
+^008080Darklord Essence Force2^000000
+^008080Demon God's Ring [1]^000000
+Atk + 5%
 #
 4910#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-STR + 4
-ATK + 12
-INT - 4
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item. It is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Str + 4
+Int - 4
+Atk + 12
+
+^800080Set Bonus^000000
+^008080Darklord Essence Force3^000000
+^008080Demon God's Ring [1]^000000
+Atk + 5%
 #
 4911#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-INT + 1
-MATK + 3
-STR - 1
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Str - 1
+Int + 1
+Matk + 3
+
+^800080Set Bonus^000000
+^008080Darklord Essence Intelligence1^000000
+^008080Demon God's Ring [1]^000000
+Matk + 5%
 #
 4912#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-INT + 2
-MATK + 6
-STR - 2
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Str - 2
+Int + 2
+Matk + 6
+
+^800080Set Bonus^000000
+^008080Darklord Essence Intelligence2^000000
+^008080Demon God's Ring [1]^000000
+Matk + 5%
 #
 4913#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-INT + 4
-MATK + 12
-STR - 4
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Str - 4
+Int + 4
+Matk + 12
+
+^800080Set Bonus^000000
+^008080Darklord Essence Intelligence3^000000
+^008080Demon God's Ring [1]^000000
+Matk + 5%
 #
 4914#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-AGI + 1
-Evade + 2
-VIT - 1
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Agi + 1
+Vit - 1
+Flee + 2
+
+^800080Set Bonus^000000
+^008080Darklord Essence Speed1^000000
+^008080Demon God's Ring [1]^000000
+Aspd + 5%
 #
 4915#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-AGI + 2
-Evade + 4
-VIT - 2
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Agi + 2
+Vit - 2
+Flee + 4
+
+^800080Set Bonus^000000
+^008080Darklord Essence Speed2^000000
+^008080Demon God's Ring [1]^000000
+Aspd + 5%
 #
 4916#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-AGI + 4
-Evade + 8
-VIT - 4
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Agi + 4
+Vit - 4
+Flee + 8
+
+^800080Set Bonus^000000
+^008080Darklord Essence Speed3^000000
+^008080Demon God's Ring [1]^000000
+Aspd + 5%
 #
 4917#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-VIT + 1
-DEF + 3
-MDEF + 2
-AGI - 1
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Agi - 1
+Vit + 1
+Def + 3
+Mdef + 2
+
+^800080Set Bonus^000000
+^008080Darklord Essence Vitality1^000000
+^008080Demon God's Ring [1]^000000
+Max HP + 5%
 #
 4918#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-VIT + 2
-DEF + 6
-MDEF + 4
-AGI - 2
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Agi - 2
+Vit + 2
+Def + 6
+Mdef + 4
+
+^800080Set Bonus^000000
+^008080Darklord Essence Vitality2^000000
+^008080Demon God's Ring  [1]^000000
+Max HP + 5%
 #
 4919#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-VIT + 4
-DEF + 12
-MDEF + 8
-AGI - 4
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Agi - 4
+Vit + 4
+Def + 12
+Mdef + 8
+
+^800080Set Bonus^000000
+^008080Darklord Essence Vitality3^000000
+^008080Demon God's Ring [1]^000000
+Max HP + 5%
 #
 4920#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-DEX + 1
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Dex + 1
+Luk - 1
 Hit + 2
-LUK - 1
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+
+^800080Set Bonus^000000
+^008080Darklord Essence Concentration1^000000
+^008080Demon God's Ring [1]^000000
+Reduces the variable casting time of skills by 5%.
 #
 4921#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-DEX + 2
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Dex + 2
+Luk - 2
 Hit + 4
-LUK - 2
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+
+^800080Set Bonus^000000
+^008080Darklord Essence Concentration2^000000
+^008080Demon God's Ring [1]^000000
+Reduces the variable casting time of skills by 5%.
 #
 4922#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-DEX + 4
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Dex + 4
+Luk - 4
 Hit + 8
-LUK - 4
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+
+^800080Set Bonus^000000
+^008080Darklord Essence Concentration3^000000
+^008080Demon God's Ring [1]^000000
+Reduces the variable casting time of skills by 5%.
 #
 4923#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-LUK + 1
-Critical + 1
-DEX - 1
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Dex - 1
+Luk + 1
+Crit + 1
+
+^800080Set Bonus^000000
+^008080Darklord Essence Luck1^000000
+^008080Demon God's Ring [1]^000000
+Increases critical damage on targets by 5%.
 #
 4924#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-LUK + 2
-Critical + 2
-DEX - 2
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Dex - 2
+Luk + 2
+Crit + 2
+
+^800080Set Bonus^000000
+^008080Darklord Essence Luck2^000000
+^008080Demon God's Ring [1]^000000
+Increases critical damage on targets by 5%.
 #
 4925#
 An essence of Dark Lord Morocc. Contains part of Morroc's ability.
-LUK + 4
-Critical + 4
-DEX - 4
-^ff0000Caution : Special enchant item. Exception to all protection from card destruction or card disassembly.^000000
-Location : ^777777All slot^000000
-Weight : ^7777771^000000
+^FF0000Caution: This is a special enchant item, it is exempt from card protection and card desocketing.^000000
+Class: ^808080Essence^000000
+Compounds On: ^808080All^000000
+Weight: ^8080801^000000
+Dex - 4
+Luk + 4
+Crit + 4
+
+^800080Set Bonus^000000
+^008080Darklord Essence Luck3^000000
+^008080Demon God's Ring [1]^000000
+Increases critical damage on targets by 5%.
 #
 4926#
 Crit + 1
@@ -33117,13 +33322,13 @@ Adds a 5% chance to bypass 25% of magical defense on normal monsters and players
 #
 5361#
 A gangster's red scarf.
-Atk +5
-Class : ^777777Headgear^000000
-Defense : ^7777770^000000
-Head Location : ^777777Lower^000000
-Weight : ^77777710^000000
-Required Level : ^7777771^000000
-Jobs : ^777777All Except Novice^000000
+Class: ^808080Headgear^000000
+Position: ^808080Lower^000000
+Defense: ^8080800^000000
+Weight: ^80808010^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs except Novice^000000
+Atk+5
 #
 5362#
 A scroll used by Ninjas to cast spells.
@@ -33394,13 +33599,13 @@ Enables ^0000FFLevel 5 Double Attack^000000.
 placeholder
 #
 5390#
-A double-pommed Blue Christmas Cap
-On Monster Kill has chance to drop a Xmas Gift!
-Location: ^777777Upper^000000
-Defense: ^7777770^000000
-Weight: ^7777770^000000
-Required Level: ^7777771^000000
-Jobs: ^777777All^000000
+A double-pommed Blue Christmas Cap.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
+Adds a chance of gaining ^008080Gift Box^000000 when a monster is killed.
 #
 5391#
 placeholder
@@ -34716,16 +34921,18 @@ Jobs : ^777777All^000000
 #
 5555#
 A hat which resembles a cute Leaf Cat. The power to cure dwells within it.
-Agi +2
-Has a low chance of auto casting Level 3 Heal on the user when receiving physical melee attack.
-^00cc00+7 or higher, gives 25% extra EXP for every monster killed and decreases attack of monsters in Ayothaya Dungeon by 30% except for Whispers.^000000
-^ff0000This item can be traded, stored, and put into a cart^000000
-Class : ^777777Headgear^000000
-Defense: ^7777776^000000
-Location : ^777777Upper^000000
-Weight : ^77777710^000000
-Required Level: ^7777771^000000
-Jobs : ^777777All^000000
+Class: ^808080Headgear^000000
+Position: ^808080Upper^000000
+Defense: ^8080806^000000
+Weight: ^80808010^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
+Agi + 2
+Adds a chance of casting ^0000FFLevel 3 Heal^000000 on the user when receiving a short-ranged attack.
+
+If upgrade level is +7 or higher,
+Increases the experience given from monsters by 25%.
+Reduces damage taken from Ayothaya Dungeon monsters by 30% except for Whisper.
 #
 5556#
 Very warm hat which a monster 'Fur Seal' is wearing.
@@ -36821,16 +37028,15 @@ Job : ^777777Jobchanged Magician/Acolyte Class^000000
 #
 5876#
 This stylish bandeezy expresses your patriotic spirit and makes you feel like some kind of professional grappler.
-All Stats +1.
-Enables the use of Level 1 [Bash].
-If upgraded to +7 or higher, Increases damage for all races by 10%
-^ff0000Account Bound^000000
-Class : ^777777Headgear^000000
-Defense : ^7777777^000000
-Location : ^777777Upper ^000000
-Weight : ^77777720^000000
-Required Level : ^77777730^000000
-Job : ^777777All jobs^000000
+Class: ^808080Headgear^000000
+Position: ^808080Upper^000000
+Defense: ^8080807^000000
+Weight: ^80808020^000000
+Requires Level: ^80808030^000000
+Usable By: ^808080All Jobs^000000
+All Stats + 1
+Enables ^0000FFLevel 1 Bash^000000.
+Increases physical damage on all race targets by 10%.
 #
 5877#
 These colors don't run, but you will (faster) when wearing this Old Glory adorned hat.
@@ -38600,10 +38806,9 @@ Class: ^808080Generic^000000
 Weight: ^8080800^000000
 #
 6302#
-A special bond received from a GM.
-Each bond is worth 2,147,483,647 zeny.
-^ff0000This item is character bound^000000
-Weight : ^7777770^000000
+A special bond received from the game master team. Each bond is worth 100,000 zeny. Visit the Eden Group Bondsman in the kitchen at 185 14.
+^FF0000Character Bound^000000
+Weight: ^8080801^000000
 #
 6304#
 A certificate given by Sapha leaders for meritorious deeds.
@@ -39625,73 +39830,73 @@ Only apply to a maximum of +10 refine.
 #
 6636#
 A stone with strength.
-Gives below stats to Costume slot 1
-STR + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Str + 1
 #
 6637#
-A stone with Intelligence
-Gives below stats to Costume slot 1
-INT + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with Intelligence.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Int + 1
 #
 6638#
-A stone with AGI.
-Gives below stats to Costume slot 1
-AGI + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with agility.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Agi + 1
 #
 6639#
-A stone with DEX
-Gives below stats to Costume slot 1
-DEX + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with dexterity.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Dex + 1
 #
 6640#
-A stone with VIT
-Gives below stats to Costume slot 1
-VIT + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with vitality.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Vit + 1
 #
 6641#
-A stone with Luck.
-Gives below stats to Costume slot 1
-LUK + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with luck.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Luk + 1
 #
 6642#
-A stone with Physical attack power.
-Gives below stats on Costume slot 2
-ATK + 1%.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with physical attack power.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Atk + 1%
 #
 6643#
-A stone with Magical attack power
-Gives below stats on Costume slot 2
-MATK + 1%.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with magical attack power.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Matk + 1%
 #
 6644#
-A stone with HIT
-Gives below stats on Costume slot 3
-HIT + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with accuracy power.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your lower costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Hit + 1
 #
 6645#
 A stone which gives good flee.
-Gives below stats on Costume slot 3
-FLEE + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your lower costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Flee + 1
 #
 6648#
 An old, dented crown that is missing gemstones made of pure gold. It can be sold to a Merchant for zeny.
@@ -39860,25 +40065,25 @@ Feel the power of the Great Dark Lord Morocc.
 Weight : ^7777771^000000
 #
 6716#
-A stone that increases Critical rate.
-Gives below stats on Costume upper slot
-CRI + 1.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone that increases critical rate.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Crit + 1
 #
 6717#
-A stone that increases HP.
-Gives below stats on Costume mid slot
-MaxHP + 50.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone that increases health.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Max HP + 50
 #
 6718#
-A stone that increases Magic HP.
-Gives below stats on Costume bottom slot
-MaxSP + 10.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone that increases SP power.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your lower costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Max SP + 10
 #
 6719#
 A tooth pulled from the monster piano, Jitterbug. It's shaped like a piano key.
@@ -39886,46 +40091,46 @@ A tooth pulled from the monster piano, Jitterbug. It's shaped like a piano key.
 Weight: ^77777710^000000
 #
 6740#
-A stone which increases recovery amount
-Gives below stats to Costume slot 1.
-HP recovery by Heal, items + 2%.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone which increases recovery amount.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Increases the recovery rate of recovery skills and recovery items 2%.
 #
 6741#
-A stone which makes to use recovery skills well.
-Gives below stats to Costume slot 1.
-Increase 3% of recovery amount from recovery type skill.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone which increases skill recovery amount.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Increases the recovery rate of recovery skills by 3%.
 #
 6742#
-A stone which makes good recovery power.
-Gives below stats on Costume slot 2
-Every 10 sec, recover HP 10.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone with recovery power.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Restores 10 HP to the user every 10 seconds.
 #
 6743#
-A stone increase your HP.
-Gives below stats on Costume slot 2
-MaxHP + 1%
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone that increases health.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Max HP + 1%
 #
 6744#
-A stone which increases your Magic power.
-Gives below stats on Costume slot 2
-MaxSP + 1%
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone that increases magical power.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Max SP + 1%
 #
 6745#
 A stone which gives SP during Battle.
-Gives below stats on Costume slot 3
-When enemies got killed by your Physical attacking, Magical attacking, recover 1 SP.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your lower costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Restores 1 SP to the user when a monster is killed by a physical or a magical attack.
 #
 6746#
 Standard sized gun part. Sadly poorly made and unusable.
@@ -40075,25 +40280,25 @@ Class: ^808080Generic^000000
 Weight: ^8080801^000000
 #
 6790#
-A stone for big enemies.
-Gives below stats to Costume slot 1
-Increase 1% of damage to big monsters.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone for large sized enemies.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Increases physical damage on Large size targets by 1%.
 #
 6791#
-A stone for mid-sized enemies.
-Gives below stats to Costume slot 1
-Increase 1% of damage to mid-sized monsters.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone for medium sized enemies.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Increases physical damage on Medium size targets by 1%.
 #
 6792#
-A stone for small-sized enemies.
-Gives below stats to Costume slot 1
-Increase 1% of damage to small-sized monsters.
-Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your Kitcoin costume item.
-Weight : ^77777710^000000
+A stone for small sized enemies.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Increases physical damage on Small size targets by 1%.
 #
 6797#
 A coin engraved with Angeling, made for the 10th anniversary. There will be someone who will know the value of this if you collect a lot.
@@ -40309,11 +40514,11 @@ Class: ^808080Generic^000000
 Weight: ^8080801^000000
 #
 6908#
-Stone which increases ASPD.
-Gives below stats on Costume Garment's slot 1
-ASPD + 1.
-[Lace La Zard] at the Fashion Stone building at Malangdo 115 150 can help you enchant this into a costume item.
-Weight : ^77777710^000000
+Stone which increases attack speed.
+Bring this to [Lace La Zard] in Malangdo at the building location 115 150 to enchant your garment costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Aspd + 1
 #
 6909#
 Purr-ency coins that can be exchanged for costume headgears by talking to Designer Heidam at the Malangdo building located at 115 150.
@@ -40446,157 +40651,67 @@ It looks as if it is used to operate a life created by the powerful evil spell.
 Weight: ^8080801^000000
 #
 6943#
-A stone with Physical attack power.
-Gives below stats on Costume upper slot.
-ATK + 1%.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with physical attack power.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Upper)
-^FFFFFF_^000000
-ATK + 1%
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
+A stone with physical attack power.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Atk + 1%
 #
 6944#
-A stone with Magical attack power.
-Gives below stats on Costume upper slot.
-MATK + 1%.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with magical attack power.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Upper)
-^FFFFFF_^000000
-MATK + 1%
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
+A stone with magical attack power.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Matk + 1%
 #
 6945#
 A stone with strength.
-Gives below stats to Costume Middle slot.
-STR + 1.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with strength.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Middle)
-^FFFFFF_^000000
-STR + 1
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
-^808080A stone with health.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Lower)
-^FFFFFF_^000000
-Max HP + 1%
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Str + 1
 #
 6946#
 A stone with Intelligence.
-Gives below stats to Costume middle slot.
-INT + 1.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with intelligence.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Middle)
-^FFFFFF_^000000
-INT + 1
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Int + 1
 #
 6947#
-A stone with AGI.
-Gives below stats to Costume middle slot.
-AGI + 1.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with agility.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Middle)
-^FFFFFF_^000000
-AGI + 1
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
+A stone with agility.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Agi + 1
 #
 6948#
-A stone with DEX.
-Gives below stats to Costume middle slot.
-DEX + 1.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with dexterity.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Middle)
-^FFFFFF_^000000
-DEX + 1
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
+A stone with dexterity.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Dex + 1
 #
 6949#
-A stone with VIT.
-Gives below stats to Costume middle slot.
-VIT + 1.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with vitality.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Middle)
-^FFFFFF_^000000
-VIT + 1
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
+A stone with vitality.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Vit + 1
 #
 6950#
-A stone with Luck
-Gives below stats to Costume middle slot.
-LUK + 1.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with luck.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Middle)
-^FFFFFF_^000000
-LUK + 1
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
+A stone with luck.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your middle costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Luk + 1
 #
 6951#
-A stone increase your Max HP
-Gives below stats to Costume lower slot.
-MaxHP + 1%
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
+A stone that increases health.
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your lower costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
+Max HP + 1%
 #
 6956#
 A captured lost lamb. Bring it back to Bori the Shepherd.
@@ -40622,37 +40737,17 @@ Weight: ^8080801^000000
 #
 6963#
 A stone with HP absorption ability.
-Gives below stats on Costume Mantle's slot.
-Absorb 1% of damage dealt to enemy into HP with 1% chance.
-^ffffff<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with HP absorption ability.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Garment
-^FFFFFF_^000000
+Bring this to [Lace La Zard] in Malangdo at the building location 115 150 to enchant your garment costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
 Adds a 1% chance of restoring 1% of damage as HP when performing a physical attack.
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
 #
 6964#
 A stone with SP absorption ability.
-Gives below stats on Costume Mantle's slot.
-Absorb 1% of damage dealt to enemy into SP with 1% chance.
-^ffffff<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with SP absorption ability.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Garment
-^FFFFFF_^000000
+Bring this to [Lace La Zard] in Malangdo at the building location 115 150 to enchant your garment costume item.
+Class: ^808080Enchant Stone^000000
+Weight: ^80808010^000000
 Adds a 1% chance of restoring 1% of damage as SP when performing a physical attack.
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
 #
 6999#
 ^808080A stone with HP absorption ability.^000000
@@ -45991,6 +46086,31 @@ Position: ^808080^000000
 Compounds On: ^808080^000000
 Weight: ^8080800^000000
 #
+9629#
+Redeem ticket by visiting the Yggdrasil Tree Explorer in the second floor of the Eden Group (moc_para_up.gat 17, 176)
+When redeemed randomly provides of the the following
+Diabolus Wing [1]
+Circlet of Phoenix
+Phoenix Muffler [1]
+Red Baby Dragon Hat [1]
+Guardian Processor
+Manteau Of Guardsman [1]
+Mysterious Muffler [1]
+Traveler Shoes
+Old Morroc Shawl [1]
+Pure White Marching Hat [1]
+Critical Anklet [1]
+Thieves' Guide Vol. 1 [1]
+Sting Silk Ribbon [1]
+Hero Manteau [1]
+Party Hard Pack
+Blacksmith Blessing x 8
+Battle Manual X3 x 6
+Bloody Dead Branch x 5
+More Details can be found by visiting the NPC in person.
+Class: ^808080Item Giver^000000
+Weight: ^8080800^000000
+#
 9630#
 When opened gives one of the following at Random
 Costume Flower Blossom
@@ -46002,6 +46122,65 @@ Costume Shark Hat
 Costume Bird Nest
 Costume Red Riding Hood
 Costume Smiling Eyes
+Class: ^808080Item Giver^000000
+Weight: ^8080800^000000
+#
+9636#
+When opened gives one of the following at Random
+Costume Striped Headband
+Costume Backpack (Red)
+Costume Backpack (Black)
+Costume Poporing Muffler
+Costume Lace Flower Crown
+Costume Jewel Crown
+Costume Oxygen Mask
+Costume Mystical Fruit Hat
+Costume Indian Headband
+Costume Orange Rabbit
+Costume Twinkling Red Eyes
+Costume Medium Wave (Yellow)
+Costume Sky Lantern
+Costume Goblin Mask
+Class: ^808080Item Giver^000000
+Weight: ^8080800^000000
+#
+9645#
+When opened gives one of the following
+Costume Shiba Inu
+Costume Sleeping Kitty Hat
+Costume Drooping Gray Kitty
+Costume Warg in Mouth
+Costume Scratching Cat
+Costume Black Cat
+Costume Cat's Mouth
+Costume Baby Penguin
+Costume White Cat
+Costume Orange Tabby Cat
+Class: ^808080Item Giver^000000
+Weight: ^8080800^000000
+#
+9654#
+Redeem ticket by visiting the Yggdrasil Tree Explorer in the second floor of the Eden Group (moc_para_up.gat 17, 176)
+When redeemed randomly provides of the the following
+Work Cap
+Shield Ring
+Seraphim Coronet
+Mob Scarf
+Toy Syringe
+Ring of Hero
+Flying Galapago
+Malach's Skin
+Magical Booster
+Siegfried's Helmet
+Aqua Bunny Band
+Moon Eyepatch
+Ixion Wing
+Military Mail
+Party Hard Pack
+Blacksmith Blessing x 8
+Battle Manual X3 x 6
+Bloody Dead Branch x 5
+More Details can be found by visiting the NPC in person.
 Class: ^808080Item Giver^000000
 Weight: ^8080800^000000
 #
@@ -47014,7 +47193,7 @@ Produces ^0000FF500^000000 ^008080Rusty Arrow^000000.
 #
 12016#
 A potion which increases the moving speed of a character for a set duration.
-Class: ^808080Generic^000000
+Class: ^808080Stat Boost^000000
 Weight: ^80808010^000000
 Adds a 100% chance of inflicting ^800000Increased Movement Speed^000000 on the user when using this item for 5 seconds.
 #
@@ -49350,12 +49529,11 @@ A well packed gift box. No one knows what is in it.
 Weight :: ^7777771^000000
 #
 12414#
-A candy made of guarana berries. Don't eat too much at once beacuse it increases concentration.
-Slightly increases attack speed.
-Weight : ^7777771^000000
-A candy made of guarana berries. Don't eat too much at once beacuse it increases concentration.
-Slightly increases agility.
-Weight : ^7777771^000000
+A candy made of guarana berries. Don't eat too much at once because it increases concentration.
+Class: ^808080Stat Boost^000000
+Weight: ^8080801^000000
+Aspd + 10% for 30 minutes.
+Casts ^0000FFLevel 5 Increase Agility^000000 on the user.
 #
 12415#
 #
@@ -67833,7 +68011,7 @@ Costume Chilly Breath
 Weight : ^7777771^000000
 #
 17470#
-A box containing 100 Silvervine Fruits. These are used as currency to exchange for special items or services.
+A box containing 10 Silvervine Fruits. These are used as currency to exchange for special items or services.
 Class: ^808080Item Giver^000000
 Weight: ^8080800^000000
 #
@@ -68126,15 +68304,15 @@ Class: ^808080Item Giver^000000
 Weight: ^8080800^000000
 #
 17523#
-^808080Box containing 10 Silvervine 100 Boxes
+Box containing 10 Silvervine 10 Boxes
 Use these as currency to exchange for special items
 Weight : ^7777770^000000
 ^ff0000Box is trade/store/vend, once opened the item becomes account bound^000000
 Weight : ^7777771^000000
-^000000
-Attack: 0
-Weight: 0
-Weapon Level: 0
+
+Attack: ^8080800^000000
+Weight: ^8080800^000000
+Weapon Level: ^8080800^000000
 #
 17528#
 Just in time for Christmas is our assortment of fun wintertime costume hats! For 300 points you can let it go with this stylish box. Gives one of the following at random when opened
@@ -68903,19 +69081,19 @@ Class: Item Giver
 Weight: 1
 #
 17837#
-^808080A box containing 10 Silvervine Fruits. These are used as currency to exchange for special items or services.^000000
-Class: Item Giver
-Weight: 1
+A box containing 1 Silvervine Fruits. These are used as currency to exchange for special items or services.
+Class: ^808080Item Giver^000000
+Weight: ^8080801^000000
 #
 17838#
-^808080A box containing 25 Silvervine Fruits. These are used as currency to exchange for special items or services.^000000
-Class: Item Giver
-Weight: 1
+A box containing 3 Silvervine Fruits. These are used as currency to exchange for special items or services.
+Class: ^808080Item Giver^000000
+Weight: ^8080801^000000
 #
 17839#
-^808080A box containing 100 Silvervine Fruits. These are used as currency to exchange for special items or services.^000000
-Class: Item Giver
-Weight: 1
+A box containing 10 Silvervine Fruits. These are used as currency to exchange for special items or services.
+Class: ^808080Item Giver^000000
+Weight: ^8080801^000000
 #
 17840#
 ^808080A box which contains 5 Arrow Quiver.^000000
@@ -72301,10 +72479,12 @@ Job : ^777777All Jobs^000000
 #
 18741#
 To feel the fear of those who see in the eerie paranormal.
-Class: ^777777Costume ^000000 DEF: ^7777770 ^000000
-Location: ^777777Upper ^000000 Weight: ^7777770 ^000000
-Req LV: ^7777771 ^000000
-jobs: ^777777All Jobs ^000000
+^FF0000This equipment's visual appearance relies on special effects. If /effect is turned OFF the headgear will not be fully displayed.^000000
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 18742#
 A strong feeling of being one with the night skies.
@@ -75163,12 +75343,13 @@ Usable By: ^808080All Jobs^000000
 Mdef + 2
 Aspd + 5%
 Reduces damage taken from Human Player and Doram race enemies by 2%.
-If the users base Vit is 108 or higher,
+If the user's base Vit is 108 or higher,
 Additional Aspd + 5%
 Reduces damage taken from Human Player and Doram race enemies by an additional 3%.
-If the users base Vit is 120 or higher,
+If the user's base Vit is 120 or higher,
 Max HP + 3%
-Additional MDef + 3
+Additional Mdef + 3
+
 ^800080Set Bonus^000000
 ^008080Feather Beret^000000
 ^008080Feathers of Protection^000000
@@ -76071,6 +76252,37 @@ If pet is Loyal,
 Restores additional 500 HP to the user every 5 seconds.
 Restores additional 20 SP to the user every 5 seconds.
 #
+19170#
+Processor to control Madogear's power. Allow players to push the envelope when piloting the suit.
+
+Class: ^808080Headgear^000000
+Defense: ^8080800^000000
+Weight: ^80808030^000000
+Requires Level: ^808080100^000000
+Usable By: ^808080All Jobs^000000
+Reduces damage taken from Demi Human race enemies by 10%.
+Reduces damage taken from Human Player race enemies by 10%.
+
+If upgrade level is +7 or higher,
+Reduces damage taken from Demi Human race enemies by an additional 2%.
+Reduces damage taken from Human race enemies by an additional 2%.
+^800080Set Bonus^000000
+^008080Guardian Processor^000000
+^008080Pile Bunker^000000
+If ^008080Pile Bunker^000000 upgrade level is +7 or higher,
+Aspd + 10%
+Increases the skill damage bonus of ^0000FFKnuckle Boost^000000 by 30%.
+Increases the skill damage bonus of ^0000FFVulcan Arm^000000 by 50%.
+
+If ^008080Pile Bunker^000000 upgrade level is +9 or higher,
+Aspd + 10%
+Increases the skill damage bonus of ^0000FFKnuckle Boost^000000 by an additional 30%.
+Increases the skill damage bonus of ^0000FFVulcan Arm^000000 by an additional 50%.
+
+If ^008080Pile Bunker^000000 upgrade level is +10 or higher,
+Reduces the cooldown of ^0000FFPile Bunker^000000 by 1 second.
+
+#
 19171#
 A knit hat worn by a great magician. It contains fibers that has an absolute effect on the undead.
 
@@ -76373,12 +76585,12 @@ Required Level: 1
 Required Jobs: All Jobs
 #
 19290#
-^808080The horns from an elder devil. It has great magical powers.^000000
-Class: Costume
-Position: Upper
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+The horns from an elder devil. It has great magical powers.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 19291#
 ^808080This shiba inu took a liking to you and now it won't leave you alone. Aren't you lucky!^000000
@@ -77293,6 +77505,63 @@ Increases the damage of ^0000FFAdoramus^000000 and ^0000FFJudex^000000 by an add
 
 If upgrade level is +10 or higher, nullifies the number of Gemstones required for certain skills.
 #
+19495#
+Class: ^808080Headgear^000000
+Defense: ^8080802^000000
+Weight: ^80808030^000000
+Requires Level: ^808080100^000000
+Usable By: ^808080All Jobs^000000
+All Stats + 10
+Increases physical and magical damage on Temple of the Demon God monsters by 30%.
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Armor^000000
+Str + 8
+Dex + 4
+MaxHP + 1350
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+For every upgrade level of ^008080Diabolos Armor [1]^000000,
+Atk + 15
+Increases resistance to ^800000Stun^000000 and ^800000Stone^000000 by 5%.
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Robe^000000
+MDef + 25
+MaxSP + 350
+Reduces the cast delay of skills by 10%
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+mAtk + 15 for every upgrade level of ^008080Diabolus Robe^000000,
+Increases the recovery rate of recovery skills by 2% for every upgrade level of ^008080Diabolus Robe^000000
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Manteau^000000
+MaxHP + 900
+Reduces damage taken from long-ranged attacks by 10%.
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+Reduces damage taken from Fire, Water, and Wind property attacks by 3% for every upgrade level of ^008080Diabolus Manteau^000000
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Boots^000000
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+MaxHP + 100 for every Base Level
+Atk/mAtk + 20 for every upgrade level of ^008080Diabolus Boots^000000
+
+^800080Set Bonus^000000
+^008080Diabolus Wing^000000
+^008080Diabolus Ring^000000
+MaxHP + 2000
+MaxSp + 200
+Increases physical and magical damage on Temple of the Demon God monsters by 20%.
+Reduces damage taken from Temple of the Demon God monsters by 5%,
+Increases the recovery rate of recovery skills by 15%
+#
 19500#
 #
 19501#
@@ -77604,7 +77873,7 @@ Wear this when you want to look cute for your beloved.
 Class: ^808080Costume^000000
 Position: ^808080Middle^000000
 Weight: ^80808010^000000
-Requires Level: ^8080801^000000
+Requires Level: ^808080100^000000
 Usable By: ^808080All Jobs^000000
 #
 19551#
@@ -78097,11 +78366,12 @@ Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
 19667#
-^808080A helm worn by a dragonslayer. It is told that the treasure which belonged to the slain dragon was cursed.^000000
-Position: Upper
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+A helm worn by a dragonslayer. It is told that the treasure which belonged to the slain dragon was cursed.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 19668#
 ^808080A red beret that is shaped like the wind.^000000
@@ -78111,11 +78381,12 @@ Required Level: 1
 Required Jobs: All Jobs
 #
 19669#
-^808080Valkyrie Reginleif Wings. The wearer will receive blessings from the gods.^000000
-Position: Middle
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+Valkyrie Reginleif Wings. The wearer will receive blessings from the gods.
+Class: ^808080Costume^000000
+Position: ^808080Middle^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 19670#
 ^808080A cool-looking magical cotton hairband. The blue jewelry decoration is also 100% handmade.^000000
@@ -78519,11 +78790,11 @@ Usable By: ^808080All Jobs^000000
 #
 19739#
 This kitty makes a good costume (for now) because cats only take a break from being jerks while asleep.
-Class : ^777777Costume^000000
-Location : ^777777Upper ^000000
-Weight : ^7777770^000000
-Required Lv. : ^7777771^000000
-Job : ^777777All jobs^000000
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 19743#
 A hat sculpted like Anubis, an Egyptian god of the dead. It belongs to the holy priests who make a mummy.
@@ -78826,6 +79097,12 @@ Position: ^808080Upper^000000
 Weight: ^8080800^000000
 Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
+#
+19793#
+A mask with a large, round facial expression. Let's try it on!
+Class: ^808080Costume^000000
+Position: ^808080Middle, Lower^000000
+Weight: ^8080800^000000
 #
 19798#
 An angry mouth
@@ -80291,14 +80568,15 @@ A fancy green hair ribbon.
 Class: ^808080Costume^000000
 Position: ^808080Upper^000000
 Weight: ^8080800^000000
+Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
 20095#
 A fancy red hair ribbon.
-
 Class: ^808080Costume^000000
 Position: ^808080Upper^000000
 Weight: ^8080800^000000
+Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
 20096#
@@ -80306,23 +80584,25 @@ A fancy blue hair ribbon.
 Class: ^808080Costume^000000
 Position: ^808080Upper^000000
 Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 20097#
 A fancy white hair ribbon.
 Class: ^808080Costume^000000
 Position: ^808080Upper^000000
 Weight: ^8080800^000000
+Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
 20099#
 This fairy loves to bless adventurers with good luck!
-^ff0000Obtained from a sales event that is running from 4/15/2016-4/30/2016^000000
-Class : ^777777Costume Gear^000000
-Defense : ^7777770^000000
-Location : ^777777Upper ^000000
-Weight : ^7777770^000000
-Required Lv : ^7777771^000000
-Job : ^777777All Jobs^000000
+^FF0000This equipment's visual appearance relies on special effects. If /effect is turned OFF the headgear will not be fully displayed.^000000
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 20100#
 A costume of the Volume Hat Item! Wear it with pride.
@@ -81044,6 +81324,13 @@ Weight: 0
 Required Level: 1
 Required Jobs: All Jobs
 #
+20207#
+A headband with cool stripes.
+
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+#
 20217#
 This lovely veil can be worn in all sorts of social situations.
 Class: ^808080Costume^000000
@@ -81068,12 +81355,12 @@ Required Lv. : ^7777771^000000
 Job : ^777777All jobs^000000
 #
 20222#
-^808080A double-pommed cap dyed blue designed with the spirit of Christmas in mind.^000000
-Class: Costume
-Position: Upper
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+A double-pommed cap dyed blue designed with the spirit of Christmas in mind.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 20227#
 Class: ^808080Costume^000000
@@ -81167,11 +81454,13 @@ Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
 20240#
-A present of snow
-Type: ^777777Costume equipment^000000 DEF: ^7777770^000000
-Location: ^777777Lower ^000000Weight: ^7777770^000000
-Lv. req.: ^7777771^000000
-Class: ^777777All classes^000000
+A costume of shimmering snow crystals. It looks like being dressed in diamond dust, which was seen on cold sunny day.
+^FF0000This equipment's visual appearance relies on special effects. If /effect is turned OFF the headgear will not be fully displayed.^000000
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 20241#
 A hat modeled after Eclipse, the leader of Lunatics.
@@ -82471,6 +82760,19 @@ Weight: ^8080800^000000
 Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
+20574#
+A small, cute red backpack.
+Class: ^808080Costume^000000
+Position: ^808080Garment^000000
+Weight: ^8080800^000000
+#
+20575#
+A small, cute black backpack.
+
+Class: ^808080Costume^000000
+Position: ^808080Garment^000000
+Weight: ^8080800^000000
+#
 20700#
 Egir's Manteau. It looks defending your body
 can not be destroyed
@@ -83706,11 +84008,15 @@ Vit + 5
 Mdef + 10
 Reduces damage taken from Water and Fire property attacks by 5%.
 Reduces damage taken from Demi-Human, Human Player, and Dragon race enemies by 5%.
+
 If upgrade level is +7 or higher,
 Enables ^0000FFLevel 1 Hiding^000000.
+
 If upgrade level is +8 or higher,
-Max HP + 1% for every 20 base Agi and Vit.
-Reduces the variable casting time of skills by 2% for every 20 base Agi and Vit.
+For every combined sum of 20 base Agi and Vit provides the following,
+Max HP + 1%
+Reduces the variable casting time of skills by 2%.
+
 If upgrade level is +9 or higher,
 Enables ^0000FFLevel 1 Cloaking^000000.
 #
@@ -84027,31 +84333,50 @@ Defense: ^80808012^000000
 Weight: ^80808030^000000
 Requires Level: ^808080100^000000
 Usable By: ^808080All Jobs^000000
+Max HP + 2%
+Max SP + 2%
 Reduces damage taken from Demi-Human race enemies by 5%.
-Max HP and Max SP + 2%.
 Increases long-ranged damage on targets by 2%.
-If ^008080Prism Rangers Scarf^000000 upgrade level is +5 or higher, additional Max HP and Max SP + 3%.
-Increases long-ranged damage on targets by an additional 3%.
-If ^008080Prism Rangers Scarf^000000 upgrade level is +7 or higher, additional Max HP and Max SP + 5%.
-Increases long-ranged damage on targets by an additional 5%.
-Reduces the cooldown of ^0000FFNo Limits^000000 by 180 seconds, if ^0000FFWarg Ride^000000 is at maximum level.
-Reduces the global delay of skills by 10% if ^0000FFCamouflage^000000 is at maximum level.
+
+If ^0000FFWarg Ride^000000 is level 3,
+Reduces the cooldown of ^0000FFNo Limits^000000 by 180 seconds.
+
+If ^0000FFCamouflage^000000 is level 5,
+Reduces the global delay of skills by 10%.
 Reduces the cooldown of ^0000FFArrow Storm^000000 by 0.2 seconds.
-Increases long-ranged damage on targets by an additional 2% per level of ^0000FFAimed Bolt^000000 known.
+
+For every level of ^0000FFAimed Bolt^000000 known,
+Increases long-ranged damage on targets by an additional 2%.
 Increases the damage of ^0000FFArrow Storm^000000 by 1%.
-When ^008080Prism Rangers Scarf^000000 is unequipped, ^0000FFNo Limits^000000 effect is disabled.
+
+When ^008080Prism Rangers Scarf^000000 is unequipped,
+^0000FFNo Limits^000000 effect is disabled.
+
+If ^008080Prism Rangers Scarf^000000 upgrade level is +5 or higher,
+Additional Max HP + 3%
+Additional Max SP + 3%
+Increases long-ranged damage on targets by an additional 3%.
+
+If ^008080Prism Rangers Scarf^000000 upgrade level is +7 or higher,
+Additional Max HP + 5%
+Additional Max SP + 5%
+Increases long-ranged damage on targets by an additional 5%.
+
 ^800080Set Bonus^000000
 ^008080Prism Rangers Scarf^000000
 ^008080Fire Arrow^000000
 Reduces damage taken from Fire property attacks by 75%.
+
 ^800080Set Bonus^000000
 ^008080Prism Rangers Scarf^000000
 ^008080Crystal Arrow^000000
 Reduces damage taken from Water property attacks by 75%.
+
 ^800080Set Bonus^000000
 ^008080Prism Rangers Scarf^000000
 ^008080Arrow of Wind^000000
 Reduces damage taken from Wind property attacks by 75%.
+
 ^800080Set Bonus^000000
 ^008080Prism Rangers Scarf^000000
 ^008080Stone Arrow^000000
@@ -84271,14 +84596,17 @@ Required Level : ^77777795^000000
 Jobs: ^777777Swordman Class^000000
 #
 21002#
-*Stats during WoE & PVP
-Decreases target's HP by 8% per hit. (This effect does not work with skills)
-Class : ^777777Two-handed Sword^000000
-Attack Strength : ^777777100^000000
-Weight : ^777777250^000000
-Weapon Level : ^7777774^000000
-Required Level : ^77777795^000000
-Jobs: ^777777Swordman Class^000000
+A two-handed sword that has been designed specifically for battles against players.
+^FF0000Skills are not counted as a physical attack for this item.^000000
+Class: ^808080Two-Handed Sword^000000
+Attack: ^808080100^000000
+Property: ^808080Neutral^000000
+Weight: ^808080250^000000
+Weapon Level: ^8080804^000000
+Requires Level: ^80808095^000000
+Usable By: ^808080Swordman Jobs^000000
+^800080Stats during WoE, PvP^000000
+Adds a chance to drain 8% HP from Human Player and Doram Player race targets when performing a short-ranged attack.
 #
 21003#
 An oriental sword
@@ -85406,6 +85734,13 @@ Requires Level: ^80808030^000000
 Usable By: ^808080All Jobs^000000
 EXP from fish monster + 5%
 For every refinement upgrade, EXP from fish monster increases by +1%.
+#
+22092#
+^FF0000^000000
+Class: ^808080^000000
+Position: ^808080^000000
+Compounds On: ^808080^000000
+Weight: ^8080800^000000
 #
 22093#
 These shoes were worn by a man who made a living out of performing exorcisms. These shoes contains the man's many years of experience.
@@ -86958,9 +87293,11 @@ Class: Item Giver
 Weight: 25
 #
 23164#
-A potion created and distributed by 13th anniversary NPC Granpa Boxter.
-No matter who you race with, you will pass everyone.
-Weight : ^7777771^000000
+A potion which increases the moving speed of a character for a set duration.
+Created for iRO 13th anniversary event. No matter who you race with, you will pass everyone.
+Class: ^808080Stat Boost^000000
+Weight: ^8080801^000000
+Adds a 100% chance of inflicting ^800000Increased Movement Speed^000000 on the user when using this item for 5 seconds.
 #
 23189#
 ^808080A needle for making and fixing small dolls.^000000
@@ -88903,20 +89240,11 @@ Reduces damage taken from Undead property enemies by 2%.
 #
 25000#
 A stone with SP absorption ability.
-Gives below stats on Costume upper slot.
-Absorb 1% of damage dealt to enemy into SP with 1% chance.
-^ffffff<NAVI>^4D4DFF[Aver De Dosh]^000000<INFO>mal_in01,23,113,0,100,0,0</INFO></NAVI>^000000
-Weight : ^77777710^000000
-^808080A stone with SP absorption ability.^000000
-^FFFFFF_^000000
-Type: Miscellaneous
-Class: Enchant Stone
-Weight: 10
-Compounds On: Headgear (Upper)
-^FFFFFF_^000000
+Bring this to [Aver De Dosh] in Malangdo at the building location 115 150 to enchant your upper costume item.
+Class: ^808080Enchant Stone^000000
+Compounds On: ^808080Upper^000000
+Weight: ^80808010^000000
 Adds a 1% chance of restoring 1% of damage as SP when performing a physical attack.
-^FFFFFF_^000000
-^FFFFFF<NAVI>^4D4DFF[Lace La Zard]^000000<INFO>mal_in01,20,107,0,100,0,0</INFO></NAVI>^000000
 #
 25001#
 ^808080A stone with defense.^000000
@@ -89614,6 +89942,7 @@ Class: ^808080Pet Tame^000000
 Weight: ^8080800^000000
 #
 25745#
+Perhaps this is the 'booty' that Jacques is so thirsty for.
 ^FF0000Account Bound^000000
 Weight: ^8080800^000000
 #
@@ -92893,52 +93222,65 @@ Matk + 50
 Additional Matk + ((upgrade level * upgrade level) / 2) up to a maximum upgrade level of 15.
 #
 28717#
-^808080The royal knife of a powerful warrior maiden. Though its power is mighty, it is easy to handle, even by those less experienced.^000000
-Class: Dagger
-Attack: 50
-Property: Neutral
-Weight: 10
-Weapon Level: 4
-Required Level: 70
-Required Jobs: Novice Jobs, Swordman, Merchant Jobs, Thief Jobs, Archer Jobs, Knight Jobs, Wizard Jobs, Crusader, Sage Jobs, Royal Guard, Soul Linker, Ninja Jobs
-Matk + 50
+The royal knife of a powerful warrior maiden. Though its power is mighty, it is easy to handle, even by those less experienced.
+Class: ^808080Dagger^000000
+Attack: ^80808050^000000
+Magic Attack: ^80808050^000000
+Property: ^808080Neutral^000000
+Weight: ^80808010^000000
+Weapon Level: ^8080804^000000
+Requires Level: ^80808070^000000
+Usable By: ^808080Novice Jobs, Swordman, Merchant Jobs, Thief Jobs, Archer Jobs, Knight Jobs, Wizard Jobs, Crusader, Sage Jobs, Royal Guard, Soul Linker, Ninja Jobs^000000
 ^F4AD42Novice Bonus^000000
-Int + 2 per upgrade level of the item past the upgrade level of 7.
-Dex + 2 per upgrade level of the item past the upgrade level of 7.
-Dex - 1 for every 10 base Dex per upgrade level of the item past the upgrade level of 7.
-Max HP + 300
-Max HP + 200 per upgrade level of the item past the upgrade level of 7.
-Max SP + 300
-Max SP + 20 per upgrade level of the item past the upgrade level of 7.
 Atk + 100
-Additional Matk + 150
-Additional Matk + 15 per upgrade level of the item past the upgrade level of 7.
-Crit + 7 per upgrade level of the item past the upgrade level of 7.
-Aspd + 10% per upgrade level of the item past the upgrade level of 7.
-Increases critical damage on targets by 1% per upgrade level of the item past the upgrade level of 7.
+Matk + 150
+Max HP + 300
+Max SP + 300
 Reduces the SP cost of skills by 5%.
 This item is indestructible in battle.
+
+For every upgrade level of ^008080Valkyrie Knife [4]^000000,
+Int + 2
+Dex + 2
+Dex - 1 for every 10 base Dex.
+Additional Max HP + 200.
+Additional Max SP + 20.
+Additional Matk + 15.
+Crit + 7
+Aspd + 10%
+Increases critical damage on targets by 1%.
 If upgrade level is +7 or higher,
 Reduces damage taken from Demi-Human race enemies by 10%.
+
+^F4AD42Mage Bonus^000000
+For every upgrade level of ^008080Valkyrie Knife [4]^000000,
+Max HP + 200
+Max SP + 20
+If upgrade level is +7 or higher,
+Reduces damage taken from Demi-Human race enemies by 10%.
+
+^F4AD42Hunter Bonus^000000
+Max HP + 200
+Reduces the SP cost of skills by 5%.
+
+For every upgrade level of ^008080Valkyrie Knife [4]^000000,
+Int + 2
+Dex + 2
+
+^F4AD42Dancer and Bard Bonus^000000
+Atk + 100
+This item is indestructible in battle.
+
+For every upgrade level of ^008080Valkyrie Knife [4]^000000,
+Aspd + 10%
+Dex - 1 for every 10 base Dex.
+
 ^F4AD42Thief Bonus^000000
 Max SP + 100
 Matk + 150
-Increases critical damage on targets by 1% per upgrade level of the item.
-^F4AD42Mage Bonus^000000
-Max HP + 200 per upgrade level of the item past the upgrade level of 7.
-Max SP + 20 per upgrade level of the item past the upgrade level of 7.
-If upgrade level is +7 or higher,
-Reduces damage taken from Demi-Human race enemies by 10%.
-^F4AD42Hunter Bonus^000000
-Int + 2 per upgrade level of the item.
-Dex + 2 per upgrade level of the item.
-Max HP + 200
-Reduces the SP cost of skills by 5%.
-^F4AD42Dancer and Bard Bonus^000000
-Dex - 1 for every 10 base Dex per upgrade level of the item.
-Atk + 100
-Aspd + 10% per upgrade level of the item.
-This item is indestructible in battle.
+
+For every upgrade level of ^008080Valkyrie Knife [4]^000000,
+Increases critical damage on targets by 1%.
 #
 28721#
 ^808080A sharp, purple-tinged dagger used by the ninjas who were hired to secure ownership of some gold mine.^000000
@@ -93375,6 +93717,13 @@ If the user's base Int is 90 or higher, Matk + 30.
 If the user's base Dex is 90 or higher, reduces the variable casting time of skills by 5%.
 If the user's base Luk is 90 or higher, increases critical damage on targets by 5%.
 
+#
+28956#
+^FF0000^000000
+Class: ^808080^000000
+Position: ^808080^000000
+Compounds On: ^808080^000000
+Weight: ^8080800^000000
 #
 29000#
 Type: Miscellaneous
@@ -94419,12 +94768,12 @@ Required Level: 1
 Required Jobs: All Jobs
 #
 31180#
-^808080A headband that only the strongest sura were thought to wear. It truly leaves in impact.^000000
-Class: Costume
-Position: Upper
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+A headband that only the strongest sura were thought to wear. It truly leaves in impact.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31181#
 The necklace of the Holy Rosary, who received powers from the apostle of God. It's filled with mystical powers.
@@ -94661,68 +95010,68 @@ Required Level: 1
 Required Jobs: All Jobs
 #
 31218#
-^808080You will feel and look brand new once you attach this to your hair.^000000
-Class: Costume
-Position: Lower
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+You will feel and look brand new once you attach this to your hair.
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31219#
-^808080You will feel and look brand new once you attach this to your hair.^000000
-Class: Costume
-Position: Lower
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+You will feel and look brand new once you attach this to your hair.
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31220#
-^808080You will feel and look brand new once you attach this to your hair.^000000
-Class: Costume
-Position: Lower
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+You will feel and look brand new once you attach this to your hair.
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31221#
-^808080You will feel and look brand new once you attach this to your hair.^000000
-Class: Costume
-Position: Lower
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+You will feel and look brand new once you attach this to your hair.
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31222#
-^808080You will feel and look brand new once you attach this to your hair.^000000
-Class: Costume
-Position: Lower
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+You will feel and look brand new once you attach this to your hair.
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31223#
-^808080You will feel and look brand new once you attach this to your hair.^000000
-Class: Costume
-Position: Lower
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+You will feel and look brand new once you attach this to your hair.
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31224#
-^808080You will feel and look brand new once you attach this to your hair.^000000
-Class: Costume
-Position: Lower
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+You will feel and look brand new once you attach this to your hair.
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31225#
-^808080You will feel and look brand new once you attach this to your hair.^000000
-Class: Costume
-Position: Lower
-Weight: 0
-Required Level: 1
-Required Jobs: All Jobs
+You will feel and look brand new once you attach this to your hair.
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31226#
 You will feel and look brand new once you attach this to your hair.
@@ -95050,7 +95399,8 @@ Usable By: ^808080All Jobs^000000
 31382#
 A stylish hat with two large cat paws drooping down the sides.
 Class: ^808080Costume^000000
-Weight: ^8080801^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
 Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
@@ -95820,6 +96170,12 @@ Weight: ^8080800^000000
 Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
+31586#
+A stylish Poporing muffler. Super cute and cool enough to wear in the summer. Look at it dangle!
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+#
 31588#
 Like snowflakes on your hair. It twinkles like the stars
 Class: ^808080Costume^000000
@@ -95852,6 +96208,8 @@ Beautiful, elegant, and a little bit spooky, this hat is decorated with only the
 Class: ^808080Costume^000000
 Position: ^808080Upper^000000
 Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31597#
 The best thing about this hat, aside from the fact that it's literally a giant fish on your head, is that it doesn't even smell! You can take the real fish off your head now and use this instead.
@@ -95894,6 +96252,8 @@ A gemstone decoration once used by a powerful wizard. Who knows what power lies 
 Class: ^808080Costume^000000
 Position: ^808080Upper, Middle, Lower^000000
 Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
 #
 31609#
 A renaissance-style mask. Great for partying or concealing your identity.
@@ -96222,8 +96582,6 @@ Weight: ^8080800^000000
 #
 31695#
 The magical power from this Eclage tree sprout is overwhelming.
-
-
 Class: ^808080Costume^000000
 Position: ^808080Lower^000000
 Weight: ^8080800^000000
@@ -96232,7 +96590,6 @@ Usable By: ^808080All Jobs^000000
 #
 31696#
 Sharks are amazingly gentle creatures if you stay away from their food supply.
-
 Class: ^808080Costume^000000
 Position: ^808080Upper^000000
 Weight: ^8080800^000000
@@ -96248,9 +96605,7 @@ Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs^000000
 #
 31698#
-Be wary of the Vagabond Wolf
-
-
+Be wary of the Vagabond Wolf.
 Class: ^808080Costume^000000
 Position: ^808080Lower^000000
 Weight: ^8080800^000000
@@ -96264,6 +96619,93 @@ Position: ^808080Middle^000000
 Weight: ^8080800^000000
 Requires Level: ^8080801^000000
 Usable By: ^808080All Jobs except Doram^000000
+#
+31710#
+A lace crown decorated with flowers. Wearing this brings good luck.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
+#
+31711#
+A classy crown with a jewel on it. Wearing it will make you feel like royalty.
+
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+#
+31712#
+If it smells outside, put on this handy Costume Oxygen Mask to filter everything out! May or may not work on farts.
+
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+#
+31713#
+Oh great mystical fruit! Place this on your head and feel the magic of fruit on your noggin.
+
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+#
+31714#
+A decorative band with a wave pattern and feather.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+#
+31715#
+A cute orange rabbit that follows you around as you adventure. It's so fluffy!
+Class: ^808080Costume^000000
+Position: ^808080Middle^000000
+Weight: ^8080800^000000
+#
+31716#
+Colored contact lenses for your eyes.
+Class: ^808080Costume^000000
+Position: ^808080Middle^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
+#
+31717#
+Enjoy these fluffy, luscious locks
+in the color of gold.
+
+
+Class: ^808080Costume^000000
+Position: ^808080Lower^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
+#
+31718#
+A soft glow of yellow light emits from the body of the lantern.
+
+Class: ^808080Costume^000000
+Position: ^808080Middle^000000
+Weight: ^8080800^000000
+Requires Level: ^8080801^000000
+Usable By: ^808080All Jobs^000000
+#
+31800#
+A cute ribbon where the sides reflect that national colors of Brazil.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+#
+31801#
+This hat was awarded to adventurers that displayed exceptional examples of creativity.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
+#
+31802#
+This hat was awarded to adventurers that displayed exceptional examples of creativity.
+Class: ^808080Costume^000000
+Position: ^808080Upper^000000
+Weight: ^8080800^000000
 #
 32203#
 A high performance microchip that is said to have been used on a mainframe computer, known as 'MOTHER'. It contains valuable data of lost technology.
@@ -96586,4 +97028,11 @@ Additional Atk + 100
 If ^0000FFPinpoint Attack^000000 is level 5,
 Reduces the variable casting time of ^0000FFEarth Drive^000000 by 0.5 seconds.
 Reduces the SP cost of ^0000FFEarth Drive^000000 by 25.
+#
+32265#
+^FF0000^000000
+Class: ^808080^000000
+Position: ^808080^000000
+Compounds On: ^808080^000000
+Weight: ^8080800^000000
 #
