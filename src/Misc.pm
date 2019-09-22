@@ -1900,7 +1900,11 @@ sub inventoryItemRemoved {
 			delete $char->{equipment}{arrow};
 			delete $char->{arrow};
 		}
-		$char->inventory->remove($item);
+		if( defined $item->{'name'}) {
+			$char->inventory->remove($item);
+		} else {
+			warning "Server sended item_removed but we not have this item anymore. binID: ".$binID."\n";
+		}
 	}
 	$itemChange{$item->{name}} -= $amount;
 	Plugins::callHook('inventory_item_removed', {item => $item, index => $binID, amount => $amount, remaining => ($item->{amount} <= 0 ? 0 : $item->{amount})});
@@ -1991,8 +1995,20 @@ sub itemName {
 	my $suffix = "";
 	my @cards;
 	my %cards;
+	
+	my $item_len = length($item);
+	my $card_unpack;
+	
+	# FIXME WORKAROUND TO ITEMID 4BYTES
+	if ($item_len == 67 || $item_len == 34) {
+		$card_unpack = "V";
+	} else {
+		$card_unpack = "v";
+	}
+	
+	my $card_len = length pack $card_unpack;
 	for (my $i = 0; $i < 4; $i++) {
-		my $card = unpack("v1", substr($item->{cards}, $i*2, 2));
+		my $card = unpack($card_unpack, substr($item->{cards}, $i*$card_len, $card_len));
 		next unless $card;
 		push(@cards, $card);
 		($cards{$card} ||= 0) += 1;
@@ -4684,10 +4700,10 @@ sub openShop {
 	@shopnames = split(/;;/, $shop{title_line});
 	$shop{title} = $shopnames[int rand($#shopnames + 1)];
 	$shop{title} = ($config{shopTitleOversize}) ? $shop{title} : substr($shop{title},0,36);
-	Plugins::callHook ('open_shop', {title => $shop{title}, items => \@items});
-	$messageSender->sendOpenShop($shop{title}, \@items);
 	message T("Trying to set up shop...\n"), "vending";
+	$messageSender->sendOpenShop($shop{title}, \@items);
 	$shopstarted = 1;
+	Plugins::callHook ('open_shop', {title => $shop{title}, items => \@items});
 }
 
 sub closeShop {

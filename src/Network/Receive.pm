@@ -20,6 +20,7 @@
 package Network::Receive;
 
 use strict;
+use Time::HiRes qw(time);
 use Exporter;
 use Network::PacketParser; # import
 use base qw(Network::PacketParser);
@@ -71,7 +72,7 @@ our %EXPORT_TAGS = (
 						REFUSE_SSO_NOTHING_USER REFUSE_SSO_OTHER_2 REFUSE_SSO_WRONG_RATETYPE_1 REFUSE_SSO_EXTENSION_PCBANG_TIME
 						REFUSE_SSO_WRONG_RATETYPE_2 REFUSE_UNKNOWN REFUSE_INVALID_ID2 REFUSE_BLOCKED_ID REFUSE_BLOCKED_COUNTRY REFUSE_INVALID_PASSWD2
 						REFUSE_EMAIL_NOT_CONFIRMED2 REFUSE_BILLING REFUSE_BILLING2 REFUSE_WEB REFUSE_CHANGE_PASSWD_FORCE2 REFUSE_SERVER_ERROR
-						REFUSE_SERVER_ERROR2 REFUSE_SERVER_ERROR3)],
+						REFUSE_SERVER_ERROR2 REFUSE_SERVER_ERROR3 REFUSE_ACCOUNT_NOT_PREMIUM)],
 	stat_info => [qw(VAR_SPEED VAR_EXP VAR_JOBEXP VAR_VIRTUE VAR_HONOR VAR_HP VAR_MAXHP VAR_SP VAR_MAXSP VAR_POINT VAR_HAIRCOLOR VAR_CLEVEL VAR_SPPOINT
 						VAR_STR VAR_AGI VAR_VIT VAR_INT VAR_DEX VAR_LUK VAR_JOB VAR_MONEY VAR_SEX VAR_MAXEXP VAR_MAXJOBEXP VAR_WEIGHT VAR_MAXWEIGHT VAR_POISON
 						VAR_STONE VAR_CURSE VAR_FREEZING VAR_SILENCE VAR_CONFUSION VAR_STANDARD_STR VAR_STANDARD_AGI VAR_STANDARD_VIT VAR_STANDARD_INT
@@ -211,6 +212,7 @@ use constant {
 	REFUSE_SERVER_ERROR => 0x145A,
 	REFUSE_SERVER_ERROR2 => 0x145B,
 	REFUSE_SERVER_ERROR3 => 0x145C,
+	REFUSE_ACCOUNT_NOT_PREMIUM => 0x14B5,
 };
 
 # stat_info
@@ -442,6 +444,14 @@ use constant {
 	GROUPMEMBER_DELETE_EXPEL => 0x1,
 };
 
+# item list type
+use constant {
+	INVTYPE_INVENTORY => 0x0,
+	INVTYPE_CART => 0x1,
+	INVTYPE_STORAGE => 0x2,
+	INVTYPE_GUILD_STORAGE => 0x3,
+};
+
 # exp origin
 use constant {
 	EXP_FROM_BATTLE => 0x0,
@@ -600,6 +610,12 @@ sub received_characters_unpackString {
 			$char_info = {
 			    types => 'a4 V9 v V2 v4 V v9 Z24 C8 v a16 V4 C',
 				keys => [qw(charID exp zeny exp_job lv_job body_state health_state effect_state stance manner status_point hp hp_max sp sp_max walkspeed jobID hair_style weapon lv skill_point head_bottom shield head_top head_mid hair_pallete clothes_color name str agi vit int dex luk slot hair_color is_renamed last_map delete_date robe slot_addon rename_addon sex)],
+			};
+
+        } elsif ($_ == 146) { # bRO and tRO update the data to be equal to charblocksize 147, but not added sex. (Sep, 2019)
+			$char_info = {
+			    types => 'a4 V9 v V2 v4 V v9 Z24 C8 v a16 V4',
+				keys => [qw(charID exp zeny exp_job lv_job body_state health_state effect_state stance manner status_point hp hp_max sp sp_max walkspeed jobID hair_style weapon lv skill_point head_bottom shield head_top head_mid hair_pallete clothes_color name str agi vit int dex luk slot hair_color is_renamed last_map delete_date robe slot_addon rename_addon)],
 			};
 
         } elsif ($_ == 145) { # PACKETVER >= 20141016 [support to double sex account]
@@ -2611,6 +2627,12 @@ sub show_eq {
 			types => 'a2 v C V2 C a8 l v2 C a25 C',
 			keys => [qw(ID nameID type type_equip equipped upgrade cards expire bindOnEquipType sprite_id num_options options identified)],
 		};
+	} elsif ($args->{switch} eq '0B03') { # PACKETVER >= 20150226
+		$item_info = {
+			len => 67,
+			types => 'a2 V C V2 C a16 l v2 C a25 C',
+			keys => [qw(ID nameID type type_equip equipped upgrade cards expire bindOnEquipType sprite_id num_options options identified)],
+		};
 	} else { # this can't happen
 		return;
 	}
@@ -3410,6 +3432,54 @@ sub map_property3 {
 	}
 }
 
+#011F, 01C9, 08C7
+sub area_spell {
+	my ($self, $args) = @_;
+
+	# Area effect spell; including traps!
+	my $ID = $args->{ID};
+	my $sourceID = $args->{sourceID};
+	my $x = $args->{x};
+	my $y = $args->{y};
+	my $type = $args->{type};
+	my $isVisible = $args->{isVisible};
+	my $binID;
+
+	if ($spells{$ID} && $spells{$ID}{'sourceID'} eq $sourceID) {
+		$binID = binFind(\@spellsID, $ID);
+		$binID = binAdd(\@spellsID, $ID) if ($binID eq "");
+	} else {
+		$binID = binAdd(\@spellsID, $ID);
+	}
+
+	$spells{$ID}{'ID'} = $ID;
+	$spells{$ID}{'sourceID'} = $sourceID;
+	$spells{$ID}{'pos'}{'x'} = $x;
+	$spells{$ID}{'pos'}{'y'} = $y;
+	$spells{$ID}{'pos_to'}{'x'} = $x;
+	$spells{$ID}{'pos_to'}{'y'} = $y;
+	$spells{$ID}{'binID'} = $binID;
+	$spells{$ID}{'type'} = $type;
+	$spells{$ID}{'isVisible'} = $isVisible;
+	if ($type == 0x81) {
+		message TF("%s opened Warp Portal on (%d, %d)\n", getActorName($sourceID), $x, $y), "skill";
+	}
+	debug "Area effect ".getSpellName($type)." ($binID) from ".getActorName($sourceID)." appeared on ($x, $y), isVisible = $isVisible\n", "skill", 2;
+
+	if ($args->{switch} eq "01C9") {
+		message TF("%s has scribbled: %s on (%d, %d)\n", getActorName($sourceID), $args->{scribbleMsg}, $x, $y);
+	}
+
+	Plugins::callHook('packet_areaSpell', {
+		ID => $ID,
+		sourceID => $sourceID,
+		x => $x,
+		y => $y,
+		type => $type,
+		isVisible => $isVisible,
+	});
+}
+
 #099F
 sub area_spell_multiple2 {
 	my ($self, $args) = @_;
@@ -3419,10 +3489,10 @@ sub area_spell_multiple2 {
 	my $spellInfo = $args->{spellInfo};
 	my $msg = "";
 	my $binID;
-	my ($ID, $sourceID, $x, $y, $type, $range, $fail);
+	my ($ID, $sourceID, $x, $y, $type, $range, $isVisible);
 	for (my $i = 0; $i < $len; $i += 18) {
 		$msg = substr($spellInfo, $i, 18);
-		($ID, $sourceID, $x, $y, $type, $range, $fail) = unpack('a4 a4 v2 V C2', $msg);
+		($ID, $sourceID, $x, $y, $type, $range, $isVisible) = unpack('a4 a4 v2 V C2', $msg);
 
 		if ($spells{$ID} && $spells{$ID}{'sourceID'} eq $sourceID) {
 			$binID = binFind(\@spellsID, $ID);
@@ -3431,6 +3501,7 @@ sub area_spell_multiple2 {
 			$binID = binAdd(\@spellsID, $ID);
 		}
 
+		$spells{$ID}{'ID'} = $ID;
 		$spells{$ID}{'sourceID'} = $sourceID;
 		$spells{$ID}{'pos'}{'x'} = $x;
 		$spells{$ID}{'pos'}{'y'} = $y;
@@ -3438,11 +3509,12 @@ sub area_spell_multiple2 {
 		$spells{$ID}{'pos_to'}{'y'} = $y;
 		$spells{$ID}{'binID'} = $binID;
 		$spells{$ID}{'type'} = $type;
-		$spells{$ID}{'fail'} = $fail;
+		$spells{$ID}{'range'} = $range;
+		$spells{$ID}{'isVisible'} = $isVisible;
 		if ($type == 0x81) {
 			message TF("%s opened Warp Portal on (%d, %d)\n", getActorName($sourceID), $x, $y), "skill";
 		}
-		debug "Area effect ".getSpellName($type)." ($binID) from ".getActorName($sourceID)." appeared on ($x, $y)\n", "skill", 2;
+		debug "Area effect ".getSpellName($type)." ($binID) from ".getActorName($sourceID)." appeared on ($x, $y), isVisible = $isVisible, range = $range\n", "skill", 2;
 	}
 
 	Plugins::callHook('packet_areaSpell', {
@@ -3451,8 +3523,8 @@ sub area_spell_multiple2 {
 		x => $x,
 		y => $y,
 		type => $type,
+		isVisible => $isVisible,
 		range => $range,
-		fail => $fail,
 	});
 }
 
@@ -3465,10 +3537,10 @@ sub area_spell_multiple3 {
 	my $spellInfo = $args->{spellInfo};
 	my $msg = "";
 	my $binID;
-	my ($ID, $sourceID, $x, $y, $type, $range, $fail, $lvl);
+	my ($ID, $sourceID, $x, $y, $type, $range, $isVisible, $lvl);
 	for (my $i = 0; $i < $len; $i += 19) {
 		$msg = substr($spellInfo, $i, 19);
-		($ID, $sourceID, $x, $y, $type, $range, $fail, $lvl) = unpack('a4 a4 v2 V C3', $msg);
+		($ID, $sourceID, $x, $y, $type, $range, $isVisible, $lvl) = unpack('a4 a4 v2 V C3', $msg);
 
 		if ($spells{$ID} && $spells{$ID}{'sourceID'} eq $sourceID) {
 			$binID = binFind(\@spellsID, $ID);
@@ -3477,6 +3549,7 @@ sub area_spell_multiple3 {
 			$binID = binAdd(\@spellsID, $ID);
 		}
 
+		$spells{$ID}{'ID'} = $ID;
 		$spells{$ID}{'sourceID'} = $sourceID;
 		$spells{$ID}{'pos'}{'x'} = $x;
 		$spells{$ID}{'pos'}{'y'} = $y;
@@ -3485,12 +3558,12 @@ sub area_spell_multiple3 {
 		$spells{$ID}{'binID'} = $binID;
 		$spells{$ID}{'type'} = $type;
 		$spells{$ID}{'range'} = $range;
-		$spells{$ID}{'fail'} = $fail;
+		$spells{$ID}{'isVisible'} = $isVisible;
 		$spells{$ID}{'lvl'} = $lvl;
 		if ($type == 0x81) {
 			message TF("%s opened Warp Portal on (%d, %d)\n", getActorName($sourceID), $x, $y), "skill";
 		}
-		debug "Area effect ".getSpellName($type)." ($binID) from ".getActorName($sourceID)." appeared on ($x, $y), lvl: $lvl\n", "skill", 2;
+		debug "Area effect ".getSpellName($type)." ($binID) from ".getActorName($sourceID)." appeared on ($x, $y), isVisible = $isVisible, range = $range, lvl = $lvl\n", "skill", 2;
 	}
 
 	Plugins::callHook('packet_areaSpell', {
@@ -3499,8 +3572,8 @@ sub area_spell_multiple3 {
 		x => $x,
 		y => $y,
 		type => $type,
+		isVisible => $isVisible,
 		range => $range,
-		fail => $fail,
 		lvl => $lvl,
 	});
 }
@@ -3701,6 +3774,16 @@ sub quest_all_list {
             mission_len => 44,
         };
 
+    } elsif ($args->{switch} eq '0AFF') { # SERVERTYPE >= 20150513
+        $quest_info = {
+            quest_pack => 'V C V2 v',
+            quest_keys => [qw(quest_id active time_expire time_start mission_amount)],
+            quest_len => 15,
+            mission_pack => 'V4 v4 Z24',
+            mission_keys => [qw(hunt_id hunt_id_cont mob_type mob_id min_level max_level mob_count mob_goal mob_name_original)],
+            mission_len => 48,
+        };
+
     } else { # this can't happen
         return;
     }
@@ -3818,6 +3901,13 @@ sub quest_add {
             mission_len => 42,
         };
 
+    } elsif ($args->{switch} eq '0B0C') {  # SERVERTYPE >= 20150513
+        $quest_info = {
+            mission_pack => 'V4 v3 Z24',
+            mission_keys => [qw(hunt_id hunt_id_cont mob_type mob_id min_level max_level mob_count mob_name_original)],
+            mission_len => 46,
+        };
+
     } else { # DEFAULT PACKET - 02B3
         $quest_info = {
             mission_pack => 'V v Z24',
@@ -3877,13 +3967,24 @@ sub quest_update_mission_hunt {
             mission_len => 12,
         };
 
-    } else {
+    } elsif($args->{switch} eq '0AFE') {
+		$quest_info = {
+            mission_pack => 'V3 v2',
+            mission_keys => [qw(questID hunt_id hunt_id_cont mob_goal mob_count)],
+            mission_len => 16,
+        };
+	} else { # 02B5 and 08FE
         $quest_info = {
             mission_pack => 'V2 v2',
             mission_keys => [qw(questID mob_id mob_goal mob_count)],
             mission_len => 12,
         };
     }
+
+	# workaround 08FE dont have mission_count
+	if ($args->{switch} eq '08FE') {
+		$args->{mission_amount} = (length $args->{message}) / ($quest_info->{mission_len});
+	}
 
 	for (my $i = 0; $i < $args->{mission_amount}; $i++) {
 		my $mission;
@@ -3907,7 +4008,7 @@ sub quest_update_mission_hunt {
 			# Search in the quest of a mission with this mob_id
 			foreach my $current_key (keys %{$quest->{missions}}) {
 				if (exists $quest->{missions}->{$current_key}{mob_id} && $quest->{missions}->{$current_key}{mob_id} == $mission->{mob_id}) {
-					$mission_id = $mission->{mob_id};
+					$mission_id = $quest->{missions}->{$current_key}{hunt_id};
 					last;
 				}
 			}
@@ -3917,7 +4018,7 @@ sub quest_update_mission_hunt {
 			# Search in the quest of a mission with this hunt_id
 			foreach my $current_key (keys %{$quest->{missions}}) {
 				if (exists $quest->{missions}->{$current_key}{hunt_id} && $quest->{missions}->{$current_key}{hunt_id} == $mission->{hunt_id}) {
-					$mission_id = $mission->{hunt_id};
+					$mission_id = $quest->{missions}->{$current_key}{mob_id};
 					last;
 				}
 			}
@@ -3927,7 +4028,6 @@ sub quest_update_mission_hunt {
 
 		$quest_mission->{mob_count} = $mission->{mob_count};
 		$quest_mission->{mob_goal} = $mission->{mob_goal};
-
 
 		debug "- MobID: $mission->{mob_id} - Name: $mission->{mob_name} - Count: $mission->{mob_count} - Goal: $mission->{mob_goal}\n", "info";
 
@@ -4011,11 +4111,13 @@ sub npc_chat {
 sub makable_item_list {
 	my ($self, $args) = @_;
 	undef $makableList;
+	my $unpack = $self->{makable_item_list_pack} || 'v4';
+	my $len = length pack $unpack;
 	my $k = 0;
 	my $msg;
 	$msg .= center(" " . T("Create Item List") . " ", 79, '-') . "\n";
-	for (my $i = 0; $i < length($args->{item_list}); $i += 8) {
-		my $nameID = unpack("v", substr($args->{item_list}, $i, 2));
+	for (my $i = 0; $i < length($args->{item_list}); $i += $len) {
+		my ($nameID, $material_1, $material_2, $material_3) = unpack($unpack, substr($args->{item_list}, $i, $len));
 		$makableList->[$k] = $nameID;
 		$msg .= swrite(sprintf("\@%s \@%s (\@%s)", ('>'x2), ('<'x50), ('<'x6)), [$k, itemNameSimple($nameID), $nameID]);
 		$k++;
@@ -4238,6 +4340,106 @@ sub inventory_items_stackable {
 	});
 }
 
+sub item_list_start {
+	my ($self, $args) = @_;
+	debug TF("Starting Item List. ID: %s\n", $args->{type}), "info";
+	$current_item_list = $args->{type};
+}
+
+sub item_list_stackable {
+	my ($self, $args) = @_;
+	return unless changeToInGameState();
+
+	my $arguments = {
+		class => 'Actor::Item',
+		debug_str => 'Stackable Item List',
+		items => [$self->parse_items_stackable($args)],
+		callback => sub {
+			my ($local_item) = @_;
+
+			if (defined $char->{arrow} && $local_item->{ID} eq $char->{arrow}) {
+				$local_item->{equipped} = 32768;
+				$char->{equipment}{arrow} = $local_item;
+			}
+
+		}
+	};
+
+	if ( $args->{type} == INVTYPE_INVENTORY ) {
+		$arguments->{hook} = 'packet_inventory';
+		$arguments->{getter} = sub { $char->inventory->getByID($_[0]{ID}) };
+		$arguments->{adder} = sub { $char->inventory->add($_[0]) };
+	} elsif ( $args->{type} == INVTYPE_CART ) {
+		$arguments->{hook} = 'packet_cart',
+		$arguments->{getter} = sub { $char->cart->getByID($_[0]{ID}) },
+		$arguments->{adder} = sub { $char->cart->add($_[0]) },
+	} elsif ( $args->{type} == INVTYPE_STORAGE ) {
+		$arguments->{hook} = 'packet_storage';
+		$arguments->{getter} = sub { $char->storage->getByID($_[0]{ID}) };
+		$arguments->{adder} = sub { $char->storage->add($_[0]) };
+	} elsif ( $args->{type} == INVTYPE_GUILD_STORAGE ) {
+		return; # guild storage not implemented yet =/ (2019-06-21)
+	} else {
+		warning TF("Unsupported item_list type (%s)", $args->{type}), "info";
+	}
+
+	$self->_items_list($arguments);
+}
+
+sub item_list_nonstackable {
+	my ($self, $args) = @_;
+	return unless changeToInGameState();
+
+	my $arguments = {
+		class => 'Actor::Item',
+		debug_str => 'Non-Stackable Item List',
+		items => [$self->parse_items_nonstackable($args)],
+		callback => sub {
+			my ($local_item) = @_;
+
+			if ($local_item->{equipped}) {
+				foreach (%equipSlot_rlut){
+					if ($_ & $local_item->{equipped}){
+						next if $_ == 10; #work around Arrow bug
+						next if $_ == 32768;
+						$char->{equipment}{$equipSlot_lut{$_}} = $local_item;
+					}
+				}
+			}
+		}
+	};
+
+	if ( $args->{type} == INVTYPE_INVENTORY ) {
+		$arguments->{hook} = 'packet_inventory';
+		$arguments->{getter} = sub { $char->inventory->getByID($_[0]{ID}) };
+		$arguments->{adder} = sub { $char->inventory->add($_[0]) };
+
+	} elsif ( $args->{type} == INVTYPE_CART ) {
+		$arguments->{hook} = 'packet_cart',
+		$arguments->{getter} = sub { $char->cart->getByID($_[0]{ID}) },
+		$arguments->{adder} = sub { $char->cart->add($_[0]) },
+
+	} elsif ( $args->{type} == INVTYPE_STORAGE ) {
+		$arguments->{hook} = 'packet_storage';
+		$arguments->{getter} = sub { $char->storage->getByID($_[0]{ID}) };
+		$arguments->{adder} = sub { $char->storage->add($_[0]) };
+
+	} elsif ( $args->{type} == INVTYPE_GUILD_STORAGE ) {
+		return; # guild storage not implemented yet =/ (2019-06-21)
+
+	} else {
+		warning TF("Unsupported item_list type (%s)", $args->{type}), "info";
+	}
+
+	$self->_items_list($arguments);
+}
+
+sub item_list_end {
+	my ($self, $args) = @_;
+	debug TF("Ending Item List. ID: %s\n", $args->{type}), "info";
+	undef $current_item_list;
+}
+
 sub login_error {
 	my ($self, $args) = @_;
 
@@ -4316,6 +4518,10 @@ sub login_error {
 				return;
 			}
 		}
+	} elsif ($args->{type} == REFUSE_ACCOUNT_NOT_PREMIUM) {
+		error TF("Account [%s] doesn't have access to Premium Server\n", $config{'username'}), "connection";
+		quit();
+		return;
 	} else {
 		error TF("The server has denied your connection for unknown reason (%d).\n", $args->{type}), 'connection';
 	}
@@ -5178,6 +5384,7 @@ sub identify {
 sub ignore_all_result {
 	my ($self, $args) = @_;
 	if ($args->{type} == 0) {
+		$ignored_all = 1;
 		message T("All Players ignored\n");
 	} elsif ($args->{type} == 1) {
 		if ($args->{error} == 0) {
@@ -5284,6 +5491,10 @@ sub item_appeared {
 
 	message TF("Item Appeared: %s (%d) x %d (%d, %d)\n", $item->{name}, $item->{binID}, $item->{amount}, $args->{x}, $args->{y}), "drop", 1;
 
+	Plugins::callHook('item_appeared', {
+		item	=> $item,
+		type => $args->{type}
+	});
 }
 
 sub item_exists {
@@ -5297,9 +5508,9 @@ sub item_exists {
 		$item->{appear_time} = time;
 		$item->{amount} = $args->{amount};
 		$item->{nameID} = $args->{nameID};
-		$item->{ID} = $args->{ID};
 		$item->{identified} = $args->{identified};
 		$item->{name} = itemName($item);
+		$item->{ID} = $args->{ID};
 		$mustAdd = 1;
 	}
 	$item->{pos}{x} = $args->{x};
@@ -5309,6 +5520,13 @@ sub item_exists {
 	$itemsList->add($item) if ($mustAdd);
 
 	message TF("Item Exists: %s (%d) x %d\n", $item->{name}, $item->{binID}, $item->{amount}), "drop", 1;
+
+	Plugins::callHook('item_exists', {
+		item	=> $item,
+		type => $args->{type},
+		show_effect => $args->{show_effect},
+		effect_type => $args->{effect_type}
+	});
 }
 
 sub item_disappeared {
@@ -5511,7 +5729,7 @@ sub map_change {
 		# $messageSender->sendSync(1);
 
 		# request to unfreeze char alisonrag
-		$messageSender->sendBlockingPlayerCancel() if $masterServer->{blockingPlayerCancel};
+		$messageSender->sendBlockingPlayerCancel() if $masterServer->{blockingPlayerCancel} || $self->{blockingPlayerCancel};
 
 		$timeout{ai}{time} = time;
 	}
@@ -5683,7 +5901,7 @@ sub npc_store_begin {
 sub npc_store_info {
 	my ($self, $args) = @_;
 	my $msg = $args->{RAW_MSG};
-	my $pack = 'V V C v';
+	my $pack = $self->{npc_store_info_pack} || 'V V C v';
 	my $len = length pack $pack;
 	$storeList->clear;
 	undef %talk;
@@ -5985,6 +6203,16 @@ sub received_character_ID_and_Map {
 		$map_ip = makeIP($args->{mapIP});
 		$map_ip = $masterServer->{ip} if ($masterServer && $masterServer->{private});
 		$map_port = $args->{mapPort};
+	}
+
+	# Workaround. Current xKore 1 is not able to define the $char
+	if($config{XKore} == 1) {
+		foreach my $character (@chars) {
+			if (getHex($charID) eq getHex($character->{charID})) {
+				configModify("char", $character->{slot});
+				$char = $chars[$character->{slot}];
+			}
+		}
 	}
 
 	message TF("----------Game Info----------\n" .
@@ -6340,16 +6568,24 @@ sub party_users_info {
 
 sub rodex_mail_list {
 	my ( $self, $args ) = @_;
+	
+	my $mail_info;
 
-	my $msg = $args->{RAW_MSG};
-	my $msg_size = $args->{RAW_MSG_SIZE};
-	my $header_pack = 'v C C C';
-	my $header_len = ((length pack $header_pack) + 2);
+	if ($args->{switch} eq '0AC2') {  
+		$mail_info = {
+			len => 41,
+			types => 'C V2 C2 Z24 V v',
+			keys => [qw(openType mailID1 mailID2 isRead type sender expireDateTime Titlelength)],
+		};
+	} else { # 09F0, 0A7D
+		$mail_info = {
+			len => 44,
+			types => 'V2 C2 Z24 V2 v',
+			keys => [qw(mailID1 mailID2 isRead type sender regDateTime expireDateTime Titlelength)],
+		};
+	}
 
-	my $mail_pack = 'V2 C C Z24 V V v';
-	my $base_mail_len = length pack $mail_pack;
-
-	if ($args->{switch} eq '0A7D') {
+	if ($args->{switch} eq '0A7D' || $args->{switch} eq '0AC2') {
 		$rodexList->{current_page} = 0;
 		$rodexList = {};
 		$rodexList->{mails} = {};
@@ -6363,29 +6599,20 @@ sub rodex_mail_list {
 		$rodexList->{mails_per_page} = $args->{amount};
 	}
 
-	my $mail_len;
-
 	my $print_msg = center(" " . "Rodex Mail Page ". $rodexList->{current_page} . " ", 79, '-') . "\n";
 
 	my $index = 0;
-	for (my $i = $header_len; $i < $args->{RAW_MSG_SIZE}; $i+=$mail_len) {
+	for (my $i = 0; $i < length($args->{mailList}); $i+=$mail_info->{len}) {
 		my $mail;
 
-		($mail->{mailID1},
-		$mail->{mailID2},
-		$mail->{isRead},
-		$mail->{type},
-		$mail->{sender},
-		$mail->{regDateTime},
-		$mail->{expireDateTime},
-		$mail->{Titlelength}) = unpack($mail_pack, substr($msg, $i, $base_mail_len));
+		@{$mail}{@{$mail_info->{keys}}} = unpack($mail_info->{types}, substr($args->{mailList}, $i, $mail_info->{len}));
 
-		$mail->{title} = bytesToString(substr($msg, ($i+$base_mail_len), $mail->{Titlelength}));
+		$mail->{title} = bytesToString(substr($args->{mailList}, ($i+$mail_info->{len}), $mail->{Titlelength}));
 
 		$mail->{page} = $rodexList->{current_page};
 		$mail->{page_index} = $index;
 
-		$mail_len = $base_mail_len + $mail->{Titlelength};
+		$i+= $mail->{Titlelength};
 
 		$rodexList->{mails}{$mail->{mailID1}} = $mail;
 
@@ -6413,7 +6640,7 @@ sub rodex_read_mail {
 	$mail->{zeny1} = $args->{zeny1};
 	$mail->{zeny2} = $args->{zeny2};
 
-	my $item_pack = 'v2 C3 a8 a4 C a4 a25';
+	my $item_pack = $self->{rodex_read_mail_item_pack} || 'v2 C3 a8 a4 C a4 a25';
 	my $item_len = length pack $item_pack;
 
 	my $mail_len;
@@ -7465,17 +7692,19 @@ sub buying_store_items_list {
 	$buyingStoreID = $args->{buyingStoreID};
 	my $player = Actor::get($buyerID);
 	my $index = 0;
+	my $pack = $self->{buying_store_items_list_pack} || 'V v C v';
+	my $len = length pack $pack;
 
 	my $msg = center(T(" Buyer: ") . $player->nameIdx . ' ', 79, '-') ."\n".
 		T("#   Name                                      Type        Amount          Price\n");
 
-	for (my $i = $headerlen; $i < $args->{RAW_MSG_SIZE}; $i+=9) {
+	for (my $i = $headerlen; $i < $args->{RAW_MSG_SIZE}; $i+=$len) {
 		my $item = {};
 
 		($item->{price},
 		$item->{amount},
 		$item->{type},
-		$item->{nameID})	= unpack('V v C v', substr($args->{RAW_MSG}, $i, 9));
+		$item->{nameID})	= unpack($pack, substr($args->{RAW_MSG}, $i, $len));
 
 		$item->{name} = itemName($item);
 		$buyerItemList[$index] = $item;

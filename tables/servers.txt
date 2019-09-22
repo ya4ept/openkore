@@ -24,12 +24,12 @@ serverEncoding Western
 gameGuard 0
 storageEncryptKey 0x050B6F79, 0x0202C179, 0x0E20120, 0x04FA43E3, 0x0179B6C8, 0x05973DF2, 0x07D8D6B, 0x08CB9ED9
 addTableFolders bRO
-charBlockSize 144
+charBlockSize 146
 pinCode 1
 charDeleteDateType 1
-sendCryptKeys 0x4D87046B, 0x7F59395C, 0x611111A9
 blockingPlayerCancel 1
 rankingSystemType 1
+itemListType 1
 
 # http://ragnarok.uol.com.br
 [Brazil - bRO: Thor]
@@ -46,12 +46,12 @@ serverEncoding Western
 gameGuard 0
 storageEncryptKey 0x050B6F79, 0x0202C179, 0x0E20120, 0x04FA43E3, 0x0179B6C8, 0x05973DF2, 0x07D8D6B, 0x08CB9ED9
 addTableFolders bRO
-charBlockSize 144
+charBlockSize 146
 pinCode 1
 charDeleteDateType 1
-sendCryptKeys 0x4D87046B, 0x7F59395C, 0x611111A9
 blockingPlayerCancel 1
 rankingSystemType 1
+itemListType 1
 
 # http://ro.zhaouc.com/
 [cRO - China: Taren]
@@ -88,9 +88,9 @@ serverEncoding Western
 addTableFolders fRO
 charBlockSize 116
 
-# https://ror.gravindo.id/
-[Indonesia - idRO: Odin]
-ip 202.93.25.131
+# https://ro.gnjoy.id/
+[Indonesia - idRO: Yggdrasil]
+ip 202.93.26.198
 port 6900
 master_version 12
 version 2
@@ -104,7 +104,7 @@ secureLogin_account 0
 serverEncoding Western
 storageEncryptKey 0x050B6F79, 0x0202C179, 0x00E20120, 0x04FA43E3, 0x0179B6C8, 0x05973DF2, 0x007D8D6B, 0x08CB9ED9
 addTableFolders idRO
-charBlockSize 144
+charBlockSize 145
 charDeleteDateType 1
 blockingPlayerCancel 1
 rankingSystemType 1
@@ -113,7 +113,7 @@ rankingSystemType 1
 # http://playragnarok.com
 [International - iRO: Ymir/Yggdrasil/Valkyrie]
 title International - iRO: Thor|Chaos (Renewal-compatible)
-ip 128.241.92.162
+ip 128.241.92.36
 port 6800
 master_version 1
 version 18
@@ -124,13 +124,13 @@ patchpath /patch02
 addTableFolders iRO/Renewal;iRO
 charBlockSize 147
 charDeleteDateType 1
-sendCryptKeys 0x063C5154, 0x20013450, 0x77F40B09
+sendCryptKeys 0x639573FD, 0x30007ABA, 0x18EC45FF
 blockingPlayerCancel 1
 rankingSystemType 1
 
 # http://playragnarok.com
 [International - iRO: Sakray]
-ip 128.241.92.195
+ip 128.241.92.36
 port 6800
 master_version 14
 version 18

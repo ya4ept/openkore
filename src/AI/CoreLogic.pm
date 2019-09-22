@@ -182,6 +182,7 @@ sub iterate {
 	processAutoShopOpen();
 	processAutoBuyerShopOpen();
 	processRepairAuto();
+	processSendIgnoreAll();
 	Benchmark::end("AI (part 4)") if DEBUG;
 
 
@@ -1257,6 +1258,7 @@ sub processAutoStorage {
 		# Autostorage finished; trigger sellAuto unless autostorage was already triggered by it
 		my $forcedBySell = AI::args->{forcedBySell};
 		my $forcedByBuy = AI::args->{forcedByBuy};
+		undef $timeout{ai_storageAuto_wait_before_action}{time};
 		AI::dequeue;
 		if ($config{sellAuto} && ai_sellAutoCheck()) {
 			if ($forcedByBuy) {
@@ -1400,6 +1402,13 @@ sub processAutoStorage {
 			my %pluginArgs;
 			Plugins::callHook("AI_storage_open", \%pluginArgs); # we can hook here to perform actions BEFORE any storage function
 			return if ($pluginArgs{return});
+
+			if(!$timeout{ai_storageAuto_wait_before_action}{time}) {
+				$timeout{ai_storageAuto_wait_before_action}{time} = time;
+				return;
+			} elsif(!timeOut($timeout{ai_storageAuto_wait_before_action})) {
+				return;
+			}
 
 			if (!$args->{getStart}) {
 				$args->{done} = 1;
@@ -3446,6 +3455,19 @@ sub processRepairAuto {
 				return;
 			}
 		}
+	}
+}
+
+sub processSendIgnoreAll {
+	return if($net->getState() != Network::IN_GAME || !$config{ignoreAll} || $ignored_all);
+
+	if(!$timeout{'ai_ignoreAll'}{'time'}) {
+		$timeout{'ai_ignoreAll'}{'time'} = time;
+		return;
+	} elsif(timeOut($timeout{ai_ignoreAll})) {
+		warning "Sending ignoreAll... \n";
+		$messageSender->sendIgnoreAll(0);
+		$timeout{'ai_ignoreAll'}{'time'} = time;
 	}
 }
 
