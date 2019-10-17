@@ -837,7 +837,11 @@ sub items_nonstackable {
 	) {
 		return $items->{type7};
 	} elsif ($args->{switch} eq '0B0A') { # item_list
-		return $items->{type8};
+		if (grep { $masterServer->{serverType} eq $_ } qw(iRO_Renewal)) {
+			return $items->{type7};
+		} else {
+			return $items->{type8};
+		}
 	} else {
 		warning "items_nonstackable: unsupported packet ($args->{switch})!\n";
 	}
@@ -879,7 +883,11 @@ sub items_stackable {
 	) {
 		return $items->{type6};
 	} elsif ($args->{switch} eq '0B09') { # item_list
-		return $items->{type7};
+		if (grep { $masterServer->{serverType} eq $_ } qw(iRO_Renewal)) {
+			return $items->{type6};
+		} else {
+			return $items->{type7};
+		}
 	} else {
 		warning "items_stackable: unsupported packet ($args->{switch})!\n";
 	}
@@ -893,8 +901,8 @@ sub parse_items {
 	for (my $i = 0; $i < $length; $i += $unpack->{len}) {
 		my $item;
 		@{$item}{@{$unpack->{keys}}} = unpack($unpack->{types}, substr($args->{itemInfo}, $i, $unpack->{len}));
-
-		if ( $args->{switch} eq '0B09' && $item->{type} == 10 ) { # workaround arrow byte bug
+    
+		if ( $args->{switch} eq '0B09' && $item->{type} == 10  && $masterServer->{serverType} ne 'iRO_Renewal') { # workaround arrow byte bug
 			$item->{amount} = unpack("v", substr($args->{itemInfo}, $i+7, 2));
 		}
 
@@ -1282,27 +1290,32 @@ sub guild_skills_list {
 
 sub guild_chat {
 	my ($self, $args) = @_;
-	my ($chatMsgUser, $chatMsg); # Type: String
+	my ($chatMsgUser, $chatMsg, $parsed_msg); # Type: String
 	my $chat; # Type: String
 
 	return unless changeToInGameState();
 
 	$chat = bytesToString($args->{message});
-	if (($chatMsgUser, $chatMsg) = $chat =~ /(.*?) : (.*)/) {
+	if (($chatMsgUser, $chatMsg) = $chat =~ /(.*?)\s?: (.*)/) {
 		$chatMsgUser =~ s/ $//;
 		stripLanguageCode(\$chatMsg);
-		$chat = "$chatMsgUser : $chatMsg";
+		$parsed_msg = solveMessage($chatMsg);
+		$chat = "$chatMsgUser : $parsed_msg";
+	} else {
+		$parsed_msg = solveMessage($chat);
 	}
 
 	chatLog("g", "$chat\n") if ($config{'logGuildChat'});
 	# Translation Comment: Guild Chat
 	message TF("[Guild] %s\n", $chat), "guildchat";
 	# Only queue this if it's a real chat message
-	ChatQueue::add('g', 0, $chatMsgUser, $chatMsg) if ($chatMsgUser);
+	ChatQueue::add('g', 0, $chatMsgUser, $parsed_msg) if ($chatMsgUser);
+	debug "guildchat: $chatMsg\n", "guildchat", 1;
 
 	Plugins::callHook('packet_guildMsg', {
 		MsgUser => $chatMsgUser,
-		Msg => $chatMsg
+		Msg => $parsed_msg,
+		RawMsg => $chatMsg,
 	});
 }
 
@@ -1664,7 +1677,7 @@ sub public_chat {
 	my ($self, $args) = @_;
 	# Type: String
 	my $message = bytesToString($args->{message});
-	my ($chatMsgUser, $chatMsg); # Type: String
+	my ($chatMsgUser, $chatMsg, $parsed_msg); # Type: String
 	my ($actor, $dist);
 
 	if ($message =~ / : /) {
@@ -1679,10 +1692,12 @@ sub public_chat {
 			$dist = distance($char->{pos_to}, $actor->{pos_to});
 			$dist = sprintf("%.1f", $dist) if ($dist =~ /\./);
 		}
-		$message = "$chatMsgUser ($actor->{binID}): $chatMsg";
+		$parsed_msg = solveMessage($chatMsg);
+		$message = "$chatMsgUser ($actor->{binID}): $parsed_msg";
 
 	} else {
 		$chatMsg = $message;
+		$message = $parsed_msg = solveMessage($message);
 	}
 
 	my $position = sprintf("[%s %d, %d]",
@@ -1699,14 +1714,16 @@ sub public_chat {
 	# this code autovivifies $actor->{pos_to} but it doesnt matter
 	chatLog("c", "$position $message\n") if ($config{logChat});
 	message TF("%s%s\n", $distInfo, $message), "publicchat";
+	debug "publicchat: $chatMsg\n", "publicchat", 1;
 
-	ChatQueue::add('c', $args->{ID}, $chatMsgUser, $chatMsg);
+	ChatQueue::add('c', $args->{ID}, $chatMsgUser, $parsed_msg);
 	Plugins::callHook('packet_pubMsg', {
 		pubID => $args->{ID},
 		pubMsgUser => $chatMsgUser,
-		pubMsg => $chatMsg,
+		pubMsg => $parsed_msg,
 		MsgUser => $chatMsgUser,
-		Msg => $chatMsg
+		Msg => $parsed_msg,
+		RawMsg => $chatMsg,
 	});
 }
 

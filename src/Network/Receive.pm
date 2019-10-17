@@ -2724,13 +2724,16 @@ sub system_chat {
 	$message =~ s/\000//g; # remove null charachters
 	$message =~ s/^ +//g; $message =~ s/ +$//g; # remove whitespace in the beginning and the end of $message
 	stripLanguageCode(\$message);
-	chatLog("s", "$message\n") if ($config{logSystemChat});
+	my $parsed_msg = solveMessage($message);
+	chatLog("s", "$parsed_msg\n") if ($config{logSystemChat});
 	# Translation Comment: System/GM chat
-	message "$prefix $message\n", "schat";
-	ChatQueue::add('gm', undef, undef, $message) if ($config{callSignGM});
+	message "$prefix $parsed_msg\n", "schat";
+	ChatQueue::add('gm', undef, undef, $parsed_msg) if ($config{callSignGM});
+	debug "schat: $message\n", "schat", 1;
 
 	Plugins::callHook('packet_sysMsg', {
-		Msg => $message,
+		Msg => $parsed_msg,
+		RawMsg => $message,
 		MsgColor => $color,
 		MsgUser => undef # TODO: implement this value, we can get this from "micc" messages by regex.
 	});
@@ -6348,16 +6351,19 @@ sub party_chat {
 	$chatMsgUser =~ s/ $//;
 
 	stripLanguageCode(\$chatMsg);
+	my $parsed_msg = solveMessage($chatMsg);
 	# Type: String
-	my $chat = "$chatMsgUser : $chatMsg";
+	my $chat = "$chatMsgUser : $parsed_msg";
 	message TF("[Party] %s\n", $chat), "partychat";
 
 	chatLog("p", "$chat\n") if ($config{'logPartyChat'});
-	ChatQueue::add('p', $args->{ID}, $chatMsgUser, $chatMsg);
+	ChatQueue::add('p', $args->{ID}, $chatMsgUser, $parsed_msg);
+	debug "partychat: $chatMsg\n", "partychat", 1;
 
 	Plugins::callHook('packet_partyMsg', {
 		MsgUser => $chatMsgUser,
-		Msg => $chatMsg
+		Msg => $parsed_msg,
+		RawMsg => $chatMsg,
 	});
 }
 
@@ -6956,21 +6962,24 @@ sub clan_info {
 
 sub clan_chat {
 	my ($self, $args) = @_;
-	my ($chatMsgUser, $chatMsg); # Type: String
+	my ($chatMsgUser, $chatMsg, $parsed_msg); # Type: String
 
 	return unless changeToInGameState();
 	$chatMsgUser = bytesToString($args->{charname});
 	$chatMsg = bytesToString($args->{message});
+	$parsed_msg = solveMessage($chatMsg);
 
-	chatLog("clan", "$chatMsgUser : $chatMsg\n") if ($config{'logClanChat'});
+	chatLog("clan", "$chatMsgUser : $parsed_msg\n") if ($config{'logClanChat'});
 	# Translation Comment: Guild Chat
-	message TF("[Clan]%s %s\n", $chatMsgUser, $chatMsg), "clanchat";
+	message TF("[Clan]%s %s\n", $chatMsgUser, $parsed_msg), "clanchat";
 	# Only queue this if it's a real chat message
-	ChatQueue::add('clan', 0, $chatMsgUser, $chatMsg) if ($chatMsgUser);
+	ChatQueue::add('clan', 0, $chatMsgUser, $parsed_msg) if ($chatMsgUser);
+	debug "clanchat: $chatMsg\n", "clanchat", 1;
 
 	Plugins::callHook('packet_clanMsg', {
 		MsgUser => $chatMsgUser,
-		Msg => $chatMsg
+		Msg => $parsed_msg,
+		RawMsg => $chatMsg,
 	});
 }
 
@@ -7807,30 +7816,47 @@ use constant {
 	TYPE_MONSTER_ITEM => 0x1,
 };
 
-# TODO: more meaningful messages?
 sub special_item_obtain {
 	my ($self, $args) = @_;
 
 	my $item_name = itemNameSimple($args->{nameID});
 	my $holder =  bytesToString($args->{holder});
+	my ($source_item_id, $source_name, $msg);
+
 	stripLanguageCode(\$holder);
 	if ($args->{type} == TYPE_BOXITEM) {
 		@{$args}{qw(box_nameID)} = unpack 'c/v', $args->{etc};
 
 		my $box_item_name = itemNameSimple($args->{box_nameID});
+		$source_name = $box_item_name;
+		$source_item_id = $args->{box_nameID};
 		chatLog("GM", "$holder has got $item_name from $box_item_name\n") if ($config{logSystemChat});
-		message TF("%s has got %s from %s.\n", $holder, $item_name, $box_item_name), 'schat';
+		$msg = TF("%s has got %s from %s.\n", $holder, $item_name, $box_item_name);
+		message $msg, 'schat';
 
 	} elsif ($args->{type} == TYPE_MONSTER_ITEM) {
 		@{$args}{qw(len monster_name)} = unpack 'c Z*', $args->{etc};
 		my $monster_name = bytesToString($args->{monster_name});
+		$source_name = $monster_name;
 		stripLanguageCode(\$monster_name);
 		chatLog("GM", "$holder has got $item_name from $monster_name\n") if ($config{logSystemChat});
-		message TF("%s has got %s from %s.\n", $holder, $item_name, $monster_name), 'schat';
+		$msg = TF("%s has got %s from %s.\n", $holder, $item_name, $monster_name);
+		message $msg, 'schat';
 
 	} else {
-		warning TF("%s has got %s (from Unknown type %d).\n", $holder, $item_name, $args->{type}), 'schat';
+		$msg = TF("%s has got %s (from Unknown type %d).\n", $holder, $item_name, $args->{type});
+		warning $msg, 'schat';
 	}
+
+	Plugins::callHook('packet_special_item_obtain', {
+		ObtainType => $args->{type},
+		ItemName => $item_name,
+		ItemID => $args->{nameID},
+		Holder => $holder,
+		SourceItemID => $source_item_id, # ItemID if type (0) TYPE_BOXITEM
+		SourceName => $source_name, # Monster if type (1) TYPE_MONSTER_ITEM
+		Msg => $msg,
+	});
 }
 
 sub inventory_item_favorite {
@@ -8795,26 +8821,29 @@ sub private_message {
 	# Type: String
 	my $privMsgUser = bytesToString($args->{privMsgUser});
 	my $privMsg = bytesToString($args->{privMsg});
+	stripLanguageCode(\$privMsg);
+	my $parsed_msg = solveMessage($privMsg);
 
 	if ($privMsgUser ne "" && binFind(\@privMsgUsers, $privMsgUser) eq "") {
 		push @privMsgUsers, $privMsgUser;
 		Plugins::callHook('parseMsg/addPrivMsgUser', {
 			user => $privMsgUser,
-			msg => $privMsg,
-			userList => \@privMsgUsers
+			msg => $parsed_msg,
+			rawMsg => $privMsg,
+			userList => \@privMsgUsers,
 		});
 	}
 
-	stripLanguageCode(\$privMsg);
-	chatLog("pm", TF("(From: %s) : %s\n", $privMsgUser, $privMsg)) if ($config{'logPrivateChat'});
- 	message TF("(From: %s) : %s\n", $privMsgUser, $privMsg), "pm";
+	chatLog("pm", TF("(From: %s) : %s\n", $privMsgUser, $parsed_msg)) if ($config{'logPrivateChat'});
+	message TF("(From: %s) : %s\n", $privMsgUser, $parsed_msg), "pm";
 
-	ChatQueue::add('pm', undef, $privMsgUser, $privMsg);
+	ChatQueue::add('pm', undef, $privMsgUser, $parsed_msg);
 	Plugins::callHook('packet_privMsg', {
 		privMsgUser => $privMsgUser,
-		privMsg => $privMsg,
+		privMsg => $parsed_msg,
 		MsgUser => $privMsgUser,
-		Msg => $privMsg
+		Msg => $parsed_msg,
+		RawMsg => $privMsg,
 	});
 
 	if ($config{dcOnPM} && AI::state == AI::AUTO) {
