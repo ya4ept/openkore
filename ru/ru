@@ -1,8 +1,3 @@
-# German translation for OpenKore
-# Copyright (C) Thrice
-# This file is distributed under the same license as OpenKore.
-# Thrice <thrice007@yahoo.de>, 2008.
-# 
 msgid ""
 msgstr ""
 "Project-Id-Version: openkore\n"
@@ -11,19 +6,18 @@ msgstr ""
 "PO-Revision-Date: 2020-12-24 23:27\n"
 "Last-Translator: manticora <the-manticora@yandex.ru>\n"
 "Language-Team: Russian\n"
-"Language: ru\n"
+"Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
 "X-Crowdin-Project: openkore\n"
 "X-Crowdin-Project-ID: 434498\n"
 "X-Crowdin-Language: ru\n"
-"X-Crowdin-File: /master/src/po/de.po\n"
-"X-Crowdin-File-ID: 74\n"
+"X-Crowdin-File: /master/src/po/zh_CN.po\n"
+"X-Crowdin-File-ID: 112\n"
 
 #: ../../openkore.pl:154
 #, perl-format
@@ -38,25 +32,21 @@ msgid "You have old files in the OpenKore folder, which may cause conflicts.\n"
 msgstr ""
 
 #: ../../openkore.pl:171 ../../openkore.pl:191
-#, perl-format
 msgid "Your version of the XSTools library is too old.\n"
 "Please upgrade it from %s"
 msgstr ""
 
 #: ../../openkore.pl:177
-#, perl-format
 msgid "Your version of (wx)start.exe is incompatible.\n"
 "Please upgrade it from %s"
 msgstr ""
 
 #: ../../openkore.pl:180
-#, perl-format
 msgid "Your version of XSTools library is incompatible.\n"
 "Please upgrade it from %s"
 msgstr ""
 
 #: ../../openkore.pl:188
-#, perl-format
 msgid "Your version of (wx)start.exe is too old.\n"
 "Please upgrade it from %s"
 msgstr ""
@@ -3999,7 +3989,6 @@ msgid "Player is facing towards you.\n"
 msgstr ""
 
 #: ../Commands.pm:4419
-#, perl-format
 msgid "\n"
 "Statuses: %s \n"
 msgstr ""
@@ -5308,6 +5297,7 @@ msgid "'%s' (%d) is not valid refine material for '%s'.\n"
 msgstr ""
 
 #: ../Commands.pm:7342
+#, perl-format
 msgid "You don't have %s for RefineUI. Needed: %d!\n"
 msgstr ""
 
@@ -6228,7 +6218,6 @@ msgid "Miss"
 msgstr ""
 
 #: ../Misc.pm:3624
-#, perl-format
 msgid "(Delay: %sms)"
 msgstr ""
 
@@ -6749,7 +6738,6 @@ msgid "Invalid coordinates specified for randomWalk\n"
 msgstr ""
 
 #: ../AI/CoreLogic.pm:629
-#, perl-format
 msgid "Calculating random route to: %s: %s, %s\n"
 msgstr ""
 
@@ -6785,7 +6773,6 @@ msgid "Moving to %s - %d,%d\n"
 msgstr ""
 
 #: ../AI/CoreLogic.pm:960
-#, perl-format
 msgid "Moving to %s\n"
 msgstr ""
 
@@ -6835,7 +6822,6 @@ msgid "Disconnecting on empty %s!\n"
 msgstr ""
 
 #: ../AI/Slave.pm:184
-#, perl-format
 msgid "Found %s!\n"
 msgstr ""
 
@@ -6844,12 +6830,10 @@ msgid "Stand By Homun\n"
 msgstr ""
 
 #: ../AI/Slave.pm:192
-#, perl-format
 msgid "Teleporting to get %s back\n"
 msgstr ""
 
 #: ../AI/Slave.pm:201
-#, perl-format
 msgid "Trying to find %s at location %d, %d (you are currently at %d, %d)\n"
 msgstr ""
 
@@ -6858,7 +6842,6 @@ msgid "You lost %s!\n"
 msgstr ""
 
 #: ../AI/Slave/Homunculus.pm:36
-#, perl-format
 msgid "Auto-feeding %s (%d hunger).\n"
 msgstr ""
 
@@ -7694,7 +7677,6 @@ msgid "Items"
 msgstr ""
 
 #: ../Interface/Wx/MapViewer.pm:360
-#, perl-format
 msgid "Walking to waypoint: %s, %s\n"
 msgstr ""
 
@@ -8207,6 +8189,7 @@ msgid "Job Exp gained: %d (%.2f%%)\n"
 msgstr ""
 
 #: ../Network/Receive.pm:464
+#, perl-format
 msgid "Unknown (type=%d) Exp gained: %d\n"
 msgstr ""
 
@@ -8219,6 +8202,7 @@ msgid "Job Quest Exp gained: %d (%.2f%%)\n"
 msgstr ""
 
 #: ../Network/Receive.pm:472
+#, perl-format
 msgid "Unknown (type=%d) Quest Exp gained: %d\n"
 msgstr ""
 
@@ -8824,7 +8808,6 @@ msgid "Quest: %s has been deleted.\n"
 msgstr ""
 
 #: ../Network/Receive.pm:3783
-#, perl-format
 msgid "Quest %s is now active.\n"
 msgstr ""
 
@@ -9303,7 +9286,6 @@ msgid "Guild member %s logged out.\n"
 msgstr ""
 
 #: ../Network/Receive.pm:4942 ../Network/Receive.pm:5384
-#, perl-format
 msgid "%s use effect: %s\n"
 msgstr ""
 
@@ -9676,7 +9658,6 @@ msgid "Can't organize party - unknown (%d)\n"
 msgstr ""
 
 #: ../Network/Receive.pm:6108
-#, perl-format
 msgid "Party member %s has picked up item %s.\n"
 msgstr ""
 
@@ -10046,6 +10027,7 @@ msgstr ""
 #: ../Network/Receive.pm:7895 ../Network/Receive.pm:8198
 #: ../Network/Receive/ServerType0.pm:2414
 #: ../Network/Receive/kRO/Sakexe_0.pm:2241
+#, perl-format
 msgid "Unknown results in %s (flag: %s)\n"
 msgstr ""
 
@@ -10331,7 +10313,6 @@ msgid "Failed (note: usable items can't be auctioned) to add item with index: %s
 msgstr ""
 
 #: ../Network/Receive.pm:7735
-#, perl-format
 msgid "Succeeded to add item with index: %s.\n"
 msgstr ""
 
@@ -11069,7 +11050,6 @@ msgstr ""
 
 #: ../Network/Receive/ServerType0.pm:1595
 #: ../Network/Receive/kRO/Sakexe_0.pm:1578
-#, perl-format
 msgid "Monster %s (%d) changed to %s\n"
 msgstr ""
 
@@ -11330,7 +11310,6 @@ msgstr ""
 #: ../Network/Receive/ServerType0.pm:2237
 #: ../Network/Receive/ServerType0.pm:2248
 #: ../Network/Receive/kRO/Sakexe_0.pm:2163
-#, perl-format
 msgid "Succeeded to attach %s.\n"
 msgstr ""
 
@@ -11415,7 +11394,6 @@ msgid "Battleground score - Lions: '%d' VS Eagles: '%d'\n"
 msgstr ""
 
 #: ../Network/Receive/ServerType0.pm:2443
-#, perl-format
 msgid "%2$s play: %s\n"
 msgstr ""
 
@@ -11763,7 +11741,7 @@ msgstr ""
 #~ "%s\n"
 #~ "------------------------------------------\n"
 #~ msgstr ""
-#~ "------------- Charakterliste -------------\n"
+#~ "------------- 人物列表 -------------\n"
 #~ "%s\n"
 #~ "------------------------------------------\n"
 
@@ -11773,8 +11751,8 @@ msgstr ""
 #~ "Item: %s (ID: %s)\n"
 #~ "\n"
 #~ msgstr ""
-#~ "===============Item Beschreibung===============\n"
-#~ "Item: %s\n"
+#~ "===============道具说明===============\n"
+#~ "道具: %s\n"
 #~ "\n"
 
 #, fuzzy
@@ -11782,32 +11760,32 @@ msgstr ""
 #~ "============================================== Search Store Result "
 #~ "==============================================\n"
 #~ msgstr ""
-#~ "============= BLACKSMITH RANK ===============\n"
-#~ "#    Name                             Points\n"
+#~ "================ PVP 排行 ===================\n"
+#~ "#    名字                             等级\n"
 #~ "%s=============================================\n"
 
 #, fuzzy
 #~ msgid "=================================================================================================================\n"
 #~ msgstr ""
-#~ "============= BLACKSMITH RANK ===============\n"
-#~ "#    Name                             Points\n"
+#~ "================ PVP 排行 ===================\n"
+#~ "#    名字                             等级\n"
 #~ "%s=============================================\n"
 
 #, fuzzy
 #~ msgid "Inventory item '%s' disappeared!\n"
-#~ msgstr "Item '%s' equipped.\n"
+#~ msgstr "携带道具 '%s' 装备完成.\n"
 
 #, fuzzy
 #~ msgid "Storage item '%s' disappeared!\n"
-#~ msgstr "Storage geöffnet.\n"
+#~ msgstr "仓库已经打开.\n"
 
 #, fuzzy
 #~ msgid "@%s @%s @%s @%s"
-#~ msgstr "%s hat %s "
+#~ msgstr "%s 有 %s "
 
 #, fuzzy
 #~ msgid "id: %s msgid: %s\n"
-#~ msgstr "Verkauft: %s - %s %sz\n"
+#~ msgstr "已出售: %s - %s %sz\n"
 
 #, fuzzy
 #~ msgid ""
@@ -11815,8 +11793,8 @@ msgstr ""
 #~ "Price\n"
 #~ msgstr ""
 #~ "%s\n"
-#~ "#  Name                                          Typ        Anzahl       "
-#~ "Preis\n"
+#~ "#  名字                                       类型           数量       价"
+#~ "格\n"
 
 #, fuzzy
 #~ msgid ""
@@ -11824,48 +11802,48 @@ msgstr ""
 #~ "Price\n"
 #~ msgstr ""
 #~ "%s\n"
-#~ "#  Name                                          Typ        Anzahl       "
-#~ "Preis\n"
+#~ "#  名字                                       类型           数量       价"
+#~ "格\n"
 
 #~ msgid "========Forge List========\n"
-#~ msgstr "========Forge-Liste========\n"
+#~ msgstr "========制造列表========\n"
 
 #~ msgid "Exp gained: %d/%d (%.2f%%/%.2f%%)\n"
-#~ msgstr "Exp erhalten: %d/%d (%.2f%%/%.2f%%)\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #~ msgid "You gained %s zeny.\n"
-#~ msgstr "%s Zeny erhalten.\n"
+#~ msgstr "你得到 %s zeny.\n"
 
 #~ msgid "Required Exp: %s\n"
-#~ msgstr "Benötigte  Exp: %s\n"
+#~ msgstr "升级所需经验 : %s\n"
 
 #~ msgid "BaseExp: %s | JobExp: %s\n"
-#~ msgstr "BaseExp: %s | JobExp: %s\n"
+#~ msgstr "基本经验: %s | 职业经验: %s\n"
 
 #~ msgid "You left the party\n"
-#~ msgstr "Du hast die Party verlassen\n"
+#~ msgstr "你退出队伍\n"
 
 #~ msgid "Mute period expired.\n"
-#~ msgstr "Nicht länger gemuted.\n"
+#~ msgstr "禁言时间已满.\n"
 
 #, fuzzy
 #~ msgid "Auto disconnecting, you've been muted for %s minutes!\n"
-#~ msgstr "Du wurdest gemutet für %s Minuten\n"
+#~ msgstr "您被禁言 %s 分钟\n"
 
 #~ msgid "*** You have been muted for %s minutes, auto disconnect! ***\n"
-#~ msgstr "*** Du wurdest gemutet für %s Minuten. Autom. Disconnect! ***\n"
+#~ msgstr "*** 您被禁言 %s 分钟,  断开连接! ***\n"
 
 #~ msgid "You've been muted for %s minutes\n"
-#~ msgstr "Du wurdest gemutet für %s Minuten\n"
+#~ msgstr "您被禁言 %s 分钟\n"
 
 #~ msgid "You are now level %s\n"
-#~ msgstr "Du bist nun level %s\n"
+#~ msgstr "您现在的等级为 %s\n"
 
 #~ msgid "You are now job level %s\n"
-#~ msgstr "Du bist nun Job level %s\n"
+#~ msgstr "您的职业等级为 %s\n"
 
 #~ msgid "Disconnecting on job level %s!\n"
-#~ msgstr "Verbindung unterbrochen wegen erreichtem Joblvl: %s!\n"
+#~ msgstr "断开连接.职业等级达到 %s!\n"
 
 #, fuzzy
 #~ msgid ""
@@ -11875,7 +11853,7 @@ msgstr ""
 #~ "Job: @<<<< @<<<< @<<< @<<<< @<<<<\n"
 #~ "---------------------------------------------"
 #~ msgstr ""
-#~ "-----------Account Info------------\n"
+#~ "-----------帐号信息------------\n"
 #~ "Account ID: @<<<<<<<<< @<<<<<<<<<<\n"
 #~ "Sex:        @<<<<<<<<<<<<<<<<<<<<<\n"
 #~ "Session ID: @<<<<<<<<< @<<<<<<<<<<\n"
@@ -11883,153 +11861,150 @@ msgstr ""
 #~ "-----------------------------------"
 
 #~ msgid "%s is muted for %d minutes\n"
-#~ msgstr "%s wurde gemutet für %d Minuten\n"
+#~ msgstr "%s 被禁言 %d 分钟\n"
 
 #~ msgid "%s is no longer muted\n"
-#~ msgstr "%s ist nicht mehr gemutet\n"
+#~ msgstr "%s 不再禁言\n"
 
 #~ msgid "sold: %s - %s %sz\n"
-#~ msgstr "Verkauft: %s - %s %sz\n"
+#~ msgstr "已出售: %s - %s %sz\n"
 
 #, fuzzy
 #~ msgid "Cannot calculate a route from %s (%d,%d) to %s%s"
-#~ msgstr "Kann keine Route berechnen von %s (%d,%d) nach %s %s"
+#~ msgstr "不能计算 %s (%d,%d) 到 %s %s"
 
 #~ msgid ""
 #~ "Error in function 'party leave' (Leave Party)\n"
 #~ "Can't leave party - you're not in a party.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'party leave' (Party verlassen)\n"
-#~ "Kann Party nicht verlassen - du bist in keiner Party.\n"
+#~ "功能错误 'party leave' (离开组队)\n"
+#~ "无法离开 - 你没有组队.\n"
 
 #~ msgid ""
 #~ "Error in function 'party request' (Request to Join Party)\n"
 #~ "Can't request a join - you're not in a party.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'party request' (Invite)\n"
-#~ "Kann Angebot nicht  schicken - du bist in keiner Party.\n"
+#~ "功能错误 'party request' (请求加入组队)\n"
+#~ "无法请求 - 你没有组队.\n"
 
 #~ msgid ""
 #~ "Error in function 'party share' (Set Party Share EXP)\n"
 #~ "Can't set share - you're not in a party.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'party share' (Share)\n"
-#~ "Kann nicht auf Even Share umstellen - du bist in keiner Party.\n"
+#~ "功能错误 'party share' (设置组队经验)\n"
+#~ "无法设置 - 你没有组队.\n"
 
 #, fuzzy
 #~ msgid ""
 #~ "Error in function 'party shareitem' (Set Party Share Item)\n"
 #~ "Can't set share - you're not in a party.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'party share' (Share)\n"
-#~ "Kann nicht auf Even Share umstellen - du bist in keiner Party.\n"
+#~ "功能错误 'party share' (设置组队经验)\n"
+#~ "无法设置 - 你没有组队.\n"
 
 #~ msgid ""
 #~ "Error in function 'party kick' (Kick Party Member)\n"
 #~ "Can't kick member - you're not in a party.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'party kick' (Partymember kicken)\n"
-#~ "Kann Spieler nicht kicken - du bist in keiner Party.\n"
+#~ "功能错误 'party kick' (踢出玩家)\n"
+#~ "无法踢出 - 你没有组队.\n"
 
 #, fuzzy
 #~ msgid ""
 #~ "Error in function 'party leader' (Change Party Leader)\n"
 #~ "Can't change party leader - you're not in a party.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'party leave' (Party verlassen)\n"
-#~ "Kann Party nicht verlassen - du bist in keiner Party.\n"
+#~ "功能错误 'party leave' (离开组队)\n"
+#~ "无法离开 - 你没有组队.\n"
 
 #~ msgid ""
 #~ "Invalid coordinates specified for randomWalk (coordinates are "
 #~ "unwalkable); randomWalk disabled\n"
-#~ msgstr ""
-#~ "Ungültige Koordinaten spezifiziert für randomWalk (Koordinaten sind "
-#~ "unbegehbar); randomWalk ausgeschaltet\n"
+#~ msgstr "randomWalk 指定了错误的坐标 (无法走到); randomWalk 关闭\n"
 
 #~ msgid "Found my master - %s\n"
-#~ msgstr "Master gefunden - %s\n"
+#~ msgstr "发现主人 - %s\n"
 
 #~ msgid "Found my master!\n"
-#~ msgstr "Master gefunden!\n"
+#~ msgstr "发现主人！\n"
 
 #~ msgid "Master died. I'll wait here.\n"
-#~ msgstr "Master gestorben, Ich warte hier.\n"
+#~ msgstr "主人死了. 继续等待.\n"
 
 #~ msgid "I lost my master\n"
-#~ msgstr "Master verloren\n"
+#~ msgstr "失去主人\n"
 
 #~ msgid "Trying to get him back\n"
-#~ msgstr "Versuch ihn zurück zu bekommen\n"
+#~ msgstr "等待主人回来\n"
 
 #~ msgid "My master disconnected\n"
-#~ msgstr "My Master hat die Verbindung unterbrochen\n"
+#~ msgstr "主人已经下线\n"
 
 #~ msgid "My master teleported\n"
-#~ msgstr "Mein Master hat sich teleportiert\n"
+#~ msgstr "主人已经飞了\n"
 
 #~ msgid "Trying to find lost master\n"
-#~ msgstr "Versuche Master zu finden\n"
+#~ msgstr "尝试寻找主人\n"
 
 #~ msgid "Don't know what happened to Master\n"
-#~ msgstr "Kann Master nicht finden\n"
+#~ msgstr "不知主人发生了什么\n"
 
 #~ msgid "Couldn't find master, giving up\n"
-#~ msgstr "Kann Master nicht finden, Aufgabe\n"
+#~ msgstr "无法找到主人, 放弃\n"
 
 #~ msgid "My master warped at (%s, %s) - moving to warp point\n"
-#~ msgstr "Mein Master hat sich nach (%s, %s) gewarpt - Gehe zu Master\n"
+#~ msgstr "主人移动在 (%s, %s) - 走到WARP点\n"
 
 #~ msgid "Gathering: %s (%s)\n"
-#~ msgstr "Sammeln von: %s (%s)\n"
+#~ msgstr "拾取: %s (%s)\n"
 
 #~ msgid "Failed to gather %s (%s) : Lost target\n"
-#~ msgstr "Fehler beim Einsammeln von %s (%s) : Ziel verloren\n"
+#~ msgstr "不能拾取 %s (%s) : 失去目标\n"
 
 #~ msgid "Failed to gather %s (%s) : No looting!\n"
-#~ msgstr "Fehler beim Einsammeln von %s (%s) : No looting!\n"
+#~ msgstr "不能拾取 %s (%s) : 不是自己的东西!\n"
 
 #~ msgid "Failed to gather %s (%s) : Timeout\n"
-#~ msgstr "Fehler beim Einsammeln von %s (%s) : Timeout\n"
+#~ msgstr "不能拾取 %s (%s) : 超时\n"
 
 #~ msgid "Teleporting to avoid all players\n"
-#~ msgstr "Teleport, um alle Spieler zu vermeiden\n"
+#~ msgstr "避免所有玩家，飞～\n"
 
 #~ msgid "Teleporting due to insufficient HP/SP or too many aggressives\n"
-#~ msgstr "Teleport wegen unzureichender HP/SP oder zu vielen Aggros\n"
+#~ msgstr "由于 HP/SP 不足或被多数怪围殴，飞！\n"
 
 #~ msgid "Teleporting to avoid %s\n"
-#~ msgstr "Teleport, um %s zu vermeiden\n"
+#~ msgstr "避免 %s ，飞～\n"
 
-#, fuzzy
 #~ msgid "Teleporting due to monster being too close %s\n"
-#~ msgstr "Teleport wegen Attacke von %s\n"
+#~ msgstr "怪物 %s 靠近，闪\n"
 
 #~ msgid "Teleporting due to idle\n"
-#~ msgstr "Teleporting wegen Untätigkeit\n"
+#~ msgstr "发呆了，飞～\n"
 
 #~ msgid "Teleporting to avoid portal\n"
-#~ msgstr "Teleport,um Portal zu vermeiden\n"
+#~ msgstr "避免入口，飞～\n"
 
 #~ msgid "** Respawning to save point.\n"
-#~ msgstr "** Respawn am Speicherpunkt.\n"
+#~ msgstr "** 回到记录点.\n"
 
 #~ msgid "Disconnecting for 30 secs to avoid %s\n"
-#~ msgstr "Verbindung für 30sek unterbrochen um %s  zu vermeiden\n"
+#~ msgstr "断开连接30秒，因为发现要回避的人 %s\n"
 
 #, fuzzy
 #~ msgid "Disconnecting for %s secs to avoid %s\n"
-#~ msgstr "Verbindung für 30sek unterbrochen um %s  zu vermeiden\n"
+#~ msgstr "断开连接30秒，因为发现要回避的人 %s\n"
 
 #, fuzzy
 #~ msgid "Auto disconnecting on Player!\n"
-#~ msgstr "Verbindung unterbrochen wegen PM!\n"
+#~ msgstr "断开连接.接受到密语!\n"
 
 #, fuzzy
 #~ msgid "*** Nearby is another player, auto disconnect! ***\n"
-#~ msgstr "*** Du bist gestorben, autom. disconnect! ***\n"
+#~ msgstr "*** 你挂了, 自动断开连接! ***\n"
 
 #~ msgid "%s: Auto-continuing talking\n"
-#~ msgstr "%s: Auto-Talk\n"
+#~ msgstr "%s: 自动回复说话\n"
 
 #~ msgid ""
 #~ "%s\n"
@@ -12037,88 +12012,87 @@ msgstr ""
 #~ "Price\n"
 #~ msgstr ""
 #~ "%s\n"
-#~ "#  Name                                          Typ        Anzahl       "
-#~ "Preis\n"
+#~ "#  名字                                       类型           数量       价"
+#~ "格\n"
 
 #~ msgid ""
 #~ "According to the given NPC instructions, the Next button must now be "
 #~ "clicked on, but that's not possible."
-#~ msgstr ""
-#~ "Laut dem NPC muss nun Next ausgewählt werden, dies ist jedoch nicht "
-#~ "möglich."
+#~ msgstr "按照 NPC 指导, 需要按下下一步, 但是无法执行."
 
 #~ msgid ""
 #~ "Error in function 'cart add' (Add Item to Cart)\n"
 #~ "Inventory Item %s does not exist.\n"
 #~ msgstr ""
-#~ "Error in Funktion 'cart add' (Item zum Cart hinzufügen)\n"
-#~ "Item %s existiert nicht.\n"
+#~ "功能错误 'cart add' (添加道具到手推车)\n"
+#~ "携带道具 %s 不存在.\n"
 
 #~ msgid ""
 #~ "Error in function 'talk' (Talk to NPC)\n"
 #~ "NPC %s does not exist\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'talk' (Mit NPC reden)\n"
-#~ "NPC %s existiert nicht.\n"
+#~ "功能错误 'talk' (和 NPC 对话)\n"
+#~ "NPC %s 不存在\n"
 
 #~ msgid ""
 #~ "Error in function 'talk %s' (Respond to NPC)\n"
 #~ "You are not talking to any NPC.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'Talk %s' (NPC antworten)\n"
-#~ "Du redest zurzeit mit keinem NPC.\n"
+#~ "功能错误 'talk %s' (回答 NPC)\n"
+#~ "你没有和 NPC 对话.\n"
 
 #, fuzzy
 #~ msgid ""
 #~ "Error in function 'talk resp' (Respond to NPC)\n"
 #~ "No match was found on responses with regex %s .\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'talk resp' (NPC antworten)\n"
-#~ "Keine NPC-Liste vorhanden.\n"
+#~ "功能错误 'talk resp' (回答 NPC)\n"
+#~ "没有需要回答给 NPC 内容.\n"
 
 #~ msgid ""
 #~ "Error in function 'talk cont' (Continue Talking to NPC)\n"
 #~ "You are not talking to any NPC.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'talk cont' (Weiterreden)\n"
-#~ "Du redest zurzeit mit keinem NPC.\n"
+#~ "功能错误 'talk cont' (继续和 NPC 对话)\n"
+#~ "你没有和 NPC 对话.\n"
 
+#, fuzzy
 #~ msgid "%s can't reach or damage target, dropping target\n"
-#~ msgstr "%s kann Ziel nicht erreichen oder angreifen, Ziel gedroppt\n"
+#~ msgstr "无法到达或伤害目标, 放弃目标\n"
 
 #, fuzzy
 #~ msgid "Teleport due to dropping %s attack target\n"
-#~ msgstr "Teleport wegen Droppen des Ziels\n"
+#~ msgstr "由于放弃目标，随机移动\n"
 
 #, fuzzy
 #~ msgid "%s target died\n"
-#~ msgstr "Ziel gestorben\n"
+#~ msgstr "目标死亡\n"
 
 #, fuzzy
 #~ msgid "%s target lost\n"
-#~ msgstr "Ziel verloren\n"
+#~ msgstr "目标消失\n"
 
 #, fuzzy
 #~ msgid "Dropping target - %s will not kill steal others\n"
-#~ msgstr "Ziel gedroppt - Killsteal nicht erlaubt\n"
+#~ msgstr "放弃目标 - 你将不能偷或杀死目标\n"
 
 #, fuzzy
 #~ msgid "%s has no LOS from (%d, %d) to target (%d, %d)"
-#~ msgstr "Kein LOS von %s (%s,%s) bis Portal auf Position (%s,%s).\n"
+#~ msgstr "没有发现从 %s (%s,%s) 到路点在 (%s,%s).\n"
 
 #, fuzzy
 #~ msgid "Unable to calculate a route to %s target, dropping target\n"
-#~ msgstr "Kann keine Route zum Ziel finden, Ziel gedroppt\n"
+#~ msgstr "不能计算到目标的路径, 放弃目标\n"
 
 #, fuzzy
 #~ msgid "%d items"
-#~ msgstr "%s Items verkauft.\n"
+#~ msgstr "卖道具 %s .\n"
 
 #~ msgid "Storage opened.\n"
-#~ msgstr "Storage geöffnet.\n"
+#~ msgstr "仓库已经打开.\n"
 
 #~ msgid " -- Not Identified"
-#~ msgstr " -- Nicht identifiziert"
+#~ msgstr " -- 没识别"
 
 #, fuzzy
 #~ msgid ""
@@ -12126,42 +12100,42 @@ msgstr ""
 #~ "Price           Sold\n"
 #~ msgstr ""
 #~ "%s\n"
-#~ "#  Name                                     Typ         #       Preis   "
-#~ "Verk.\n"
+#~ "#  名字                                     类型         数量       价"
+#~ "格   卖\n"
 
 #, fuzzy
 #~ msgid "Creating overrides for %s\n"
-#~ msgstr "Friendrequest von %s angenommen\n"
+#~ msgstr "接受朋友请求 %s\n"
 
 #~ msgid "Cannot load control file %s"
-#~ msgstr "Kann Datei %s nicht laden"
+#~ msgstr "无法读取 control 文件 %s"
 
 #~ msgid "*** You disconnected, auto quit! ***\n"
-#~ msgstr "*** Disconnect, Auto Quit! ***\n"
+#~ msgstr "*** 你断开连接, 自动退出! ***\n"
 
 #~ msgid "Disconnecting on PM!\n"
-#~ msgstr "Verbindung unterbrochen wegen PM!\n"
+#~ msgstr "断开连接.接受到密语!\n"
 
 #~ msgid "You've been muted for %s minutes, auto disconnect!\n"
-#~ msgstr "Du wurdest gemutet für %s Minuten. Autom. Disconnect!\n"
+#~ msgstr "您被禁言 %s 分钟, 断开连接!\n"
 
 #~ msgid "Timeout on Account Server, reconnecting...\n"
-#~ msgstr "Timeout - Account Server, versuche erneut zu verbinden...\n"
+#~ msgstr "帐号服务器连接超时, 重新连接中...\n"
 
 #~ msgid "Disconnected from Map Server, exiting...\n"
-#~ msgstr "Verbindung zum Map Server unterbrochen, beende...\n"
+#~ msgstr "断开与地图服务器的连接, 退出中...\n"
 
 #~ msgid "Party Member: %s\n"
-#~ msgstr "Party Member: %s\n"
+#~ msgstr "队伍成员: %s\n"
 
 #~ msgid "Please equip arrow first."
-#~ msgstr "Bitte equippe zuerst Arrows."
+#~ msgstr "请先装备箭矢."
 
 #~ msgid "Lost connection; exiting\n"
-#~ msgstr "Verbindung unterbrochen; Beende\n"
+#~ msgstr "失去连接.退出!\n"
 
 #~ msgid "exiting...\n"
-#~ msgstr "Beenden...\n"
+#~ msgstr "退出中...\n"
 
 #~ msgid ""
 #~ "%s\n"
@@ -12169,48 +12143,49 @@ msgstr ""
 #~ "Price\n"
 #~ msgstr ""
 #~ "%s\n"
-#~ "#  Name                                          Typ        Anzahl       "
-#~ "Preis\n"
+#~ "#  名字                                          类型        数量       价"
+#~ "格\n"
 
+#, fuzzy
 #~ msgid ""
 #~ "----------%s's Store List-----------\n"
 #~ "#  Name                    Type               Price\n"
 #~ msgstr ""
-#~ "----------%s's Store Liste-----------\n"
-#~ "#  Name                    Type               Prreis\n"
+#~ "----------仓库列表-----------\n"
+#~ "#  名字                    类型           价格\n"
 
 #~ msgid ""
 #~ "----------Responses-----------\n"
 #~ "#  Response\n"
 #~ msgstr ""
-#~ "----------Antworten-----------\n"
-#~ "#  Antwort\n"
+#~ "----------回应-----------\n"
+#~ "#  回应\n"
 
 #~ msgid ""
 #~ "----------------- Warp Portal --------------------\n"
 #~ "#  Place                           Map\n"
 #~ msgstr ""
-#~ "----------------- Warp Portal --------------------\n"
-#~ "#  Position                           Map\n"
+#~ "----------------- 入口 --------------------\n"
+#~ "#  地点                           地图\n"
 
 #~ msgid "------ AI Sequence ---------------------\n"
-#~ msgstr "------ AI Sequenz ---------------------\n"
+#~ msgstr "------ AI 序列 ---------------------\n"
 
 #~ msgid "------ AI Sequences --------------------\n"
-#~ msgstr "------ AI Sequenzen --------------------\n"
+#~ msgstr "------ AI 列表 --------------------\n"
 
 #~ msgid "----------------- Item To Craft -----------------\n"
-#~ msgstr "----------------- Items zum Craften -----------------\n"
+#~ msgstr "----------------- 制作列表 -----------------\n"
 
 #~ msgid "-----------Card List-----------\n"
-#~ msgstr "-----------Card Liste-----------\n"
+#~ msgstr "-----------卡片列表-----------\n"
 
 #~ msgid ""
 #~ "-------------Cart--------------\n"
 #~ "#  Name\n"
 #~ msgstr ""
-#~ "-------------Cart--------------\n"
-#~ "#  Name\n"
+#~ "-------------手推车--------------\n"
+#~ "#  名字\n"
 
 #, fuzzy
 #~ msgid ""
@@ -12218,7 +12193,7 @@ msgstr ""
 #~ "ItemID   Name                               Price\n"
 #~ msgstr ""
 #~ "%s\n"
-#~ "Name                                      Anzahl  Preis\n"
+#~ "名字                                      数量  价格\n"
 
 #~ msgid ""
 #~ "------------------------------- Chat Room List "
@@ -12226,68 +12201,68 @@ msgstr ""
 #~ "#   Title                                  Owner                Users   "
 #~ "Type\n"
 #~ msgstr ""
-#~ "------------------------------- Chat Room Liste "
+#~ "------------------------------- 聊天室列表 "
 #~ "--------------------------------\n"
-#~ "#   Name                                  Besitzer                "
-#~ "Spieler   Typ\n"
+#~ "#   标题                                  拥有者                玩家   类"
+#~ "型\n"
 
 #~ msgid ""
 #~ "-----------Chat Room Info-----------\n"
 #~ "Title                     Users   Public/Private\n"
 #~ msgstr ""
-#~ "-----------Chat Room Info-----------\n"
-#~ "Name                     Spieler   Public/Privat\n"
+#~ "-----------聊天室信息-----------\n"
+#~ "标题                     玩家   公开/不公开\n"
 
 #~ msgid "------ Chat History --------------------\n"
-#~ msgstr "------ Chat Log --------------------\n"
+#~ msgstr "------ 对话历史 --------------------\n"
 
 #~ msgid "-----------Current Deal-----------\n"
-#~ msgstr "-----------Momentaner Deal-----------\n"
+#~ msgstr "-----------现在交易-----------\n"
 
 #, fuzzy
 #~ msgid "zeny: %-25s zeny: %-14s"
-#~ msgstr "Zeny: %-25s Zeny: %-14s"
+#~ msgstr "Zenny: %-25s Zenny: %-14s"
 
 #~ msgid ""
 #~ "-[Monster Killed Count]-----------------------\n"
 #~ "#   ID     Name                      Count\n"
 #~ msgstr ""
-#~ "-[Anzahl getöteter Monster]-----------------------\n"
-#~ "#   ID     Name                      Anzahl\n"
+#~ "-[杀怪统计]-----------------------\n"
+#~ "#   ID     名字                      数量\n"
 
 #~ msgid ""
 #~ "-[Item Change Count]--------------------------\n"
 #~ "Name                                    Count\n"
 #~ msgstr ""
-#~ "-[Item Change Count]--------------------------\n"
-#~ "Name                                    Anzahl\n"
+#~ "-[道具变化统计]--------------------------\n"
+#~ "名字                                    数量\n"
 
 #~ msgid ""
 #~ "------------- Friends --------------\n"
 #~ "#   Name                      Online\n"
 #~ msgstr ""
-#~ "------------- Freunde --------------\n"
-#~ "#   Name                      Online\n"
+#~ "------------- 朋友 --------------\n"
+#~ "#   名字                      在线\n"
 
 #, fuzzy
 #~ msgid "--------- Slave AI Sequence ------------\n"
-#~ msgstr "------ AI Sequenz ---------------------\n"
+#~ msgstr "------ AI 序列 ---------------------\n"
 
 #, fuzzy
 #~ msgid ""
 #~ "--------Slave Skill List-------\n"
 #~ "   # Skill Name                     Lv      SP\n"
 #~ msgstr ""
-#~ "----------Skill Liste-----------\n"
-#~ "   # Skill Name                     Lv      SP\n"
+#~ "----------技能列表-----------\n"
+#~ "   # 技能名                     Lv      SP\n"
 
 #~ msgid ""
 #~ "===============Skill Description===============\n"
 #~ "Skill: %s\n"
 #~ "\n"
 #~ msgstr ""
-#~ "===============Skill Beschreibung===============\n"
-#~ "Skill: %s\n"
+#~ "===============技能说明===============\n"
+#~ "技能: %s\n"
 #~ "\n"
 
 #~ msgid ""
@@ -12298,38 +12273,38 @@ msgstr ""
 #~ "Master  : @<<<<<<<<<<<<<<<<<<<<<<<<\n"
 #~ "Connect : @>>/@<<"
 #~ msgstr ""
-#~ "---------- Guild Information ----------\n"
-#~ "Name    : @<<<<<<<<<<<<<<<<<<<<<<<<\n"
+#~ "---------- 公会信息 ----------\n"
+#~ "名字    : @<<<<<<<<<<<<<<<<<<<<<<<<\n"
 #~ "Lv      : @<<\n"
 #~ "Exp     : @>>>>>>>>>/@<<<<<<<<<<\n"
-#~ "Master  : @<<<<<<<<<<<<<<<<<<<<<<<<\n"
-#~ "Verbunden : @>>/@<<"
+#~ "会长  : @<<<<<<<<<<<<<<<<<<<<<<<<\n"
+#~ "人数 : @>>/@<<"
 
 #~ msgid ""
 #~ "------------ Guild  Member ------------\n"
 #~ "#  Name                       Job        Lv  Title                    "
 #~ "Online\n"
 #~ msgstr ""
-#~ "------------ Gildenmitgliederr ------------\n"
-#~ "#  Name                       Job        Lv  Rang                    "
-#~ "Online\n"
+#~ "------------ 工会成员 ------------\n"
+#~ "#  名字                       Job        Lv  标题                    在"
+#~ "线\n"
 
 #~ msgid "--------------- Available commands ---------------\n"
-#~ msgstr "--------------- Vorhandene Befehle ---------------\n"
+#~ msgstr "--------------- 可使用的指令 ---------------\n"
 
 #~ msgid "------ Item History --------------------\n"
-#~ msgstr "------ Item History --------------------\n"
+#~ msgstr "------ 道具历史 --------------------\n"
 
 #~ msgid "-----------Inventory-----------\n"
-#~ msgstr "-----------Inventar-----------\n"
+#~ msgstr "-----------携带-----------\n"
 
 #, fuzzy
 #~ msgid ""
 #~ "------------------ Item List ------------------\n"
 #~ "   # Name                           Coord\n"
 #~ msgstr ""
-#~ "-----------Item Liste-----------\n"
-#~ "   # Name                           Koordinaten\n"
+#~ "-----------商店列表-----------\n"
+#~ "   # 名字                           坐标\n"
 
 #, fuzzy
 #~ msgid ""
@@ -12338,7 +12313,7 @@ msgstr ""
 #~ "-------------------------------------------------\n"
 #~ "Walk speed: %s secs per block\n"
 #~ msgstr ""
-#~ "------------- Charakterliste -------------\n"
+#~ "------------- 人物列表 -------------\n"
 #~ "%s\n"
 #~ "------------------------------------------\n"
 
@@ -12347,8 +12322,8 @@ msgstr ""
 #~ "----------------Pet Status----------------\n"
 #~ "Name: %-23s Accessory: %s\n"
 #~ msgstr ""
-#~ "-----------Pet Status-----------\n"
-#~ "Name: %-23s Accessory: %s"
+#~ "-----------宠物状态-----------\n"
+#~ "名字: %-23s 装备: %s"
 
 #, fuzzy
 #~ msgid ""
@@ -12356,656 +12331,378 @@ msgstr ""
 #~ "#   Name                                               Distance    "
 #~ "Coordinates\n"
 #~ msgstr ""
-#~ "-----------Player List-----------\n"
-#~ "#    Name                                Sex   Lv  Job         Dist  "
-#~ "Koord\n"
+#~ "-----------玩家列表-----------\n"
+#~ "#    名字                                Sex   Lv  Job         Dist  坐"
+#~ "标\n"
 
 #~ msgid ""
 #~ "--------- Currently loaded plugins ---------\n"
 #~ "#   Name              Description\n"
 #~ msgstr ""
-#~ "--------- Plugins zurzeit in Benutzung ---------\n"
-#~ "#   Name              Beschreibung\n"
+#~ "--------- 现在使用的插件 ---------\n"
+#~ "#   名字              说明\n"
 
 #~ msgid "-----------PM List-----------\n"
-#~ msgstr "-----------PM Liste-----------\n"
+#~ msgstr "-----------PM 列表-----------\n"
 
 #~ msgid ""
 #~ "-----------Portal List-----------\n"
 #~ "#    Name                                Coordinates\n"
 #~ msgstr ""
-#~ "-----------Portal Liste-----------\n"
-#~ "#    Name                                Koordinaten\n"
+#~ "-----------入口列表-----------\n"
+#~ "#    名字                                坐标\n"
 
 #~ msgid ""
 #~ "------------- Sell list -------------\n"
 #~ "#   Item                           Amount\n"
 #~ msgstr ""
-#~ "------------- Verkaufsliste -------------\n"
-#~ "#   Item                           Anzahl\n"
+#~ "------------- 出售列表 -------------\n"
+#~ "#   道具                           数量\n"
 
+#, fuzzy
 #~ msgid ""
 #~ "----------Store List-----------\n"
 #~ "#  Name                    Type           Price\n"
 #~ msgstr ""
-#~ "----------Store List-----------\n"
-#~ "#  Name                    Typ           Preis\n"
+#~ "----------仓库列表-----------\n"
+#~ "#  名字                    类型           价格\n"
 
 #~ msgid ""
 #~ "----------Responses-----------\n"
 #~ "NPC: %s\n"
 #~ "#  Response\n"
 #~ msgstr ""
-#~ "----------Antworten-----------\n"
+#~ "----------回答-----------\n"
 #~ "NPC: %s\n"
-#~ "#  Antwort\n"
+#~ "#  回答\n"
 
 #~ msgid ""
 #~ "-----------Vender List-----------\n"
 #~ "#   Title                                Coords     Owner\n"
 #~ msgstr ""
-#~ "-----------Vender Liste-----------\n"
-#~ "#   Title                                Koords     Verkäufer\n"
+#~ "-----------商店目录-----------\n"
+#~ "#   标题                                坐标     开店者\n"
 
 #, fuzzy
 #~ msgid ""
 #~ "----------Skill List-----------\n"
 #~ "   # Skill Name                          Lv      SP\n"
 #~ msgstr ""
-#~ "----------Skill Liste-----------\n"
-#~ "   # Skill Name                     Lv      SP\n"
+#~ "----------技能列表-----------\n"
+#~ "   # 技能名                     Lv      SP\n"
 
 #~ msgid "Auto-storaging due to insufficient %s\n"
-#~ msgstr "Auto-Storage wegen zu wenig %s\n"
+#~ msgstr "自动存仓由于 %s 不足\n"
 
 #~ msgid "Teleporting to auto-storage\n"
-#~ msgstr "Teleport wegen Auto-Storage\n"
+#~ msgstr "瞬移.自动存仓\n"
 
 #~ msgid "Calculating auto-storage route to: %s(%s): %s, %s\n"
-#~ msgstr "Berechne Route wegen Auto-Storage nach: %s(%s): %s, %s\n"
+#~ msgstr "自动计算储存路径到: %s(%s): %s, %s\n"
 
 #~ msgid "Warning storageAuto has changed. Please read News.txt\n"
-#~ msgstr ""
-#~ "Warnung: storageAuto wurde verändert. Bitte besuch www.projekt-gkore.de\n"
+#~ msgstr "警告： storageAuto 已经改变. 请看 News.txt\n"
 
 #~ msgid "Using storage steps defined in config.\n"
-#~ msgstr "Benutze Storageabfolge, definiert in der Config.\n"
+#~ msgstr "储存步长定义在config.txt.\n"
 
 #~ msgid "Something is wrong with storageAuto_npc_type in your config.\n"
-#~ msgstr "Es liegt ein Fehler vor bei storageAuto_npc_type in der Config.\n"
+#~ msgstr "storageAuto_npc_type 设置错误.\n"
 
 #~ msgid "Disconnecting because storage is full!\n"
-#~ msgstr "Verbindung unterbrochen weil Storage voll ist!\n"
+#~ msgstr "仓库满了，断开连接!\n"
 
 #~ msgid "Attempt to get %s x %s from storage, retry: %s\n"
-#~ msgstr "Versuch %s x %s aus dem Storage zu nehmen, Versuch #: %s\n"
+#~ msgstr "在仓库中取出 %s x %s , 尝试: %s\n"
 
 #~ msgid "storage: %s out of stock\n"
-#~ msgstr "Storage: %s nicht mehr vorhanden\n"
+#~ msgstr "仓库: %s 数量不够\n"
 
 #~ msgid ""
 #~ "Kore tried to get an item from storage 3 times, but failed.\n"
 #~ "This problem could be caused by a server bug.\n"
 #~ "To work around this problem, set 'relogAfterStorage' to 1, and relogin.\n"
 #~ msgstr ""
-#~ "Kore hat 3 mal versucht ein Item aus dem Storage zu holen, der Versuch "
-#~ "ist jedoch immer fehlgeschlagen.\n"
-#~ "Dieses Problem könnte durch einen Serverbug hervorgerufen worden sein.\n"
-#~ "Um das Problem zu umgehen, setze 'relogAfterStorage' auf 1 und relog.\n"
+#~ "Kore 已经连续3次设法得到道具从仓库, 但未成功.\n"
+#~ "这个问题可能是服务器BUG.\n"
+#~ "请设置' relogAfterStorage ' 为1, 并且relogin .\n"
 
 #~ msgid "Character is still overweight after storageAuto (storage is full?)\n"
-#~ msgstr ""
-#~ "Charakter hat immer noch overweight, trotz storageAuto (Storage voll?)\n"
+#~ msgstr "人物超重 (仓库已经满了?)\n"
 
 #~ msgid "Disconnecting on storage full!\n"
-#~ msgstr "Verbindung unterbrochen weil Storage voll ist!\n"
+#~ msgstr "仓库满了，断开连接!\n"
 
 #~ msgid "Auto-sell sequence completed.\n"
-#~ msgstr "Auto-Sell abgeschlossen.\n"
+#~ msgstr "自动出售完成.\n"
 
 #~ msgid "Teleporting to auto-sell\n"
-#~ msgstr "Teleport wegen Auto-Sell\n"
+#~ msgstr "瞬移.自动出售物品\n"
 
 #~ msgid "Calculating auto-sell route to: %s(%s): %s, %s\n"
-#~ msgstr "Berechne Auto-Sell Route nach: %s(%s): %s, %s\n"
+#~ msgstr "计算自动出售路径: %s(%s): %s, %s\n"
 
+#, fuzzy
 #~ msgid "Teleporting to auto-buy\n"
-#~ msgstr "Teleport für Auto-Buy\n"
+#~ msgstr "瞬移.自动出售物品\n"
 
+#, fuzzy
 #~ msgid "Calculating auto-buy route to: %s (%s): %s, %s\n"
-#~ msgstr "Berechne Auto-Buy Route nach: %s (%s): %s, %s\n"
+#~ msgstr "计算自动出售路径: %s(%s): %s, %s\n"
 
+#, fuzzy
 #~ msgid "Invalid map specified for lockMap - map %s doesn't exist\n"
-#~ msgstr "Ungültige lockMap - Map %s existiert nicht\n"
+#~ msgstr "服务器指定错误或服务器不存在...\n"
 
+#, fuzzy
 #~ msgid ""
 #~ "Invalid coordinates specified for lockMap, coordinates are unwalkable\n"
-#~ msgstr ""
-#~ "Ungültige Koordinaten spezifiziert für lockMap, Koordinaten sind "
-#~ "unbegehbar\n"
+#~ msgstr "randomWalk 指定了错误的坐标 (无法走到); randomWalk 关闭\n"
 
+#, fuzzy
 #~ msgid "Calculating lockMap route to: %s(%s): %s, %s\n"
-#~ msgstr "Berechne Route zu lockMap: %s(%s): %s, %s\n"
+#~ msgstr "计算锁定地图路径: %s(%s): %s, %s\n"
 
+#, fuzzy
 #~ msgid "Calculating lockMap route to: %s(%s)\n"
-#~ msgstr "Berechne Route zu lockMap: %s(%s)\n"
+#~ msgstr "计算路径: %s(%s)\n"
 
+#, fuzzy
 #~ msgid "Auto-adding stat %s\n"
-#~ msgstr "Automatisches Hinzufügen von Stat %s\n"
+#~ msgstr "自动增加技能 %s\n"
 
 #~ msgid "Minimap indicator at location %d, %d with the color %s cleared\n"
-#~ msgstr "Punkt auf der Minimap %d, %d mit der Farbe %s wurde gelöscht\n"
+#~ msgstr "在 %d 的迷你地图上, %d 的颜色 %s 清除\n"
 
 #~ msgid "[GM] %s\n"
 #~ msgstr "[GM] %s\n"
 
 #, fuzzy
 #~ msgid "Quest: %s is now %s.\n"
-#~ msgstr "Monster %s (%d) hat nun den Status: %s\n"
-
-#~ msgid "%s became MVP!\n"
-#~ msgstr "%s wurde MVP!\n"
+#~ msgstr "怪物 %s (%d) 现在: %s\n"
 
 #~ msgid "Server %s selected\n"
-#~ msgstr "Server %s ausgewählt\n"
+#~ msgstr "服务器 %s 已经选择\n"
 
 #~ msgid "-------------------------------------------------------\n"
 #~ msgstr "-------------------------------------------------------\n"
 
 #~ msgid "Error: You cannot type anything except 'quit' right now.\n"
-#~ msgstr "Fehler: Du kannst jetzt nichts außer 'quit' eingeben.\n"
+#~ msgstr "错误: 你只能输入 'quit'.\n"
 
 #~ msgid "Unable to inject NetRedirect.dll"
-#~ msgstr "Fehler beim Injecten von NetRedirect.dll"
+#~ msgstr "无法注入 NetRedirect.dll"
 
 #~ msgid "Shop opened (%s) with %d selling items.\n"
-#~ msgstr "Shop geöffnet (%s) mit %d zu verkaufenden Items.\n"
+#~ msgstr "商店打开 (%s) 出售 %d 道具.\n"
 
 #~ msgid "-----------Storage-------------\n"
-#~ msgstr "-----------Storage-------------\n"
+#~ msgstr "-----------仓库-------------\n"
 
 #~ msgid ""
 #~ "Error in function 'im' (Use Item on Monster)\n"
 #~ "Inventory Item %s is not of type Usable.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'im' (Item auf Monster)\n"
-#~ "Item %s ist nicht benutzbar.\n"
+#~ "功能错误 'im' (对怪物使用道具)\n"
+#~ "道具 %s 不是可使用的类型.\n"
 
 #~ msgid ""
 #~ "Error in function 'ip' (Use Item on Player)\n"
 #~ "Inventory Item %s is not of type Usable.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'ip' (Item auf Spieler)\n"
-#~ "Item %s ist nicht benutzbar.\n"
+#~ "功能错误 'ip' (对玩家使用道具)\n"
+#~ "道具 %s 不是可以使用的类型.\n"
 
 #~ msgid ""
 #~ "Error in function 'is' (Use Item on Yourself)\n"
 #~ "Inventory Item %s is not of type Usable.\n"
 #~ msgstr ""
-#~ "Fehler bei Funktion 'is' (Item auf sich selbst)\n"
-#~ "Item %s ist nicht benutzbar.\n"
+#~ "功能错误 'is' (对自己使用道具)\n"
+#~ "道具 %s 不是可使用的类型.\n"
 
+#, fuzzy
 #~ msgid "%s\n"
-#~ msgstr "%s\n"
+#~ msgstr "%s%s\n"
 
 #, fuzzy
 #~ msgid "Teleporting due to dropping attack target\n"
-#~ msgstr "Teleport wegen Droppen des Ziels\n"
+#~ msgstr "由于放弃目标，随机移动\n"
 
 #, fuzzy
 #~ msgid "Base Exp gained: %d (%.2f%%)n"
-#~ msgstr "Exp erhalten: %d/%d (%.2f%%/%.2f%%)\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Job Exp gained: %d (%.2f%%)n"
-#~ msgstr "Exp erhalten: %d/%d (%.2f%%/%.2f%%)\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Unknown (type=%d) Exp gained: %dn"
-#~ msgstr "Unbekannt #%s (%d) ist wieder: %s\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Base Quest Exp gained: %d (%.2f%%)n"
-#~ msgstr "Exp erhalten: %d/%d (%.2f%%/%.2f%%)\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Job Quest Exp gained: %d (%.2f%%)n"
-#~ msgstr "Exp erhalten: %d/%d (%.2f%%/%.2f%%)\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Unknown (type=%d) Quest Exp gained: %dn"
-#~ msgstr "Unbekannt #%s (%d) ist wieder: %s\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Base Unknown (flag=%d) Exp gained: %d (%.2f%%)n"
-#~ msgstr "Exp erhalten: %d/%d (%.2f%%/%.2f%%)\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Job Unknown (flag=%d) Exp gained: %d (%.2f%%)n"
-#~ msgstr "Exp erhalten: %d/%d (%.2f%%/%.2f%%)\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Unknown (type=%d) Unknown (flag=%d) Exp gained: %dn"
-#~ msgstr "Unbekannt #%s (%d) ist wieder: %s\n"
+#~ msgstr "得到经验: %d/%d (%.2f%%/%.2f%%)\n"
 
 #, fuzzy
 #~ msgid "Slave is stuck at %s (%d,%d), while walking from (%d,%d) to (%d,%d)."
-#~ msgstr ""
-#~ "Homunculus steckt fest auf Position %s (%d,%d), während dem Laufen von "
-#~ "(%d,%d) zu (%d,%d)."
+#~ msgstr "生命体附着在 %s (%d,%d), 当步行的时候从 (%d,%d) 到 (%d,%d)."
 
 #, fuzzy
 #~ msgid "Unable to download the manual."
-#~ msgstr "Kann Datei %s. nicht laden"
+#~ msgstr "无法装载文件 %s."
 
 #, fuzzy
 #~ msgid "none"
-#~ msgstr "Keine"
-
-#~ msgid "Priority Attacking: %s\n"
-#~ msgstr "Angriffspriorität: %s\n"
-
-#~ msgid ""
-#~ "----------------- Homunculus Status --------------------\n"
-#~ "Name: @<<<<<<<<<<<<<<<<<<<<<<<<< HP: @>>>>>>>>>>>>>>>>>>\n"
-#~ "                                 SP: @>>>>>>>>>>>>>>>>>>\n"
-#~ "Level: @<<   @>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
-#~ "--------------------------------------------------------\n"
-#~ "Atk: @>>>    Matk:     @>>>    Hunger:    @>>>\n"
-#~ "Hit: @>>>    Critical: @>>>    Intimacy:  @>>>\n"
-#~ "Def: @>>>    Mdef:     @>>>    Accessory: @>>>\n"
-#~ "Flee:@>>>    Aspd:     @>>>\n"
-#~ "--------------------------------------------------------"
-#~ msgstr ""
-#~ "----------------- Homunculus Status --------------------\n"
-#~ "Name: @<<<<<<<<<<<<<<<<<<<<<<<<< HP: @>>>>>>>>>>>>>>>>>>\n"
-#~ "                                 SP: @>>>>>>>>>>>>>>>>>>\n"
-#~ "Level: @<<   @>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
-#~ "--------------------------------------------------------\n"
-#~ "Atk: @>>>    Matk:     @>>>    Hunger:    @>>>\n"
-#~ "Hit: @>>>    Critical: @>>>    Intimacy:  @>>>\n"
-#~ "Def: @>>>    Mdef:     @>>>    Accessory: @>>>\n"
-#~ "Flee:@>>>    Aspd:     @>>>\n"
-#~ "--------------------------------------------------------"
-
-#~ msgid "Homunculus AI sequences cleared\n"
-#~ msgstr "Homunculus AI Sequenz gelöscht\n"
-
-#~ msgid "------ Homunculus AI Sequence ----------\n"
-#~ msgstr "------ Homunculus AI Sequenz ----------\n"
-
-#~ msgid "Homunculus AI is already set to auto mode\n"
-#~ msgstr "Homunculus AI ist bereits auf automatisch\n"
-
-#~ msgid "Homunculus AI set to auto mode\n"
-#~ msgstr "Homunculus AI nun im Auto Mode\n"
-
-#~ msgid "Homunculus AI is already set to manual mode\n"
-#~ msgstr "Homunculus AI ist bereits im manuellen Modus\n"
-
-#~ msgid "Homunculus AI is already off\n"
-#~ msgstr "Homunculus AI ist ebreits aus\n"
-
-#~ msgid ""
-#~ "Syntax Error in function 'homun ai' (Homunculus AI Commands)\n"
-#~ "Usage: homun ai [ clear | print | auto | manual | off ]\n"
-#~ msgstr ""
-#~ "Syntaxfehler bei Funktion 'homun ai' (Homunculus AI Befehl)\n"
-#~ "Benutzung: homun ai [ clear | print | auto | manual | off]\n"
-
-#~ msgid ""
-#~ "-----Homunculus Skill List-----\n"
-#~ "   # Skill Name                     Lv      SP\n"
-#~ msgstr ""
-#~ "-----Homunculus Skill Liste-----\n"
-#~ "   # Skill Name                     Lv      SP\n"
-
-#~ msgid ""
-#~ "Error in function 'homun skills add' (Add Skill Point)\n"
-#~ "Skill %s does not exist.\n"
-#~ msgstr ""
-#~ "Fehler bei Funktion 'homun skills add' (Skillpoints hinzufügen)\n"
-#~ "Skill %s existiert nicht.\n"
-
-#~ msgid ""
-#~ "Error in function 'homun skills add' (Add Skill Point)\n"
-#~ "Not enough skill points to increase %s\n"
-#~ msgstr ""
-#~ "Fehler bei Funktion 'homun skills add' (Skillpoints hinzufügen)\n"
-#~ "Nicht genügend Skillpunkte vorhanden um %s zu erhöhen\n"
-
-#~ msgid ""
-#~ "Error in function 'homun skills desc' (Skill Description)\n"
-#~ "Skill %s does not exist.\n"
-#~ msgstr ""
-#~ "Fehler bei Funktion 'homun skills desc' (Skillbeschreibung)\n"
-#~ "Skill %s existiert nicht.\n"
-
-#~ msgid ""
-#~ "Syntax Error in function 'homun skills' (Homunculus Skills Functions)\n"
-#~ "Usage: homun skills [(<add | desc>) [<skill #>]]\n"
-#~ msgstr ""
-#~ "Syntaxfehler bei Funktion 'homun skills' (Homunculus Skills)\n"
-#~ "Benutzung: homun skills [(<add | desc>) [<Skill #>]]\n"
-
-#~ msgid ""
-#~ "Syntax Error in function 'g' (Guild Chat)\n"
-#~ "Usage: g <message>\n"
-#~ msgstr ""
-#~ "Syntaxfehler bei Funktion 'g' (Guildchat)\n"
-#~ "Benutzung: g < Nachricht> \n"
-
-#~ msgid "------------ Help for '%s' ------------\n"
-#~ msgstr "------------ Hilfe für '%s' ------------\n"
-
-#~ msgid ""
-#~ "Syntax Error in function 'p' (Party Chat)\n"
-#~ "Usage: p <message>\n"
-#~ msgstr ""
-#~ "Syntaxfehler bei Funktion 'p' (Party Chat)\n"
-#~ "Benutzung: p <Nachricht>\n"
-
-#~ msgid ""
-#~ "-----------Pet List-----------\n"
-#~ "#    Type                     Name\n"
-#~ msgstr ""
-#~ "-----------Pet Liste-----------\n"
-#~ "#    Type                     Name\n"
-
-#~ msgid "You must specify an item to unequip.\n"
-#~ msgstr "Du musst zuerst ein Item festlegen um es abzulegen.\n"
-
-#~ msgid ""
-#~ "Error in function 'unequip' (Unequip Inventory Item)\n"
-#~ "Inventory Item %s is not equipped.\n"
-#~ msgstr ""
-#~ "Fehler bei Funktion 'unequip' (Item ablegen)\n"
-#~ "Item %s ist nicht ausgerüstet.\n"
-
-#~ msgid ""
-#~ "Error in function 'sl' (Use Skill on Location)\n"
-#~ "You are not logged into the game.\n"
-#~ msgstr ""
-#~ "Fehler bei Funktion 'sl' (Skill auf Feld)\n"
-#~ "Du bist nicht eingeloggt.\n"
-
-#~ msgid ""
-#~ "Error in function 'ss' (Use Skill on Self)\n"
-#~ "You are not logged into the game.\n"
-#~ msgstr ""
-#~ "Fehler bei Funktion 'ss' (Skill auf sich selbst)\n"
-#~ "Du bist nicht eingeloggt.\n"
-
-#~ msgid ""
-#~ "Error in function 'sp' (Use Skill on Player)\n"
-#~ "You are not logged into the game.\n"
-#~ msgstr ""
-#~ "Fehler bei Funktion 'sp' (Skill auf Spieler)\n"
-#~ "Du bist nicht eingeloggt.\n"
-
-#~ msgid ""
-#~ "Error in function 'sm' (Use Skill on Monster)\n"
-#~ "You are not logged into the game.\n"
-#~ msgstr ""
-#~ "Fehler bei Funktion 'sm' (Skill auf Monster)\n"
-#~ "Du bist nicht eingeloggt.\n"
-
-#~ msgid "Next %d dmg could kill you. Teleporting...\n"
-#~ msgstr "Die nächsten %d dmg könnten dich töten. Teleport...\n"
-
-#~ msgid "Homunculus teleporting due to attack from %s\n"
-#~ msgstr "Homunculus wurde von %s attackiert. Teleport!\n"
-
-#~ msgid "Next %d dmg could kill your homunculus. Teleporting...\n"
-#~ msgstr "Die nächsten %d Dmg könnten dein Homunculus töten. Teleport...\n"
-
-#~ msgid "%s hit your homunculus for more than %d dmg. Teleporting...\n"
-#~ msgstr "%s hat dein Homunculus mit mehr als %d Dmg getroffen. Teleport...\n"
-
-#~ msgid ""
-#~ "%s hit your homunculus for more than %d dmg in lockMap. Teleporting...\n"
-#~ msgstr ""
-#~ "%s hat dein Homunculus mit mehr als %d Dmg auf der lockMap getroffen. "
-#~ "Teleport...\n"
-
-#~ msgid ""
-#~ "%s hit your homunculus for a total of more than %d dmg. Teleporting...\n"
-#~ msgstr "%s hat dein Homunculus mit mehr als %d Dmg getroffen. Teleport...\n"
-
-#~ msgid ""
-#~ "%s hit your homunculus for a total of more than %d dmg in lockMap. "
-#~ "Teleporting...\n"
-#~ msgstr ""
-#~ "%s hat dein Homunculus mit mehr als %d Dmg auf der lockMap getroffen. "
-#~ "Teleport...\n"
-
-#~ msgid ""
-#~ "%s hit your homunculus when your homunculus' HP is too low. "
-#~ "Teleporting...\n"
-#~ msgstr ""
-#~ "%s hat dein Homunculus getroffen, als seine HP zu low war. Teleport...\n"
-
-#~ msgid "Homunculus change target to aggressive : %s (%s)\n"
-#~ msgstr "Homunculus attackiert nun: %s (%s)\n"
-
-#~ msgid "You are casting %s on location (%d, %d) - (time %sms)\n"
-#~ msgstr "Du castest %s auf (%d, %d) - (Zeit %sms)\n"
-
-#~ msgid "Player %s (%d) is casting %s on location (%d, %d) - (time %sms)\n"
-#~ msgstr "Spieler %s (%d) castet %s auf das Feld (%d, %d) - (Zeit %sms)\n"
-
-#~ msgid "Monster %s (%d) is casting %s on location (%d, %d) - (time %sms)\n"
-#~ msgstr "Monster %s (%d) castet %s auf das Feld (%d, %d) - (Zeit %sms)\n"
-
-#~ msgid "Unknown #%s (%d) is casting %s on location (%d, %d) - (time %sms)\n"
-#~ msgstr "Unbekannt #%s (%d) castet %s auf das Feld (%d, %d) - (Zeit %sms)\n"
-
-#~ msgid "You are casting %s on yourself (time %sms)\n"
-#~ msgstr "Du castest %s auf dich selbst (Zeit %sms)\n"
-
-#~ msgid "You are casting %s on player %s (%d) (time %sms)\n"
-#~ msgstr "Du castest %s auf Spieler %s (%d) (Zeit %sms)\n"
-
-#~ msgid "You are casting %s on monster %s (%d) (time %sms)\n"
-#~ msgstr "Du castest %s auf Monster %s (%d) (Zeit %sms)\n"
-
-#~ msgid "You are casting %s on Unknown #%s (%d) (time %sms)\n"
-#~ msgstr "Du castest %s auf Unbekannt #%s (%d) (Zeit %sms)\n"
-
-#~ msgid "Player %s (%d) is casting %s on you (time %sms)\n"
-#~ msgstr "Spieler %s (%d) castet %s auf dich (Zeit %sms)\n"
-
-#~ msgid "Player %s (%d) is casting %s on player %s (%d) (time %sms)\n"
-#~ msgstr "Spieler %s (%d) castet %s auf Spieler %s (%d) (Zeit %sms)\n"
-
-#~ msgid "Player %s (%d) is casting %s on himself (time %sms)\n"
-#~ msgstr "Spieler %s (%d) castet %s auf sich selbst (Zeit %sms)\n"
-
-#~ msgid "Player %s (%d) is casting %s on herself (time %sms)\n"
-#~ msgstr "Spieler %s (%d) castet %s auf sich selbst (Zeit %sms)\n"
-
-#~ msgid "Player %s (%d) is casting %s on monster %s (%d) (time %sms)\n"
-#~ msgstr "Spieler %s (%d) castet %s auf Monster %s (%d) (Zeit %sms)\n"
-
-#~ msgid "Player %s (%d) is casting %s on Unknown #%s (%d) (time %sms)\n"
-#~ msgstr "Spieler %s (%d) castet %s auf Unbekannt #%s (%d) (Zeit %sms)\n"
-
-#~ msgid "Monster %s (%d) is casting %s on you (time %sms)\n"
-#~ msgstr "Monster %s (%d) castet %s auf dich (Zeit %sms)\n"
-
-#~ msgid "Monster %s (%d) is casting %s on player %s (%d) (time %sms)\n"
-#~ msgstr "Monster %s (%d) castet %s auf Spieler %s (%d) (Zeit %sms)\n"
-
-#~ msgid "Monster %s (%d) is casting %s on monster %s (%d) (time %sms)\n"
-#~ msgstr "Monster %s (%d) castet %s auf Monster %s (%d) (Zeit %sms)\n"
-
-#~ msgid "Monster %s (%d) is casting %s on itself (time %sms)\n"
-#~ msgstr "Monster %s (%d) castet %s auf sich selbst (Zeit %sms)\n"
-
-#~ msgid "Monster %s (%d) is casting %s on Unknown #%s (%d) (time %sms)\n"
-#~ msgstr "Monster %s (%d) castet %s auf Unbekannt #%s (%d) (Zeit %sms)\n"
-
-#~ msgid "Unknown #%s (%d) is casting %s on you (time %sms)\n"
-#~ msgstr "Unbekannt #%s (%d) castet %s auf dich (Zeit %sms)\n"
-
-#~ msgid "Unknown #%s (%d) is casting %s on player %s (%d) (time %sms)\n"
-#~ msgstr "Unbekannt #%s (%d) castet %s auf Spieler %s (%d) (Zeit %sms)\n"
-
-#~ msgid "Unknown #%s (%d) is casting %s on monster %s (%d) (time %sms)\n"
-#~ msgstr "Unbekannt #%s (%d) castet %s auf Monster %s (%d) Zeit %sms)\n"
-
-#~ msgid "Unknown #%s (%d) is casting %s on Unknown #%s (%d) (time %sms)\n"
-#~ msgstr "Unbekannt #%s (%d) castet %s auf Unbekannt #%s (%d) Zeit %sms)\n"
-
-#~ msgid "Unknown #%s (%d) is casting %s on himself (time %sms)\n"
-#~ msgstr "Unbekannt #%s (%d) castet %s auf sich selbst (Zeit %sms)\n"
-
-#~ msgid "%s (lvl %s)"
-#~ msgstr "%s (lvl %s)"
-
-#~ msgid "You use %s on yourself %s(delay %s)\n"
-#~ msgstr "Du benutzts %s an dir selbst %s(Delay %s)\n"
-
-#~ msgid "You use %s on player %s (%d) %s(delay %s)\n"
-#~ msgstr "Du benutzts %s an Spieler %s (%d) %s(Delay %s)\n"
-
-#~ msgid "You use %s on monster %s (%d) %s(delay %s)\n"
-#~ msgstr "Du benutzts %s an Monster %s (%d) %s(Delay %s)\n"
-
-#~ msgid "You use %s on Unknown #%s (%d) %s(delay %s)\n"
-#~ msgstr "Du benutzts %s an Unbekannt #%s (%d) %s(Delay %s)\n"
-
-#~ msgid "Player %s (%d) uses %s on you %s(delay %s)\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an dir %s(Delay %s)\n"
-
-#~ msgid "Player %s (%d) uses %s on player %s (%d) %s(delay %s)\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an Spieler %s (%d) %s(Delay %s)\n"
-
-#~ msgid "Player %s (%d) uses %s on himself %s(delay %s)\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an sich selbst %s(Delay %s)\n"
-
-#~ msgid "Player %s (%d) uses %s on herself %s(delay %s)\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an sich selbst %s(Delay %s)\n"
-
-#~ msgid "Player %s (%d) uses %s on monster %s (%d) %s(delay %s)\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an Monster %s (%d) %s(Delay %s)\n"
-
-#~ msgid "Player %s (%d) uses %s on Unknown #%s (%d) %s(delay %s)\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an Unbekannt #%s (%d) %s(Delay %s)\n"
-
-#~ msgid "Monster %s (%d) uses %s on you %s(delay %s)\n"
-#~ msgstr "Monster %s (%d) benutzt %s an dir %s(Delay %s)\n"
-
-#~ msgid "Monster %s (%d) uses %s on player %s (%d) %s(delay %s)\n"
-#~ msgstr "Monster %s (%d) benutzt %s an Spieler %s (%d) %s(Delay %s)\n"
-
-#~ msgid "Monster %s (%d) uses %s on monster %s (%d) %s(delay %s)\n"
-#~ msgstr "Monster %s (%d) benutzt %s an Monster %s (%d) %s(Delay %s)\n"
-
-#~ msgid "Monster %s (%d) uses %s on itself %s(delay %s)\n"
-#~ msgstr "Monster %s (%d) benutzt %s an sich selbst %s(Delay %s)\n"
-
-#~ msgid "Monster %s (%d) uses %s on Unknown #%s (%d) %s(delay %s)\n"
-#~ msgstr "Monster %s (%d) benutzt %s an Unbekannt #%s (%d) %s(Delay %s)\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on player %s (%d) %s(delay %s)\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an Spieler %s (%d) %s(Delay %s)\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on monster %s (%d) %s(delay %s)\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an Monster %s (%d) %s(Delay %s)\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on Unknown #%s (%d) %s(delay %s)\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an Unbekannt #%s (%d) %s(Delay %s)\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on himself %s(delay %s)\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an sich selbst %s(delay %s)\n"
-
-#~ msgid "Player %s uses %s on you %s\n"
-#~ msgstr "Spieler %s benutzt %s an dir %s\n"
-
-#~ msgid "Player %s (%d) uses %s on player %s (%d) %s\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an Spieler %s (%d) %s\n"
-
-#~ msgid "Player %s (%d) uses %s on himself %s\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an sich selbst %s\n"
-
-#~ msgid "Player %s (%d) uses %s on herself %s\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an sich selbst %s\n"
-
-#~ msgid "Player %s (%d) uses %s on monster %s (%d) %s\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an Monster %s (%d) %s\n"
-
-#~ msgid "Player %s (%d) uses %s on Unknown #%s (%d) %s\n"
-#~ msgstr "Spieler %s (%d) benutzt %s an Unbekannt #%s (%d) %s\n"
-
-#~ msgid "Monster %s (%d) uses %s on you %s\n"
-#~ msgstr "Monster %s (%d) benutzt %s an dir %s\n"
-
-#~ msgid "Monster %s (%d) uses %s on player %s (%d) %s\n"
-#~ msgstr "Monster %s (%d) benutzt %s an Spieler #%s (%d) %s\n"
-
-#~ msgid "Monster %s (%d) uses %s on monster %s (%d) %s\n"
-#~ msgstr "Monster %s (%d) benutzt %s an Monster #%s (%d) %s\n"
-
-#~ msgid "Monster %s (%d) uses %s on itself %s\n"
-#~ msgstr "Monster %s (%d) benutzt %s an sich selbst %s\n"
-
-#~ msgid "Monster %s (%d) uses %s on Unknown #%s (%d) %s\n"
-#~ msgstr "Monster %s (%d) benutzt %s an Unbekannt #%s (%d) %s\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on you %s\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an dir %s\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on player %s (%d) %s\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an Spieler %s (%d) %s\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on monster %s (%d) %s\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an Monster %s (%d) %s\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on Unknown #%s (%d) %s\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an Unbekannt #%s (%d) %s\n"
-
-#~ msgid "Unknown #%s (%d) uses %s on himself %s\n"
-#~ msgstr "Unbekannt #%s (%d) benutzt %s an sich selbst %s\n"
-
-#~ msgid "Player %s (%d) is now: %s\n"
-#~ msgstr "Spieler #%s (%d) ist jetzt: %s\n"
-
-#~ msgid "Unknown #%s (%d) is now: %s\n"
-#~ msgstr "Unbekannt #%s (%d) ist jetzt: %s\n"
-
-#~ msgid "Player %s (%d) is again: %s\n"
-#~ msgstr "Spieler #%s (%d) ist wieder: %s\n"
-
-#~ msgid "Monster %s (%d) is again: %s\n"
-#~ msgstr "Monster #%s (%d) ist wieder: %s\n"
-
-#~ msgid "Player %s (%d) is no longer: %s\n"
-#~ msgstr "Spieler #%s (%d) ist nicht leanger: %s\n"
-
-#~ msgid "Monster %s (%d) is no longer: %s\n"
-#~ msgstr "Monster #%s (%d) ist nicht leanger: %s\n"
-
-#~ msgid "Unknown #%s (%d) is no longer: %s\n"
-#~ msgstr "Unbekannt #%s (%d) ist nicht leanger: %s\n"
-
-#~ msgid "Incomplete NPC info found in npcs.txt\n"
-#~ msgstr "Fehlerhafte NPC Info gefunden in npcs.txt\n"
-
-#~ msgid " (SVN version)"
-#~ msgstr " (SVN version)"
-
-#~ msgid "[dist=%s] Monster %s (%d): %s\n"
-#~ msgstr "[dist=%s] Monster %s (%d): %s\n"
-
-#~ msgid "TaeKwon Mission : "
-#~ msgstr "TaeKwon Mission : "
+#~ msgstr "无"
+
+#, fuzzy
+#~ msgid "%s failed to leave party (%d)\n"
+#~ msgstr "%s 错误的手推车编号 %s\n"
 
 #~ msgid "PvP Display Mode\n"
-#~ msgstr "PvP Anzeige  Modus\n"
+#~ msgstr "PVP显示模式\n"
 
 #~ msgid "GvG Display Mode\n"
-#~ msgstr "GvG Anzeige Modus\n"
+#~ msgstr "GVG显示模式\n"
+
+#, fuzzy
+#~ msgid "Battleground Display Mode\n"
+#~ msgstr "PVP显示模式\n"
+
+#, fuzzy
+#~ msgid "%s (%s)"
+#~ msgstr "%s%s\n"
+
+#, fuzzy
+#~ msgid "%s %s out of %s state.\n"
+#~ msgstr "仓库: %s 数量不够\n"
+
+#, fuzzy
+#~ msgid "%s have ailment: %s.\n"
+#~ msgstr "%s 错误的手推车编号 %s\n"
+
+#, fuzzy
+#~ msgid "%s have look: %s.\n"
+#~ msgstr "(到 %s) : %s\n"
+
+#, fuzzy
+#~ msgid "%s are out of look: %s.\n"
+#~ msgstr "仓库: %s 数量不够\n"
+
+#, fuzzy
+#~ msgid "%s is out of look: %s.\n"
+#~ msgstr "仓库: %s 数量不够\n"
+
+#, fuzzy
+#~ msgid "Found your Slave!\n"
+#~ msgstr "发现主人！\n"
+
+#~ msgid "You lost your Homunculus!\n"
+#~ msgstr "你失去了你的生命体!\n"
+
+#, fuzzy
+#~ msgid "Slave can't reach or damage target, dropping target\n"
+#~ msgstr "无法到达或伤害目标, 放弃目标\n"
+
+#, fuzzy
+#~ msgid "Teleport due to dropping slave attack target\n"
+#~ msgstr "由于放弃目标，随机移动\n"
+
+#, fuzzy
+#~ msgid "Slave target lost\n"
+#~ msgstr "目标消失\n"
+
+#, fuzzy
+#~ msgid "%s; no acceptable place for slave to stand\n"
+#~ msgstr "%s; 没有生命体的位置\n"
+
+#, fuzzy
+#~ msgid "Unable to calculate a route to slave target, dropping target\n"
+#~ msgstr "不能计算到目标的路径, 放弃目标\n"
+
+#, fuzzy
+#~ msgid "Slave destination reached.\n"
+#~ msgstr "目的地到达.\n"
+
+#~ msgid "Attacking: %s\n"
+#~ msgstr "攻击: %s\n"
+
+#~ msgid "------------ Help for '%s' ------------\n"
+#~ msgstr "------------ 帮助 '%s' ------------\n"
+
+#, fuzzy
+#~ msgid "%s are in %s state.\n"
+#~ msgstr "%s 已经坐下.\n"
+
+#, fuzzy
+#~ msgid "%s are out of %s state.\n"
+#~ msgstr "仓库: %s 数量不够\n"
+
+#~ msgid "Teleporting due to attack from %s\n"
+#~ msgstr "好像 %s 打你了，闪\n"
+
+#~ msgid "Next %d dmg could kill you. Teleporting...\n"
+#~ msgstr "下个伤害 %d 可能会杀了你. 闪先...\n"
+
+#, fuzzy
+#~ msgid "Slave teleporting due to attack from %s\n"
+#~ msgstr "好像 %s 打你了，闪\n"
+
+#, fuzzy
+#~ msgid "Next %d dmg could kill your slave. Teleporting...\n"
+#~ msgstr "下个伤害 %d 可能会杀了你. 闪先...\n"
+
+#, fuzzy
+#~ msgid "%s hit your slave for more than %d dmg. Teleporting...\n"
+#~ msgstr "%s 打击你的伤害超过 %d .飞...\n"
+
+#, fuzzy
+#~ msgid "%s hit your slave for more than %d dmg in lockMap. Teleporting...\n"
+#~ msgstr "%s 攻击你超过 %d 伤害在 lockMap. 飞g...\n"
+
+#, fuzzy
+#~ msgid "%s hit your slave for a total of more than %d dmg. Teleporting...\n"
+#~ msgstr "%s 攻击你的伤害总数超过 %d . 飞...\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "%s hit your slave for a total of more than %d dmg in lockMap. "
+#~ "Teleporting...\n"
+#~ msgstr "%s 攻击你的伤害总数超过 %d 在 lockMap.飞...\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "%s hit your slave when your homunculus' HP is too low. Teleporting...\n"
+#~ msgstr "%s 生命体的 HP 太低了. 飞...\n"
+
+#, fuzzy
+#~ msgid "Slave change target to aggressive : %s (%s)\n"
+#~ msgstr "改变目标为 : %s (%s)\n"
+
+#, fuzzy
+#~ msgid "%s are casting %s on %s (Delay: %sms)\n"
+#~ msgstr "%s %s %s - 伤害: %s (delay %s)\n"
 
 #~ msgid ""
 #~ "\n"
@@ -13013,55 +12710,39 @@ msgstr ""
 #~ "\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Verbindung unterbrochen wegen 'Break time': %s to %s\n"
+#~ "断开连接: %s 到 %s\n"
 #~ "\n"
 
 #~ msgid "*** Disconnected due to Break Time: %s to %s ***\n"
-#~ msgstr "*** Disconnect wegen autoBreakTime: %s to %s ***\n"
+#~ msgstr "*** 断开连接时间: %s 到 %s ***\n"
 
-#~ msgid "Player detected, disconnecting!\n"
-#~ msgstr "Player gesichtet, Verbindung unterbrochen!\n"
+#, fuzzy
+#~ msgid "You can't logout, retry in 10 sec.\n"
+#~ msgstr "您无法交易 (失败代码 %s)\n"
 
-#~ msgid "Auto-feeding your Homunculus ("
-#~ msgstr "Auto-feeding Homunculus ("
+#, fuzzy
+#~ msgid " (SVN Version) "
+#~ msgstr " (SVN 版本)"
 
-#~ msgid "Found your Homunculus!\n"
-#~ msgstr "Homunculus gefunden!\n"
-
-#~ msgid "You lost your Homunculus!\n"
-#~ msgstr "Du hast dein Homunculus verloren!\n"
-
-#~ msgid "Homunculus attacking: %s\n"
-#~ msgstr "Homunculus attackiert: %s\n"
-
-#~ msgid "Homunculus can't reach or damage target, dropping target\n"
-#~ msgstr "Homunculus kann das Ziel nicht erreichen, verwerfe Ziel\n"
-
-#~ msgid "Teleport due to dropping homunculus attack target\n"
-#~ msgstr "Teleport, weil Homunculus Ziel verworfen hat\n"
-
-#~ msgid "Homunculus target died\n"
-#~ msgstr "Homunculus-Ziel gestorben\n"
-
-#~ msgid "Homunculus target lost\n"
-#~ msgstr "Homunculus hat das Ziel verloren\n"
-
-#~ msgid "Dropping target - homunculus will not kill steal others\n"
-#~ msgstr "Verwerfe Ziel - Der Homunculus wird nicht Killstealen\n"
-
-#~ msgid "Unable to calculate a route to homunculus target, dropping target\n"
-#~ msgstr "Unmöglich Route zum Homunculus-Ziel zu berechnen, verwerfe Ziel\n"
-
-#~ msgid "Homunculus destination reached.\n"
-#~ msgstr "Homunculus hat das Ziel erreicht.\n"
+#, fuzzy
+#~ msgid "Teleporting due to dropping slave attack target\n"
+#~ msgstr "由于放弃目标，随机移动\n"
 
 #~ msgid ""
-#~ "Your version of the XSTools library is too old.\n"
-#~ "Please read %s"
+#~ "Syntax Error in function 'g' (Guild Chat)\n"
+#~ "Usage: g <message>\n"
 #~ msgstr ""
-#~ "Deine Version der XSTools ist zu alt.\n"
-#~ "Bitte upgraden %s"
+#~ "语法错误 'g' (公会聊天)\n"
+#~ "用法: g <message>\n"
 
-#~ msgid "Unknown packet - %s\n"
-#~ msgstr "Unbekanntes Paket - %s\n"
+#~ msgid ""
+#~ "Syntax Error in function 'p' (Party Chat)\n"
+#~ "Usage: p <message>\n"
+#~ msgstr ""
+#~ "语法错误 'p' (组队对话)\n"
+#~ "用法: p <message>\n"
+
+#, fuzzy
+#~ msgid "Summary: %s\n"
+#~ msgstr "[组队] %s\n"
 
