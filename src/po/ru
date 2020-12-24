@@ -1,7 +1,6 @@
 #########################################################################
-#  OpenKore - Inventory list
-#
-#  Copyright (c) 2007 OpenKore Development Team
+#  OpenKore - Base class for all actor objects
+#  Copyright (c) 2005 OpenKore Team
 #
 #  This software is open source, licensed under the GNU General Public
 #  License, version 2.
@@ -9,410 +8,874 @@
 #  this software. However, if you distribute modified versions, you MUST
 #  also distribute the source code.
 #  See http://www.gnu.org/licenses/gpl.html for the full license.
+#
+#  $Revision$
+#  $Id$
+#
 #########################################################################
 ##
-# MODULE DESCRIPTION: Inventory model
+# MODULE DESCRIPTION: Base class for all actor objects
 #
-# <b>Derived from: @CLASS(ActorList)</b>
+# The Actor class is a base class for all actor objects.
+# An actor object is a monster or player (all members of %monsters and
+# %players). Do not create an object of this class; use one of the
+# subclasses instead.
 #
-# The InventoryList class models a character's inventory, Kapra storage or cart's inventory.
+# An actor object is also a hash.
 #
-# <h3>Differences compared to ActorList</h3>
-# All items are @CLASS(Actor::Item).
-package InventoryList;
+# Child classes: @MODULE(Actor::Monster), @MODULE(Actor::Player), @MODULE(Actor::You),
+# @MODULE(Actor::Item), @MODULE(Actor::Pet), @MODULE(Actor::Party), @MODULE(Actor::NPC),
+# @MODULE(Actor::Portal)
+
+package Actor;
 
 use strict;
 use Carp::Assert;
+use Scalar::Util;
+use List::MoreUtils;
+use Data::Dumper;
+use Storable;
+use Globals;
+use Utils;
+use Utils::CallbackList;
+use Log qw(message error debug);
+use Misc;
+use Task;
+use Translation qw(T TF);
+use Actor::Unknown;
+use Task::Timeout;
 use Utils::Assert;
-use Utils::ObjectList;
-use ActorList;
-use base qw(ActorList);
 
-### CATEGORY: Class InventoryList
+# Make it so that
+#     print $actor;
+# acts the same as
+#     print $actor->nameString;
+use overload '""' => \&_nameString;
+# The eq operator checks whether two variables refer to compatible objects.
+use overload 'eq' => \&_eq;
+use overload 'ne' => \&_ne;
+# The == operator is to check whether two variables refer to the
+# exact same object.
+use overload '==' => \&_isis;
+use overload '!=' => \&_not_is;
 
-##
-# InventoryList InventoryList->new()
-# Ensures:  $self->size() == 0
+sub _eq {
+	return UNIVERSAL::isa($_[0], "Actor")
+		&& UNIVERSAL::isa($_[1], "Actor")
+		&& $_[0]->{ID} eq $_[1]->{ID};
+}
+
+sub _ne {
+	return !&_eq;
+}
+
+# This function is needed to make the operator overload respect inheritance.
+sub _nameString {
+	my $self = shift;
+	return $self->nameString(@_);
+}
+
+sub _isis {
+	return Scalar::Util::refaddr($_[0]) == Scalar::Util::refaddr($_[1]);
+}
+
+sub _not_is {
+	return !&_isis;
+}
+
+### CATEGORY: Class methods
+
+# protected Actor->new(String actorType)
+# actorType: A type name for this actor, like 'Player', 'Monster', etc.
+# Requires: defined($actorType)
 #
-# Creates a new InventoryList object.
+# A default abstract constructor that subclasses should call. Must not
+# be directly used.
 sub new {
-	my ($class, %args) = @_;
-	my $self = $class->SUPER::new('Actor::Item');
-
-	# Hash<String, Array<int>> nameIndex
-	# Maps an item name to a list of item indices. Used for fast
-	# case-insensitive lookups of items based on names. Note that
-	# the key is always in lowercase.
-	#
-	# Invariant:
-	#     defined(nameIndex)
-	#     scalar(keys nameIndex) <= size()
-	#     The sum of sizes of all values in nameIndex == size()
-	#     for all keys $k in nameIndex:
-	#         lc(getByName($k)->{name}) eq $k
-	#         lc($k) eq $k
-	#     for all values $v in nameIndex:
-	#         defined($v)
-	#         scalar(@{$v}) > 0
-	#         for all $i in the array $v:
-	#             defined($i)
-	#             defined(get($i))
-	#             get($i)->{binID} == $i
-	#             $i is unique in the entire nameIndex.
-	$self->{nameIndex} = {};
-
-	# Hash<int, Scalar> nameChangeEvents
-	# InventoryList watches for name change events in all of its
-	# items. This variable maps an item index in this list to the
-	# registered event ID, so that the event watcher can be removed
-	# later.
-	#
-	# Invariant:
-	#     defined(nameChangeEvents)
-	#     scalar(keys nameChangeEvents) == size()
-	$self->{nameChangeEvents} = {};
-
-	if ( $args{items} ) {
-		$self->add( $_ ) foreach @{ $args{items} };
-	}
-
-	return $self;
-}
-
-sub DESTROY {
-	my ($self) = @_;
-	Plugins::delHook($self->{hooks}) if $self->{hooks};
-	$self->clear();
-	$self->SUPER::DESTROY();
+	my ($class, $actorType) = @_;
+	my %self = (
+		actorType => $actorType,
+		onNameChange => new CallbackList('onNameChange'),
+		onUpdate => new CallbackList('onUpdate'),
+		
+		# define it so deltaHp check may work immediately
+		# TODO: set it only for actors with actual hp (players, monsters)?
+		deltaHp => 0,
+	);
+	return bless \%self, $class;
 }
 
 ##
-# int $InventoryList->add(Actor::Item item)
-# Requires:
-#     defined($item)
-#     defined($item->{name})
-#     $self->find($item) == -1
-# Ensures: $item->{binID} == result
+# Actor Actor::get(Bytes ID)
+# ID: an actor ID, in binary format.
+# Returns: the associated Actor object, or a new Actor::Unknown object if not found.
+# Requires: defined($ID)
+# Ensures:  defined(result)
 #
-# Adds an item to this InventoryList. $item->{binID} will automatically be set
-# index in which that item is stored in this list.
-#
-# This method overloads $ObjectList->add(), and has a stronger precondition.
-# See the documentation for that method for more information about this
-# method.
-sub add {
-	my ($self, $item) = @_;
-	assert(defined $item, "Item must be defined when adding to InventoryList") if DEBUG;
-	assert($item->isa('Actor::Item'), "Item must be of Actor::Item class") if DEBUG;
-	assert(defined $item->{name}, "Item must have a name when adding to InventoryList") if DEBUG;
-	assert($self->find($item) == -1, "Item must be unique in InvetoryList") if DEBUG;
+# Returns the Actor object for $ID. This function will look at the various
+# actor lists. If $ID is not in any of the actor lists, it will return
+# a new Actor::Unknown object.
+sub get {
+	my ($ID) = @_;
+	assert(defined $ID, "ID must be provided to retrieve and Actor class") if DEBUG;
 
-	my $binID = $self->SUPER::add($item);
-	$item->{binID} = $binID;
-
-	my $indexSlot = $self->getNameIndexSlot($item->{name});
-	push @{$indexSlot}, $binID;
-
-	my $eventID = $item->onNameChange->add($self, \&onNameChange);
-	$self->{nameChangeEvents}{$binID} = $eventID;
-	return $binID;
-}
-
-if (DEBUG) {
-	eval q{
-		# Override get() to do more error checking.
-		sub get {
-			my ($self, $index) = @_;
-			my $item = $self->SUPER::get($index);
-			if ($item) {
-				assert(defined $item->{binID}, "binID must be defined");
-			}
-			return $item;
-		}
-	};
-}
-
-##
-# Actor::Item $InventoryList->getByName(String name)
-# Returns: An Actor::Item, or undef if there is no item with that name in this list.
-# Requires: defined($name)
-# Ensures: if defined(result): result->{ID} eq $ID
-#
-# Looks up an Actor::Item object based on the item name. The name lookup is
-# case-insensitive. If there is more than one item with this name, then it
-# is unspecified which exact item will be returned.
-#
-# See also: $Actor->{ID}
-sub getByName {
-	my ($self, $name) = @_;
-	assert(defined $name, "This method requires a defined item name") if DEBUG;
-	my $indexSlot = $self->{nameIndex}{lc($name)};
-	if ($indexSlot) {
-		return $self->get($indexSlot->[0]);
+	if ($ID eq $accountID) {
+		# I put assertions here because $char seems to be unblessed sometimes.
+		assert(defined $char, '$char must be defined') if DEBUG;
+		assertClass($char, 'Actor::You') if DEBUG;
+		return $char;
+	} elsif ($items{$ID}) {
+		return $items{$ID};
 	} else {
-		return undef;
+		foreach my $list ($playersList, $monstersList, $npcsList, $petsList, $portalsList, $slavesList, $elementalsList) {
+			my $actor = $list->getByID($ID);
+			if ($actor) {
+				return $actor;
+			}
+		}
+		return new Actor::Unknown($ID);
+	}
+}
+
+### CATEGORY: Hash members
+
+##
+# int $Actor->{binID}
+# Invariant: value >= 0
+#
+# The index of this actor inside its associated actor list.
+
+##
+# Bytes $Actor->{ID}
+# Invariant: length(value) == 4
+#
+# The server's internal unique ID for this actor (the actor's account ID).
+
+##
+# int $Actor->{nameID}
+# Invariant: value >= 0
+#
+# $Actor->{ID} decoded into an 32-bit little endian integer.
+
+##
+# int $Actor->{appear_time}
+# Invariant: value >= 0
+#
+# The time when this actor first appeared on screen.
+
+##
+# String $Actor->{actorType}
+# Invariant: defined(value)
+#
+# A human-friendly name which describes this actor type.
+# For instance, "Player", "Monster", "NPC", "You", etc.
+# Do not confuse this with $Actor->{type}
+
+##
+# String $Actor->{name}
+#
+# The name of the actor, e.g. "Joe", "Jane", "Poring", etc.
+# This field is undefined if the name for this actor isn't known yet,
+# so generally you use use $Actor->name() instead, which automatically
+# takes care of actor objects that don't have a name yet.
+
+##
+# Hash* $Actor->{pos}
+#
+# The position where this actor was, before its last movement.
+# This is a reference to a hash, containing the items 'x' and 'y'.
+
+##
+# Hash* $Actor->{pos_to}
+#
+# The position where this actor is moving to, or (if the actor has finished moving),
+# where it currently is. This is a reference to a hash, containing the items 'x' and 'y'.
+
+##
+# float $Actor->{walk_speed}
+#
+# The actor's walking speed, in blocks per second.
+
+##
+# float $Actor->{time_move}
+#
+# The time (as timestamp) at which the actor last moved.
+
+##
+# float $Actor->{time_move_calc}
+#
+# The time (in seconds) that the actor needs to move from $Actor->{pos} to $Actor->{pos_to}.
+
+##
+# Bytes $Actor->{lastAttackFrom}
+#
+# The ID of the actor who had done the last attack to this actor, including misses.
+
+##
+# int $Actor->{deltaHp}
+# Invariant: deltaHp <= 0
+#
+# Total amount of healed HP, minus total amount of damage done to this actor.
+#
+# deltaHp initially starts at 0.
+# When actor takes damage, the damage is subtracted from his deltaHp.
+# When actor is healed, the healed amount is added to the deltaHp.
+# If the deltaHp becomes positive, it is reset to 0.
+#
+# Someone with a lot of negative deltaHp is probably in need of healing.
+# This allows to intelligently heal non-party members.
+
+##
+# int $Actor->{dmgTo}
+#
+# Total damage done to this actor.
+
+##
+# int $Actor->{dmgFrom}
+#
+# Total damage done by this actor.
+
+##
+# int $Actor->{attackedYou}
+#
+# Number of attacks done by this actor to $char, including misses.
+
+##
+# int $Actor->{dmgToYou}
+#
+# Total damage done by this actor to $char.
+
+##
+# int $Actor->{missedYou}
+#
+# Number of misses done by this actor to $char.
+
+##
+# int $Actor->{castOnToYou}
+
+##
+# int $Actor->{numAtkFromYou}
+#
+# Number of attacks done by $char to this actor, including misses.
+
+##
+# int $Actor->{dmgFromYou}
+#
+# Total damage done by $char to this actor. 
+
+##
+# int $Actor->{missedFromYou}
+#
+# Number of misses done by $char to this actor.
+
+##
+# int $Actor->{castOnByYou}
+
+##
+# int $Actor->{dmgToParty}
+#
+# Total damage done by this actor to the party.
+
+##
+# int $Actor->{missedToParty}
+#
+# Number of misses done by this actor to the party.
+
+##
+# int $Actor->{dmgFromParty}
+#
+# Total damage done by the party to this actor.
+
+##
+# int $Actor->{missedFromParty}
+#
+# Number of misses done by the party to this actor.
+
+##
+# Hash $Actor->{dmgToPlayer}
+#
+# Total damage done by this actor to the actor whose ID is used as a hash key.
+
+##
+# Hash $Actor->{missedToPlayer}
+#
+# Number of misses done by this actor to the actor whose ID is used as a hash key.
+
+##
+# Hash $Actor->{castOnToPlayer}
+
+##
+# Hash $Actor->{dmgFromPlayer}
+#
+# Total damage done by the actor whose ID is used as a hash key to this actor.
+
+##
+# Hash $Actor->{missedFromPlayer}
+#
+# Number of misses done by the actor whose ID is used as a hash key to this actor.
+
+##
+# Hash $Actor->{castOnByPlayer}
+
+##
+# Hash $Actor->{dmgToMonster}
+#
+# Total damage done by this actor to the actor whose ID is used as a hash key.
+
+##
+# Hash $Actor->{missedToMonster}
+#
+# Number of misses done by this actor to the actor whose ID is used as a hash key.
+
+##
+# Hash $Actor->{castOnToMonster}
+
+##
+# Hash $Actor->{dmgFromMonster}
+#
+# Total damage done by the actor whose ID is used as a hash key to this actor.
+
+##
+# Hash $Actor->{missedFromMonster}
+#
+# Number of misses done by the actor whose ID is used as a hash key to this actor.
+
+##
+# Hash $Actor->{castOnByMonster}
+
+
+### CATEGORY: Methods
+
+##
+# String $Actor->nameString([Actor otherActor])
+#
+# Returns the name string of an actor, e.g. "Player pmak (3)",
+# "Monster Poring (0)" or "You".
+#
+# If $otherActor is specified and is equal to $actor, then it will
+# return 'self' or 'yourself' instead.
+sub nameString {
+	my ($self, $otherActor) = @_;
+
+	return $self->selfString if $self->{ID} eq $otherActor->{ID};
+
+	my $nameString = "";
+	$nameString .= T('Your ') if $char && exists $char->{slaves}{$self->{ID}};
+	$nameString .= "$self->{actorType} " . $self->name;
+	$nameString .= " ($self->{binID})" if defined $self->{binID};
+	return $nameString;
+}
+
+##
+# String $Actor->selfString()
+#
+# Returns 'itself' for monsters, or 'himself/herself' for players.
+# ('yourself' is handled by Actor::You.nameString.)
+sub selfString {
+	return T('itself');
+}
+
+##
+# String $Actor->name()
+#
+# Returns the name of an actor, e.g. "pmak" or "Unknown #300001".
+sub name {
+	my ($self) = @_;
+
+	return $self->{name} || T("Unknown #").unpack("V1", $self->{ID});
+}
+
+##
+# void $Actor->setName(String name)
+# name: A few name for this actor. Can be undef to indicate that this actor has lost its previous name.
+#
+# Assign a name to this actor. An 'onNameChange' and 'onUpdate' event will
+# be triggered after the name is set.
+sub setName {
+	my ($self, $name) = @_;
+
+	my $oldName = $self->{name};
+	$self->{name} = $name;
+	$self->{onNameChange}->call($self, { oldName => $oldName });
+	$self->{onUpdate}->call($self);
+}
+
+##
+# String $Actor->nameIdx()
+#
+# Returns the name and index of an actor, e.g. "pmak (0)" or "Unknown #300001 (1)".
+sub nameIdx {
+	my ($self) = @_;
+
+	my $nameIdx = $self->name;
+	$nameIdx .= " ($self->{binID})" if defined $self->{binID};
+	return $nameIdx;
+
+#	return $self->{name} || "Unknown #".unpack("V1", $self->{ID});
+}
+
+##
+# String $Actor->verb(String you, String other)
+#
+# Returns $you if $actor is you; $other otherwise.
+sub verb {
+	my ($self, $you, $other) = @_;
+
+	return $you if $self->isa('Actor::You');
+	return $other;
+}
+
+##
+# Hash $Actor->position()
+#
+# Returns the position of the actor.
+sub position {
+	my ($self) = @_;
+
+	return calcPosition($self);
+}
+
+##
+# float $Actor->distance([Actor otherActor])
+#
+# Returns the distance to another actor (defaults to yourself).
+sub distance {
+	my ($self, $otherActor) = @_;
+
+	$otherActor ||= $char;
+	return Utils::distance($self->position, $otherActor->position);
+}
+
+##
+# float $Actor->blockDistance([Actor otherActor])
+#
+# Returns the block distance to another actor (defaults to yourself).
+sub blockDistance {
+	my ($self, $otherActor) = @_;
+
+	$otherActor ||= $char;
+	return Utils::blockDistance($self->position, $otherActor->position);
+}
+
+##
+# boolean $Actor->snipable()
+#
+# Returns whether or not you have snipable LOS to the actor.
+sub snipable {
+	my ($self) = @_;
+
+	return checkLineSnipable($char->position, $self->position);
+}
+
+##
+# Actor $Actor->deepCopy()
+# Ensures: defined(result)
+#
+# Create a deep copy of this actor object.
+sub deepCopy {
+	my ($self) = @_;
+
+	# Some fields cannot be deep copied by dclone() because they contain
+	# function references, so we'll do that manually.
+
+	# Delete fields that cannot be copied by dclone() and store
+	# them in a temporary place.
+	my %deepCopyFields;
+	my %hashCopies;
+	foreach my $param ('onNameChange', 'onUpdate') {
+		$deepCopyFields{$param} = $self->{$param};
+		delete $self->{$param};
+	}
+	# $actor->{casting} may be a hash which contains a reference to another
+	# Actor object.
+	foreach my $param ('casting') {
+		if ($self->{$param}) {
+			$hashCopies{$param} = $self->{$param};
+			delete $self->{$param};
+		}
+	}
+
+	my $copy;
+	eval {
+		$copy = Storable::dclone($_[0]);
+	};
+	if ($@ =~ /Can't store CODE items/) {
+		die "Actor hash $self contains CODE items:\n" .
+			Dumper($self);
+	} elsif ($@) {
+		die $@;
+	}
+
+	# Restore the deleted fields in the original object,
+	# and assign manually-created deep copies to the clone.
+	foreach my $param (keys %deepCopyFields) {
+		$self->{$param} = $deepCopyFields{$param};
+		$copy->{$param} = $deepCopyFields{$param}->deepCopy;
+	}
+	foreach my $param (keys %hashCopies) {
+		$self->{$param} = $hashCopies{$param};
+		$copy->{$param} = {%{$hashCopies{$param}}};
+	}
+
+	return $copy;
+}
+
+##
+# CallbackList $Actor->onNameChange()
+# Ensures: defined(result)
+#
+# Returns the onNameChange event callback list.
+# This event is triggered when the name of this actor has changed.
+sub onNameChange {
+	return $_[0]->{onNameChange};
+}
+
+##
+# CallbackList $Actor->onUpdate()
+# Ensures: defined(result)
+#
+# Returns the onUpdate event callback list.
+sub onUpdate {
+	return $_[0]->{onUpdate};
+}
+
+##
+# void $Actor->setStatus(String status_handle, boolean state, [float duration])
+# status_handle: handle of the status
+# state: whether to set (true) or unset (false) that status
+# duration: delay before automatically unsetting that status
+#
+# Set or unset specified status. Display the corresponding message.
+sub setStatus {
+	my ($self, $handle, $flag, $tick) = @_;
+
+	my $again;
+	if ($flag) {
+		# Skill activated
+		$again = $self->{statuses}{$handle} ? 'again' : 'now';
+		# All these hacks are for task to get lost when re-gaining a status,
+		# so it won't expire from an old task
+		$self->{statuses}{$handle} = bless {}, 'OpenkoreFixup::EmptyObject';
+		
+		if ($tick) {
+			Scalar::Util::weaken($self->{statuses}{$handle}{_actor} = $self);
+			
+			$taskManager->add(Task::Timeout->new(
+				object => $self->{statuses}{$handle},
+				weak => 1,
+				function => sub {
+					$_[0]->{_actor}->setStatus($handle, 0);
+					error "BUG: setStatus($handle, 0) failed?\n" if defined $_[0];
+				},#now
+				seconds => $tick / 1000,
+			));
+		}
+		
+		if ($char->{party}{joined} && $char->{party}{users} && $char->{party}{users}{$self->{ID}} && $char->{party}{users}{$self->{ID}}{name}) {
+			$again = 'again' if $char->{party}{users}{$self->{ID}}{statuses}{$handle};
+			$char->{party}{users}{$self->{ID}}{statuses}{$handle} = {};
+		}
+	} else {
+		# Skill de-activated (expired)
+		return unless ($self->{statuses} && $self->{statuses}{$handle}); # silent when "again no status"
+		$again = 'no longer';
+		delete $self->{statuses}{$handle};
+		delete $char->{party}{users}{$self->{ID}}{statuses}{$handle} if ($char->{party}{joined} && $char->{party}{users} && $char->{party}{users}{$self->{ID}} && $char->{party}{users}{$self->{ID}}{name});
+	}
+	message
+		Misc::status_string($self, defined $statusName{$handle} ? $statusName{$handle} : $handle, $again, $flag ? $tick/1000 : 0),
+		"parseMsg_statuslook", ($self->{ID} eq $accountID or $char->{slaves} && $char->{slaves}{$self->{ID}}) ? 1 : 2;
+		
+	Plugins::callHook('Actor::setStatus::change', {
+		handle => $handle,
+		flag => $flag,
+		tick => $tick,
+		actor_type => ref($self)
+	});
+}
+
+##
+# boolean $Actor->statusActive(String statuses)
+# statuses: comma-separated list of status handles and/or names
+#
+# Returns false if all statuses from the list are inactive, true otherwise.
+sub statusActive {
+	my ($self, $commaSeparatedStatuses) = @_;
+	
+	# Incase this method was called with empty values, send TRUE back... since the user doesnt have any statusses they want to check
+	return 1 unless $commaSeparatedStatuses;
+	
+	return unless $self->{statuses};
+	
+	for my $status (split /\s*,\s*/, $commaSeparatedStatuses) {
+		return 1 if exists $self->{statuses}{$status} || List::MoreUtils::any { $statusName{$_} eq $status } keys %{$self->{statuses}};
+	}
+	
+	return;
+}
+
+##
+# boolean $Actor->cartActive()
+#
+# Returns whether the cart is present.
+sub cartActive {
+	my ($self) = @_;
+	
+	if ($self->cart->isReady ||
+		$self->statusActive('EFFECTSTATE_PUSHCART, EFFECTSTATE_PUSHCART2, EFFECTSTATE_PUSHCART3, EFFECTSTATE_PUSHCART4, EFFECTSTATE_PUSHCART5')) {
+		return 1;
 	}
 }
 
 ##
-# Actor::Item $InventoryList->getByNameID(Bytes nameID)
+# String $Actor->statusesString()
 #
-# Return the first Actor::Item object, whose 'nameID' field is equal to $nameID.
-# If nothing is found, undef is returned.
-sub getByNameID {
-	my ($self, $nameID) = @_;
-	for my $item (@$self) {
-		if ($item->{nameID} eq $nameID) {
-			return $item;
-		}
-	}
-	return undef;
+# Returns human-readable list of currently active statuses.
+sub statusesString {
+	my ($self) = @_;
+	
+	$self->{statuses} && %{$self->{statuses}}
+	? join ', ', map { $statusName{$_} || $_ } keys %{$self->{statuses}}
+	# Translation Comment: No status effect on actor
+	: '';
 }
 
 ##
-# Actor::Item $InventoryList->sumByNameID(nameID)
+# String $Actor->action([int index])
 #
-# Returns the amount of items with a given nameID.
-# If nothing is found, 0 is returned.
-sub sumByNameID {
-	my ($self, $id) = @_;
-	my $sum = 0;
-	for my $item (@$self) {
-		if ($item->{nameID} == $id) {
-			$sum = $sum + $item->{amount};
-		}
-	}
+# Returns the name of the specified action from AI sequence.
+# With no index specified, returns the name of the current action.
 
-	return $sum;
+##
+# Hash* $Actor->args([int index])
+#
+# Returns arguments of the specified action from AI sequence.
+# With no index specified, returns arguments of the current action.
+
+##
+# void $Actor->queue(String name, [Hash* args])
+#
+# Adds action with specified name and arguments to AI sequence.
+# New action would become the current.
+
+##
+# void $Actor->dequeue()
+#
+# Removes the current action from AI sequence.
+
+##
+# void ai_clientSuspend(packet_switch, duration, args...)
+# initTimeout: a number of seconds.
+#
+# Freeze the AI for $duration seconds. $packet_switch and @args are only
+# used internally and are ignored unless XKore mode is turned on.
+sub clientSuspend {
+	my ($self, $type, $duration, @args) = @_;
+	
+	my %args = (
+		type => $type,
+		time => time,
+		timeout => $duration,
+		args => [@args],
+	);
+	
+	debug "$self AI suspended by clientSuspend for $args{timeout} seconds\n";
+	$self->queue("clientSuspend", \%args);
+}
+
+sub setSuspend {
+	my ($self, $index) = @_;
+	$index = 0 if $index eq '';
+	if ($index < $self->isa('Actor::You') ? @AI::ai_seq_args : @{$self->{slave_ai_seq_args}}) {
+		(
+			$self->isa('Actor::You') ? $AI::ai_seq_args[$index] : $self->{slave_ai_seq_args}->[$index]
+		)->{suspended} = time;
+	}
 }
 
 ##
-# Actor::Item $InventoryList->getByCondition(Function condition)
+# boolean $Actor->attack(Bytes target_ID)
 #
-# Return the first Actor::Item object for which the function $condition returns true.
-# If nothing is found, undef is returned.
+# Instruct AI to attack the specified enemy.
 #
-# $condition is called with exactly one parameter, namely the item that is currently
-# being checked.
-sub getByCondition {
-	my ($self, $condition) = @_;
-	for my $item (@$self) {
-		if ($condition->($item)) {
-			return $item;
-		}
-	}
-	return undef;
+# TODO: replace "Bytes target_ID" with "Actor otherActor".
+sub attack {
+	my ($self, $targetID) = @_;
+	
+	my $target = Actor::get($targetID);
+	return unless $target->{pos} && $target->{pos_to};
+	
+	my %args = (
+		ai_attack_giveup => { time => time, timeout => $timeout{ai_attack_giveup}{timeout} },
+		ID => $targetID,
+		unstuck => { timeout => $timeout{ai_attack_unstuck}{timeout} || 1.5 },
+		pos => { %{$target->{pos}} },
+		pos_to => { %{$target->{pos_to}} },
+	);
+	
+	$self->queue('attack', \%args);
+	
+	message sprintf($self->verb(T("%s are now attacking %s\n"), T("%s is now attacking %s\n")), $self, $target);
+	1;
 }
 
 ##
-# Actor::Item $InventoryList->getByNameList(String nameList)
-# nameList: a string containing a comma-separated list of item names.
-# Requires: defined($nameList)
-# Returns: The found item, or undef if not found.
+# void $Actor->move(int x, int y)
 #
-# Lookup an item by using the specified name list. For example, if $nameList
-# is "Red Potion,White Potion,Jellopy", then this method will look up
-# either Red Potion, White Potion or Jellopy, whichever is found
-# first.
-sub getByNameList {
-	my ($self, $lists) = @_;
-	assert(defined $lists, "This method requires a defined list of item name") if DEBUG;
-	my @items = split / *, */, lc($lists);
-	foreach my $name (@items) {
-		next if (!$name);
-		my $indexSlot = $self->{nameIndex}{$name};
-		if ($indexSlot) {
-			return $self->get($indexSlot->[0]);
-		}
-		$indexSlot = $self->getByNameID($name);
-		if ($indexSlot) {
-			return $indexSlot;
-		}
+# Instruct AI to move to the specified point using a single motion.
+# That point should be in LOS and be relatively nearby.
+#
+# See also: $Actor->route()
+sub move {
+	my ($self, $x, $y, $attackID) = @_;
+	
+	unless ($x and $y) {
+		# that happens when called from AI::CoreLogic::processFollow
+		error "BUG: Actor::move(undef, undef) called!\n";
+		return;
 	}
-	return undef;
+	
+	require Task::Move;
+	
+	$self->queue('move', my $task = new Task::Move(
+		actor => $self,
+		x => $x,
+		y => $y,
+	));
+	$task->{attackID} = $attackID;
 }
 
 ##
-# Actor::Item $InventoryList->getMultiple(String searchPattern)
-# searchPattern: a search pattern.
-# Returns: an array of Actor::Item objects.
+# void $Actor->route(String map, int x, int y)
 #
-# Select one or more items by name and/or index.
-# $searchPattern has the following syntax:
-# <pre>index1,index2,...,indexN,name1,name2,...nameN</pre>
-# You can also use '-' to indicate a range (only for indexes), like:
-# <pre>1-5,7,9</pre>
-sub getMultiple {
-	my ( $self, $lists ) = @_;
-	assert(defined $lists, "This method requires a defined search pattern") if DEBUG;
-	my @indexes = split / *,+ */, lc( $lists );
-	my @items;
-	foreach my $index ( @indexes ) {
-		if ( $index =~ /^(\d+)-(\d+)$/o ) {
-			push @items, $self->get( $_ ) foreach $1 .. $2;
-		} elsif ( $index =~ /^(\d+)$/o ) {
-			push @items, $self->get( $index );
-		} else {
-			push @items, $self->getByName( $index );
-		}
+# Instruct AI to move to the specified point using pathfinding.
+#
+# TODO: wouldn't it be better to place map in the end of arguments and make it optional?
+sub route {
+	my ($self, $map, $x, $y, %args) = @_;
+	debug "$self on route to: $maps_lut{$map.'.rsw'}($map): $x, $y\n", "route";
+	
+	# I can't use 'use' because of circular dependencies.
+	require Task::Route;
+	require Task::MapRoute;
+	
+	# from Homunculus AI
+	($x, $y) = map { $_ ne '' ? int $_ : $_ } ($x, $y);
+	
+	my $task;
+	my @params = (
+		actor => $self,
+		x => $x,
+		y => $y,
+		maxDistance => $args{maxRouteDistance},
+		maxTime => $args{maxRouteTime},
+		avoidWalls => !$args{noAvoidWalls},
+		map { $_ => $args{$_} } qw(distFromGoal pyDistFromGoal notifyUponArrival)
+	);
+	
+	if ($map && !$args{noMapRoute}) {
+		$task = new Task::MapRoute(map => $map, @params);
+	} else {
+		$task = new Task::Route(@params);
 	}
-	grep {$_} @items;
+	$task->{$_} = $args{$_} for qw(attackID attackOnRoute noSitAuto LOSSubRoute isRandomWalk);
+	
+	$self->queue('route', $task);
 }
 
-##
-# boolean $InventoryList->remove(Actor::Item item)
-# Requires: defined($item) && defined($item->{name})
-#
-# Removes an item from this InventoryList.
-#
-# This method overloads $ObjectList->remove(), and has a stronger precondition.
-# See the documentation for that method for more information about this
-# method.
-sub remove {
-	my ($self, $item) = @_;
-	assert(defined $item, "This method requires a defined item as argument") if DEBUG;
-	assertClass($item, 'Actor::Item') if DEBUG;
-	assert(defined $item->{name}, "Item must have a defined name") if DEBUG;
-
-	my $result = $self->SUPER::remove($item);
-	if ($result) {
-		my $indexSlot = $self->getNameIndexSlot($item->{name});
-
-		if (@{$indexSlot} == 1) {
-			delete $self->{nameIndex}{lc($item->{name})};
-		} else {
-			for (my $i = 0; $i < @{$indexSlot}; $i++) {
-				if ($indexSlot->[$i] == $item->{binID}) {
-					splice(@{$indexSlot}, $i, 1);
+sub processTask {
+	my $self = shift;
+	my $ai_name = shift;
+	if ($self->action eq $ai_name) {
+		my $task = $self->args;
+		if ($task->getStatus() == Task::INACTIVE) {
+			$task->activate();
+			should($task->getStatus(), Task::RUNNING) if DEBUG;
+		}
+		if (DEBUG && $task->getStatus() != Task::RUNNING) {
+			require Scalar::Util;
+			require Data::Dumper;
+			# Make sure redundant information is not included in the error report.
+			if ($task->isa('Task::MapRoute')) {
+				delete $task->{ST_subtask}{solution};
+			} elsif ($task->isa('Task::Route') && $task->{ST_subtask}) {
+				delete $task->{solution};
+			}
+			die "Task '" . $task->getName() . "' (class " . Scalar::Util::blessed($task) . ") has status " .
+				Task::_getStatusName($task->getStatus()) .
+				", but should be RUNNING. Object details:\n" .
+				Data::Dumper::Dumper($task);
+		}
+		$task->iterate();
+		if ($task->getStatus() == Task::DONE) {
+			# We can't just dequeue the last AI sequence. Perhaps the task
+			# pushed a new AI sequence on the AI stack just before finishing.
+			# For example, the Route task does that when it's stuck.
+			# So, we must dequeue the correct sequence without affecting the
+			# others.
+			my ($ai_seq, $ai_seq_args) = $self->isa('Actor::You') ? (\@AI::ai_seq, \@AI::ai_seq_args) : (@{$self}{qw(slave_ai_seq slave_ai_seq_args)});
+			for (my $i = 0; $i < @$ai_seq; $i++) {
+				if ($ai_seq->[$i] eq $ai_name) {
+					splice(@$ai_seq, $i, 1);
+					splice(@$ai_seq_args, $i, 1);
 					last;
 				}
 			}
+			my %args = @_;
+			my $error = $task->getError();
+			if ($error) {
+				if ($args{onError}) {
+					$args{onError}->($task, $error);
+				} else {
+					error("$error->{message}\n");
+				}
+			} elsif ($args{onSuccess}) {
+				$args{onSuccess}->($task);
+			}
 		}
-
-		my $eventID = $self->{nameChangeEvents}{$item->{binID}};
-		delete $self->{nameChangeEvents}{$item->{binID}};
-		$item->onNameChange->remove($eventID);
 	}
-	return $result;
 }
 
 ##
-# boolean $InventoryList->removeByName(String name)
-# name: The name of the item to remove.
-# Returns: Whether the item with the specified name was in the list.
-# Requires: defined($name)
+# void $Actor->sendAttackStop()
 #
-# Removes an item based on the item name. The name lookup is case-insensitive.
-# If there is more than one item with this name, then it is unspecified which
-# exact item (with that name) is removed.
+# Send "stop attacking" to the server.
+sub sendAttackStop {
+	my ($self) = @_;
+	
+	$self->sendMove(@{calcPosition($self)}{qw(x y)});
+}
+
+##
+# void $Actor->sendMove(int x, int y)
 #
-# This will trigger an onRemove event before the item is removed.
-sub removeByName {
-	my ($self, $name) = @_;
-	my $item = $self->getByName($name);
-	if (defined $item) {
-		return $self->remove($item);
-	} else {
-		return 0;
-	}
-}
+# Send "move to the specified point" to the server.
 
-# overloaded
-sub doClear {
+##
+# void $Actor->sendSit()
+#
+# Send "sit" to the server.
+
+##
+# void $Actor->sendStand()
+#
+# Send "stand" to the server.
+
+##
+# void $Actor->sendStandBy()
+#
+# Send "standby" to the server.
+
+##
+# void $Actor->hairColor()
+#
+# Returns proper hair color
+sub hairColor {
 	my ($self) = @_;
-	for my $item (@$self) {
-		assert(defined $item->{binID}, "binID must be defined") if DEBUG;
-		my $eventID = $self->{nameChangeEvents}{$item->{binID}};
-		delete $self->{nameChangeEvents}{$item->{binID}};
-		$item->onNameChange->remove($eventID);
-	}
-	$self->SUPER::doClear();
-	$self->{nameIndex} = {};
-	$self->{nameChangeEvents} = {};
-}
-
-# overloaded
-sub checkValidity {
-	my ($self) = @_;
-	$self->SUPER::checkValidity();
-
-	assert(defined $self->{nameIndex}, "Name-Index hash is undefined");
-	assert(scalar(keys %{$self->{nameIndex}}) <= $self->size(), "InventoryList has invalid size");
-	foreach my $k (keys %{$self->{nameIndex}}) {
-		should(lc($self->getByName($k)->{name}), $k);
-		should(lc $k, $k);
-	}
 	
-	my $sum = 0;
-	my %binIDCount;
-	foreach my $v (values %{$self->{nameIndex}}) {
-		assert(defined $v, "Name-Index hash has undefined ID list");
-		assert(@{$v} > 0, "Name-Index hash has empty ID list");
-		foreach my $i (@{$v}) {
-			assert(defined $i, "ID list in Name-Index hash has undefined ID as element");
-			assert(defined $self->get($i), "Failed to find an ID that is in this InventoryList");
-			assert($self->get($i)->{binID} == $i, "InventoryList has invalid binID in one of its elements");
-			$binIDCount{$i}++;
-			should($binIDCount{$i}, 1);
-		}
-		$sum += @{$v};
-	}
-	should($sum, $self->size());
-
-	assert(defined $self->{nameChangeEvents}, "Name-change event hash is undefined");
-	should(scalar(keys %{$self->{nameChangeEvents}}), $self->size());
-}
-
-sub getNameIndexSlot {
-	my ($self, $name) = @_;
-	return $self->{nameIndex}{lc($name)} ||= [];
-}
-
-sub onNameChange {
-	my ($self, $item, $args) = @_;
-	assert(defined($item->{name}), 'An item must have a name.');
-
-	my $indexSlot = $self->getNameIndexSlot($args->{oldName});
-	for (my $i = 0; $i < @{$indexSlot}; $i++) {
-		if ($indexSlot->[$i] == $item->{binID}) {
-			# Delete from old index slot.
-			splice(@{$indexSlot}, $i, 1);
-			if (@{$indexSlot} == 0) {
-				delete $self->{nameIndex}{lc($args->{oldName})};
-			}
-
-			# Add to new index slot.
-			$indexSlot = $self->getNameIndexSlot($item->{name});
-			push @{$indexSlot}, $item->{binID};
-			return;
-		}
-	}
-	assert(0, 'This should never be reached.') if DEBUG;
-}
-
-# total amount of the same name items
-sub sumByName {
-	my ($self, $name) = @_;
-	assert(defined $name, "This method requires a defined item name") if DEBUG;
-	my $sum = 0;
-	for my $item (@$self) {
-		if (lc($item->{name}) eq lc($name)) {
-			$sum = $sum + $item->{amount};
-		}
-	}
-
-	return $sum;
-}
-
-# isReady is true if this InventoryList has actionable data. Eg, storage is open, or we have a cart, etc.
-sub isReady {
-    1;
-}
-
-sub item_max_stack {
-	my ($self, $nameID) = @_;
-	
-	return 30000;
+	return $self->{hair_pallete} if exists $self->{hair_pallete} && $self->{hair_pallete};
+	return $self->{hair_color} if exists $self->{hair_color};
+	return undef;
 }
 
 1;
