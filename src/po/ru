@@ -1,5 +1,5 @@
 #########################################################################
-#  OpenKore - Config File Parsers
+#  OpenKore - Field model
 #
 #  This software is open source, licensed under the GNU General Public
 #  License, version 2.
@@ -8,1390 +8,508 @@
 #  also distribute the source code.
 #  See http://www.gnu.org/licenses/gpl.html for the full license.
 #
-#  $Revision$
-#  $Id$
+#  $Revision: 5276 $
+#  $Id: Misc.pm 5276 2006-12-28 21:24:00Z vcl_kore $
 #
 #########################################################################
 ##
-# MODULE DESCRIPTION: Configuration file parsers
+# MODULE DESCRIPTION: Field model.
 #
-# This module contains functions for parsing an writing config/* and
-# tables/* files.
-
-package FileParsers;
+# The Field class represents a field in the game. A field is a set of blocks.
+# each block has a specific type, like 'walkable', 'not walkable', 'water',
+# 'cliff', etc.
+#
+# This class is closely related to the .fld file, as used by OpenKore.
+# See http://wiki.openkore.com/index.php/Field_file_format
+# for more information.
+#
+# This class is a hash and has the following hash items:
+# `l
+# - <tt>name</tt> - The name of the field, like 'prontera' and '0021@cata'. This is not always the same as baseName.
+#                   You should not access this item directly; use the $Field->name() method instead.
+# - <tt>baseName</tt> - The name of the field, which is the base name of the field without the extension.
+#             This is not always the same as name: for example,
+#             descName: Training Ground, name: 'new_1-2', field file: 'new_zone01.fld', baseName: 'new_1-2'
+#             descName: Catacombs, name: '0021@cata', field file: '1@cata.fld', baseName: '1@cata'
+# - <tt>width</tt> - The field's width. You should not access this item directly; use $Field->width() instead.
+# - <tt>height</tt> - The field's height. You should not access this item directly; use $Field->width() instead.
+# - <tt>rawMap</tt> - The raw map data. Contains information about which blocks you can walk on (byte 0),
+#                     and which not (byte 1).
+# - <tt>dstMap</tt> - The distance map data. Used by pathfinding.
+# `l`
+package Field;
 
 use strict;
+use warnings;
+no warnings 'redefine';
+use Compress::Zlib;
 use File::Spec;
-use Exporter;
-use base qw(Exporter);
-#use utf8;
-use Carp;
-use Text::Balanced qw(extract_delimited);
 
-use Utils;
-use Utils::TextReader;
-use Plugins;
+use Globals qw($masterServer %mapAlias_lut %maps_lut %cities_lut);
+use Modules 'register';
 use Settings;
-use Log qw(warning error debug);
-use Translation qw/T TF/;
+use FastUtils;
+use Utils::Exceptions;
+use Translation qw(T TF);
 
-our @EXPORT = qw(
-	parseArrayFile
-	parseAvoidControl
-	parseChatResp
-	parseConfigFile
-	parseDataFile
-	parseDataFile_lc
-	parseDataFile2
-	parseEmotionsFile
-	parseItemsControl
-	parseList
-	parseNPCs
-	parseMonControl
-	parsePortals
-	parsePortalsLOS
-	parsePriority
-	parseResponses
-	parseRecvpackets
-	parseROLUT
-	parseRODescLUT
-	parseROSlotsLUT
-	parseROQuestsLUT
-	parseSectionedFile
-	parseShopControl
-	parseSkillsSPLUT
-	parseTimeouts
-	parseWaypoint
-	parseItemStackLimit
-	processUltimate
-	writeDataFile
-	writeDataFileIntact
-	writeDataFileIntact2
-	writePortalsLOS
-	writeSectionedFileIntact
-	updateMonsterLUT
-	updatePortalLUT
-	updatePortalLUT2
-	updateNPCLUT
-);
+# Block types.
+use constant {
+	WALKABLE                        => 0,
+	NON_WALKABLE                    => 1,
+	NON_WALKABLE_NON_SNIPABLE_WATER => 2,
+	WALKABLE_WATER                  => 3,
+	NON_WALKABLE_SNIPABLE_WATER     => 4,
+	SNIPABLE_CLIFF                  => 5,
+	NON_SNIPABLE_CLIFF              => 6,
+	UNKNOWN                         => 7
+};
 
 
-sub parseArrayFile {
-	my $file = shift;
-	my $r_array = shift;
-	my $options = shift;
-	undef @{$r_array};
+##
+# Field->new(options...)
+#
+# Create a new Load a field (.fld) file. This function also loads an associated .dist file
+# (the distance map file), which is used by pathfinding (for wall avoidance support).
+# If the associated .dist file does not exist, it will be created.
+#
+# This function also supports gzip-compressed field files (.fld.gz). If the .fld file cannot
+# be found, but the corresponding .fld.gz file can be found, this function will load that
+# instead and decompress its data on-the-fly.
+#
+# Allowed options:
+#
+# `l
+# - <tt>file</tt> - The file to load.
+# - <tt>name</tt> - The name of the field to load.
+# - <tt>loadDistanceMap</tt> (optional) - Whether to also load the distance map. By default, this is true.
+# `l`
+#
+# You must specify either the 'file' option or the 'name' option. If you do not, an
+# ArgumentException will be thrown. For example:
+# <pre class="example">
+# new Field(name => "new_1-1");
+# new Field(file => "/path/to/prontera.fld");
+# new Field(); # Error: an ArgumentException will be thrown
+# </pre>
+#
+# Throws FileNotFoundException if the field file does not exist (if the 'file' parameter is used),
+# or if a field file cannot be found for the specified field name (if the 'name' parameter is used).<br>
+# Throws IOException if an error occured while reading the field file.
+sub new {
+	my $class = shift;
+	my %args = @_;
+	my $self = bless {}, $class;
 
-	my @lines;
-	my $reader = new Utils::TextReader($file, $options);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/[\r\n\x{FEFF}]//g;
-		$line =~ s/\#$//g; # support msgstringtable.txt
-		push @lines, $line;
-	}
-	@{$r_array} = scalar(@lines) + 1;
-	my $i = 1;
-	foreach (@lines) {
-		$r_array->[$i] = $_;
-		$i++;
-	}
-	return 1;
-}
-
-sub parseAvoidControl {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my ($key,@args,$args);
-	my $reader = new Utils::TextReader($file);
-
-	my $section = "";
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		$line =~ s/\s+$//g;
-
-		next if ($line eq "");
-
-		if ($line =~ /^\[(.*)\]$/) {
-			$section = $1;
-			next;
-
-		} else {
-			($key, $args) = lc($line) =~ /([\s\S]+?)[\s]+(\d+[\s\S]*)/;
-			@args = split / /,$args;
-			if ($key ne "") {
-				$r_hash->{$section}{$key}{disconnect_on_sight} = $args[0];
-				$r_hash->{$section}{$key}{teleport_on_sight} = $args[1];
-				$r_hash->{$section}{$key}{disconnect_on_chat} = $args[2];
-			}
-		}
-	}
-	return 1;
-}
-
-sub parseChatResp {
-	my $file = shift;
-	my $r_array = shift;
-
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/[\r\n\x{FEFF}]//g;
-		next if ($line eq "" || $line =~ /^#/);
-		if ($line =~ /^first_resp_/) {
-			Log::error(Translation::T("The chat_resp.txt format has changed. Please read News.txt and upgrade to the new format.\n"));
-			return;
-		}
-
-		my ($key, $value) = split /\t+/, lc($line), 2;
-		my @input = split /,+/, $key;
-		my @responses = split /,+/, $value;
-
-		foreach my $word (@input) {
-			my %args = (
-				word => $word,
-				responses => \@responses
-			);
-			push @{$r_array}, \%args;
-		}
-	}
-	return 1;
-}
-=pod
-sub parseCommandsDescription {
-	my $file = shift;
-	my $r_hash = shift;
-	my $no_undef = shift;
-
-	undef %{$r_hash} unless $no_undef;
-	my ($key, $commentBlock, $description);
-	
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^[\s\t]*#/);
-		$line =~ s/[\r\n]//g;	# Remove line endings
-		$line =~ s/^[\t\s]*//;	# Remove leading tabs and whitespace
-		$line =~ s/\s+$//g;	# Remove trailing whitespace
-		next if ($line eq "");
-
-		if (!defined $commentBlock && $line =~ /^\/\*/) {
-			$commentBlock = 1;
-			next;
-
-		} elsif ($line =~ m/\*\/$/) {
-			undef $commentBlock;
-			next;
-
-		} elsif (defined $commentBlock) {
-			next;
-
-		} elsif ($description) {
-			$description = 0;
-			push @{$r_hash->{$key}}, $line;
-
-		} elsif ($line =~ /^\[(\w+)\]$/) {
-			$key = $1;
-			$description = 1;
-			$r_hash->{$key} = [];
-
-		} elsif ($line =~ /^(.*?)\t+(.*)$/) {
-			push @{$r_hash->{$key}}, [$1, $2];
-		
-		} elsif ($line !~ /\t/) {	#if a console command is without any params
-			push @{$r_hash->{$key}}, ["", $line];
-		}
-		
-	}
-	return 1;
-}
-=cut
-sub parseConfigFile {
-	my $file = shift;
-	my $r_hash = shift;
-	my $no_undef = shift;
-	my $blocks = (shift) || {};
-
-	undef %{$r_hash} unless $no_undef;
-	my ($key, $value, $inBlock, $commentBlock);
-	
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^[\s\t]*#/);
-		$line =~ s/[\r\n]//g;	# Remove line endings
-		$line =~ s/^[\t\s]*//;	# Remove leading tabs and whitespace
-		$line =~ s/\s+$//g;	# Remove trailing whitespace
-		
-		if (index($line, '#') != -1) {
-			warning T("Mid-line comments are not allowed in this file and therefore might cause problems.\n"), "parseConfigFile", 5;
-			warning T("If the '#' found is not a comment, this can be ignored.\n"), "parseConfigFile", 5;
-			warning TF("HERE: %s", $line), "parseConfigFile", 5;
-		}
-		
-		next if ($line eq "");
-
-		if (!defined $commentBlock && $line =~ /^\/\*/) {
-			$commentBlock = 1;
-			next;
-
-		} elsif (defined $commentBlock && $line =~ m/\*\/$/) {
-			undef $commentBlock;
-			next;
-
-		} elsif (defined $commentBlock) {
-			next;
-
-		} elsif (!defined $inBlock && $line =~ /{$/) {
-			# Begin of block
-			$line =~ s/ *{$//;
-			($key, $value) = $line =~ /^(.*?) (.*)/;
-			$key = $line if ($key eq '');
-
-			if (!exists $blocks->{$key}) {
-				$blocks->{$key} = 0;
-			} else {
-				$blocks->{$key}++;
-			}
-			if ($key ne 'teleportAuto'){
-				$inBlock = "${key}_$blocks->{$key}";
-			} else {
-				$inBlock = "${key}";
-			}
-			$r_hash->{$inBlock} = $value;
-
-		} elsif (defined $inBlock && $line eq "}") {
-			# End of block
-			undef $inBlock;
-
-		} else {
-			# Option
-			($key, $value) = $line =~ /^(.*?) (.*)/;
-			if ($key eq "") {
-				$key = $line;
-				$key =~ s/ *$//;
-			}
-			#$value = $r_hash->{$1} if ($value =~ /^constant\.(.*)/);
-			$key = "${inBlock}_${key}" if (defined $inBlock);
-
-			if ($key eq "!include") {
-				# Process special !include directives
-				# The filename can be relative to the current file
-				my $f = $value;
-				if (!File::Spec->file_name_is_absolute($value) && $value !~ /^\//) {
-					if ($file =~ /[\/\\]/) {
-						$f = $file;
-						$f =~ s/(.*)[\/\\].*/$1/;
-						$f = File::Spec->catfile($f, $value);
-					} else {
-						$f = $value;
-					}
-				}
-				if (-f $f) {
-					my $ret = parseConfigFile($f, $r_hash, 1, $blocks);
-					return $ret unless $ret;
-				} else {
-					error Translation::TF("%s: Include file not found: %s\n", $file, $f);
-					return 0;
-				}
-
-			} else {
-				$r_hash->{$key} = $value;
-			}
-		}
+	if ($args{file}) {
+		$self->loadFile($args{file}, $args{loadDistanceMap});
+	} elsif ($args{name}) {
+		$self->loadByName($args{name}, $args{loadDistanceMap});
+	} else {
+		ArgumentException->throw("No field name or filename specified.");
 	}
 
-	if ($inBlock) {
-		error Translation::TF("%s: Unclosed { at EOF\n", $file);
-		return 0;
-	}
-	return 1;
-}
-
-sub parseEmotionsFile {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my ($key, $word, $name);
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		$line =~ s/\s+$//g;
-
-		($key, $word, $name) = $line =~ /^(\d+) (\S+) (.*)$/;
-
-		if ($key ne "") {
-			$$r_hash{$key}{command} = $word;
-			$$r_hash{$key}{display} = $name;
-		}
-	}
-	return 1;
-}
-
-
-sub parseDataFile {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my ($key,$value);
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		$line =~ s/\s+$//g;
-		$line =~ s/\s*#.*// if ($file eq Settings::getControlFilename("routeweights.txt"));
-		next unless length $line;
-		($key, $value) = $line =~ /([\s\S]*) ([\s\S]*?)$/;
-		if ($key ne "" && $value ne "") {
-			$$r_hash{$key} = $value;
-		}
-	}
-	return 1;
-}
-
-sub parseDataFile_lc {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my ($key,$value);
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		$line =~ s/\s+$//g;
-		$line =~ s/\s*#.*// if ($file eq Settings::getControlFilename('pickupitems.txt') or $file eq Settings::getControlFilename("arrowcraft.txt"));
-		next unless length $line;
-		($key, $value) = $line =~ /([\s\S]*) ([\s\S]*?)$/;
-		if ($key ne "" && $value ne "") {
-			$$r_hash{lc($key)} = $value;
-		}
-	}
-	return 1;
-}
-
-sub parseDataFile2 {
-	my ($file, $r_hash) = @_;
-
-	%{$r_hash} = ();
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		next if (length($line) == 0);
-
-		my ($key, $value) = split / /, $line, 2;
-		$key =~ s/^(0x[0-9a-f]+)$/hex $1/e;
-		$r_hash->{$key} = $value;
-	}
-	close FILE;
-	
-	return 1;
-}
-
-sub parseList {
-	my $file = shift;
-	my $r_hash = shift;
-
-	undef %{$r_hash};
-
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		chomp($line);
-		$r_hash->{$line} = 1;
-	}
-	return 1;
+	return $self;
 }
 
 ##
-# parseShopControl(file, shop)
-# file: Filename to parse
-# shop: Return hash
+# String $Field->name()
 #
-# Parses a shop control file. The shop control file should have the shop title
-# on its first line, followed by "$item\t$price\t$quantity" on subsequent
-# lines. Blank lines, or lines starting with "#" are ignored. If $price
-# contains commas, then they are checked for syntactical validity (e.g.
-# "1,000,000" instead of "1,000,00") to protect the user from entering the
-# wrong price. If $quantity is missing, all available will be sold.
+# Returns the field's name.
+#     ex. prontera, new_1-2 (alias), 0021@cata (instance)
+sub name {
+	return $_[0]->{name};
+}
+
+##
+# String $Field->baseName()
 #
-# Example:
-# My Shop!
-# Poring Card	1,000
-# Andre Card	1,000,000	3
-# +8 Chain [3]	500,000
-sub parseShopControl {
-	my ($file, $shop) = @_;
+# Returns the field's base name.
+#     ex. prontera, new_1-2 (alias), 1@cata (instanced)
+sub baseName {
+	return $_[0]->{baseName};
+}
 
-	%{$shop} = ();
-	my $reader = new Utils::TextReader($file);
+##
+# String $Field->instanceID()
+#
+# Returns the field's instanceID
+#     ex. in 0021@cata, 002 is the instanceID
+sub instanceID {
+	return $_[0]->{instanceID};
+}
 
-	# Read shop items
-	$shop->{items} = [];
-	my $linenum = 0;
-	my @errors = ();
-	my $line;
+##
+# String $Field->descName()
+#
+# Returns the field's descriptive name.
+#     ex.
+#			Prontera City, Capital of Rune Midgard
+#			Training Ground
+#			Catacombs
+sub descName {
+	# TODO: $maps_lut, why not drop the .rsw from what we load in kore?
+	return defined $maps_lut{$_[0]->{baseName}.'.rsw'} ? $maps_lut{$_[0]->{baseName}.'.rsw'} : T('Unknown Area');
+}
 
-	while (!$reader->eof()) {
-		$line = $reader->readLine();
-		$linenum++;
-		chomp;
-		$line =~ s/[\r\n\x{FEFF}]//g;
-		next if $line =~ /^$/ || $line =~ /^#/;
+##
+# String $Field->descString()
+#
+# Returns the field's descriptive string.
+sub descString {
+	return sprintf("%s (%s)", $_[0]->descName, $_[0]->name) . ($_[0]->{instanceID} ? TF(" at instanceID %s", $_[0]->instanceID) : '');
+}
 
-		if (!$shop->{title_line}) { 
-			$shop->{title_line} = $line;
-			next;
-		}
-		
-		# Strip mid-line comments after parsing the shop title, so shops can use '#' in their titles
-		$line =~ s/\s*#.*//;
-		next unless length $line;
+##
+# String $Field->isCity()
+#
+# Returns wether the field is a city.
+sub isCity {
+	return exists $cities_lut{$_[0]->{name}.'.rsw'}; # TODO: $cities_lut, why replicate string data from $maps_lut? We can just add a maptype field in $maps_lut. (we can also look at the map_property packets)
+}
 
-		my ($name, $price, $amount) = split(/\t+/, $line);
-		$price =~ s/^\s+//g;
-		$amount =~ s/^\s+//g;
-		my $real_price = $price;
-		$real_price =~ s/,//g;
+##
+# int $Field->width()
+#
+# Returns the field's width, in blocks.
+sub width {
+	return $_[0]->{width};
+}
 
-		my ($priceMax, $priceCommas, $priceMaxCommas);
-		if ($real_price =~ /../) {
-			($real_price, $priceMax) = split(/\../, $real_price);
-			($priceCommas, $priceMaxCommas) = split(/\../, $price);
-		}
+##
+# int $Field->height()
+#
+# Returns the field's height, in blocks.
+sub height {
+	return $_[0]->{height};
+}
 
-		my $loc = Translation::TF("Line %s: Item '%s'", $linenum, $name);
-		if ($real_price !~ /^\d+$/) {
-			push(@errors, Translation::TF("%s has non-integer price: %s", $loc, $price));
-		} elsif (!$priceMax && ($price ne $real_price && formatNumber($real_price) ne $price) ||
-				 $priceMax  && ($priceCommas ne $real_price && formatNumber($real_price) ne $priceCommas ||
-							   $priceMaxCommas ne $priceMax && formatNumber($priceMax) ne $priceMaxCommas))
-		{
-			push(@errors, Translation::TF("%s has incorrect comma placement in price: %s", $loc, $price));
-		} elsif ($real_price < 0) {
-			push(@errors, Translation::TF("%s has non-positive price: %s", $loc, $price));
-		} elsif ($real_price > 1000000000) {
-			push(@errors, Translation::TF("%s has price over 1,000,000,000: %s", $loc, $price));
-		} elsif ($amount > 30000) {
-			push(@errors, Translation::TF("%s has amount over 30,000: %s", $loc, $amount));
-		}
+##
+# int $Field->getBlock(int x, int y)
+# x, y: A coordinate on the field.
+# Returns: The type for this block. This is one of the block type constants.
+#
+# Get the type for the block on the specified coordinate. This type is an integer, which
+# corresponds with the values specified in the field file format specification:
+# http://www.openkore.com/wiki/index.php/Field_file_format#The_FLD_file_format
+#
+# If you want to check whether the block is walkable, use $field->isWalkable() instead.
+sub getBlock {
+	my ($self, $x, $y) = @_;
+	if ($self->isOffMap($x, $y)) {
+		return NON_WALKABLE;
+	} else {
+		return ord(substr($self->{rawMap}, ($y * $self->{width}) + $x, 1));
+	}
+}
 
-		push(@{$shop->{items}}, {name => $name, price => $real_price, priceMax => $priceMax, amount => $amount});
+sub isOffMap {
+	my ($self, $x, $y) = @_;
+	return ($x < 0 || $x >= $self->{width} || $y < 0 || $y >= $self->{height});
+}
+
+##
+# boolean $Field->isWalkable(int x, int y)
+#
+# Check whether you can walk on ($x,$y) on this field.
+sub isWalkable {
+	my $p = &getBlock;
+	return ($p == WALKABLE || $p == WALKABLE_WATER);
+}
+
+##
+# boolean $Field->isSnipable(int x, int y)
+#
+# Check whether you can snipe through ($x,$y) on this field.
+sub isSnipable {
+	my $p = &getBlock;
+	return ($p == WALKABLE || $p == WALKABLE_WATER || $p == NON_WALKABLE_SNIPABLE_WATER || $p == SNIPABLE_CLIFF);
+}
+
+##
+# void $Field->loadFile(String filename, [boolean loadDistanceMap = true])
+# filename: The filename of the field file to load.
+# loadDistanceMap: Whether to also load the associated distance map file.
+#
+# Load the specified field file (.fld file). This is like calling the constructor
+# with the 'file' argument, but allows you to load a field inside this Field object.
+#
+# If $loadDistanceMap is set to false, then $self->{dstMap} will be undef.
+#
+# Throws FileNotFoundException if the specified file does not exist.
+# Throws IOException if a read error occured while reading the field file
+# and/or the distance map file.
+sub loadFile {
+	my ($self, $filename, $loadDistanceMap) = @_;
+
+	$loadDistanceMap = 1 if (!defined $loadDistanceMap);
+	$filename =~ s/\//\\/g if ($^O eq 'MSWin32');
+	if (!-f $filename) {
+		FileNotFoundException->throw("File $filename does not exist.");
 	}
 
-	if (@errors) {
-		error Translation::TF("Errors were found in %s:\n", $file);
-		foreach (@errors) { error("$_\n"); }
-		error Translation::TF("Please correct the above errors and type 'reload %s'.\n", $file);
+
+	# Load the field file.
+	my ($fieldData, $width, $height);
+	if ($filename =~ /\.gz$/) {
+		use bytes;
+		no encoding 'utf8';
+
+		my $gz = gzopen($filename, 'rb');
+		if (!$gz) {
+			IOException->throw("Cannot open $filename for reading.");
+		} else {
+			$fieldData = '';
+			while (!$gz->gzeof()) {
+				my $buf;
+				if ($gz->gzread($buf) >= 0) {
+					$fieldData .= $buf;
+				} else {
+					IOException->throw("An error occured while decompressing $filename.");
+				}
+			}
+			$gz->gzclose();
+		}
+
+	} else {
+		my $f;
+		if (open($f, "<", $filename)) {
+			binmode($f);
+			local($/);
+			$fieldData = <$f>;
+			close($f);
+		} else {
+			IOException->throw("Cannot open $filename for reading.");
+		}
+	}
+
+	($width, $height) = unpack("v v", substr($fieldData, 0, 4, ''));
+
+
+	# Load the associated distance map (.dist file)
+	my $distFile = $filename;
+	$distFile =~ s/\.fld(\.gz)?$/.dist/i;
+	if ($loadDistanceMap) {
+		if ((!-f $distFile && !-f $distFile.'.gz') || !$self->loadDistanceMap($distFile, $width, $height)) {
+			# (Re)create the distance map.
+			my $f;
+			$self->{dstMap} = Utils::makeDistMap($fieldData, $width, $height);
+			if (open($f, ">", $distFile)) {
+				binmode $f;
+				print $f pack("a2 v1", 'V#', 3);
+				print $f pack("v v", $width, $height);
+				print $f $self->{dstMap};
+				close $f;
+			}
+		}
+	} else {
+		delete $self->{dstMap};
+	}
+
+	$self->{width}  = $width;
+	$self->{height} = $height;
+	$self->{rawMap} = $fieldData;
+	(undef, undef, $self->{baseName}) = File::Spec->splitpath($filename);
+	$self->{baseName} =~ s/\.fld$//i;
+	$self->{name} = $self->{baseName};
+	return 1;
+}
+
+# boolean $Field->loadDistanceMap(String filename, int width, int height)
+# filename: The filename of the distance map.
+# width: The width of the field.
+# height: The width of the field.
+# Requires: The file $filename exists.
+# Returns: Whether the distance map file is valid. If it's invalid, then it should be regenerated.
+#
+# Load a distance map (.dst file). $self->{dstMap} will contain the distance map data.
+#
+# Throws IOException if a read error occured.
+sub loadDistanceMap {
+	my ($self, $filename, $width, $height) = @_;
+	my ($f, $distData);
+	
+	$filename .= '.gz' if (-f $filename.'.gz');
+	
+	if ($filename =~ /\.gz$/) {
+		use bytes;
+		no encoding 'utf8';
+		
+		my $gz = gzopen($filename, 'rb');
+		if (!$gz) {
+			IOException->throw("Cannot open $filename for reading.");
+			return;
+		} else {
+			$distData = '';
+			while (!$gz->gzeof()) {
+				my $buf;
+				if ($gz->gzread($buf) >= 0) {
+					$distData .= $buf;
+				} else {
+					IOException->throw("An error occured while decompressing $filename.");
+					return;
+				}
+			}
+			$gz->gzclose();
+		}
+	} elsif (open($f, "<", $filename)) {
+		binmode $f;
+		local($/);
+		$distData = <$f>;
+		close $f;
+	} else {
+		IOException->throw("Cannot open distance map $filename for reading.");
+		return;
+	}
+	
+	# Get file version.
+	my $dversion = 0;
+	if (substr($distData, 0, 2) eq "V#") {
+		$dversion = unpack("xx v", substr($distData, 0, 4, ''));
+	}
+
+	# Get map width and height.
+	my ($dw, $dh) = unpack("v v", substr($distData, 0, 4, ''));
+
+	# Version 0 files had a bug when height != width
+	# Version 1 files did not treat walkable water as walkable, all version 0 and 1 maps need to be rebuilt.
+	# Version 2 and greater have no know bugs, so just do a minimum validity check.
+	# Version 3 (the current version) adds better support for walkable water blocks.
+	# If the distance map version is smaller than 3, regenerate the distance map.
+
+	if ($dversion >= 3 && $width == $dw && $height == $dh) {
+		$self->{dstMap} = $distData;
+		return 1;
+	} else {
 		return 0;
 	}
-	return 1;
 }
 
-sub parseItemsControl {
-	my ($file, $r_hash) = @_;
-	undef %{$r_hash};
-	my ($key, $args_text, %cache);
-	
-	my $reader = new Utils::TextReader($file);
-	until ($reader->eof) {
-		my $line = lc $reader->readLine;
-		next if $line =~ /^\s*#/;
-		$line =~ s/\s*#.*//;
-		chomp $line;
-		if (($key, $args_text) = extract_delimited($line) and $key) {
-			$key =~ s/^.|.$//g;
-			$args_text =~ s/^\s+//;
-		} elsif ($line =~ /^[\s0-9]+$/) {
-			($key, $args_text) = $line =~ /^(\d+)\s(.*)$/;
-		} else {
-			my @reverseString = reverse(split(//, $line));
-			my $separator = length $line;
-
-			foreach my $c (@reverseString) {
-				last if $c =~ /[^\s0-9]/;
-				--$separator;
-			}
-
-			$args_text = substr($line, $separator);
-			$args_text =~ s/^\s+//;
-			$key = substr($line, 0, $separator);
-		}
-		
-		next if $key =~ /^$/;
-		my @args = split /\s+/, $args_text;
-		# Cache similar entries to save memory.
-		$r_hash->{$key} = $cache{$args_text} ||= { map {$_ => shift @args} qw(keep storage sell cart_add cart_get) };
-	}
-	return 1;
-}
-
-sub parseNPCs {
-	my $file = shift;
-	my $r_hash = shift;
-	my ($i, $string);
-	undef %{$r_hash};
-	my ($key, $value, @args);
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\cM|\cJ//g;
-		$line =~ s/^\s+|\s+$//g;
-		next if $line =~ /^#/ || $line eq '';
-		#izlude 135 78 Charfri
-		my ($map,$x,$y,$name) = split /\s+/, $line,4;
-		next unless $name;
-		$$r_hash{"$map $x $y"} = $name;
-	}
-	return 1;
-}
-
-sub parseMonControl {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my ($key,@args,$args);
-
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		$line =~ s/\s+$//g;
-		$line =~ s/\s*#.*//;
-		next unless length $line;
-
-		if ($line =~ /\t/) {
-			($key, $args) = split /\t+/, lc($line);
-		} else {
-			($key, $args) = lc($line) =~ /([\s\S]+?) ([\-\d\.]+[\s\S]*)/;
-		}
-
-		@args = split / /, $args;
-		if ($key ne "") {
-			$r_hash->{$key}{attack_auto} = $args[0];
-			$r_hash->{$key}{teleport_auto} = $args[1];
-			$r_hash->{$key}{teleport_search} = $args[2];
-			$r_hash->{$key}{skillcancel_auto} = $args[3];
-			$r_hash->{$key}{attack_lvl} = $args[4];
-			$r_hash->{$key}{attack_jlvl} = $args[5];
-			$r_hash->{$key}{attack_hp} = $args[6];
-			$r_hash->{$key}{attack_sp} = $args[7];
-			$r_hash->{$key}{weight} = $args[8];
-		}
-	}
-	return 1;
-}
-
-sub parsePortals {
-	my $file = shift;
-	my $r_hash = shift;
-	my $r_array = shift;
-	undef %{$r_hash};
-	undef @{$r_array};
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		next if $line =~ /^#/;
-		$line =~ s/\cM|\cJ//g;
-		$line =~ s/\s+/ /g;
-		$line =~ s/^\s+|\s+$//g;
-		$line =~ s/(.*)[\s\t]+#.*$/$1/;
-		
-		if ($line =~ /^([\w|@|-]+)\s(\d{1,3})\s(\d{1,3})\s([\w|@|-]+)\s(\d{1,3})\s(\d{1,3})\s?(.*)/) {
-		my ($source_map, $source_x, $source_y, $dest_map, $dest_x, $dest_y, $misc) = ($1, $2, $3, $4, $5, $6, $7);
-			my $portal = "$source_map $source_x $source_y";
-			my $dest = "$dest_map $dest_x $dest_y";
-			$$r_hash{$portal}{'source'}{'map'} = $source_map;
-			$$r_hash{$portal}{'source'}{'x'} = $source_x;
-			$$r_hash{$portal}{'source'}{'y'} = $source_y;
-			$$r_hash{$portal}{'dest'}{$dest}{'map'} = $dest_map;
-			$$r_hash{$portal}{'dest'}{$dest}{'x'} = $dest_x;
-			$$r_hash{$portal}{'dest'}{$dest}{'y'} = $dest_y;
-			$$r_hash{$portal}{dest}{$dest}{enabled} = 1; # is available permanently (can be used when calculating a route)
-			#$$r_hash{$portal}{dest}{$dest}{active} = 1; # TODO: is available right now (otherwise, wait until it becomes available)
-			if ($misc =~ /^(\d+)\s(\d)\s(.*)$/) { # [cost] [allow_ticket] [talk sequence]
-				$$r_hash{$portal}{'dest'}{$dest}{'cost'} = $1;
-				$$r_hash{$portal}{'dest'}{$dest}{'allow_ticket'} = $2;
-				$$r_hash{$portal}{'dest'}{$dest}{'steps'} = $3;
-			} elsif ($misc =~ /^(\d+)\s(.*)$/) { # [cost] [talk sequence]
-				$$r_hash{$portal}{'dest'}{$dest}{'cost'} = $1;
-				$$r_hash{$portal}{'dest'}{$dest}{'allow_ticket'} = 0;
-				$$r_hash{$portal}{'dest'}{$dest}{'steps'} = $2;
-			} else { # [talk sequence]
-				$$r_hash{$portal}{'dest'}{$dest}{'cost'} = 0;
-				$$r_hash{$portal}{'dest'}{$dest}{'allow_ticket'} = 0;
-				$$r_hash{$portal}{'dest'}{$dest}{'steps'} = $misc;
-			}
-		}
-		
-	}
-	return 1;
-}
-
-sub parsePortalsLOS {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my $key;
-	open FILE, "<", $file;
-	foreach (<FILE>) {
-		s/\x{FEFF}//g;
-		next if (/^#/);
-		s/[\r\n]//g;
-		s/\s+/ /g;
-		s/\s+$//g;
-		my @args = split /\s/, $_;
-		if (@args) {
-			my $map = shift @args;
-			my $x = shift @args;
-			my $y = shift @args;
-			for (my $i = 0; $i < @args; $i += 4) {
-				$$r_hash{"$map $x $y"}{"$args[$i] $args[$i+1] $args[$i+2]"} = $args[$i+3];
-			}
-		}
-	}
-	close FILE;
-	return 1;
-}
-
-sub parsePriority {
-	my $file = shift;
-	my $r_hash = shift;
-	return unless my $reader = new Utils::TextReader($file);
-
-	my @lines;
-	while (!$reader->eof()) {
-			push @lines, $reader->readLine();
-	}
-	my $pri = $#lines;
-	foreach (@lines) {
-		s/\x{FEFF}//g;
-		next if (/^#/);
-		s/[\r\n]//g;
-		s/\s*#.*//;
-		next unless length;
-		$$r_hash{lc($_)} = $pri + 1;
-		$pri--;
-	}
-	return 1;
-}
-
-sub parseResponses {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my ($i, $key,$value);
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		($key, $value) = $line =~ /([\s\S]*?) ([\s\S]*)$/;
-		if ($key ne "" && $value ne "") {
-			$i = 0;
-			while ($$r_hash{"$key\_$i"} ne "") {
-				$i++;
-			}
-			$$r_hash{"$key\_$i"} = $value;
-		}
-	}
-	return 1;
-}
-
-sub parseROLUT {
-	my ($file, $r_hash, $flag, $ext) = @_;
-
-	my %ret = (
-		file => $file,
-		hash => $r_hash
-	    );
-	Plugins::callHook("FileParsers::ROLUT", \%ret);
-	return if ($ret{return});
-
-	undef %{$r_hash};
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/[\r\n\x{FEFF}]//g;
-		next if (length($line) == 0 || $line =~ /^\/\// || ($ext && $line !~ /$ext#/));
-
-		my ($id, $name) = split /$ext#/, $line, 3;
-		if ($id ne "" && $name ne "") {
-			$name =~ s/_/ /g unless ($flag == 1);
-			$name =~ s/^\s+|\s+$//g;
-			$r_hash->{$id} = $name;
-		}
-	}
-	return 1;
-}
-
-sub parseRODescLUT {
-	my ($file, $r_hash) = @_;
-
-	my %ret = (
-		file => $file,
-		hash => $r_hash
-	    );
-	Plugins::callHook("FileParsers::RODescLUT", \%ret);
-	return if ($ret{return});
-
-	undef %{$r_hash};
-	my $ID;
-	my $IDdesc;
-	my $reader = Utils::TextReader->new($file, { hide_comments => 0 });
-	until ($reader->eof) {
-		$_ = $reader->readLine;
-		s/\r//g;
-		if (/^#/) {
-			$$r_hash{$ID} = $IDdesc;
-			undef $ID;
-			undef $IDdesc;
-		} elsif (!$ID) {
-			($ID) = /([\s\S]+)#/;
-		} else {
-			$IDdesc .= $_;
-			$IDdesc =~ s/\^......//g;
-			$IDdesc =~ s/_/--------------/g;
-		}
-	}
-	return 1;
-}
-
-sub parseROSlotsLUT {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my $ID;
-	open FILE, $file;
-	foreach (<FILE>) {
-		if (!$ID) {
-			($ID) = /(\d+)#/;
-		} else {
-			($$r_hash{$ID}) = /(\d+)#/;
-			undef $ID;
-		}
-	}
-	close FILE;
-	return 1;
-}
-
-sub parseROQuestsLUT {
-	my ($file, $r_hash) = @_;
-	
-	my %ret = (
-		file => $file,
-		hash => $r_hash,
-	);
-	Plugins::callHook ('FileParsers::ROQuestsLUT', \%ret);
-	return if $ret{return};
-	
-	undef %{$r_hash};
-	my ($data, $flag);
-	my $reader = Utils::TextReader->new($file, { hide_comments => 0 });
-	until ($reader->eof) {
-		$_ = $reader->readLine;
-		s/\r//g;
-		if (/^(\d+)#([^#]*)#([A-Z_]*)#([A-Z_]*)#/) {
-			$data = {
-				id => $1,
-				title => $2,
-				image => $3,
-				unknown1 => $4,
-			};
-		} elsif (defined $data and /^([^#]*)#/) {
-			unless (defined $data->{summary}) {
-				$data->{summary} = $1;
-				$data->{summary} =~ s/\^......//g;
-			} else {
-				$data->{objective} = $1;
-				$flag = 1;
-			}
-		}
-		
-		if ($flag) {
-			$$r_hash{$data->{id}} = $data;
-			undef $data; undef $flag;
-		}
-	}
-	
-	return 1;
-}
-
-sub parseRecvpackets {
-	my ($file, $r_hash) = @_;
-
-	%{$r_hash} = ();
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		next if (length($line) == 0);
-
-		my ($packetID, $length, $minLength, $repeat, $function) = split /\s+/, $line, 5;
-		$packetID =~ s/^(0x[0-9a-f]+)$/hex $1/e;
-		$r_hash->{$packetID}{length} = $length;
-		$r_hash->{$packetID}{minLength} = $minLength;
-		$r_hash->{$packetID}{repeat} = $repeat; # unused
-		$r_hash->{$packetID}{function} = $function; # can be used as description instead of packetdescriptions.txt, if defined.
-		#use Log 'warning';
-		#warning $r_hash->{$key}." ".$key."\n";
-	}
-	close FILE;
-	
-	return 1;
-}
-
-sub parseSectionedFile {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my $reader = new Utils::TextReader($file);
-
-	my $section = "";
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		$line =~ s/\s+$//g;
-		next if ($line eq "");
-
-		if ($line =~ /^\[(.*)\]$/i) {
-			$section = $1;
-			next;
-		} else {
-			my ($key, $value);
-			if ($line =~ / /) {
-				($key, $value) = $line =~ /^(.*?) (.*)/;
-			} else {
-				$key = $line;
-			}
-			$r_hash->{$section}{$key} = $value;
-		}
-	}
-	return 1;
-}
-
-sub parseSkillsSPLUT {
-	my $file = shift;
-	my $r_hash = shift;
-	undef %{$r_hash};
-	my $ID;
-	my $i;
-	$i = 1;
-	open(FILE, "< $file");
-	foreach (<FILE>) {
-		if (/^\@/) {
-			undef $ID;
-			$i = 1;
-		} elsif (!$ID) {
-			($ID) = /([\s\S]+)#/;
-		} else {
-			($$r_hash{$ID}{$i++}) = /(\d+)#/;
-		}
-	}
-	close FILE;
-	return 1;
-}
-
-sub parseTimeouts {
-	my $file = shift;
-	my $r_hash = shift;
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		next if ($line =~ /^#/);
-		$line =~ s/[\r\n]//g;
-		$line =~ s/\s*#.*//;
-		next unless length $line;
-
-		my ($key, $value) = $line =~ /([\s\S]+?) ([\s\S]*?)$/;
-		my @args = split (/ /, $value);
-		if ($key ne "") {
-			$$r_hash{$key}{'timeout'} = $args[0];
-		}
-	}
-	return 1;
-}
-
-sub parseWaypoint {
-	my $file = shift;
-	my $r_array = shift;
-	@{$r_array} = ();
-
-	open FILE, "< $file";
-	foreach (<FILE>) {
-		s/\x{FEFF}//g;
-		next if (/^#/ || /^$/);
-		s/[\r\n]//g;
-
-		my @items = split / +/, $_;
-		my %point = (
-			map => $items[0],
-			x => $items[1],
-			y => $items[2]
-		);
-		push @{$r_array}, \%point;
-	}
-	close FILE;
-	return 1;
-}
-
-sub parseItemStackLimit {
-	my ($file, $r_hash) = @_;
-	my $reader = Utils::TextReader->new($file);
-	
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		$line =~ s/[\r\n]//g;
-		$line =~ s/#.*$//g;
-		$line =~ s/^\s+//g;
-		
-		next unless length $line;
-		
-		my ($ID, $stack, $mask) = split /\s+/, $line;
-		
-		next unless $mask;
-		
-		for (my $i = 1; $i < 16; $i = $i << 1) {
-			next unless $mask & $i;
-			$r_hash->{$ID}->{$i} = $stack;
-		}
-	}
-	
-	return 1;
-}
-
-
-# The ultimate config file format. This function is a parser and writer in one.
-# The config file can be divided in section, example:
+##
+# void $Field->loadByName(String name, [boolean loadDistanceMap = true])
+# name: The name of the field to load. E.g. "prontera".
+# loadDistanceMap: Whether to also load the associated distance map file.
 #
-#   foo 1
-#   bar 2
+# Load a field file based on it's name. The actual field file to load is automatically
+# determined based on the field name, the field files folder, whether the field file
+# is compressed, etc.
 #
-#   [Options]
-#   username me
-#   password p
+# This method is like calling the constructor with the 'name' argument,
+# but allows you to load a field inside this Field object.
 #
-#   [Names]
-#   joe
-#   mike
+# If $loadDistanceMap is set to false, then $self->{dstMap} will be undef.
 #
-# Sections can be treated as hashes or arrays. It's defined by $rules.
-# If you want [Names] to be an array:
-# %rule = (Names => 'list');
-#
-# processUltimate("file", \%hash, \%rule) returns:
-# {
-#   foo => 1,
-#   bar => 2,
-#   Options => {
-#       username => 'me',
-#       password => 'p';
-#   },
-#   Names => [
-#       "joe",
-#       "mike"
-#   ]
-# }
-#
-# When in write mode, this function will automatically add new keys and lines,
-# while preserving comments.
-sub processUltimate {
-	my ($file, $hash, $rules, $writeMode) = @_;
-	my $f;
-	my $secname = '';
-	my ($section, $rule, @lines, %written, %sectionsWritten);
+# Throws FileNotFoundException if a field file cannot be found for the specified
+# field name.
+# Throws IOException if a read error occured while reading the field file
+# and/or the distance map file.
+sub loadByName {
+	my ($self, $name, $loadDistanceMap) = @_;
+	my $baseName;
+	($baseName, $self->{instanceID}) = $self->nameToBaseName($name);
+	$self->{baseName} = $baseName;
+	my $file = $self->sourceName . ".fld";
 
-	undef %{$hash} if (!$writeMode);
+	if ($Settings::fields_folder) {
+		$file = File::Spec->catfile($Settings::fields_folder, $file);
+	}
+	if (! -f $file) {
+		$file .= ".gz";
+	}
+
 	if (-f $file) {
-		my $reader = new Utils::TextReader($file);
-		while (!$reader->eof()) {
-			my $line = $reader->readLine();
-			$line =~ s/\x{FEFF}//g;
-			$line =~ s/[\r\n]//g;
-
-			if ($line eq '' || $line =~ /^[ \t]*#/) {
-				push @lines, $line if ($writeMode);
-				next;
-			}
-
-			if ($line =~ /^\[(.+)\]$/) {
-				# New section
-				if ($writeMode) {
-					# First, finish writing everything in the previous section
-					my $h = (defined $section) ? $section : $hash;
-					my @add;
-
-					if ($rule ne 'list') {
-						foreach my $key (keys %{$h}) {
-							if (!$written{$key} && !ref($h->{$key})) {
-								push @add, "$key $h->{$key}";
-							}
-						}
-
-					} else {
-						foreach (@{$h}) {
-							push @add, $_ if (!$written{$_});
-						}
-					}
-
-					# Add after the first non-empty line from the end
-					my $linesFromEnd;
-					for (my $i = @lines - 1; $i >= 0; $i--) {
-						if ($lines[$i] ne '') {
-							$linesFromEnd = @lines - $i - 1;
-							for (my $j = $i + 1; $j < @lines; $j++) {
-								delete $lines[$j];
-							}
-							push @lines, @add;
-							for (my $j = 0; $j < $linesFromEnd; $j++) {
-								push @lines, '';
-							}
-							last;
-						}
-					}
-					undef %written;
-				}
-
-				# Parse the new section
-				$secname = $1;
-				$rule = $rules->{$secname};
-				if ($writeMode) {
-					$section = $hash->{$secname};
-					push @lines, $line;
-					$sectionsWritten{$secname} = 1;
-
-				} else {
-					if ($rule ne 'list') {
-						$section = {};
-					} else {
-						$section = [];
-					}
-					$hash->{$secname} = $section;
-				}
-
-			} elsif ($rule ne 'list') {
-				# Line is a key-value pair
-				my ($key, $val) = split / /, $line, 2;
-				my $h = (defined $section) ? $section : $hash;
-
-				if ($writeMode) {
-					# Delete line if value doesn't exist
-					if (exists $h->{$key}) {
-						if (!defined $h->{$key}) {
-							push @lines, $key;
-						} else {
-							push @lines, "$key $h->{$key}";
-						}
-						$written{$key} = 1;
-					}
-
-				} else {
-					$h->{$key} = $val;
-				}
-
-			} else {
-				# Line is part of a list
-				if ($writeMode) {
-					# Add line only if it exists in the hash
-					push @lines, $line if (defined(binFind($section, $line)));
-					$written{$line} = 1;
-
-				} else {
-					push @{$section}, $line;
-				}
-			}
-		}
+		$self->loadFile($file, $loadDistanceMap);
+		$self->{baseName} = $baseName;
+		$self->{name} = $name;
+	} else {
+		FileNotFoundException->throw("No corresponding field file found for field '$name'.");
 	}
-
-	if ($writeMode) {
-		# Add stuff that haven't already been added
-		my $h = (defined $section) ? $section : $hash;
-
-		if ($rule ne 'list') {
-			foreach my $key (keys %{$h}) {
-				if (!$written{$key} && !ref($h->{$key})) {
-					push @lines, "$key $h->{$key}";
-				}
-			}
-
-		} else {
-			foreach my $line (@{$h}) {
-				push @lines, $line if (!$written{$line});
-			}
-		}
-
-		# Write sections that aren't already in the file
-		foreach my $section (keys %{$hash}) {
-			next if (!ref($hash->{$section}) || $sectionsWritten{$section});
-			push @lines, "", "[$section]";
-			if ($rules->{$section} eq 'list') {
-				push @lines, @{$hash->{$section}};
-			} else {
-				foreach my $key (keys %{$hash->{$section}}) {
-					push @lines, "$key $hash->{$section}{$key}";
-				}
-			}
-		}
-
-		open($f, ">:utf8", $file);
-		print $f join("\n", @lines) . "\n";
-		close $f;
-	}
-	return 1;
 }
 
-sub writeDataFile {
-	my $file = shift;
-	my $r_hash = shift;
-	my ($key,$value);
-	open(FILE, ">>:utf8", $file);
-	foreach (keys %{$r_hash}) {
-		if ($_ ne "") {
-			print FILE $_;
-			print FILE " $$r_hash{$_}" if $$r_hash{$_} ne '';
-			print FILE "\n";
-		}
-	}
-	close FILE;
-}
-
-sub writeDataFileIntact {
-	my $file = shift;
-	my $r_hash = shift;
-	# following args for recursive call (!include)
-	my $blocks = {};
-	my $diffs = {};
-
-	my (@lines, $key, $value, $inBlock, $commentBlock);
-	my $reader = new Utils::TextReader($file, { hide_includes => 0, hide_comments => 0 });
-	while (!$reader->eof()) {
-		my $current_file = $reader->currentFile;
-		my $lines = $reader->readLine;
-		$lines =~ s/[\r\n]//g;	# Remove line endings
-		if ($lines =~ /^[\s\t]*#/ || $lines =~ /^[\s\t]*$/ || $lines =~ /^\s*\!include( |$)/) {
-			push @lines, $lines if $current_file eq $file;
-			next;
-		}
-		$lines =~ s/^[\t\s]*//;	# Remove leading tabs and whitespace
-		$lines =~ s/\s+$//g;	# Remove trailing whitespace
-
-		if (!defined $commentBlock && $lines =~ /^\/\*/) {
-			push @lines, "$lines" if $current_file eq $file;
-			$commentBlock = 1;
-			next;
-
-		} elsif ($lines =~ m/\*\/$/) {
-			push @lines, "$lines" if $current_file eq $file;
-			undef $commentBlock;
-			next;
-
-		} elsif ($commentBlock) {
-			push @lines, "$lines" if $current_file eq $file;
-			next;
-
-		} elsif (!defined $inBlock && $lines =~ /{$/) {
-			# Begin of block
-			$lines =~ s/ *{$//;
-			($key, $value) = $lines =~ /^(.*?) (.*)/;
-			$key = $lines if ($key eq '');
-
-			if (!exists $blocks->{$key}) {
-				$blocks->{$key} = 0;
-			} else {
-				$blocks->{$key}++;
-			}
-			if ($key ne 'teleportAuto'){
-				$inBlock = "${key}_$blocks->{$key}";
-			} else {
-				$inBlock = "${key}";
-			}
-
-			my $line = $key;
-			$line .= " $r_hash->{$inBlock}" if ($r_hash->{$inBlock} ne '');
-			push @lines, "$line {" if $current_file eq $file;
-
-		} elsif (defined $inBlock && $lines eq "}") {
-			# End of block
-			undef $inBlock;
-			push @lines, "}" if $current_file eq $file;
-
-		} else {
-			# Option
-			($key, $value) = $lines =~ /^(.*?) (.*)/;
-			if ($key eq "") {
-				$key = $lines;
-				$key =~ s/ *$//;
-			}
-			if (defined $inBlock) {
-				my $realKey = "${inBlock}_${key}";
-				my $line = "\t$key";
-				$line .= " $r_hash->{$realKey}" if ($r_hash->{$realKey} ne '');
-				push @lines, $line if $current_file eq $file;
-			} else {
-				my $line = $key;
-				$line .= " $r_hash->{$key}" if ($r_hash->{$key} ne '');
-				push @lines, $line if $current_file eq $file;
-				$diffs->{$key} = 1 if $current_file ne $file && $r_hash->{$key} ne $value;
-				delete $diffs->{$key} if $current_file eq $file || $r_hash->{$key} eq $value;
-			}
-		}
-	}
-	close FILE;
-
-	debug TF("Saving %s...\n", $file), 'writeFile';
-
-	# options that are different in memory and file data, but defined in !include'd (read only) files
-	foreach (sort keys %$diffs) {
-		push @lines, $r_hash->{$_} ne '' ? "$_ $r_hash->{$_}" : "$_";
-	}
-
-	open FILE, ">:utf8", $file;
-	print FILE join("\n", @lines) . "\n";
-	close FILE;
-}
-
-sub writeDataFileIntact2 {
-	my $file = shift;
-	my $r_hash = shift;
-	my $data;
-	my $key;
-
-	my $reader = new Utils::TextReader($file, { hide_includes => 0, hide_comments => 0 });
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/\x{FEFF}//g;
-		if ($line =~ /^#/ || $line =~ /^\n/ || $line =~ /^\r/) {
-			$data .= $line;
-			next;
-		}
-		($key) = $line =~ /^(\w+)/;
-		$data .= $key;
-		$data .= " $$r_hash{$key}{'timeout'}" if $$r_hash{$key}{'timeout'} ne '';
-		$data .= "\n";
-	}
-	close FILE;
-	open(FILE, ">:utf8", $file);
-	print FILE $data;
-	close FILE;
-}
-
-sub writePortalsLOS {
-	my $file = shift;
-	my $r_hash = shift;
-	open(FILE, "+> $file");
-	foreach my $key (sort keys %{$r_hash}) {
-		next if (!$$r_hash{$key} || !(keys %{$$r_hash{$key}}));
-		print FILE $key;
-		foreach (keys %{$$r_hash{$key}}) {
-			print FILE " $_ $$r_hash{$key}{$_}";
-		}
-		print FILE "\n";
-	}
-	close FILE;
-}
-
-sub writeSectionedFileIntact {
-	my $file = shift;
-	my $r_hash = shift;
-	my $section = "";
-	my @lines;
-
-	my $reader = new Utils::TextReader($file);
-	while (!$reader->eof()) {
-		my $line = $reader->readLine();
-		$line =~ s/[\r\n]//g;
-		if ($line =~ /^#/ || $line =~ /^ *$/) {
-			push @lines, $line;
-			next;
-		}
-
-		if ($line =~ /^\[(.*)\]$/) {
-			$section = $1;
-			push @lines, $line;
-		} else {
-			my ($key, $value);
-			if ($line =~ / /) {
-				($key) = $line =~ /^(.*?) /;
-			} else {
-				$key = $line;
-			}
-			$value = $r_hash->{$section}{$key};
-			push @lines, "$key $value";
-		}
-	}
-	close FILE;
-
-	open(FILE, ">:utf8", $file);
-	print FILE join("\n", @lines) . "\n";
-	close FILE;
-}
-
-sub updateMonsterLUT {
-	my $file = shift;
-	my $ID = shift;
-	my $name = shift;
-	open FILE, ">>:utf8", $file;
-	print FILE "$ID $name\n";
-	close FILE;
-}
-
-sub updatePortalLUT {
-	my ($file, $sourceMap, $sourceX, $sourceY, $destMap, $destX, $destY) = @_;
+# Map a field name to its field file's base name.
+sub nameToBaseName {
+	my ($self, $name) = @_;
 	
-	my $plugin_args = {file => $file, sourceMap => $sourceMap, sourceX => $sourceX, sourceY => $sourceY, destMap => $destMap, destX => $destX, destY => $destY};
-	Plugins::callHook('updatePortalLUT', $plugin_args);
-	
-	unless ($plugin_args->{return}) {
-		open FILE, ">>:utf8", $file;
-		print FILE "$sourceMap $sourceX $sourceY $destMap $destX $destY\n";
-		close FILE;
+	my ($instanceID);
+
+	if ($name =~ /^(\w{3})(\d@.*)/) { # instanced maps, ex: 0021@cata
+		$instanceID = $1;
+		$name = $2;
 	}
+
+	return ($name, $instanceID);
 }
 
-#Add: NPC talk Sequence
-sub updatePortalLUT2 {
-	my ($file, $sourceMap, $sourceX, $sourceY, $destMap, $destX, $destY, $steps) = @_;
-	
-	my $plugin_args = {file => $file, sourceMap => $sourceMap, sourceX => $sourceX, sourceY => $sourceY, destMap => $destMap, destX => $destX, destY => $destY, steps => $steps};
-	Plugins::callHook('updatePortalLUT2', $plugin_args);
-	
-	unless ($plugin_args->{return}) {
-		open FILE, ">>:utf8", $file;
-		print FILE "$sourceMap $sourceX $sourceY $destMap $destX $destY $steps\n";
-		close FILE;
+sub sourceName {
+	my ($self) = @_;
+	my $name = $self->baseName;
+	my $baseName;
+
+	if ($baseName = $masterServer->{"field_$name"}) {
+		# Handle server-specific versions of the field from servers.txt
+	} elsif ($baseName = $mapAlias_lut{"$name"}) {
+		# Some fields have multiple names, but have the same field data nevertheless.
+		# For example, the newbie grounds (new_1-1, new_2-1, etc.) all look the same,
+		# even though they're different fields and may have different monsters.
+		# Take care of that.
+	} else {
+		# The field name is already the base name.
+		$baseName = $name;
 	}
+
+	return $baseName;
 }
 
-sub updateNPCLUT {
-	my ($file, $location, $name) = @_;
-	return unless $name;
-	open FILE, ">>:utf8", $file;
-	print FILE "$location $name\n";
-	close FILE;
+### CATEGORY: Map image API
+
+##
+# String $Field->image([String format])
+# format: image format
+#
+# Path to file with map image, autogenerated if needed.
+sub image {
+	my ($self, $format) = @_;
+	my $name = $self->sourceName;
+	my $search = $format;
+	if ($search) {
+		($format) = split /\s*,\s*/, $search;
+	} else {
+		$search = 'jpg, png, bmp, xpm';
+		$format = 'xpm';
+	}
+
+	for (map { File::Spec->catfile($Settings::maps_folder, "$name.$_") } split /\s*,\s*/, $search) {
+		return $_ if -f;
+	}
+
+	if (!-d $Settings::maps_folder) {
+		if (!File::Path::make_path($Settings::maps_folder)) {
+			IOException->throw("Unable to create folder $Settings::maps_folder ($!)");
+		}
+	}
+
+	my $xpmFile = File::Spec->catfile($Settings::maps_folder, "$name.xpm");
+	return unless open my $f, '>', $xpmFile;
+	binmode $f;
+	print $f Utils::xpmmake($self->width, $self->height, $self->{rawMap});
+	close $f;
+
+	return $xpmFile if $format eq 'xpm';
+
+	undef $@;
+	eval q(use Wx ':everything');
+	return if $@;
+
+	my %wxImageType = (
+		jpg => eval 'wxBITMAP_TYPE_JPEG()',
+		png => eval 'wxBITMAP_TYPE_PNG()',
+		bmp => eval 'wxBITMAP_TYPE_BMP()',
+	);
+
+	my $file = File::Spec->catfile($Settings::maps_folder, "$name.$format");
+	my $image = Wx::Image->newNameType($xpmFile, eval 'wxBITMAP_TYPE_ANY()');
+	$image->SaveFile($file, $wxImageType{$format});
+
+	return $file;
 }
 
 1;
