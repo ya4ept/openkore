@@ -79,7 +79,7 @@ jobs:
       if: runner.os == 'Windows' && matrix.perl == '5.12'
       run: |
         rm -r C:/Strawberry/*
-        Invoke-WebRequest https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-64bit.zip -OutFile strawberry.zip
+        Invoke-WebRequest https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0.zip -OutFile strawberry.zip
         7z.exe x strawberry.zip -o"C:/Strawberry"
         echo "================================="
         ls C:/Strawberry
