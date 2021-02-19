@@ -24,36 +24,32 @@ jobs:
           python: 2.7
           architecture: x86
           perl: 5.12
-          distribution: default
-        #- os: windows-2016
-        #  python: 3
-        #  architecture: x86
-        #  perl: latest
-        #  distribution: strawberry
 
-        #- os: windows-latest
-        #  python: 3
-        #  architecture: x86
-        #  perl: latest
-        #  distribution: strawberry
+        - os: windows-2016
+          python: 3
+          architecture: x86
+          perl: 5.32
 
-        #- os: ubuntu-18.04
-        #  python: 2.7
-        #  architecture: x64
-        #  perl: 5.12
-        #  distribution: default
+        - os: windows-latest
+          python: 3
+          architecture: x86
+          perl: 5.32
 
-        #- os: ubuntu-latest
-        #  python: 3
-        #  architecture: x64
-        #  perl: latest
-        #  distribution: default
+        - os: ubuntu-18.04
+          python: 2.7
+          architecture: x64
+          perl: 5.12
+
+        - os: ubuntu-latest
+          python: 3
+          architecture: x64
+          perl: latest
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # setup Windows matrix: python 2.7_x86, 3_x86 and perl 5.12_x64, strawberry last_x64
+    # setup Windows matrix: python 2.7_x86, 3_x86 and strawberry perl 5.12_x86, 5.32_x86
     # setup Linux   matrix: python 2.7_x64, 3_x64 and perl 5.12_x64, last_x64
     - name: setup-python ${{ matrix.python }} ${{ matrix.architecture }}
       uses: actions/setup-python@v2
@@ -61,23 +57,25 @@ jobs:
         python-version: ${{ matrix.python }}
         architecture: ${{ matrix.architecture }}
 
-    - name: setup-perl ${{ matrix.perl }} (${{ matrix.distribution }})
+    - name: setup-perl ${{ matrix.perl }}
       uses: shogo82148/actions-setup-perl@v1
       if: runner.os == 'Linux'
       with:
         perl-version: ${{ matrix.perl }}
-        distribution: ${{ matrix.distribution }}
 
-    - name: Replace perl 5.12 x64 to x86
+    - name: Replace perl to 5.12.3.0 x86
       if: runner.os == 'Windows' && matrix.perl == '5.12'
       run: |
         rm -r C:/Strawberry/*
         Invoke-WebRequest https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0.zip -OutFile strawberry.zip
         7z.exe x strawberry.zip -o"C:/Strawberry"
-        echo "================================="
-        ls C:/Strawberry
-        echo "================================="
-        perl -V
+
+    - name: Replace perl to 5.32.1.1 x86
+      if: runner.os == 'Windows' && matrix.perl == '5.32'
+      run: |
+        rm -r C:/Strawberry/*
+        Invoke-WebRequest https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit.zip  -OutFile strawberry.zip
+        7z.exe x strawberry.zip -o"C:/Strawberry"
 
     - name: Environment check
       run: |
