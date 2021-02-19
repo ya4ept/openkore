@@ -75,6 +75,17 @@ jobs:
         sudo apt update
         sudo apt install -y libreadline6-dev libcurl4-openssl-dev
 
+    - name: Replace perl 5.12 x64 to x86
+      if: runner.os == 'Windows' && matrix.perl == '5.12'
+      run: |
+        rm -r C:/Strawberry/*
+        Invoke-WebRequest https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-64bit.zip -OutFile strawberry.zip
+        7z.exe x strawberry.zip -o"C:/Strawberry"
+        echo "================================="
+        ls C:/Strawberry
+        echo "================================="
+        perl -V
+
     - name: Environment check (Windows)
       if: runner.os == 'Windows'
       run: |

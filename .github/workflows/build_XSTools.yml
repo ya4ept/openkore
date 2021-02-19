@@ -95,7 +95,7 @@ jobs:
         echo "------------- python version -------------"
         python -V
 
-    - name: Run make XSTools
+    - name: Run make XSTools.dll
       if: runner.os == 'Windows'
       run: |
         make all
@@ -105,8 +105,6 @@ jobs:
 
     - name: Run make XSTools.so
       if: runner.os == 'Linux'
-      env:
-          OS: ${{ runner.os }}
       run: |
         sudo apt install -y libreadline6-dev libcurl4-openssl-dev
         make all
