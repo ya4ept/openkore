@@ -3,7 +3,7 @@
 # setup-python:       https://github.com/actions/setup-python
 # actions-setup-perl: https://github.com/marketplace/actions/setup-perl-environment
 
-name: Build XSTools
+name: Build Win
 on:
   push:
     branches:
@@ -15,47 +15,55 @@ on:
 jobs:
   build_XSTools:
 
-    name: XSTools ${{ matrix.os }} (python ${{ matrix.python }}) (perl ${{ matrix.perl }})
+    name: XSTools ${{ matrix.os }} (python ${{ matrix.python }}) (perl ${{ matrix.perl }}) x${{ matrix.test }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         include:
         - os: windows-2016
-          python: 2.7
-          architecture: x86
-          perl: 5.12
-
-        - os: windows-latest
           python: 3
           architecture: x86
-          perl: 5.32
+          perl: '5.30'
+          test: 64
+
+        - os: windows-2016
+          python: 3
+          architecture: x86
+          perl: '5.30'
+          test: 32
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # setup Windows matrix: python 2.7_x86, 3_x86 and strawberry perl 5.12_x86, 5.32_x86
-    # setup Linux   matrix: python 2.7_x64, 3_x64 and perl 5.12_x64, last_x64
+    # setup Windows matrix: python 3_x86 and strawberry perl 5.30_x64, 5.30_x86
     - name: setup-python ${{ matrix.python }} ${{ matrix.architecture }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python }}
         architecture: ${{ matrix.architecture }}
 
-    - name: Replace perl to 5.12.3.0 x86
-      if: runner.os == 'Windows' && matrix.perl == '5.12'
+    - name: Replace perl to 5.30.3.1 x${{ matrix.test }}
       run: |
+        echo "================================================================="
+        echo "== previous version"
+        echo "================================================================="
+        perl --version
+        echo "================================================================="
+        echo "== remove the default perl"
+        echo "================================================================="
         rm -r C:/Strawberry/*
-        Invoke-WebRequest https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0.zip -OutFile strawberry.zip
+        echo "================================================================="
+        echo "== remove the default perl"
+        echo "================================================================="
+        #Invoke-WebRequest https://strawberryperl.com/download/5.30.3.1/strawberry-perl-5.30.3.1-64bit-portable.zip -OutFile strawberry.zip
+        Invoke-WebRequest https://strawberryperl.com/download/5.30.3.1/strawberry-perl-5.30.3.1-${{ matrix.test }}bit-portable.zip -OutFile strawberry.zip
         7z.exe x strawberry.zip -o"C:/Strawberry"
-
-    - name: Replace perl to 5.32.1.1 x86
-      if: runner.os == 'Windows' && matrix.perl == '5.32'
-      run: |
-        rm -r C:/Strawberry/*
-        Invoke-WebRequest https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit.zip  -OutFile strawberry.zip
-        7z.exe x strawberry.zip -o"C:/Strawberry"
+        echo "================================================================="
+        echo "== a new version"
+        echo "================================================================="
+        perl --version
 
     - name: Environment check
       run: |
@@ -71,9 +79,10 @@ jobs:
         python -V
 
     - name: Run make XSTools.dll
-      if: runner.os == 'Windows'
       run: |
         make all
         echo "================================================================="
         echo "DONE:"
-        dir src\auto\XSTools\ | findstr "dll"
+        #dir src\auto\XSTools\ | findstr "dll"
+        ls src\auto\XSTools\NetRedirect.dll
+        ls src\auto\XSTools\XSTools.dll
