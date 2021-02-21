@@ -83,6 +83,19 @@ jobs:
         echo "------------- python version -------------"
         python -V
 
+    - name: ВЕРСИИ g++
+      shell: cmd
+      run: |
+        g++ --version
+        make --version
+        gmake --version
+        g++ -v
+        rm -r c:\msys64\*
+        g++ --version
+        make --version
+        gmake --version
+        g++ -v
+
     - name: Run make XSTools.dll
       run: |
         gmake all
