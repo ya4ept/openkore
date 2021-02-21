@@ -64,6 +64,11 @@ jobs:
         echo "== a new version"
         echo "================================================================="
         perl --version
+        echo "================================================================="
+        echo "== СПИСОК КАТАЛОГОВ:"
+        echo "================================================================="
+        dir c:\
+        dir c:\msys64
 
     - name: Environment check
       run: |
@@ -80,7 +85,7 @@ jobs:
 
     - name: Run make XSTools.dll
       run: |
-        make all
+        gmake all
         echo "================================================================="
         echo "DONE:"
         #dir src\auto\XSTools\ | findstr "dll"
