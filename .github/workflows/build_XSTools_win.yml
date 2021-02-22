@@ -55,7 +55,7 @@ jobs:
         echo "================================================================="
         rm -r C:/Strawberry/*
         echo "================================================================="
-        echo "== remove the default perl"
+        echo "== download strawberry perl "
         echo "================================================================="
         #Invoke-WebRequest https://strawberryperl.com/download/5.30.3.1/strawberry-perl-5.30.3.1-64bit-portable.zip -OutFile strawberry.zip
         Invoke-WebRequest https://strawberryperl.com/download/5.30.3.1/strawberry-perl-5.30.3.1-${{ matrix.test }}bit-portable.zip -OutFile strawberry.zip
@@ -65,7 +65,11 @@ jobs:
         echo "================================================================="
         perl --version
         echo "================================================================="
-        echo "== СПИСОК КАТАЛОГОВ:"
+        echo "== uninstall mingw"
+        echo "================================================================="
+        choco uninstall mingw
+        echo "================================================================="
+        echo "== dir list:"
         echo "================================================================="
         dir c:\
         dir c:\msys64
@@ -84,13 +88,13 @@ jobs:
         python -V
 
     - name: ВЕРСИИ g++
-      shell: cmd
+      #shell: cmd
       run: |
         g++ --version
         make --version
         gmake --version
         g++ -v
-        rm -r c:\msys64\*
+        #rm -r c:\msys64\*
         g++ --version
         make --version
         gmake --version
