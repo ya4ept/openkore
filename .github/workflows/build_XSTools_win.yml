@@ -22,11 +22,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - os: windows-2016
-          python: 3
-          architecture: x86
-          perl: '5.30'
-          perl_arch: 64
+        #- os: windows-2016
+        #  python: 3
+        #  architecture: x86
+        #  perl: '5.30'
+        #  perl_arch: 64
 
         - os: windows-2016
           python: 3
@@ -68,7 +68,8 @@ jobs:
         echo "================================================================="
         echo "== uninstall mingw x64"
         echo "================================================================="
-        choco uninstall mingw
+        #choco uninstall mingw
+        rm C:\ProgramData\Chocolatey\bin\g++.exe
         echo "================================================================="
         echo "== dir list:"
         echo "================================================================="
@@ -102,12 +103,12 @@ jobs:
       #shell: cmd
       run: |
         g++ --version
-        make --version
+        #make --version
         gmake --version
         g++ -v
         #rm -r c:\msys64\*
         g++ --version
-        make --version
+        #make --version
         gmake --version
         g++ -v
 
