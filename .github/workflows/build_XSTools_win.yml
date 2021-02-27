@@ -54,14 +54,23 @@ jobs:
         echo "================================================================="
         rm -f /c/ProgramData/Chocolatey/bin/g++.exe
 
+    - name: du -sh $GITHUB_WORKSPACE
+      shell: bash
+      run: du -sh $GITHUB_WORKSPACE
+
     - name: Check cache Strawberry
       if: runner.os == 'Windows'
       id: cache-strawberry
       uses: actions/cache@v2
       with:
-        path: c:\Strawberry
+        path: |
+          c:\Strawberry
+          ${{ github.workspace }}
         key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
-        restore-keys: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+
+    - name: du -sh $GITHUB_WORKSPACE
+      shell: bash
+      run: du -sh $GITHUB_WORKSPACE
 
     - name: Replace perl to ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
@@ -142,14 +151,6 @@ jobs:
           src\auto\XSTools\XSTools.dll
           src\auto\XSTools\NetRedirect.dll
 
-    - name: Save cache OpenKore
-      id: cache-OpenKore
-      uses: actions/cache@v2
-      with:
-        path: D:\a\openkore\openkore
-        key: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-5
-        restore-keys: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-5
-
     - name: переменные
       shell: bash
       run: |
@@ -207,14 +208,23 @@ jobs:
       run: |
         rm -rf /c/Strawberry/*
 
+    - name: du -sh $GITHUB_WORKSPACE
+      shell: bash
+      run: du -sh $GITHUB_WORKSPACE
+
     - name: Check cache Strawberry
       id: cache-strawberry
       if: runner.os == 'Windows'
       uses: actions/cache@v2
       with:
-        path: c:\Strawberry
+        path: |
+          c:\Strawberry
+          ${{ github.workspace }}
         key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
-        restore-keys: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+
+    - name: du -sh $GITHUB_WORKSPACE
+      shell: bash
+      run: du -sh $GITHUB_WORKSPACE
 
     - name: cache-strawberry?
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
@@ -222,14 +232,6 @@ jobs:
 
     - name: perl --version
       run: perl --version
-
-    - name: Restore cache OpenKore
-      id: cache-OpenKore
-      uses: actions/cache@v2
-      with:
-        path: D:\a\openkore\openkore
-        key: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-5
-        restore-keys: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-5
 
     - name: переменные
       shell: bash
