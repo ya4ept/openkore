@@ -1,9 +1,11 @@
-# runs-on:                  https://github.com/actions/virtual-environments
-# setup-python:             https://github.com/actions/setup-python
-# actions-setup-perl:       https://github.com/marketplace/actions/setup-perl-environment
-# Strawberry Perl 5.12.3.0: https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip
-# Strawberry Perl 5.32.1.1: https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip
-# actions-upload-artifact:  https://github.com/actions/upload-artifact
+# workflow syntax           https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+# runs-on                   https://github.com/actions/virtual-environments
+# setup-python              https://github.com/actions/setup-python
+# actions-setup-perl        https://github.com/marketplace/actions/setup-perl-environment
+# strawberry Perl 5.12.3.0  https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip
+# strawberry Perl 5.32.1.1  https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip
+# actions-upload-artifact   https://github.com/actions/upload-artifact
+# actions-cache             https://github.com/actions/cache
 
 name: Build Win
 on:
@@ -32,7 +34,7 @@ jobs:
         - os: windows-latest
           python: 3
           architecture: x86
-          perl: '5.32'
+          perl: 5.32
           strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
 
     steps:
@@ -46,7 +48,26 @@ jobs:
         python-version: ${{ matrix.python }}
         architecture: ${{ matrix.architecture }}
 
+    - name: Удаляем дефолтовый Strawberry и g++
+      shell: bash
+      run: |
+        rm -rf /c/Strawberry/*
+        echo "================================================================="
+        echo "== remove g++ x64"
+        echo "================================================================="
+        rm -f /c/ProgramData/Chocolatey/bin/g++.exe
+
+    - name: Check cache Strawberry
+      if: runner.os == 'Windows'
+      id: cache-strawberry
+      uses: actions/cache@v2
+      with:
+        path: c:\Strawberry
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+        restore-keys: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+
     - name: Replace perl to ${{ matrix.perl }} ${{ matrix.architecture }}
+      if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
       run: |
         echo "================================================================="
         echo "== previous version of Perl:"
@@ -61,21 +82,11 @@ jobs:
         echo "================================================================="
         Invoke-WebRequest ${{ matrix.strawberry_distr }} -OutFile strawberry.zip
         7z.exe x strawberry.zip -o"C:/Strawberry"
+        rm strawberry.zip
         echo "================================================================="
         echo "== a new version of Perl:"
         echo "================================================================="
         perl --version
-        echo "================================================================="
-        echo "== remove g++ x64"
-        echo "================================================================="
-        # package removal takes too long (4 minutes). Instead, we can delete 1 file
-        # choco uninstall mingw
-        rm C:\ProgramData\Chocolatey\bin\g++.exe
-        #echo "================================================================="
-        #echo "== dir list:"
-        #echo "================================================================="
-        #dir c:\
-        #dir c:\msys64
 
     - name: Environment check
       run: |
@@ -133,3 +144,91 @@ jobs:
         path: |
           src\auto\XSTools\XSTools.dll
           src\auto\XSTools\NetRedirect.dll
+
+    - name: Save cache OpenKore
+      id: cache-OpenKore
+      uses: actions/cache@v2
+      with:
+        path: ${{ github.workspace }}
+        key: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-2
+
+  make_test:
+
+    name: make test ${{ matrix.os }} (python ${{ matrix.python }}) (perl ${{ matrix.perl }})
+    needs: build_XSTools
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - os: windows-2016
+          python: 2.7
+          architecture: x86
+          perl: 5.12
+
+        - os: windows-latest
+          python: 3
+          architecture: x86
+          perl: 5.32
+
+    steps:
+    - name: ДО perl --version
+      run: perl --version
+
+    - name: ДО переменные
+      shell: bash
+      run: |
+        echo "Deploying to production server on branch $GITHUB_REF"
+        pwd
+        echo "== GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+        echo "== ls -l"
+        ls -l
+
+    - name: Удаляем дефолтовый Strawberry
+      shell: bash
+      run: |
+        rm -rf /c/Strawberry/*
+
+    - name: Check cache Strawberry
+      id: cache-strawberry
+      if: runner.os == 'Windows'
+      uses: actions/cache@v2
+      with:
+        path: c:\Strawberry
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+        restore-keys: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+
+    - name: cache-strawberry?
+      if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
+      run: echo "cache-strawberry2 НЕ найден"
+
+    - name: perl --version
+      run: perl --version
+
+    - name: Restore cache OpenKore
+      id: cache-OpenKore
+      uses: actions/cache@v2
+      with:
+        path: ${{ github.workspace }}
+        key: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}
+        restore-keys: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-2
+
+    - name: переменные
+      shell: bash
+      run: |
+        pwd
+        echo "== GITHUB_WORKSPACE"
+        echo $GITHUB_WORKSPACE
+        echo "== pwd"
+        pwd
+        echo "== ls -l"
+        ls -l
+        echo ================= /d
+        ls -l /d
+        echo ================= /d/a
+        ls -l /d/a
+        echo ================= /d/a/_temp
+        ls -l /d/a/_temp
+
+    - name: Run Tests
+      run: make test
