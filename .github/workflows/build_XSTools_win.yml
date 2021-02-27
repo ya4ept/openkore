@@ -11,9 +11,6 @@ name: Build Win
 on:
   push:
     branches:
-      - master
-    tags-ignore:
-      - '*'
   pull_request:
 
 jobs:
@@ -149,8 +146,29 @@ jobs:
       id: cache-OpenKore
       uses: actions/cache@v2
       with:
-        path: ${{ github.workspace }}
-        key: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-2
+        path: D:\a\openkore\openkore
+        key: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-5
+        restore-keys: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-5
+
+    - name: переменные
+      shell: bash
+      run: |
+        pwd
+        echo "== GITHUB_WORKSPACE"
+        echo $GITHUB_WORKSPACE
+        echo "== pwd"
+        pwd
+        echo "== ls -l"
+        ls -l
+        echo "== du -sh openkore"
+        du -sh /d/a/openkore/openkore
+        echo ================= /d
+        ls -l /d
+        echo ================= /d/a
+        ls -l /d/a
+        echo ================= /d/a/_temp
+        ls -l /d/a/_temp
+
 
   make_test:
 
@@ -209,9 +227,9 @@ jobs:
       id: cache-OpenKore
       uses: actions/cache@v2
       with:
-        path: ${{ github.workspace }}
-        key: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}
-        restore-keys: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-2
+        path: D:\a\openkore\openkore
+        key: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-5
+        restore-keys: ${{ runner.os }}-OpenKore-python${{ matrix.python }}-perl${{ matrix.perl }}-5
 
     - name: переменные
       shell: bash
@@ -223,6 +241,8 @@ jobs:
         pwd
         echo "== ls -l"
         ls -l
+        echo "== du -sh openkore"
+        du -sh /d/a/openkore/openkore
         echo ================= /d
         ls -l /d
         echo ================= /d/a
