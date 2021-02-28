@@ -6,7 +6,6 @@ use lib "$RealBin/..";
 use lib "$RealBin/../deps";
 use lib "$RealBin/../auto/XSTools";
 use lib "$RealBin/../..";
-
 use List::MoreUtils;
 use Test::More qw(no_plan);
 

@@ -29,11 +29,11 @@ jobs:
           perl: 5.12
           strawberry_distr: 'https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip'
 
-        #- os: windows-latest
-        #  python: 3
-        #  architecture: x86
-        #  perl: 5.32
-        #  strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
+        - os: windows-latest
+          python: 3
+          architecture: x86
+          perl: 5.32
+          strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
 
     steps:
     - name: GIT checkout
@@ -48,7 +48,7 @@ jobs:
         python-version: ${{ matrix.python }}
         architecture: ${{ matrix.architecture }}
 
-    - name: set path
+    - name: TEST set path
       if: runner.os == 'Windows'
       shell: cmd
       run: |
@@ -72,21 +72,13 @@ jobs:
         echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/make.exe"
         rm -f /c/ProgramData/Chocolatey/bin/make.exe
 
-    #- name: du -sh $GITHUB_WORKSPACE
-    #  shell: bash
-    #  run: du -sh $GITHUB_WORKSPACE
-
     - name: Check the Strawberry cache
       if: runner.os == 'Windows'
       id: cache-strawberry
       uses: actions/cache@v2
       with:
         path: c:\Strawberry
-        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}_5
-
-    #- name: du -sh $GITHUB_WORKSPACE
-    #  shell: bash
-    #  run: du -sh $GITHUB_WORKSPACE
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
 
     - name: Replace perl to ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
@@ -118,7 +110,7 @@ jobs:
         echo "================================================================="
         cp C:\Strawberry\c\bin\gmake.exe C:\Strawberry\c\bin\make.exe
 
-    - name: set path
+    - name: TEST set path
       if: runner.os == 'Windows'
       shell: cmd
       run: |
@@ -130,6 +122,7 @@ jobs:
 
     - name: Environment check
       run: |
+        cp C:\Strawberry\c\bin\gmake.exe C:\Strawberry\c\bin\make.exe
         echo "python version check:"
         python -V
         echo "======================"
@@ -148,7 +141,7 @@ jobs:
         echo "== make version check:"
         make --version
 
-    - name: ВЕРСИИ g++
+    - name: TEST ВЕРСИИ g++
       if: runner.os == 'Windows'
       shell: cmd
       run: |
@@ -198,10 +191,10 @@ jobs:
           architecture: x86
           perl: 5.12
 
-        #- os: windows-latest
-        #  python: 3
-        #  architecture: x86
-        #  perl: 5.32
+        - os: windows-latest
+          python: 3
+          architecture: x86
+          perl: 5.32
 
     steps:
     - name: GIT checkout
@@ -212,17 +205,10 @@ jobs:
       run: |
         echo -e "\e[34m# rm -rf /c/Strawberry/*"
         mv /c/Strawberry/* /c/Temp/
-        rm -f /c/ProgramData/Chocolatey/bin/g++.exe
         echo -e "\e[34m# ls -l *.dll"
         ls -l *.dll
         echo -e "\e[34m# rm -f *.dll"
         rm -f *.dll
-        echo -e "\e[34m# du -sh /c/Strawberry/"
-        du -sh /c/Strawberry/
-
-    #- name: du -sh $GITHUB_WORKSPACE
-    #  shell: bash
-    #  run: du -sh $GITHUB_WORKSPACE
 
     - name: Check the Strawberry cache
       id: cache-strawberry
@@ -230,11 +216,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: c:\Strawberry
-        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}_4
-
-    #- name: du -sh $GITHUB_WORKSPACE
-    #  shell: bash
-    #  run: du -sh $GITHUB_WORKSPACE
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
 
     - name: Display an error if the cache is found
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
@@ -243,7 +225,7 @@ jobs:
         echo -e "\e[30;41mcache-strawberry НЕ найден!!! Смотри шаг 'Post Check the Strawberry cache' в предыдущем джобе."
         exit 1
 
-    - name: set path
+    - name: TEST set path
       if: runner.os == 'Windows'
       shell: cmd
       run: |
@@ -257,9 +239,6 @@ jobs:
       run: |
         echo "== perl version check:"
         perl --version
-        echo "======================="
-        echo "== make version check:"
-        make --version
 
     - name: Восстанавливаем артифакт
       uses: actions/download-artifact@v2
@@ -271,10 +250,6 @@ jobs:
       run: |
         echo -e "\e[34m# ls -lh | grep XSTools"
         ls -lh | grep XSTools
-        #echo -e "\e[34m# mv XSTools.dll ./src/test/"
-        #mv -v XSTools.dll ./src/test/
-        #echo -e "\e[34m# ls -lh ./src/test/ | grep XSTools"
-        #ls -lh ./src/test/ | grep XSTools
 
     - name: Run Tests
       run: |
