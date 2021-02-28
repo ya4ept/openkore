@@ -48,31 +48,56 @@ jobs:
         python-version: ${{ matrix.python }}
         architecture: ${{ matrix.architecture }}
 
+    - name: set path
+      shell: cmd
+      run: |
+        set path
+        where perl
+        where gmake
+
     - name: Удаляем дефолтовый Strawberry и g++
       shell: bash
       run: |
         echo -e "\e[34m# rm -rf /c/Strawberry/*"
+        echo -e "\e[34mmv /c/Strawberry/* /c/Temp/"
         rm -rf /c/Strawberry/*
+        ls -lh /c/
         echo -e "\e[34m== remove g++ x64"
         echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
         rm -f /c/ProgramData/Chocolatey/bin/g++.exe
+        echo -e "\e[34m# du -sh /c/Strawberry/"
+        du -sh /c/Strawberry/
 
     #- name: du -sh $GITHUB_WORKSPACE
     #  shell: bash
     #  run: du -sh $GITHUB_WORKSPACE
+
+    - name: set path
+      shell: cmd
+      run: |
+        set path
+        where perl
+        where gmake
+        dir c:\Strawberry
 
     - name: Check the Strawberry cache
       if: runner.os == 'Windows'
       id: cache-strawberry
       uses: actions/cache@v2
       with:
-        path: |
-          c:\Strawberry
-        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+        path: c:\Strawberry
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}_4
 
     #- name: du -sh $GITHUB_WORKSPACE
     #  shell: bash
     #  run: du -sh $GITHUB_WORKSPACE
+
+    - name: set path
+      shell: cmd
+      run: |
+        set path
+        where perl
+        where gmake
 
     - name: Replace perl to ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
@@ -100,12 +125,34 @@ jobs:
         echo "================================================================="
         perl --version
 
+    - name: set path
+      shell: cmd
+      run: |
+        set path
+        where perl
+        where gmake
+
     - name: Environment check
       shell: bash
       run: |
+        which perl
+        echo -e "\e[34m# du -sh /c/Strawberry/"
+        du -sh /c/Strawberry/
+        echo -e "\e[34m# ls -lh /c/Strawberry/"
+        ls -lh /c/Strawberry/
+        echo -e "\e[34m# /c/Strawberry/perl/bin/perl.exe -v"
+        /c/Strawberry/perl/bin/perl.exe -v
         echo -e "\e[34m== python version check:"
         python -V
         echo -e "\e[34m======================"
+        echo -e "\e[34m== perl version check:"
+        perl --version
+        echo -e "\e[34m== perl version check:"
+        perl --version
+        echo -e "\e[34m== perl version check:"
+        perl --version
+        echo -e "\e[34m== perl version check:"
+        perl --version
         echo -e "\e[34m== perl version check:"
         perl --version
         echo -e "\e[34m======================"
@@ -122,10 +169,16 @@ jobs:
         echo -e "\e[34m======================="
         echo -e "\e[34m== gmake version check:"
         gmake --version
+        echo -e "\e[34m======================="
+        perl -V
 
     - name: ВЕРСИИ g++
-      #shell: cmd
+      shell: cmd
       run: |
+        set path
+        where perl
+        where gmake
+        echo "==================="
         g++ --version
         #make --version
         gmake --version
@@ -138,6 +191,7 @@ jobs:
 
     - name: Run make XSTools.dll
       run: |
+        perl --version
         gmake all
         echo "================================================================="
         ls src\auto\XSTools\XSTools.dll
@@ -179,11 +233,14 @@ jobs:
       shell: bash
       run: |
         echo -e "\e[34m# rm -rf /c/Strawberry/*"
-        rm -rf /c/Strawberry/*
+        mv /c/Strawberry/* /c/Temp/
+        rm -f /c/ProgramData/Chocolatey/bin/g++.exe
         echo -e "\e[34m# ls -l *.dll"
         ls -l *.dll
         echo -e "\e[34m# rm -f *.dll"
         rm -f *.dll
+        echo -e "\e[34m# du -sh /c/Strawberry/"
+        du -sh /c/Strawberry/
 
     #- name: du -sh $GITHUB_WORKSPACE
     #  shell: bash
@@ -195,7 +252,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: c:\Strawberry
-        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}_4
 
     #- name: du -sh $GITHUB_WORKSPACE
     #  shell: bash
@@ -211,8 +268,12 @@ jobs:
     - name: Environment check
       shell: bash
       run: |
+        echo -e "\e[34m# du -sh /c/Strawberry/"
+        du -sh /c/Strawberry/
         echo -e "\e[34m== perl version check:"
         perl --version
+        echo -e "\e[34m======================="
+        perl -V
 
     - name: Восстанавливаем артифакт
       uses: actions/download-artifact@v2
@@ -224,8 +285,6 @@ jobs:
       run: |
         echo -e "\e[34m# ls -lh | grep XSTools"
         ls -lh | grep XSTools
-        echo -e "\e[34m# ls -lh ./src/test/ | grep XSTools"
-        ls -lh ./src/test/ | grep XSTools
         echo -e "\e[34m# mv XSTools.dll ./src/test/"
         mv XSTools.dll ./src/test/
         echo -e "\e[34m# ls -lh ./src/test/ | grep XSTools"
@@ -251,4 +310,7 @@ jobs:
         ls -l /d/a/_temp
 
     - name: Run Tests
-      run: gmake test
+      run: |
+        cat .\Makefile
+        echo "==============================================="
+        gmake test
