@@ -1,6 +1,6 @@
 # -*-python-*-
 # This is the main SCons script which defines compilation rules.
-# See http://www.scons.org/ for more information.
+# See https://www.scons.org/ for more information.
 #
 # If you wish to tweak the build system but aren't familiar with SCons,
 # then simply edit these variables:
@@ -85,7 +85,7 @@ def CheckPerl(context):
 	print F "perlversion=" . $^V . "\\n";
 	close F;
 	'''
-	
+
 	if sys.version_info >= (3,0,0):
 		f = open(".perltest.pl", "w")
 	else:
@@ -180,13 +180,13 @@ conf = Configure(env, custom_tests = {
 })
 if not conf.CheckPerl():
 	print ("You do not have Perl installed! Read:")
-	print ("http://wiki.openkore.com/index.php/How_to_run_OpenKore#Perl_module:_Time::HiRes")
+	print ("https://openkore.com/wiki/How_to_run_OpenKore#Perl")
 	Exit(1)
 if not win32:
 	have_ncurses = conf.CheckLib('ncurses')
 	if not conf.CheckReadline(conf):
 		print ("You don't have GNU readline installed, or your version of GNU readline is not recent enough! Read:")
-		print ("http://wiki.openkore.com/index.php/How_to_run_OpenKore#GNU_readline")
+		print ("https://openkore.com/wiki/How_to_run_OpenKore#GNU_readline")
 		Exit(1)
 
 	if darwin:
@@ -201,7 +201,7 @@ if not win32:
 
 	if not conf.CheckLibCurl():
 		print ("You don't have libcurl installed. Please download it at:");
-		print ("http://curl.haxx.se/libcurl/");
+		print ("https://curl.se/libcurl/");
 		Exit(1)
 conf.Finish()
 
@@ -210,14 +210,16 @@ conf.Finish()
 
 # Standard environment for programs
 env['CCFLAGS'] = [] + EXTRA_COMPILER_FLAGS
+env['LINKFLAGS'] = []
 
 if win32:
 	import platform
-	
+	# have to use -static-libgcc while compiling with mingw’s g++ to eliminate the dependency on LIBGCC_S_SJLJ-1.DLL
+	env['LINKFLAGS'] += ['-static-libgcc']
 	if "64" in platform.machine():
 		env['CCFLAGS'] += ['-fpermissive', '-DWINx86_64']
 
-env['LINKFLAGS'] = []
+
 env['LIBPATH'] = [] + EXTRA_LIBRARY_DIRECTORIES
 env['LIBS'] = []
 env['CPPDEFINES'] = []
@@ -311,7 +313,7 @@ libenv['BUILDERS']['NativeDLL'] = NativeDLLBuilder
 perlenv = libenv.Clone()
 if win32:
 	rawversion = "perl" + ''.join(perlconfig['perlversion'][1:].split('.')[:2])
-	
+
 	# Windows
 	perlenv['CCFLAGS'] += Split('-s -Wno-comments -fwrapv -fno-strict-aliasing -mms-bitfields')
 	perlenv['CPPDEFINES'] += Split('__USE_MINGW_ANSI_STDIO PERL_TEXTMODE_SCRIPTS PERL_IMPLICIT_CONTEXT PERL_IMPLICIT_SYS USE_PERLIO')

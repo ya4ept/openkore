@@ -1,0 +1,257 @@
+# workflow syntax           https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+# runs-on                   https://github.com/actions/virtual-environments
+# setup-python              https://github.com/actions/setup-python
+# actions-setup-perl        https://github.com/marketplace/actions/setup-perl-environment
+# strawberry Perl 5.12.3.0  https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip
+# strawberry Perl 5.32.1.1  https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip
+# actions-upload-artifact   https://github.com/actions/upload-artifact
+# actions-download-artifact https://github.com/actions/download-artifact
+# actions-cache             https://github.com/actions/cache
+
+name: Build Win
+on:
+  push:
+    branches:
+  pull_request:
+
+jobs:
+  build_XSTools:
+
+    name: XSTools ${{ matrix.os }} (python ${{ matrix.python }}, perl ${{ matrix.perl }}) ${{ matrix.architecture }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - os: windows-2016
+          python: 2.7
+          architecture: x86
+          perl: 5.12
+          strawberry_distr: 'https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip'
+
+        - os: windows-latest
+          python: 3
+          architecture: x86
+          perl: 5.32
+          strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
+
+    steps:
+    - name: GIT checkout
+      uses: actions/checkout@v2
+
+    # setup matrix:
+    # - windows-2016 + python 2.7 x86 + strawberry perl 5.12 x86 + strawberry g++ x86
+    # - windows-2019 + python 3   x86 + strawberry perl 5.32 x86 + strawberry g++ x86
+    - name: setup-python ${{ matrix.python }} ${{ matrix.architecture }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python }}
+        architecture: ${{ matrix.architecture }}
+
+    - name: TEST set path
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        set path
+        where perl
+        where gmake
+        where make
+        where g++
+
+    - name: Удаляем дефолтовый Strawberry и g++
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        echo -e "\e[34m# rm -rf /c/Strawberry/*"
+        echo -e "\e[34mmv /c/Strawberry/* /c/Temp/"
+        mv /c/Strawberry/* /c/Temp/
+        ls -lh /c/
+        echo -e "\e[34m== remove g++ x64"
+        echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
+        rm -f /c/ProgramData/Chocolatey/bin/g++.exe
+        echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/make.exe"
+        rm -f /c/ProgramData/Chocolatey/bin/make.exe
+
+    - name: Check the Strawberry cache
+      if: runner.os == 'Windows'
+      id: cache-strawberry
+      uses: actions/cache@v2
+      with:
+        path: c:\Strawberry
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+
+    - name: Replace perl to ${{ matrix.perl }} ${{ matrix.architecture }}
+      if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
+      run: |
+        echo "Кеш НЕ найден"
+        echo "================================================================="
+        echo "== previous version of Perl:"
+        echo "================================================================="
+        perl --version
+        echo "================================================================="
+        echo "== remove the default perl"
+        echo "================================================================="
+        rm -r C:/Strawberry/*
+        echo "================================================================="
+        echo "== download strawberry perl ${{ matrix.perl }} ${{ matrix.architecture }}"
+        echo "================================================================="
+        Invoke-WebRequest ${{ matrix.strawberry_distr }} -OutFile strawberry.zip
+        echo "================================================================="
+        echo "== РАСПАКОВЫВАЕМ strawberry-perl"
+        echo "================================================================="
+        7z.exe x strawberry.zip -o"C:/Strawberry"
+        rm strawberry.zip
+        echo "================================================================="
+        echo "== a new version of Perl:"
+        echo "================================================================="
+        perl --version
+        echo "================================================================="
+        echo "== copy 'gmake.exe' to 'make.exe':"
+        echo "================================================================="
+        cp C:\Strawberry\c\bin\gmake.exe C:\Strawberry\c\bin\make.exe
+
+    - name: TEST set path
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        set path
+        where perl
+        where gmake
+        where make
+        where g++
+
+    - name: Environment check
+      run: |
+        cp C:\Strawberry\c\bin\gmake.exe C:\Strawberry\c\bin\make.exe
+        echo "python version check:"
+        python -V
+        echo "======================"
+        echo "== perl version check:"
+        perl --version
+        echo "======================"
+        echo "== Time::HiRes module:"
+        perl -e "use Time::HiRes;"
+        echo "========================="
+        echo "== Compress::Zlib module:"
+        perl -e "use Compress::Zlib;"
+        echo "====================="
+        echo "== g++ version check:"
+        g++ --version
+        echo "======================="
+        echo "== make version check:"
+        make --version
+
+    - name: TEST ВЕРСИИ g++
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        set path
+        where perl
+        where gmake
+        where make
+        where g++
+        echo "==================="
+        g++ --version
+        make --version
+        gmake --version
+        g++ -v
+        #rm -r c:\msys64\*
+        g++ --version
+        make --version
+        gmake --version
+        g++ -v
+
+    - name: Run make XSTools.dll
+      run: |
+        make all
+        echo "================================================================="
+        ls src\auto\XSTools\XSTools.dll
+        ls src\auto\XSTools\NetRedirect.dll
+
+    - name: Making artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os }}_perl${{ matrix.perl }}${{ matrix.architecture }}
+        path: |
+          src\auto\XSTools\XSTools.dll
+          src\auto\XSTools\NetRedirect.dll
+
+
+  make_test:
+
+    name: make test ${{ matrix.os }} (python ${{ matrix.python }}) (perl ${{ matrix.perl }})
+    needs: build_XSTools
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - os: windows-2016
+          python: 2.7
+          architecture: x86
+          perl: 5.12
+
+        - os: windows-latest
+          python: 3
+          architecture: x86
+          perl: 5.32
+
+    steps:
+    - name: GIT checkout
+      uses: actions/checkout@v2
+
+    - name: Удаляем дефолтовый Strawberry
+      shell: bash
+      run: |
+        echo -e "\e[34m# rm -rf /c/Strawberry/*"
+        mv /c/Strawberry/* /c/Temp/
+        echo -e "\e[34m# ls -l *.dll"
+        ls -l *.dll
+        echo -e "\e[34m# rm -f *.dll"
+        rm -f *.dll
+
+    - name: Check the Strawberry cache
+      id: cache-strawberry
+      if: runner.os == 'Windows'
+      uses: actions/cache@v2
+      with:
+        path: c:\Strawberry
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+
+    - name: Display an error if the cache is found
+      if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        echo -e "\e[30;41mcache-strawberry НЕ найден!!! Смотри шаг 'Post Check the Strawberry cache' в предыдущем джобе."
+        exit 1
+
+    - name: TEST set path
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        set path
+        where perl
+        where gmake
+        where make
+        where g++
+
+    - name: Environment check
+      run: |
+        echo "== perl version check:"
+        perl --version
+
+    - name: Восстанавливаем артифакт
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ matrix.os }}_perl${{ matrix.perl }}${{ matrix.architecture }}
+
+    - name: Проверяем наличие артифакта (XSTools)
+      shell: bash
+      run: |
+        echo -e "\e[34m# ls -lh | grep XSTools"
+        ls -lh | grep XSTools
+
+    - name: Run Tests
+      run: |
+        cd src\test
+        perl unittests.pl
