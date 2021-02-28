@@ -5,6 +5,7 @@
 # strawberry Perl 5.12.3.0  https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip
 # strawberry Perl 5.32.1.1  https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip
 # actions-upload-artifact   https://github.com/actions/upload-artifact
+# actions-download-artifact https://github.com/actions/download-artifact
 # actions-cache             https://github.com/actions/cache
 
 name: Build Win
@@ -16,7 +17,7 @@ on:
 jobs:
   build_XSTools:
 
-    name: XSTools ${{ matrix.os }} (python ${{ matrix.python }}) (perl ${{ matrix.perl }}) ${{ matrix.architecture }}
+    name: XSTools ${{ matrix.os }} (python ${{ matrix.python }}, perl ${{ matrix.perl }}) ${{ matrix.architecture }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -35,10 +36,12 @@ jobs:
           strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
 
     steps:
-    - name: Checkout
+    - name: GIT checkout
       uses: actions/checkout@v2
 
-    # setup Windows matrix: python 2.7_x86 + strawberry perl 5.12_x86 and python 3_x86 and strawberry perl 5.32_x86
+    # setup matrix:
+    # - windows-2016 + python 2.7 x86 + strawberry perl 5.12 x86 + strawberry g++ x86
+    # - windows-2019 + python 3   x86 + strawberry perl 5.32 x86 + strawberry g++ x86
     - name: setup-python ${{ matrix.python }} ${{ matrix.architecture }}
       uses: actions/setup-python@v2
       with:
@@ -48,33 +51,33 @@ jobs:
     - name: Удаляем дефолтовый Strawberry и g++
       shell: bash
       run: |
+        echo -e "\e[34m# rm -rf /c/Strawberry/*"
         rm -rf /c/Strawberry/*
-        echo "================================================================="
-        echo "== remove g++ x64"
-        echo "================================================================="
+        echo -e "\e[34m== remove g++ x64"
+        echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
         rm -f /c/ProgramData/Chocolatey/bin/g++.exe
 
-    - name: du -sh $GITHUB_WORKSPACE
-      shell: bash
-      run: du -sh $GITHUB_WORKSPACE
+    #- name: du -sh $GITHUB_WORKSPACE
+    #  shell: bash
+    #  run: du -sh $GITHUB_WORKSPACE
 
-    - name: Check cache Strawberry
+    - name: Check the Strawberry cache
       if: runner.os == 'Windows'
       id: cache-strawberry
       uses: actions/cache@v2
       with:
         path: |
           c:\Strawberry
-          ${{ github.workspace }}
         key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
 
-    - name: du -sh $GITHUB_WORKSPACE
-      shell: bash
-      run: du -sh $GITHUB_WORKSPACE
+    #- name: du -sh $GITHUB_WORKSPACE
+    #  shell: bash
+    #  run: du -sh $GITHUB_WORKSPACE
 
     - name: Replace perl to ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
       run: |
+        echo "Кеш НЕ найден"
         echo "================================================================="
         echo "== previous version of Perl:"
         echo "================================================================="
@@ -87,6 +90,9 @@ jobs:
         echo "== download strawberry perl ${{ matrix.perl }} ${{ matrix.architecture }}"
         echo "================================================================="
         Invoke-WebRequest ${{ matrix.strawberry_distr }} -OutFile strawberry.zip
+        echo "================================================================="
+        echo "== РАСПАКОВЫВАЕМ strawberry-perl"
+        echo "================================================================="
         7z.exe x strawberry.zip -o"C:/Strawberry"
         rm strawberry.zip
         echo "================================================================="
@@ -95,32 +101,26 @@ jobs:
         perl --version
 
     - name: Environment check
+      shell: bash
       run: |
-        echo "================================================================="
-        echo "== python version:"
-        echo "================================================================="
+        echo -e "\e[34m== python version check:"
         python -V
-        echo "================================================================="
-        echo "== perl version:"
-        echo "================================================================="
+        echo -e "\e[34m======================"
+        echo -e "\e[34m== perl version check:"
         perl --version
-        echo "================================================================="
-        echo "== Time::HiRes module:"
-        echo "================================================================="
+        echo -e "\e[34m======================"
+        echo -e "\e[34m== Time::HiRes module:"
         perl -e "use Time::HiRes;"
-        if  ($?)  {echo OK}
-        echo "================================================================="
-        echo "== Compress::Zlib module:"
-        echo "================================================================="
+        if  [ $? == 0 ] ; then echo -e "\e[34mOK"; fi
+        echo -e "\e[34m========================="
+        echo -e "\e[34m== Compress::Zlib module:"
         perl -e "use Compress::Zlib;"
-        if  ($?)  {echo OK}
-        echo "================================================================="
-        echo "== check g++ version:"
-        echo "================================================================="
+        if  [ $? == 0 ] ; then echo -e "\e[34mOK"; fi
+        echo -e "\e[34m====================="
+        echo -e "\e[34m== g++ version check:"
         g++ --version
-        echo "================================================================="
-        echo "== check gmake version:"
-        echo "================================================================="
+        echo -e "\e[34m======================="
+        echo -e "\e[34m== gmake version check:"
         gmake --version
 
     - name: ВЕРСИИ g++
@@ -151,25 +151,6 @@ jobs:
           src\auto\XSTools\XSTools.dll
           src\auto\XSTools\NetRedirect.dll
 
-    - name: переменные
-      shell: bash
-      run: |
-        pwd
-        echo "== GITHUB_WORKSPACE"
-        echo $GITHUB_WORKSPACE
-        echo "== pwd"
-        pwd
-        echo "== ls -l"
-        ls -l
-        echo "== du -sh openkore"
-        du -sh /d/a/openkore/openkore
-        echo ================= /d
-        ls -l /d
-        echo ================= /d/a
-        ls -l /d/a
-        echo ================= /d/a/_temp
-        ls -l /d/a/_temp
-
 
   make_test:
 
@@ -191,47 +172,64 @@ jobs:
           perl: 5.32
 
     steps:
-    - name: ДО perl --version
-      run: perl --version
-
-    - name: ДО переменные
-      shell: bash
-      run: |
-        echo "Deploying to production server on branch $GITHUB_REF"
-        pwd
-        echo "== GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
-        echo "== ls -l"
-        ls -l
+    - name: GIT checkout
+      uses: actions/checkout@v2
 
     - name: Удаляем дефолтовый Strawberry
       shell: bash
       run: |
+        echo -e "\e[34m# rm -rf /c/Strawberry/*"
         rm -rf /c/Strawberry/*
+        echo -e "\e[34m# ls -l *.dll"
+        ls -l *.dll
+        echo -e "\e[34m# rm -f *.dll"
+        rm -f *.dll
 
-    - name: du -sh $GITHUB_WORKSPACE
-      shell: bash
-      run: du -sh $GITHUB_WORKSPACE
+    #- name: du -sh $GITHUB_WORKSPACE
+    #  shell: bash
+    #  run: du -sh $GITHUB_WORKSPACE
 
-    - name: Check cache Strawberry
+    - name: Check the Strawberry cache
       id: cache-strawberry
       if: runner.os == 'Windows'
       uses: actions/cache@v2
       with:
-        path: |
-          c:\Strawberry
-          ${{ github.workspace }}
+        path: c:\Strawberry
         key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
 
-    - name: du -sh $GITHUB_WORKSPACE
-      shell: bash
-      run: du -sh $GITHUB_WORKSPACE
+    #- name: du -sh $GITHUB_WORKSPACE
+    #  shell: bash
+    #  run: du -sh $GITHUB_WORKSPACE
 
-    - name: cache-strawberry?
+    - name: Display an error if the cache is found
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
-      run: echo "cache-strawberry2 НЕ найден"
+      shell: bash
+      run: |
+        echo -e "\e[30;41mcache-strawberry НЕ найден!!! Смотри шаг 'Post Check the Strawberry cache' в предыдущем джобе."
+        exit 1
 
-    - name: perl --version
-      run: perl --version
+    - name: Environment check
+      shell: bash
+      run: |
+        echo -e "\e[34m== perl version check:"
+        perl --version
+
+    - name: Восстанавливаем артифакт
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ matrix.os }}_perl${{ matrix.perl }}${{ matrix.architecture }}
+
+    - name: Проверяем наличие артифакта (XSTools)
+      shell: bash
+      run: |
+        echo -e "\e[34m# ls -lh | grep XSTools"
+        ls -lh | grep XSTools
+        echo -e "\e[34m# ls -lh ./src/test/ | grep XSTools"
+        ls -lh ./src/test/ | grep XSTools
+        echo -e "\e[34m# mv XSTools.dll ./src/test/"
+        mv XSTools.dll ./src/test/
+        echo -e "\e[34m# ls -lh ./src/test/ | grep XSTools"
+        ls -lh ./src/test/ | grep XSTools
 
     - name: переменные
       shell: bash
@@ -253,4 +251,4 @@ jobs:
         ls -l /d/a/_temp
 
     - name: Run Tests
-      run: make test
+      run: gmake test
