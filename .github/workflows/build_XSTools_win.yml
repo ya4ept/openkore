@@ -29,11 +29,11 @@ jobs:
           perl: 5.12
           strawberry_distr: 'https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip'
 
-        - os: windows-latest
-          python: 3
-          architecture: x86
-          perl: 5.32
-          strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
+        #- os: windows-latest
+        #  python: 3
+        #  architecture: x86
+        #  perl: 5.32
+        #  strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
 
     steps:
     - name: GIT checkout
@@ -49,36 +49,32 @@ jobs:
         architecture: ${{ matrix.architecture }}
 
     - name: set path
+      if: runner.os == 'Windows'
       shell: cmd
       run: |
         set path
         where perl
         where gmake
+        where make
+        where g++
 
     - name: Удаляем дефолтовый Strawberry и g++
+      if: runner.os == 'Windows'
       shell: bash
       run: |
         echo -e "\e[34m# rm -rf /c/Strawberry/*"
         echo -e "\e[34mmv /c/Strawberry/* /c/Temp/"
-        rm -rf /c/Strawberry/*
+        mv /c/Strawberry/* /c/Temp/
         ls -lh /c/
         echo -e "\e[34m== remove g++ x64"
         echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
         rm -f /c/ProgramData/Chocolatey/bin/g++.exe
-        echo -e "\e[34m# du -sh /c/Strawberry/"
-        du -sh /c/Strawberry/
+        echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/make.exe"
+        rm -f /c/ProgramData/Chocolatey/bin/make.exe
 
     #- name: du -sh $GITHUB_WORKSPACE
     #  shell: bash
     #  run: du -sh $GITHUB_WORKSPACE
-
-    - name: set path
-      shell: cmd
-      run: |
-        set path
-        where perl
-        where gmake
-        dir c:\Strawberry
 
     - name: Check the Strawberry cache
       if: runner.os == 'Windows'
@@ -86,18 +82,11 @@ jobs:
       uses: actions/cache@v2
       with:
         path: c:\Strawberry
-        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}_4
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}_5
 
     #- name: du -sh $GITHUB_WORKSPACE
     #  shell: bash
     #  run: du -sh $GITHUB_WORKSPACE
-
-    - name: set path
-      shell: cmd
-      run: |
-        set path
-        where perl
-        where gmake
 
     - name: Replace perl to ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
@@ -124,75 +113,64 @@ jobs:
         echo "== a new version of Perl:"
         echo "================================================================="
         perl --version
+        echo "================================================================="
+        echo "== copy 'gmake.exe' to 'make.exe':"
+        echo "================================================================="
+        cp C:\Strawberry\c\bin\gmake.exe C:\Strawberry\c\bin\make.exe
 
     - name: set path
+      if: runner.os == 'Windows'
       shell: cmd
       run: |
         set path
         where perl
         where gmake
+        where make
+        where g++
 
     - name: Environment check
-      shell: bash
       run: |
-        which perl
-        echo -e "\e[34m# du -sh /c/Strawberry/"
-        du -sh /c/Strawberry/
-        echo -e "\e[34m# ls -lh /c/Strawberry/"
-        ls -lh /c/Strawberry/
-        echo -e "\e[34m# /c/Strawberry/perl/bin/perl.exe -v"
-        /c/Strawberry/perl/bin/perl.exe -v
-        echo -e "\e[34m== python version check:"
+        echo "python version check:"
         python -V
-        echo -e "\e[34m======================"
-        echo -e "\e[34m== perl version check:"
+        echo "======================"
+        echo "== perl version check:"
         perl --version
-        echo -e "\e[34m== perl version check:"
-        perl --version
-        echo -e "\e[34m== perl version check:"
-        perl --version
-        echo -e "\e[34m== perl version check:"
-        perl --version
-        echo -e "\e[34m== perl version check:"
-        perl --version
-        echo -e "\e[34m======================"
-        echo -e "\e[34m== Time::HiRes module:"
+        echo "======================"
+        echo "== Time::HiRes module:"
         perl -e "use Time::HiRes;"
-        if  [ $? == 0 ] ; then echo -e "\e[34mOK"; fi
-        echo -e "\e[34m========================="
-        echo -e "\e[34m== Compress::Zlib module:"
+        echo "========================="
+        echo "== Compress::Zlib module:"
         perl -e "use Compress::Zlib;"
-        if  [ $? == 0 ] ; then echo -e "\e[34mOK"; fi
-        echo -e "\e[34m====================="
-        echo -e "\e[34m== g++ version check:"
+        echo "====================="
+        echo "== g++ version check:"
         g++ --version
-        echo -e "\e[34m======================="
-        echo -e "\e[34m== gmake version check:"
-        gmake --version
-        echo -e "\e[34m======================="
-        perl -V
+        echo "======================="
+        echo "== make version check:"
+        make --version
 
     - name: ВЕРСИИ g++
+      if: runner.os == 'Windows'
       shell: cmd
       run: |
         set path
         where perl
         where gmake
+        where make
+        where g++
         echo "==================="
         g++ --version
-        #make --version
+        make --version
         gmake --version
         g++ -v
         #rm -r c:\msys64\*
         g++ --version
-        #make --version
+        make --version
         gmake --version
         g++ -v
 
     - name: Run make XSTools.dll
       run: |
-        perl --version
-        gmake all
+        make all
         echo "================================================================="
         ls src\auto\XSTools\XSTools.dll
         ls src\auto\XSTools\NetRedirect.dll
@@ -220,10 +198,10 @@ jobs:
           architecture: x86
           perl: 5.12
 
-        - os: windows-latest
-          python: 3
-          architecture: x86
-          perl: 5.32
+        #- os: windows-latest
+        #  python: 3
+        #  architecture: x86
+        #  perl: 5.32
 
     steps:
     - name: GIT checkout
@@ -265,15 +243,23 @@ jobs:
         echo -e "\e[30;41mcache-strawberry НЕ найден!!! Смотри шаг 'Post Check the Strawberry cache' в предыдущем джобе."
         exit 1
 
-    - name: Environment check
-      shell: bash
+    - name: set path
+      if: runner.os == 'Windows'
+      shell: cmd
       run: |
-        echo -e "\e[34m# du -sh /c/Strawberry/"
-        du -sh /c/Strawberry/
-        echo -e "\e[34m== perl version check:"
+        set path
+        where perl
+        where gmake
+        where make
+        where g++
+
+    - name: Environment check
+      run: |
+        echo "== perl version check:"
         perl --version
-        echo -e "\e[34m======================="
-        perl -V
+        echo "======================="
+        echo "== make version check:"
+        make --version
 
     - name: Восстанавливаем артифакт
       uses: actions/download-artifact@v2
@@ -285,32 +271,12 @@ jobs:
       run: |
         echo -e "\e[34m# ls -lh | grep XSTools"
         ls -lh | grep XSTools
-        echo -e "\e[34m# mv XSTools.dll ./src/test/"
-        mv XSTools.dll ./src/test/
-        echo -e "\e[34m# ls -lh ./src/test/ | grep XSTools"
-        ls -lh ./src/test/ | grep XSTools
-
-    - name: переменные
-      shell: bash
-      run: |
-        pwd
-        echo "== GITHUB_WORKSPACE"
-        echo $GITHUB_WORKSPACE
-        echo "== pwd"
-        pwd
-        echo "== ls -l"
-        ls -l
-        echo "== du -sh openkore"
-        du -sh /d/a/openkore/openkore
-        echo ================= /d
-        ls -l /d
-        echo ================= /d/a
-        ls -l /d/a
-        echo ================= /d/a/_temp
-        ls -l /d/a/_temp
+        #echo -e "\e[34m# mv XSTools.dll ./src/test/"
+        #mv -v XSTools.dll ./src/test/
+        #echo -e "\e[34m# ls -lh ./src/test/ | grep XSTools"
+        #ls -lh ./src/test/ | grep XSTools
 
     - name: Run Tests
       run: |
-        cat .\Makefile
-        echo "==============================================="
-        gmake test
+        cd src\test
+        perl unittests.pl

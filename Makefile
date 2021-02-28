@@ -21,10 +21,10 @@ doc:
 else
 
 all:
-	@xxx src/scons-local-3.1.2/scons.py || echo -e "\e[1;31mCompilation failed. Please read https://openkore.com/wiki/How_to_run_OpenKore for help.\e[0m"
+	@python src/scons-local-3.1.2/scons.py || echo -e "\e[1;31mCompilation failed. Please read https://openkore.com/wiki/How_to_run_OpenKore for help.\e[0m"
 
 test:
-	@ccc src/scons-local-3.1.2/scons.py && cd src/test/ && ./unittests.pl
+	@python src/scons-local-3.1.2/scons.py && cd src/test/ && ./unittests.pl
 
 doc:
 	cd src/doc/ && ./createdoc.pl
