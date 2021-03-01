@@ -9,11 +9,11 @@
 # actions-cache             https://github.com/actions/cache
 
 name: Build Win
-#on:
-#  push:
+on:
+  push:
 #    branches:
 #  pull_request:
-on: workflow_dispatch
+#on: workflow_dispatch
 
 jobs:
   build_XSTools:
@@ -188,24 +188,28 @@ jobs:
       matrix:
         include:
         - os: windows-2016
+          architecture: x86
           perl: 5.12
 
         - os: windows-latest
+          architecture: x86
           perl: 5.32
 
     steps:
     - name: GIT checkout
       uses: actions/checkout@v2
 
-    - name: Удаляем дефолтовый Strawberry
+    - name: Удаляем дефолтовый Strawberry и XSTools.dll
       shell: bash
       run: |
-        echo -e "\e[34m# rm -rf /c/Strawberry/*"
+        echo -e "\e[34m# mv /c/Strawberry/* /c/Temp/"
         mv /c/Strawberry/* /c/Temp/
         echo -e "\e[34m# ls -l *.dll"
         ls -l *.dll
-        echo -e "\e[34m# rm -f *.dll"
-        rm -f *.dll
+        echo -e "\e[34m# rm -f XSTools.dll"
+        rm -f XSTools.dll
+        echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
+        rm -f /c/ProgramData/Chocolatey/bin/g++.exe
 
     - name: Check the Strawberry cache
       id: cache-strawberry
@@ -237,12 +241,12 @@ jobs:
         echo "== perl version check:"
         perl --version
 
-    - name: Восстанавливаем артифакт
+    - name: Восстанавливаем XSTools из артифакта
       uses: actions/download-artifact@v2
       with:
         name: ${{ matrix.os }}_perl${{ matrix.perl }}${{ matrix.architecture }}
 
-    - name: Проверяем наличие артифакта (XSTools)
+    - name: Проверяем наличие XSTools
       shell: bash
       run: |
         echo -e "\e[34m# ls -lh | grep XSTools"
@@ -252,3 +256,9 @@ jobs:
       run: |
         cd src\test
         perl unittests.pl
+
+    - name: additionally - gmake test
+      run: |
+        rm XSTools.dll
+        gmake test
+        ls src/auto/XSTools/

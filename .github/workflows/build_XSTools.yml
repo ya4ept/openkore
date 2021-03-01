@@ -142,34 +142,55 @@ jobs:
 
     - name: make XSTools.dll and NetRedirect.dll
       if: runner.os == 'Windows'
+      env:
+          OS: ${{ matrix.os }}
+          PYTHON: ${{ matrix.python }}
+          PERL: ${{ matrix.perl }}
+          ARCHITECTURE: ${{ matrix.architecture }}
       run: |
         gmake all
         echo "================================================================="
         echo "DONE:"
         dir src\auto\XSTools\ | findstr "dll"
+        echo "These XSTools.dll and NetRedirect.dll are built using: $env:OS + python $env:PYTHON $env:ARCHITECTURE + strawberry perl $env:PERL $env:ARCHITECTURE + strawberry g++ x86" > src\auto\XSTools\XSTools_notes.txt
 
     - name: make XSTools.so
       if: runner.os == 'Linux'
+      env:
+          OS: ${{ matrix.os }}
+          PYTHON: ${{ matrix.python }}
+          PERL: ${{ matrix.perl }}
+          ARCHITECTURE: ${{ matrix.architecture }}
       run: |
         sudo apt install -y libreadline6-dev libcurl4-openssl-dev
         make all
         echo "======================================================"
         echo "DONE:"
         ls -lh src/auto/XSTools/ | grep so
+        echo "These XSTools.dll and NetRedirect.dll are built using: $OS + python $PYTHON $ARCHITECTURE + strawberry perl $PERL $ARCHITECTURE + strawberry g++ x86" > src/auto/XSTools/XSTools_notes.txt
 
     ####################
     # making artifacts #
     ####################
 
-    - name: Making artifacts
+    - name: Making artifacts on Windows
+      if: runner.os == 'Windows'
       uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.os }}_perl${{ matrix.perl }}${{ matrix.architecture }}
         path: |
+          src\auto\XSTools\XSTools_notes.txt
           src\auto\XSTools\XSTools.dll
           src\auto\XSTools\NetRedirect.dll
-          src\auto\XSTools\XSTools.so
-          src\auto\XSTools\libXSTools.so
+
+    - name: Making artifacts on Linux
+      if: runner.os == 'Linux'
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os }}_perl${{ matrix.perl }}${{ matrix.architecture }}
+        path: |
+          src/auto/XSTools/XSTools_notes.txt
+          src/auto/XSTools/XSTools.so
 
 
   ########################
@@ -230,7 +251,7 @@ jobs:
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        echo -e "\e[30;41m'сache-strawberry' NOT found!!! See the 'Post Check the Strawberry cache' step in the previous job"
+        echo -e "\e[30;41m'cache-strawberry' NOT found!!! See the 'Post Check the Strawberry cache' step in the previous job"
         exit 1
 
     ######################
@@ -267,13 +288,13 @@ jobs:
     # make test #
     #############
 
-    - name: running tests on Windows ${{ matrix.os }}
+    - name: running tests on Windows
       if: runner.os == 'Windows'
       run: |
         cd src\test
         perl unittests.pl
 
-    - name: running tests on Linux ${{ matrix.os }}
+    - name: running tests on Linux
       if: runner.os == 'Linux'
       run: |
         make test
