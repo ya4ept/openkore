@@ -7,13 +7,14 @@
 # actions-upload-artifact   https://github.com/actions/upload-artifact
 # actions-download-artifact https://github.com/actions/download-artifact
 # actions-cache             https://github.com/actions/cache
-
-name: Build Win
-#on:
-#  push:
-#    branches:
-#  pull_request:
-on: workflow_dispatch
+name: Build XSTools
+on:
+  push:
+    #branches:
+    #  - master
+    #tags-ignore:
+    #  - '*'
+  #pull_request:
 
 jobs:
   build_XSTools:
@@ -36,6 +37,16 @@ jobs:
           perl: 5.32
           strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
 
+        - os: ubuntu-18.04
+          python: 2.7
+          architecture: x64
+          perl: 5.12
+
+        - os: ubuntu-latest
+          python: 3
+          architecture: x64
+          perl: latest
+
     steps:
     - name: GIT checkout
       uses: actions/checkout@v2
@@ -43,35 +54,27 @@ jobs:
     # setup matrix:
     # - windows-2016 + python 2.7 x86 + strawberry perl 5.12 x86 + strawberry g++ x86
     # - windows-2019 + python 3   x86 + strawberry perl 5.32 x86 + strawberry g++ x86
-    - name: setup-python ${{ matrix.python }} ${{ matrix.architecture }}
+    # - ubuntu-18.04 + python 2.7 x64 +            perl 5.12 x64
+    # - ubuntu-20.04 + python 3   x64 +            perl 5.32 x64
+    - name: Setup python ${{ matrix.python }} ${{ matrix.architecture }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python }}
         architecture: ${{ matrix.architecture }}
 
-    - name: TEST set path
-      if: runner.os == 'Windows'
-      shell: cmd
-      run: |
-        set path
-        where perl
-        where gmake
-        where make
-        where g++
+    ########################
+    # preparing windows OS #
+    ########################
 
-    - name: Удаляем дефолтовый Strawberry и g++
+    - name: Remove default Strawberry perl and g++
       if: runner.os == 'Windows'
       shell: bash
       run: |
-        echo -e "\e[34m# rm -rf /c/Strawberry/*"
-        echo -e "\e[34mmv /c/Strawberry/* /c/Temp/"
+        echo -e "\e[34m# mv /c/Strawberry/* /c/Temp/"
         mv /c/Strawberry/* /c/Temp/
-        ls -lh /c/
         echo -e "\e[34m== remove g++ x64"
         echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
         rm -f /c/ProgramData/Chocolatey/bin/g++.exe
-        echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/make.exe"
-        rm -f /c/ProgramData/Chocolatey/bin/make.exe
 
     - name: Check the Strawberry cache
       if: runner.os == 'Windows'
@@ -81,49 +84,43 @@ jobs:
         path: c:\Strawberry
         key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
 
-    - name: Replace perl to ${{ matrix.perl }} ${{ matrix.architecture }}
+    - name: Replace perl to Strawberry ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
       run: |
-        echo "Кеш НЕ найден"
+        echo "Cache NOT found, download the Strawberry pearl"
         echo "================================================================="
         echo "== previous version of Perl:"
-        echo "================================================================="
         perl --version
         echo "================================================================="
         echo "== remove the default perl"
-        echo "================================================================="
         rm -r C:/Strawberry/*
         echo "================================================================="
         echo "== download strawberry perl ${{ matrix.perl }} ${{ matrix.architecture }}"
-        echo "================================================================="
         Invoke-WebRequest ${{ matrix.strawberry_distr }} -OutFile strawberry.zip
         echo "================================================================="
-        echo "== РАСПАКОВЫВАЕМ strawberry-perl"
-        echo "================================================================="
+        echo "== unpack strawberry-perl"
         7z.exe x strawberry.zip -o"C:/Strawberry"
         rm strawberry.zip
         echo "================================================================="
         echo "== a new version of Perl:"
-        echo "================================================================="
         perl --version
-        echo "================================================================="
-        echo "== copy 'gmake.exe' to 'make.exe':"
-        echo "================================================================="
-        cp C:\Strawberry\c\bin\gmake.exe C:\Strawberry\c\bin\make.exe
 
-    - name: TEST set path
-      if: runner.os == 'Windows'
-      shell: cmd
-      run: |
-        set path
-        where perl
-        where gmake
-        where make
-        where g++
+    ######################
+    # preparing linux OS #
+    ######################
+
+    - name: Setup perl ${{ matrix.perl }}
+      if: runner.os == 'Linux'
+      uses: shogo82148/actions-setup-perl@v1
+      with:
+        perl-version: ${{ matrix.perl }}
+
+    ###############################
+    # final check of all versions #
+    ###############################
 
     - name: Environment check
       run: |
-        cp C:\Strawberry\c\bin\gmake.exe C:\Strawberry\c\bin\make.exe
         echo "python version check:"
         python -V
         echo "======================"
@@ -138,36 +135,31 @@ jobs:
         echo "====================="
         echo "== g++ version check:"
         g++ --version
-        echo "======================="
-        echo "== make version check:"
-        make --version
 
-    - name: TEST ВЕРСИИ g++
+    ####################
+    # building XSTools #
+    ####################
+
+    - name: make XSTools.dll and NetRedirect.dll
       if: runner.os == 'Windows'
-      shell: cmd
       run: |
-        set path
-        where perl
-        where gmake
-        where make
-        where g++
-        echo "==================="
-        g++ --version
-        make --version
-        gmake --version
-        g++ -v
-        #rm -r c:\msys64\*
-        g++ --version
-        make --version
-        gmake --version
-        g++ -v
-
-    - name: Run make XSTools.dll
-      run: |
-        make all
+        gmake all
         echo "================================================================="
-        ls src\auto\XSTools\XSTools.dll
-        ls src\auto\XSTools\NetRedirect.dll
+        echo "DONE:"
+        dir src\auto\XSTools\ | findstr "dll"
+
+    - name: make XSTools.so
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt install -y libreadline6-dev libcurl4-openssl-dev
+        make all
+        echo "======================================================"
+        echo "DONE:"
+        ls -lh src/auto/XSTools/ | grep so
+
+    ####################
+    # making artifacts #
+    ####################
 
     - name: Making artifacts
       uses: actions/upload-artifact@v2
@@ -176,11 +168,17 @@ jobs:
         path: |
           src\auto\XSTools\XSTools.dll
           src\auto\XSTools\NetRedirect.dll
+          src\auto\XSTools\XSTools.so
+          src\auto\XSTools\libXSTools.so
 
+
+  ########################
+  # start the second job #
+  ########################
 
   make_test:
 
-    name: make test ${{ matrix.os }} (perl ${{ matrix.perl }})
+    name: test ${{ matrix.os }} (perl ${{ matrix.perl }}) ${{ matrix.architecture }}
     needs: build_XSTools
     runs-on: ${{ matrix.os }}
     strategy:
@@ -188,24 +186,37 @@ jobs:
       matrix:
         include:
         - os: windows-2016
+          architecture: x86
           perl: 5.12
 
         - os: windows-latest
+          architecture: x86
           perl: 5.32
+
+        - os: ubuntu-18.04
+          architecture: x64
+          perl: 5.12
+
+        - os: ubuntu-latest
+          architecture: x64
+          perl: latest
 
     steps:
     - name: GIT checkout
       uses: actions/checkout@v2
 
-    - name: Удаляем дефолтовый Strawberry
+    ########################
+    # preparing windows OS #
+    ########################
+
+    - name:  Remove default Strawberry perl, XSTools.dll
+      if: runner.os == 'Windows'
       shell: bash
       run: |
-        echo -e "\e[34m# rm -rf /c/Strawberry/*"
+        echo -e "\e[34m# mv /c/Strawberry/* /c/Temp/"
         mv /c/Strawberry/* /c/Temp/
-        echo -e "\e[34m# ls -l *.dll"
-        ls -l *.dll
-        echo -e "\e[34m# rm -f *.dll"
-        rm -f *.dll
+        echo -e "\e[34m# rm -f XSTools.dll"
+        rm -f XSTools.dll
 
     - name: Check the Strawberry cache
       id: cache-strawberry
@@ -219,36 +230,50 @@ jobs:
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        echo -e "\e[30;41mcache-strawberry НЕ найден!!! Смотри шаг 'Post Check the Strawberry cache' в предыдущем джобе."
+        echo -e "\e[30;41m'сache-strawberry' NOT found!!! See the 'Post Check the Strawberry cache' step in the previous job"
         exit 1
 
-    - name: TEST set path
-      if: runner.os == 'Windows'
-      shell: cmd
-      run: |
-        set path
-        where perl
-        where gmake
-        where make
-        where g++
+    ######################
+    # preparing linux OS #
+    ######################
+
+    - name: Setup perl ${{ matrix.perl }}
+      if: runner.os == 'Linux'
+      uses: shogo82148/actions-setup-perl@v1
+      with:
+        perl-version: ${{ matrix.perl }}
+
+    ###############
+    # final check #
+    ###############
 
     - name: Environment check
       run: |
         echo "== perl version check:"
         perl --version
 
-    - name: Восстанавливаем артифакт
+    - name: Restoring XTools from artifacts
       uses: actions/download-artifact@v2
       with:
         name: ${{ matrix.os }}_perl${{ matrix.perl }}${{ matrix.architecture }}
 
-    - name: Проверяем наличие артифакта (XSTools)
+    - name: Checking for XSTools
       shell: bash
       run: |
         echo -e "\e[34m# ls -lh | grep XSTools"
         ls -lh | grep XSTools
 
-    - name: Run Tests
+    #############
+    # make test #
+    #############
+
+    - name: running tests on Windows ${{ matrix.os }}
+      if: runner.os == 'Windows'
       run: |
         cd src\test
         perl unittests.pl
+
+    - name: running tests on Linux ${{ matrix.os }}
+      if: runner.os == 'Linux'
+      run: |
+        make test
