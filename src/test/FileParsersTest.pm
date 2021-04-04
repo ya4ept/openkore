@@ -12,11 +12,11 @@ use constant NOT_CONFIGURED_ITEM => 'Random Item';
 
 sub start {
 	subtest 'FileParsers' => sub { SKIP: {
+		use utf8;
 		binmode STDOUT, ':utf8';
 		binmode STDERR, ':utf8';
 
 		my $items = do {
-			use utf8;
 			{
 				501 => q(Red Potion),
 				512 => q(Apple),
@@ -130,7 +130,7 @@ sub start {
 	}
 	done_testing();
 	}
-	
+
 }
 
 1;
