@@ -9,7 +9,7 @@
 #  also distribute the source code.
 #  See http://www.gnu.org/licenses/gpl.html for the full license.
 #########################################################################
-# Servertype overview: http://wiki.openkore.com/index.php/ServerType
+# Servertype overview: https://openkore.com/wiki/ServerType
 package Network::Receive::ServerType0;
 
 use strict;
@@ -192,7 +192,7 @@ sub new {
 		'012B' => ['cart_off'],
 		'012C' => ['cart_add_failed', 'C', [qw(fail)]],
 		'012D' => ['shop_skill', 'v', [qw(number)]],
-		'0131' => ['vender_found', 'a4 A80', [qw(ID title)]],
+		'0131' => ['vender_found', 'a4 Z80', [qw(ID title)]],
 		'0132' => ['vender_lost', 'a4', [qw(ID)]],
 		'0133' => ['vender_items_list', 'v a4 a*', [qw(len venderID itemList)]],
 		'0135' => ['vender_buy_fail', 'v2 C', [qw(ID amount fail)]],
@@ -696,6 +696,7 @@ sub new {
 		'0ACB' => ['stat_info', 'v V2', [qw(type val val2)]],
 		'0ACC' => ['exp', 'a4 V2 v2', [qw(ID val val2 type flag)]],
 		'0ACD' => ['login_error', 'C Z20', [qw(type date)]],
+		'0ADA' => ['refine_status', 'Z24 V C C', [qw(name itemID refine_level status)]],
 		'0ADC' => ['misc_config', 'C4', [qw(show_eq_flag call_flag pet_autofeed_flag homunculus_autofeed_flag)]],
  		'0ADE' => ['overweight_percent', 'v V', [qw(len percent)]],#TODO
 		'0ADF' => ['actor_info', 'a4 a4 Z24 Z24', [qw(ID charID name prefix_name)]],
@@ -707,6 +708,7 @@ sub new {
  		'0AE5' => ['party_users_info', 'v Z24 a*', [qw(len party_name playerInfo)]],
 		'0AF0' => ['action_ui', 'C V', [qw(type data)]],
 		'0AF7' => ['character_name', 'v a4 Z24', [qw(flag ID name)]],
+		'0AFB' => ['sage_autospell', 'v a*', [qw(len autospell_list)]],
 		'0AFD' => ['sage_autospell', 'v a*', [qw(len autospell_list)]], #herc PR 2310
 		'0AFE' => ['quest_update_mission_hunt', 'v2 a*', [qw(len mission_amount message)]],
 		'0AFF' => ['quest_all_list', 'v V a*', [qw(len quest_amount message)]],
@@ -714,14 +716,17 @@ sub new {
 		'0B20' => ['hotkeys', 'C v a*', [qw(rotate tab hotkeys)]],#herc PR 2468
 		'0B03' => ['show_eq', 'v Z24 v9 C a*', [qw(len name jobID hair_style tophead midhead lowhead robe hair_color clothes_color clothes_color2 sex equips_info)]],
 		'0B05' => ['offline_clone_found', 'a4 v4 C v9 V Z24 v', [qw(ID jobID unknown coord_x coord_y sex head_dir weapon shield lowhead tophead midhead hair_color clothes_color robe unknown2 name unknown3)]],
-		'0B08' => ['item_list_start', 'v C', [qw(len type)]],
+		'0B08' => ['item_list_start', 'v C Z*', [qw(len type name)]],
 		'0B09' => ['item_list_stackable', 'v C a*', [qw(len type itemInfo)]],
 		'0B0A' => ['item_list_nonstackable', 'v C a*', [qw(len type itemInfo)]],
 		'0B0B' => ['item_list_end', 'C2', [qw(type flag)]],
 		'0B13' => ['item_preview', 'a2 C v a16 a25', [qw(index broken upgrade cards options)]],
 		'0B1B' => ['load_confirm'],
+		'0B1D' => ['ping'], #2
 		'0B2F' => ['homunculus_property', 'Z24 C v11 V2 v2 V2 v2', [qw(name state level hunger intimacy atk matk hit critical def mdef flee aspd hp hp_max sp sp_max exp exp_max points_skill attack_range)]],
+		'0B5F' => ['rodex_mail_list', 'v C a*', [qw(len isEnd mailList)]],   # -1
 		'0B60' => ['account_server_info', 'v a4 a4 a4 a4 a26 C x17 a*', [qw(len sessionID accountID sessionID2 lastLoginIP lastLoginTime accountSex serverInfo)]],
+		'0B6F' => ['character_creation_successful', 'a*', [qw(charInfo)]],
 		'0B72' => ['received_characters', 'v a*', [qw(len charInfo)]],
 		'C350' => ['senbei_vender_items_list'], #new senbei vender, need research
 	};
@@ -1468,72 +1473,6 @@ sub skills_list {
 	}
 }
 
-sub mail_refreshinbox {
-	my ($self, $args) = @_;
-
-	undef $mailList;
-	my $count = $args->{count};
-
-	if (!$count) {
-		message T("There is no mail in your inbox.\n"), "info";
-		return;
-	}
-
-	message TF("You've got Mail! (%s)\n", $count), "info";
-	my $msg;
-	$msg .= center(" " . T("Inbox") . " ", 79, '-') . "\n";
-	# truncating the title from 39 to 34, the user will be able to read the full title when reading the mail
-	# truncating the date with precision of minutes and leave year out
-	$msg .=	swrite("\@> R \@%s \@%s \@%s", ('<'x34), ('<'x24), ('<'x11),
-			["#", T("Title"), T("Sender"), T("Date")]);
-	$msg .= sprintf("%s\n", ('-'x79));
-
-	my $j = 0;
-	for (my $i = 8; $i < 8 + $count * 73; $i+=73) {
-		$mailList->[$j]->{mailID} = unpack("V1", substr($args->{RAW_MSG}, $i, 4));
-		$mailList->[$j]->{title} = bytesToString(unpack("Z40", substr($args->{RAW_MSG}, $i+4, 40)));
-		$mailList->[$j]->{read} = unpack("C1", substr($args->{RAW_MSG}, $i+44, 1));
-		$mailList->[$j]->{sender} = bytesToString(unpack("Z24", substr($args->{RAW_MSG}, $i+45, 24)));
-		$mailList->[$j]->{timestamp} = unpack("V1", substr($args->{RAW_MSG}, $i+69, 4));
-		$msg .= swrite(
-		"\@> %s \@%s \@%s \@%s", $mailList->[$j]->{read}, ('<'x34), ('<'x24), ('<'x11),
-		[$j, $mailList->[$j]->{title}, $mailList->[$j]->{sender}, getFormattedDate(int($mailList->[$j]->{timestamp}))]);
-		$j++;
-	}
-
-	$msg .= ("%s\n", ('-'x79));
-	message($msg . "\n", "list");
-}
-sub mail_setattachment {
-	my ($self, $args) = @_;
-	if ($args->{fail}) {
-		if (defined $AI::temp::mailAttachAmount) {
-			undef $AI::temp::mailAttachAmount;
-		}
-		message TF("Failed to attach %s.\n", ($args->{ID}) ? T("item: ").$char->inventory->getByID($args->{ID}) : T("zeny")), "info";
-	} else {
-		if (($args->{ID})) {
-			message TF("Succeeded to attach %s.\n", T("item: ").$char->inventory->getByID($args->{ID})), "info";
-			if (defined $AI::temp::mailAttachAmount) {
-				my $item = $char->inventory->getByID($args->{ID});
-				if ($item) {
-					my $change = min($item->{amount},$AI::temp::mailAttachAmount);
-					inventoryItemRemoved($item->{binID}, $change);
-					Plugins::callHook('packet_item_removed', {index => $item->{binID}});
-				}
-				undef $AI::temp::mailAttachAmount;
-			}
-		} else {
-			message TF("Succeeded to attach %s.\n", T("zeny")), "info";
-			if (defined $AI::temp::mailAttachAmount) {
-				my $change = min($char->{zeny},$AI::temp::mailAttachAmount);
-				$char->{zeny} = $char->{zeny} - $change;
-				message TF("You lost %s zeny.\n", formatNumber($change));
-			}
-		}
-	}
-}
-
 # 08CB
 sub rates_info {
 	my ($self, $args) = @_;
@@ -1559,46 +1498,6 @@ sub rates_info {
 	message TF("EXP Rates: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{exp}{total}, $rates{exp}{0}, $rates{exp}{1}, $rates{exp}{2}, $rates{exp}{3}), "info";
 	message TF("Drop Rates: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{drop}{total}, $rates{drop}{0}, $rates{drop}{1}, $rates{drop}{2}, $rates{drop}{3}), "info";
 	message TF("Death Penalty: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{death}{total}, $rates{death}{0}, $rates{death}{1}, $rates{death}{2}, $rates{death}{3}), "info";
-	message "=====================================================================\n", "info";
-}
-
-sub rates_info2 {
-	my ($self, $args) = @_;
-
-	my $msg = $args->{RAW_MSG};
-	my $msg_size = $args->{RAW_MSG_SIZE};
-	my $header_pack = 'v V3';
-	my $header_len = ((length pack $header_pack) + 2);
-
-	my $detail_pack = 'C l3';
-	my $detail_len = length pack $detail_pack;
-
-	my %rates = (
-		exp => { total => $args->{exp}/1000 }, # Value to Percentage => /100
-		death => { total => $args->{death}/1000 }, # 1 d.p. => /10
-		drop => { total => $args->{drop}/1000 },
-	);
-
-	# get details
-	for (my $i = $header_len; $i < $args->{RAW_MSG_SIZE}; $i += $detail_len) {
-
-		my ($type, $exp, $death, $drop) = unpack($detail_pack, substr($msg, $i, $detail_len));
-
-		$rates{exp}{$type} = $exp/1000;
-		$rates{death}{$type} = $death/1000;
-		$rates{drop}{$type} = $drop/1000;
-	}
-
-	# we have 4 kinds of detail:
-	# $rates{exp or drop or death}{DETAIL_KIND}
-	# 0 = base server exp (?)
-	# 1 = premium acc additional exp
-	# 2 = server additional exp
-	# 3 = not sure, maybe it's for "extra exp" events? never seen this using the official client (bRO)
-	message T("=========================== Server Infos ===========================\n"), "info";
-	message TF("EXP Rates: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{exp}{total}, $rates{exp}{0}+100, $rates{exp}{1}, $rates{exp}{2}, $rates{exp}{3}), "info";
-	message TF("Drop Rates: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{drop}{total}, $rates{drop}{0}+100, $rates{drop}{1}, $rates{drop}{2}, $rates{drop}{3}), "info";
-	message TF("Death Penalty: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{death}{total}, $rates{death}{0}+100, $rates{death}{1}, $rates{death}{2}, $rates{death}{3}), "info";
 	message "=====================================================================\n", "info";
 }
 

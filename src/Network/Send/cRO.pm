@@ -21,26 +21,37 @@ use Utils;
 sub new {
 	my ($class) = @_;
 	my $self = $class->SUPER::new(@_);
-	
+
 	my %handlers = qw(
-		master_login 0AAC
-		character_move 035F
-		sync 0360
+		actor_action 0437
+		actor_info_request 0368
 		actor_look_at 0361
-		item_take 0362
+		actor_name_request 0369
+		buy_bulk_buyer 0819
+		buy_bulk_closeShop 0815
+		buy_bulk_openShop 0811
+		buy_bulk_request 0817
+		buy_bulk_vender 0801
+		character_move 035F
+		char_create 0A39
+		char_delete2_accept 098F
+		friend_request 0202
+		homunculus_command 022D
 		item_drop 0363
+		item_list_window_selected 07E4
+		item_take 0362
+		map_login 0436
+		master_login 0AAC
+		party_join_request_by_name 02C4
+		party_setting 07D7
+		sell_buy_complete 09D4
+		send_equip 0998
+		skill_use 0438
+		skill_use_location 0366
 		storage_item_add 0364
 		storage_item_remove 0365
-		skill_use_location 0366
-		actor_info_request 0368
-		actor_name_request 0369
-		party_setting 07D7
-		buy_bulk_vender 0801
-		char_create 0A39
 		storage_password 023B
-		send_equip 0998
-		sell_buy_complete 09D4
-		char_delete2_accept 098F
+		sync 0360
 	);
 
 	$self->{packet_lut}{$_} = $handlers{$_} for keys %handlers;
@@ -48,6 +59,13 @@ sub new {
 	$self->{send_buy_bulk_pack} = "v V";
 	$self->{char_create_version} = 0x0A39;
 	$self->{send_sell_buy_complete} = 1;
+
+	#buyer shop
+	$self->{buy_bulk_openShop_size} = "(a10)*";
+	$self->{buy_bulk_openShop_size_unpack} = "V v V";
+
+	$self->{buy_bulk_buyer_size} = "(a8)*";
+	$self->{buy_bulk_buyer_size_unpack} = "a2 V v";
 
 	return $self;
 }
@@ -57,7 +75,7 @@ sub sendMasterLogin {
 	my $msg;
 	my $password_rijndael = $self->encrypt_password($password);
 
-	my $msg = $self->reconstruct({	
+	my $msg = $self->reconstruct({
 		switch => 'master_login',
 		version => $version,
 		username  => $username,
@@ -95,13 +113,6 @@ sub sendCharCreate {
 
 	my $msg = pack 'v a24 CvvvvC', 0x0A39, stringToBytes( $name ), $slot, $hair_color, $hair_style, $job_id, 0, $sex;
 	$self->sendToServer( $msg );
-}
-
-sub reconstruct_char_delete2_accept {
-	my ($self, $args) = @_;
-
-	$args->{length} = 8 + length($args->{code});
-	debug "Sent sendCharDelete2Accept. CharID: $args->{charID}, Code: $args->{code}, Length: $args->{length}\n", "sendPacket", 2;
 }
 
 1;

@@ -10,7 +10,7 @@
 #  See http://www.gnu.org/licenses/gpl.html for the full license.
 #########################################################################
 # pRO (Philippines)
-# Servertype overview: http://wiki.openkore.com/index.php/ServerType
+# Servertype overview: https://openkore.com/wiki/ServerType
 package Network::Send::pRO;
 
 use strict;
@@ -20,12 +20,6 @@ sub new {
 	my ($class) = @_;
 	my $self = $class->SUPER::new(@_);
 
-	my %packets = (
-		'0437' => ['actor_action', 'a4 C', [qw(targetID type)]],
-	);
-
-	$self->{packet_list}{$_} = $packets{$_} for keys %packets;
-	
 	my %handlers = qw(
 		actor_action 0437
 		skill_use 0438
@@ -60,18 +54,24 @@ sub new {
 	);
 
 	$self->{packet_lut}{$_} = $handlers{$_} for keys %handlers;
-	
+
+	$self->{buy_bulk_openShop_size} = "(a10)*";
+	$self->{buy_bulk_openShop_size_unpack} = "V v V";
+
+	$self->{buy_bulk_buyer_size} = "(a8)*";
+	$self->{buy_bulk_buyer_size_unpack} = "a2 V v";
+
 	return $self;
 }
 
 sub reconstruct_master_login {
 	my ($self, $args) = @_;
-	
+
 	$args->{ip} = '192.168.0.2' unless exists $args->{ip}; # gibberish
 	$args->{mac} = '111111111111' unless exists $args->{mac}; # gibberish
 	$args->{mac_hyphen_separated} = join '-', $args->{mac} =~ /(..)/g;
 	$args->{isGravityID} = 0 unless exists $args->{isGravityID};
-	
+
 	if (exists $args->{password}) {
 		for (Digest::MD5->new) {
 			$_->add($args->{password});

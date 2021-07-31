@@ -15,7 +15,7 @@
 # server to Kore. Information in the messages are stored in global variables
 # (in the module Globals).
 #
-# Please also read <a href="http://wiki.openkore.com/index.php/Network_subsystem">the
+# Please also read <a href="https://openkore.com/wiki/Network_subsystem">the
 # network subsystem overview.</a>
 package Network::Receive;
 
@@ -841,7 +841,7 @@ sub received_characters {
 	} elsif ($config{pauseCharLogin}) {
 		return if($config{XKore} eq 1 || $config{XKore} eq 3);
 		if (!defined $timeout{'char_login_pause'}{'timeout'}) {
-			$timeout{'char_login_pause'}{'timeout'} = 2;
+			$timeout{'char_login_pause'}{'timeout'} = $config{pauseCharLogin};
 		}
 		$timeout{'char_login_pause'}{'time'} = time;
 
@@ -908,7 +908,7 @@ sub character_creation_successful {
 	$character->{exp} = 0;
 	$character->{exp_job} = 0;
 
-	if (!exists($character->{sex})) { $character->{sex} = $accountSex2; }
+	if ((!exists($character->{sex})) || ($character->{sex} ne "0" && $character->{sex} ne "1")) { $character->{sex} = $accountSex2; }
 
 	$chars[$character->{slot}] = $character;
 
@@ -992,7 +992,7 @@ sub parse_account_server_info {
 			keys => [qw(ip port name state users property ip_port)],
 		};
 
-	} elsif ($args->{switch} eq '0AC4') { # kRO Zero 2017, kRO ST 201703+
+	} elsif ($args->{switch} eq '0AC4' || $args->{switch} eq '0B07') { # kRO Zero 2017, kRO ST 201703+, vRO 2021
 		$server_info = {
 			len => 160,
 			types => 'a4 v Z20 v3 a128',
@@ -1055,7 +1055,7 @@ sub reconstruct_account_server_info {
 			keys => [qw(ip port name state users property ip_port)],
 		};
 
-	} elsif ($args->{switch} eq "0AC4" || $self->{packet_lut}{$args->{switch}} eq "0AC4") {
+	} elsif ($args->{switch} eq "0AC4" || $self->{packet_lut}{$args->{switch}} eq "0AC4" || $args->{switch} eq '0B07') {
 		$serverInfo = {
 			len => 160,
 			types => 'a4 v Z20 v3 a128',
@@ -1091,7 +1091,6 @@ sub reconstruct_account_server_info {
 
 sub account_server_info {
 	my ($self, $args) = @_;
-
 	$net->setState(2);
 	undef $conState_tries;
 	$sessionID = $args->{sessionID};
@@ -1199,7 +1198,7 @@ sub map_loaded {
 		$messageSender->sendCashShopOpen() if ($config{whenInGame_requestCashPoints});
 
 		# request to unfreeze char - alisonrag
-		$messageSender->sendBlockingPlayerCancel() if $masterServer->{blockingPlayerCancel};
+		$messageSender->sendBlockingPlayerCancel() if $masterServer->{blockingPlayerCancel}  || $self->{blockingPlayerCancel};
 	}
 
 	message(T("You are now in the game\n"), "connection");
@@ -1737,6 +1736,8 @@ sub actor_display {
 	#### Initialize ####
 
 	my $nameID = unpack("V", $args->{ID});
+	my $name = bytesToString($args->{name});
+	$name =~ s/^\s+|\s+$//g;
 
 	if ($args->{switch} eq "0086") {
 		# Message 0086 contains less information about the actor than other similar
@@ -1769,11 +1770,11 @@ sub actor_display {
 		return;
 	}
 
-	# Remove actors with a distance greater than removeActorWithDistance. Useful for vending (so you don't spam
+	# Remove actors with a distance greater than clientSight. Useful for vending (so you don't spam
 	# too many packets in prontera and cause server lag). As a side effect, you won't be able to "see" actors
-	# beyond removeActorWithDistance.
-	if ($config{removeActorWithDistance}) {
-		if ((my $block_dist = blockDistance($char->{pos_to}, \%coordsTo)) > ($config{removeActorWithDistance})) {
+	# beyond clientSight.
+	if ($config{clientSight}) {
+		if ((my $block_dist = blockDistance($char->{pos_to}, \%coordsTo)) >= ($config{clientSight})) {
 			my $nameIdTmp = unpack("V", $args->{ID});
 			debug "Removed out of sight actor $nameIdTmp at ($coordsTo{x}, $coordsTo{y}) (distance: $block_dist)\n";
 			return;
@@ -1845,11 +1846,7 @@ sub actor_display {
 			$actor = new Actor::Player();
 			$actor->{appear_time} = time;
 			# New actor_display packets include the player's name
-			if ($args->{switch} eq "0086") {
-				$actor->{name} = $args->{name};
-			} else {
-				$actor->{name} = bytesToString($args->{name}) if exists $args->{name};
-			}
+			$actor->{name} = $name if defined $name;
 			$mustAdd = 1;
 		}
 		$actor->{nameID} = $nameID;
@@ -1871,7 +1868,7 @@ sub actor_display {
 			}
 
 			$actor->{appear_time} = time;
-			$actor->{name_given} = bytesToString($args->{name}) if exists $args->{name};
+			$actor->{name_given} = $name if defined $name;
 			$actor->{jobID} = $args->{type} if exists $args->{type};
 			$mustAdd = 1;
 		}
@@ -1901,12 +1898,11 @@ sub actor_display {
 		if (!defined $actor) {
 			$actor = new Actor::Pet();
 			$actor->{appear_time} = time;
-			my $name = bytesToString($args->{name});
 			$actor->{name} = $name;
 #			if ($monsters_lut{$args->{type}}) {
 #				$actor->setName($monsters_lut{$args->{type}});
 #			}
-			$actor->{name_given} = exists $args->{name} ? $name : T("Unknown");
+			$actor->{name_given} = defined $name ? $name : T("Unknown");
 			$mustAdd = 1;
 
 			# Previously identified monsters could suddenly be identified as pets.
@@ -1927,11 +1923,7 @@ sub actor_display {
 				$actor->setName($monsters_lut{$args->{type}});
 			}
 			# New actor_display packets include the Monster name
-			if ($args->{switch} eq "0086") {
-				$actor->{name} = $args->{name};
-			} else {
-				$actor->{name} = bytesToString($args->{name}) if exists $args->{name};
-			}
+			$actor->{name} = $name if defined $name;
 			$actor->{name_given} = "Unknown";
 			$actor->{binType} = $args->{type};
 			$mustAdd = 1;
@@ -1945,7 +1937,7 @@ sub actor_display {
 		if (!defined $actor) {
 			$actor = new Actor::NPC();
 			$actor->{appear_time} = time;
-			$actor->{name} = bytesToString($args->{name}) if exists $args->{name};
+			$actor->{name} = $name if defined $name;
 			$mustAdd = 1;
 		}
 		$actor->{nameID} = $nameID;
@@ -2560,6 +2552,7 @@ sub actor_info {
 	my ($self, $args) = @_;
 	return unless changeToInGameState();
 	my $name = bytesToString($args->{name});
+	$name =~ s/^\s+|\s+$//g;
 	debug "Received object info: $name\n", "parseMsg_presence/name", 2;
 	my $player = $playersList->getByID($args->{ID});
 	if ($player) {
@@ -2582,7 +2575,6 @@ sub actor_info {
 
 	my $monster = $monstersList->getByID($args->{ID});
 	if ($monster) {
-		$name =~ s/^\s+|\s+$//g;
 		debug "Monster Info: $name ($monster->{binID})\n", "parseMsg", 2;
 		$monster->{name_given} = $name;
 		$monster->{info} = 1;
@@ -2873,6 +2865,8 @@ sub minimap_indicator {
 	} elsif (defined $args->{effect}) {
 		if ($args->{effect} == 1) {
 			$indicator = T("*Quest!*");
+		} elsif ($args->{effect} == 9999) {
+			return;
 		} elsif ($args->{effect}) { # 0 is no effect
 			$indicator = TF("unknown effect %d", $args->{effect});
 		}
@@ -3926,6 +3920,7 @@ sub login_pin_code_request {
 	# 1 - requested (already defined)
 	# 2 - requested (not defined)
 	# 3 - expired
+	# 4 - requested (not defined) - private servers
 	# 5 - invalid (official servers?)
 	# 7 - disabled?
 	# 8 - incorrect
@@ -3940,7 +3935,7 @@ sub login_pin_code_request {
 		message T("Server requested PIN password in order to select your character.\n"), "connection";
 		return if ($config{loginPinCode} eq '' && !($self->queryAndSaveLoginPinCode()));
 		$messageSender->sendLoginPinCode($args->{seed}, 0);
-	} elsif ($args->{flag} == 2) {
+	} elsif ($args->{flag} == 2 or $args->{flag} == 4) {
 		# PIN code has never been set before, so set it.
 		warning T("PIN password is not set for this account.\n"), "connection";
 		return if ($config{loginPinCode} eq '' && !($self->queryAndSaveLoginPinCode()));
@@ -3967,13 +3962,23 @@ sub login_pin_code_request {
 		return if (!($self->queryAndSaveLoginPinCode(T("The login PIN code that you entered is invalid. Please re-enter your login PIN code."))));
 		$messageSender->sendLoginPinCode($args->{seed}, 0);
 	} elsif ($args->{flag} == 7) {
-		# PIN code disabled.
-		$accountID = $args->{accountID};
-		debug sprintf("Account ID: %s (%s)\n", unpack('V',$accountID), getHex($accountID));
+		if ($self->{serverType} == 'RMS') { # removed check for seed 0, eA/rA/brA sends a normal seed.
+			message T("PIN code is correct.\n"), "success";
+			# call charSelectScreen
+			if (charSelectScreen(1) == 1) {
+				$firstLoginMap = 1;
+				$startingzeny = $chars[$config{'char'}]{'zeny'} unless defined $startingzeny;
+				$sentWelcomeMessage = 1;
+			}
+		} else {
+			# PIN code disabled.
+			$accountID = $args->{accountID};
+			debug sprintf("Account ID: %s (%s)\n", unpack('V',$accountID), getHex($accountID));
 
-		# call charSelectScreen
-		$self->{lockCharScreen} = 0;
-		$timeout{'char_login_pause'}{'time'} = time;
+			# call charSelectScreen
+			$self->{lockCharScreen} = 0;
+			$timeout{'char_login_pause'}{'time'} = time;
+		}
 	} elsif ($args->{flag} == 8) {
 		# PIN code incorrect.
 		error T("PIN code is incorrect.\n");
@@ -5004,7 +5009,8 @@ sub inventory_items_stackable {
 
 sub item_list_start {
 	my ($self, $args) = @_;
-	debug TF("Starting Item List. ID: %s\n", $args->{type}), "info";
+	debug "Starting Item List. ID: $args->{type}".
+			($args->{name} ? " ($args->{name})\n" : "\n"), "info";
 	$current_item_list = $args->{type};
 }
 
@@ -5135,7 +5141,7 @@ sub login_error {
 		}
 	} elsif ($args->{type} == ACCEPT_ID_PASSWD) {
 		error T("The server has denied your connection.\n"), "connection";
-	} elsif ($args->{type} == REFUSE_NOT_CONFIRMED) {
+	} elsif ($args->{type} == REFUSE_BAN_BY_GM || $args->{type} == REFUSE_NOT_CONFIRMED) {
 		$interface->errorDialog(T("Critical Error: Your account has been blocked."));
 		$quit = 1 unless ($net->clientAlive());
 	} elsif ($args->{type} == REFUSE_INVALID_VERSION) {
@@ -5153,7 +5159,7 @@ sub login_error {
 		relog(10);
 	} elsif ($args->{type} == ACCEPT_LOGIN_USER_PHONE_BLOCK) {
 		error T("Mobile Authentication: Max number of simultaneous IP addresses reached.\n"), "connection";
-	} elsif ($args->{type} == REFUSE_EMAIL_NOT_CONFIRMED2) {
+	} elsif ($args->{type} == REFUSE_EMAIL_NOT_CONFIRMED || $args->{type} == REFUSE_EMAIL_NOT_CONFIRMED2) {
 		error T("Account email address not confirmed.\n"), "connection";
 		Misc::offlineMode() unless $config{ignoreInvalidLogin};
 	} elsif ($args->{type} == REFUSE_BLOCKED_ID) {
@@ -5184,6 +5190,10 @@ sub login_error {
 		error TF("Account [%s] doesn't have access to Premium Server\n", $config{'username'}), "connection";
 		quit();
 		return;
+	} elsif ($args->{type} == REFUSE_NOT_ALLOWED_IP_ON_TESTING) {
+		# this can also mens server under maintenance
+		error TF("Your connection is currently delayed. You can connect again later.\n"), "connection";
+		Misc::offlineMode();
 	} else {
 		error TF("The server has denied your connection for unknown reason (%d).\n", $args->{type}), 'connection';
 	}
@@ -5241,10 +5251,10 @@ sub character_moves {
 
 	return unless changeToInGameState();
 	makeCoordsFromTo($char->{pos}, $char->{pos_to}, $args->{coords});
-	my $dist = sprintf("%.1f", distance($char->{pos}, $char->{pos_to}));
+	my $dist = blockDistance($char->{pos}, $char->{pos_to});
 	debug "You're moving from ($char->{pos}{x}, $char->{pos}{y}) to ($char->{pos_to}{x}, $char->{pos_to}{y}) - distance $dist\n", "parseMsg_move";
 	$char->{time_move} = time;
-	$char->{time_move_calc} = distance($char->{pos}, $char->{pos_to}) * ($char->{walk_speed} || 0.12);
+	$char->{time_move_calc} = calcTime($char->{pos}, $char->{pos_to}, ($char->{walk_speed} || 0.12));
 
 	# Correct the direction in which we're looking
 	my (%vec, $degree);
@@ -5723,7 +5733,7 @@ sub emoticon {
 		if ($index ne "") {
 			my $masterID = AI::args($index)->{ID};
 			if ($config{'followEmotion'} && $masterID eq $args->{ID} &&
-			       distance($char->{pos_to}, $player->{pos_to}) <= $config{'followEmotion_distance'})
+			       blockDistance($char->{pos_to}, $player->{pos_to}) <= $config{'followEmotion_distance'})
 			{
 				my %args = ();
 				$args{timeout} = time + rand (1) + 0.75;
@@ -5942,6 +5952,11 @@ sub friend_request {
 	$incomingFriend{'name'} = bytesToString($args->{name});
 	message TF("%s wants to be your friend\n", $incomingFriend{'name'});
 	message TF("Type 'friend accept' to be friend with %s, otherwise type 'friend reject'\n", $incomingFriend{'name'});
+	Plugins::callHook("friend_request", {
+		accountID => $incomingFriend{'accountID'},
+		charID => $incomingFriend{'charID'},
+		name => $incomingFriend{'name'}
+	});
 }
 
 # Notification about a friend removed (PACKET_ZC_DELETE_FRIENDS).
@@ -6028,6 +6043,7 @@ sub slave_calcproperty_handler {
 }
 
 sub EAC_key {
+	return if($masterServer->{'ignoreAntiCheatWarning'});
 	chatLog("k", T("*** Easy Anti-Cheat Detected ***\n"));
 	error T("OpenKore don't have support to servers with Easy Anti-Cheat Shield, please read the FAQ (github).\n");
 	quit();
@@ -6188,8 +6204,6 @@ sub guild_members_list {
 	for (my $i = 0; $i < length($args->{member_list}); $i += $guild_member_info->{len}) {
 		@{$guild{member}[$index]}{@{$guild_member_info->{keys}}} = unpack($guild_member_info->{types}, substr($args->{member_list}, $i, $guild_member_info->{len}));
 
-		# TODO: we shouldn't store the guildtitle of a guildmember both in $guild{positions} and $guild{member}, instead we should just store the rank index of the guildmember and get the title from the $guild{positions}
-		$guild{member}[$index]{title} = $guild{positions}[$guild{member}[$index]{position}]{title};
 		$guild{member}[$index]{name} = bytesToString($guild{member}[$index]{name}) if ($guild{member}[$index]{name});
 		$messageSender->sendGetCharacterName($guild{member}[$index]{charID}) if ($args->{switch} eq "0AA5");
 		$index++;
@@ -6296,9 +6310,8 @@ sub guild_update_member_position {
 		@{$position_info}{@{$guild_position_info->{keys}}} = unpack($guild_position_info->{types}, substr($args->{member_list}, $i, $guild_position_info->{len}));
 		foreach my $guildmember (@{$guild{member}}) {
 			if ($guildmember->{charID} eq $position_info->{charID}) {
-				message TF("Guild Member (%s) has the title changed from %s to %s\n",$guildmember->{name},$guildmember->{title}, $guild{positions}[$position_info->{position}]{title});
+				message TF("Guild Member (%s) has the title changed from %s to %s\n",$guildmember->{name}, $guild{positions}[ $guildmember->{position} ]{title}, $guild{positions}[$position_info->{position}]{title});
 				$guildmember->{position} = $position_info->{position};
-				$guildmember->{title} = $guild{positions}[$position_info->{position}]{title};
 				last;
 			}
 		}
@@ -6495,7 +6508,6 @@ sub guild_member_add {
 		foreach (@{$args->{KEYS}}) {
 			$guild{member}[$index]{$_} = $_;
 		}
-		$guild{member}[$index]{title} = $guild{positions}[$guild{member}[$index]{position}]{title};
 		$guild{member}[$index]{name} = bytesToString($guild{member}[$index]{name}) if ($guild{member}[$index]{name});
 	}
 
@@ -6701,6 +6713,7 @@ sub item_appeared {
 	# Take item as fast as possible
 	if (AI::state == AI::AUTO && pickupitems($item->{name}, $item->{nameID}) == 2
 	 && ($config{'itemsTakeAuto'} || $config{'itemsGatherAuto'})
+	 && (!$config{itemsGatherAuto_notInTown} || !$field->isCity)
 	 && (percent_weight($char) < $config{'itemsMaxWeight'})
 	 && distance($item->{pos}, $char->{pos_to}) <= 5) {
 		$messageSender->sendTake($args->{ID});
@@ -7632,6 +7645,13 @@ sub refineui_info {
 	}
 }
 
+sub refine_status {
+	my ($self, $args) = @_;
+	my $msgIndex = $args->{status} ? 3272 : 3273;
+	my $msg = sprintf($msgTable[$msgIndex],  bytesToString($args->{name}), $args->{refine_level}, itemNameSimple($args->{itemID}))."\n";
+	warning $msg, "info";
+}
+
 sub character_ban_list {
 	my ($self, $args) = @_;
 	# Header + Len + CharList[character_name(size:24)]
@@ -7710,10 +7730,11 @@ sub remain_time_info {
 
 sub received_login_token {
 	my ($self, $args) = @_;
-
+	# XKore mode 1 / 3.
+	return if ($self->{net}->version == 1);
 	my $master = $masterServers{$config{master}};
-
-	$messageSender->sendTokenToServer($config{username}, $config{password}, $master->{master_version}, $master->{version}, $args->{login_token}, $args->{len}, $master->{OTT_ip}, $master->{OTT_port});
+	# rathena use 0064 not 0825
+	$messageSender->sendTokenToServer($config{username}, $config{password}, $master->{master_version}, $master->{version}, $args->{login_token}, $args->{len}, $master->{OTP_ip}, $master->{OTP_port});
 }
 
 # this info will be sent to xkore 2 clients
@@ -7831,6 +7852,8 @@ sub actor_movement_interrupted {
 	my $actor = Actor::get($args->{ID});
 	$actor->{pos} = {%coords};
 	$actor->{pos_to} = {%coords};
+	$actor->{time_move} = time;
+	$actor->{time_move_calc} = 0;
 	if ($actor->isa('Actor::You') || $actor->isa('Actor::Player')) {
 		$actor->{sitting} = 0;
 	}
@@ -8178,12 +8201,20 @@ sub rodex_mail_list {
 
 	my $mail_info;
 
-	if ($args->{switch} eq '0AC2') {
+	if ($args->{switch} eq '0B5F') {
+		$mail_info = {
+			len => 45,
+			types => 'C V2 C2 Z24 V v x4',
+			keys => [qw(openType mailID1 mailID2 isRead type sender expireDateTime Titlelength)],
+		};
+
+	} elsif ($args->{switch} eq '0AC2') {
 		$mail_info = {
 			len => 41,
 			types => 'C V2 C2 Z24 V v',
 			keys => [qw(openType mailID1 mailID2 isRead type sender expireDateTime Titlelength)],
 		};
+
 	} else { # 09F0, 0A7D
 		$mail_info = {
 			len => 44,
@@ -8192,7 +8223,7 @@ sub rodex_mail_list {
 		};
 	}
 
-	if ($args->{switch} eq '0A7D' || $args->{switch} eq '0AC2') {
+	if ($args->{switch} eq '0A7D' || $args->{switch} eq '0AC2'  || $args->{switch} eq '0B5F') {
 		$rodexList->{current_page} = 0;
 		$rodexList = {};
 		$rodexList->{mails} = {};
@@ -8238,6 +8269,13 @@ sub rodex_mail_list {
 	}
 	$print_msg .= sprintf("%s\n", ('-'x119));
 	message $print_msg, "list";
+
+	Plugins::callHook('rodex_mail_list', {
+		'mails' => $rodexList->{mails},
+		'current_page' => $rodexList->{current_page},
+		'last_mailID' => $rodexList->{current_page_last_mailID},
+		'isEnd' => $args->{isEnd},
+	});
 }
 
 sub rodex_read_mail {
@@ -8250,7 +8288,7 @@ sub rodex_read_mail {
 
 	my $mail = {};
 
-	$mail->{body} = substr($msg, $header_len, $args->{text_len});
+	$mail->{body} = solveMSG(bytesToString(substr($msg, $header_len, $args->{text_len})));
 	$mail->{zeny1} = $args->{zeny1};
 	$mail->{zeny2} = $args->{zeny2};
 
@@ -8261,9 +8299,9 @@ sub rodex_read_mail {
 
 	$mail->{items} = [];
 
-	message center(" " . "Mail (" . $args->{mailID1} . ")" . $rodexList->{mails}{$args->{mailID1}}->{sender} . " ", 119, '-') . "\n";
+	message center(" " . "Mail (" . $args->{mailID1} . ") " . $rodexList->{mails}{$args->{mailID1}}->{sender} . " ", 119, '-') . "\n";
 	message sprintf("From: %s \n", $rodexList->{mails}{$args->{mailID1}}->{sender});
-	message "Message:\n" . solveMSG(bytesToString($mail->{body}));
+	message "Message:\n" . $mail->{body};
 	# FIXME for some reason message can't concatenate bytesToString + "\n"
 	message "\n";
 
@@ -8304,6 +8342,16 @@ sub rodex_read_mail {
 	$rodexList->{mails}{$args->{mailID1}}{isRead} = 1;
 
 	$rodexList->{current_read} = $args->{mailID1};
+
+	Plugins::callHook('rodex_mail', {
+		'mailID' => $args->{mailID1},
+		'from' => $rodexList->{mails}{$args->{mailID1}}->{sender},
+		'title' => $rodexList->{mails}{$args->{mailID1}}->{title},
+		'content' => $mail->{body},
+		'zeny' => $args->{zeny1},
+		'itemCount' => $args->{itemCount},
+		'items' => $mail->{items},
+	});
 }
 
 sub unread_rodex {
@@ -8450,6 +8498,10 @@ sub rodex_delete {
 	return unless (exists $rodexList->{mails}{$args->{mailID1}});
 
 	message TF("You have deleted the mail of ID %s.\n", $args->{mailID1});
+
+	Plugins::callHook('rodex_mail_deleted', {
+		'mailID' => $args->{mailID1},
+	});
 
 	delete $rodexList->{mails}{$args->{mailID1}};
 }
@@ -9250,6 +9302,8 @@ sub open_buying_store_item_list {
 	my $msg = $args->{RAW_MSG};
 	my $msg_size = $args->{RAW_MSG_SIZE};
 	my $headerlen = 12;
+	my $unpack = $self->{open_buying_store_items_list_pack} || 'V v C v';
+	my $len = length pack $unpack;
 
 	undef @selfBuyerItemList;
 
@@ -9260,13 +9314,13 @@ sub open_buying_store_item_list {
 #	$articles = 0;
 	my $index = 0;
 
-	for (my $i = $headerlen; $i < $msg_size; $i += 9) {
+	for (my $i = $headerlen; $i < $msg_size; $i += $len) {
 		my $item = {};
 
 		($item->{price},
 		$item->{amount},
 		$item->{type},
-		$item->{nameID})	= unpack('V v C v', substr($msg, $i, 9));
+		$item->{nameID})	= unpack($unpack, substr($msg, $i, $len));
 
 		$item->{name} = itemName($item);
 		$selfBuyerItemList[$index] = $item;
@@ -9397,9 +9451,11 @@ sub buying_store_update {
 	my($self, $args) = @_;
 	if(@selfBuyerItemList) {
 		for(my $i = 0; $i < @selfBuyerItemList; $i++) {
-			print "$_->{amount}          $args->{count}\n";
-			$_->{amount} = $args->{count} if($_->{itemID} == $args->{itemID});
-			print "$_->{amount}          $args->{count}\n";
+			my $item = $selfBuyerItemList[$i];
+			if($item->{nameID} == $args->{itemID}) {
+				message TF("You bought %s %s\n", $args->{count}, $item->{name});
+				$selfBuyerItemList[$i]->{amount} = $item->{amount} - $args->{count};
+			}
 		}
 	}
 }
@@ -9793,6 +9849,52 @@ sub auction_add_item {
 sub premium_rates_info {
 	my ($self, $args) = @_;
 	message TF("Premium rates: exp %+i%%, death %+i%%, drop %+i%%.\n", $args->{exp}, $args->{death}, $args->{drop}), "info";
+}
+
+# Transmit personal information to player. (rates)
+# 08CB <packet len>.W <exp>.W <death>.W <drop>.W <DETAIL_EXP_INFO>7B (ZC_PERSONAL_INFOMATION)
+# <InfoType>.B <Exp>.W <Death>.W <Drop>.W (DETAIL_EXP_INFO 08CB)
+# 097B <packet len>.W <exp>.L <death>.L <drop>.L <DETAIL_EXP_INFO>13B (ZC_PERSONAL_INFOMATION2)
+# 0981 <packet len>.W <exp>.W <death>.W <drop>.W <activity rate>.W <DETAIL_EXP_INFO>13B (ZC_PERSONAL_INFOMATION_CHN)
+# <InfoType>.B <Exp>.L <Death>.L <Drop>.L (DETAIL_EXP_INFO 097B|0981)
+sub rates_info2 {
+	my ($self, $args) = @_;
+
+	my $msg = $args->{RAW_MSG};
+	my $msg_size = $args->{RAW_MSG_SIZE};
+	my $header_pack = 'v V3';
+	my $header_len = ((length pack $header_pack) + 2);
+
+	my $detail_pack = 'C l3';
+	my $detail_len = length pack $detail_pack;
+
+	my %rates = (
+		exp => { total => $args->{exp}/1000 }, # Value to Percentage => /100
+		death => { total => $args->{death}/1000 }, # 1 d.p. => /10
+		drop => { total => $args->{drop}/1000 },
+	);
+
+	# get details
+	for (my $i = $header_len; $i < $args->{RAW_MSG_SIZE}; $i += $detail_len) {
+
+		my ($type, $exp, $death, $drop) = unpack($detail_pack, substr($msg, $i, $detail_len));
+
+		$rates{exp}{$type} = $exp/1000;
+		$rates{death}{$type} = $death/1000;
+		$rates{drop}{$type} = $drop/1000;
+	}
+
+	# we have 4 kinds of detail:
+	# $rates{exp or drop or death}{DETAIL_KIND}
+	# 0 = base server exp (?)
+	# 1 = premium acc additional exp
+	# 2 = server additional exp
+	# 3 = not sure, maybe it's for "extra exp" events? never seen this using the official client (bRO)
+	message T("=========================== Server Infos ===========================\n"), "info";
+	message TF("EXP Rates: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{exp}{total}, $rates{exp}{0}+100, $rates{exp}{1}, $rates{exp}{2}, $rates{exp}{3}), "info";
+	message TF("Drop Rates: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{drop}{total}, $rates{drop}{0}+100, $rates{drop}{1}, $rates{drop}{2}, $rates{drop}{3}), "info";
+	message TF("Death Penalty: %s%% (Base %s%% + Premium %s%% + Server %s%% + Plus %s%%) \n", $rates{death}{total}, $rates{death}{0}+100, $rates{death}{1}, $rates{death}{2}, $rates{death}{3}), "info";
+	message "=====================================================================\n", "info";
 }
 
 sub auction_result {
@@ -10223,13 +10325,57 @@ sub mail_read {
 	$msg .= swrite(TF("Title: \@%s Sender: \@%s", ('<'x39), ('<'x24)),
 			[bytesToString($args->{title}), bytesToString($args->{sender})]);
 	$msg .= TF("Message: %s\n", bytesToString($args->{message}));
-	$msg .= ("%s\n", ('-'x119));
+	$msg .= sprintf("%s\n", ('-'x119));
 	$msg .= TF( "Item: %s %s\n" .
 				"Zeny: %sz\n",
 				$item->{name}, ($args->{amount}) ? "x " . $args->{amount} : "", formatNumber($args->{zeny}));
 	$msg .= sprintf("%s\n", ('-'x119));
 
 	message($msg, "info");
+}
+
+sub mail_refreshinbox {
+	my ($self, $args) = @_;
+
+	my $old_count = defined $mailList ? scalar(@$mailList) : 0;
+	undef $mailList;
+	my $count = $args->{count};
+
+	if (!$count) {
+		message T("There is no mail in your inbox.\n"), "info";
+		return;
+	}
+
+	return if ($old_count == $count);
+
+	message TF("You've got %s mail in your Mailbox.\n", $count), "info";
+	my $msg;
+	$msg .= center(" " . T("Inbox") . " ", 86, '-') . "\n";
+	# truncating the title from 39 to 34, the user will be able to read the full title when reading the mail
+	# truncating the date with precision of minutes and leave year out
+
+	$msg .= swrite(sprintf("\@> \@ \@%s \@%s \@%s", ('<'x34), ('<'x24), ('<'x19)),
+			["#", T("R"), T("Title"), T("Sender"), T("Date")]);
+	$msg .= sprintf("%s\n", ('-'x86));
+
+	my $j = 0;
+	for (my $i = 8; $i < 8 + $count * 73; $i+=73) {
+		($mailList->[$j]->{mailID},
+		$mailList->[$j]->{title},
+		$mailList->[$j]->{read},
+		$mailList->[$j]->{sender},
+		$mailList->[$j]->{timestamp}) =	unpack('V Z40 C Z24 V', substr($args->{RAW_MSG}, $i, 73));
+
+		$mailList->[$j]->{title} = bytesToString($mailList->[$j]->{title});
+		$mailList->[$j]->{sender} = bytesToString($mailList->[$j]->{sender});
+
+		$msg .= swrite(sprintf("\@> \@ \@%s \@%s \@%s", ('<'x34), ('<'x24), ('<'x19)),
+				[$j, $mailList->[$j]->{read}, $mailList->[$j]->{title}, $mailList->[$j]->{sender}, getFormattedDate(int($mailList->[$j]->{timestamp}))]);
+		$j++;
+	}
+
+	$msg .= ("%s\n", ('-'x86));
+	message($msg . "\n", "list");
 }
 
 sub mail_getattachment {
@@ -10240,6 +10386,35 @@ sub mail_getattachment {
 		error T("Failed to get the attachment to inventory due to your weight.\n"), "info";
 	} else {
 		error T("Failed to get the attachment to inventory.\n"), "info";
+	}
+}
+
+sub mail_setattachment {
+	my ($self, $args) = @_;
+
+	if ($args->{fail}) {
+		if (defined $AI::temp::mailAttachAmount) {
+			undef $AI::temp::mailAttachAmount;
+		}
+		message TF("Failed to attach %s.\n", ($args->{ID}) ? T("item: ").$char->inventory->getByID($args->{ID}) : T("zeny")), "info";
+	} else {
+		my $item = $char->inventory->getByID($args->{ID});
+		if ($item) {
+			message TF("Succeeded to attach %s.\n", T("item: ").$char->inventory->getByID($args->{ID})), "info";
+			if (defined $AI::temp::mailAttachAmount) {
+				my $change = min($item->{amount},$AI::temp::mailAttachAmount);
+				inventoryItemRemoved($item->{binID}, $change);
+				Plugins::callHook('packet_item_removed', {index => $item->{binID}});
+				undef $AI::temp::mailAttachAmount;
+			}
+		} else {
+			message TF("Succeeded to attach %s.\n", T("zeny")), "info";
+			if (defined $AI::temp::mailAttachAmount) {
+				my $change = min($char->{zeny},$AI::temp::mailAttachAmount);
+				$char->{zeny} = $char->{zeny} - $change;
+				message TF("You lost %s zeny.\n", formatNumber($change));
+			}
+		}
 	}
 }
 
@@ -10526,11 +10701,17 @@ sub monster_ranged_attack {
 	$coords2{y} = $args->{targetY};
 
 	my $monster = $monstersList->getByID($ID);
-	$monster->{pos_attack_info} = {%coords1} if ($monster);
+	if ($monster) {
+		$monster->{pos} = {%coords1};
+		$monster->{pos_to} = {%coords1};
+		$monster->{time_move} = time;
+		$monster->{time_move_calc} = 0;
+	}
 	$char->{pos} = {%coords2};
 	$char->{pos_to} = {%coords2};
-	debug "Received attack location - monster: $coords1{x},$coords1{y} - " .
-		"you: $coords2{x},$coords2{y}\n", "parseMsg_move", 2;
+	$char->{time_move} = time;
+	$char->{time_move_calc} = 0;
+	debug "Received Failed to attack target - you: $coords2{x},$coords2{y} - monster: $coords1{x},$coords1{y} - range $range\n", "parseMsg_move", 2;
 }
 
 sub mvp_item {
@@ -10842,7 +11023,7 @@ sub skill_cast {
 		# If $dist is positive we are in range of the attack?
 		$coords{x} = $x;
 		$coords{y} = $y;
-		$dist = judgeSkillArea($skillID) - distance($char->{pos_to}, \%coords);
+		$dist = judgeSkillArea($skillID) - blockDistance($char->{pos_to}, \%coords);
 			$targetString = "location ($x, $y)";
 		undef $targetID;
 	} else {
@@ -11123,6 +11304,7 @@ sub skill_use_failed {
 		10 => T('Requirement'),
 		13 => T('Need this within the water'),
 		19 => T('Full Amulet'),
+		24 => T('[Purchase Street Stall License] need 1'),
 		29 => TF('Must have at least %s of base XP', '1%'),
 		71 => T('Missing Required Item'), # (item name) required x amount
 		78 => T('Required Equiped Weapon Class'),
@@ -11475,4 +11657,11 @@ sub item_preview {
 
 	}
 }
+
+# 0B1D (PACKET_ZC_PING)
+sub ping {
+	return if ($config{XKore} eq 1 || $config{XKore} eq 3);
+	$messageSender->sendPing();
+}
+
 1;
