@@ -70,8 +70,10 @@ jobs:
       if: runner.os == 'Windows'
       shell: bash
       run: |
-        echo -e "\e[34m# mv /c/Strawberry/* /c/Temp/"
-        mv /c/Strawberry/* /c/Temp/
+        if [ -d /c/Strawberry/ ]; then
+          echo -e "\e[34m# mv /c/Strawberry/* /c/Temp/"
+          mv /c/Strawberry/* /c/Temp/
+        fi
         echo -e "\e[34m== remove g++ x64"
         echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
         rm -f /c/ProgramData/Chocolatey/bin/g++.exe
