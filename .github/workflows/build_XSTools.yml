@@ -65,6 +65,16 @@ jobs:
     ########################
     # preparing windows OS #
     ########################
+    - name: TEST Windows
+      if: runner.os == 'Windows'
+      run: |
+        echo "C:\Strawberry\c\bin" >> $GITHUB_PATH
+        echo "C:\Strawberry\perl\site\bin" >> $GITHUB_PATH
+        echo "C:\Strawberry\perl\bin" >> $GITHUB_PATH
+        echo "====================="
+        echo $Env:Path
+        echo "====================="
+        echo $GITHUB_PATH
 
     - name: Remove default Strawberry perl and g++
       if: runner.os == 'Windows'
@@ -74,6 +84,9 @@ jobs:
           echo -e "\e[34m# mv /c/Strawberry/* /c/Temp/"
           mv /c/Strawberry/* /c/Temp/
         fi
+        echo -e "====================="
+        echo -e "== g++ version check:"
+        g++ --version
         echo -e "\e[34m== remove g++ x64"
         echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
         rm -f /c/ProgramData/Chocolatey/bin/g++.exe
@@ -84,7 +97,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: c:\Strawberry
-        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
+        key: ${{ runner.os }}-strawberry-off-${{ matrix.perl }}
 
     - name: Replace perl to Strawberry ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
@@ -94,9 +107,13 @@ jobs:
         echo "== previous version of Perl:"
         perl --version
         echo "================================================================="
-        echo "== remove the default perl"
-        rm -r C:/Strawberry/*
+        perl -V
         echo "================================================================="
+        if ( Test-Path "c:/Strawberry/" ) {
+          echo "== remove the default perl"
+          rm -r C:/Strawberry/*
+        echo "================================================================="
+        }
         echo "== download strawberry perl ${{ matrix.perl }} ${{ matrix.architecture }}"
         Invoke-WebRequest ${{ matrix.strawberry_distr }} -OutFile strawberry.zip
         echo "================================================================="
@@ -106,12 +123,26 @@ jobs:
         echo "================================================================="
         echo "== a new version of Perl:"
         perl --version
+        echo "================================================================="
+        echo "== Strawberry version of Perl:"
+        c:\Strawberry\perl\bin\perl.exe -v
+
+    - name: TEST Environment check (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        echo $Env:Path
+        echo "====================="
+        echo "== TEST g++ version check:"
+        C:/Strawberry/c/bin/g++.exe --version
+        echo "====================="
+        echo "== g++ version check:"
+        g++ --version
 
     ######################
     # preparing linux OS #
     ######################
 
-    - name: Setup perl ${{ matrix.perl }}
+    - name: Setup perl ${{ matrix.perl }} on linux
       if: runner.os == 'Linux'
       uses: shogo82148/actions-setup-perl@v1
       with:
