@@ -68,7 +68,7 @@ jobs:
     - name: TEST Windows
       if: runner.os == 'Windows'
       run: |
-        echo "C:\Strawberry\perl\bin" | Out-File -FilePath $env:GITHUB_PATH -Append # no need for -Encoding utf8
+        echo "C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin" | Out-File -FilePath $env:GITHUB_PATH -Append # no need for -Encoding utf8
         echo "====================="
         echo $Env:Path
         echo "====================="
