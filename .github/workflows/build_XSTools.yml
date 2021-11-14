@@ -94,7 +94,7 @@ jobs:
     - name: (Windows) Replace perl to Strawberry ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
       run: |
-        echo "Cache NOT found, download the Strawberry perl"
+        echo "::warning ::cache '${{ runner.os }}-strawberry-${{ matrix.perl }}' was NOT found, download the Strawberry perl"
         echo "================================================================="
         echo "== previous version of Perl:"
         perl --version
@@ -245,8 +245,8 @@ jobs:
           echo "====================="
         }
         if ( Test-Path "c:/Strawberry/" ) {
-          echo 'rm -Force -Recurse -Path "c:/Strawberry/"'
-          rm -Force -Recurse -Path "c:/Strawberry/"
+          echo 'rm -r "c:/Strawberry/*"'
+          rm -r "c:/Strawberry/*"
           echo "====================="
         }
         echo "rm XSTools.dll"
@@ -262,9 +262,8 @@ jobs:
 
     - name: (Windows) Display an error if the cache is found
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
-      shell: bash
       run: |
-        echo -e "\e[30;41m'cache-strawberry' NOT found!!! See the 'Post Check the Strawberry cache' step in the previous job"
+        echo "::error ::cache '${{ runner.os }}-strawberry-${{ matrix.perl }}' was NOT found!!! See the 'Post Check the Strawberry cache' step in the previous job"
         exit 1
 
     ######################
