@@ -65,20 +65,16 @@ jobs:
     ########################
     # preparing windows OS #
     ########################
-    - name: TEST Windows
+
+    - name: (Windows) Remove default Strawberry perl and g++
       if: runner.os == 'Windows'
       run: |
         $OS = "${{ matrix.os }}"
-        if ( $OS = "windows-2022" ) {
+        if ( $OS -eq "windows-2022" ) {
+          echo "Add the path to strawberry to the PATH variable"
           echo "C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
           echo "====================="
         }
-        echo $Env:Path
-        echo "====================="
-
-    - name: Remove default Strawberry perl and g++
-      if: runner.os == 'Windows'
-      run: |
         if ( Test-Path "c:/Strawberry/" ) {
           echo 'rm -Force -Recurse -Path "c:/Strawberry/"'
           rm -Force -Recurse -Path "c:/Strawberry/"
@@ -90,30 +86,28 @@ jobs:
         echo 'rm c:/ProgramData/Chocolatey/bin/g++.exe"'
         rm c:/ProgramData/Chocolatey/bin/g++.exe
 
-    - name: Check the Strawberry cache
+    - name: (Windows) Check the Strawberry cache
       if: runner.os == 'Windows'
       id: cache-strawberry
       uses: actions/cache@v2
       with:
         path: c:\Strawberry
-        key: ${{ runner.os }}-strawberry-off-${{ matrix.perl }}
+        key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
 
-    - name: Replace perl to Strawberry ${{ matrix.perl }} ${{ matrix.architecture }}
+    - name: (Windows) Replace perl to Strawberry ${{ matrix.perl }} ${{ matrix.architecture }}
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
       run: |
-        echo "Cache NOT found, download the Strawberry pearl"
+        echo "Cache NOT found, download the Strawberry perl"
         echo "================================================================="
         echo "== previous version of Perl:"
         perl --version
         echo "================================================================="
-        perl -V
-        echo "================================================================="
         if ( Test-Path "c:/Strawberry/" ) {
-          echo "== remove the default perl"
+          echo "== remove the default Strawberry perl"
           rm -r C:/Strawberry/*
           echo "================================================================="
         }
-        echo "== download strawberry perl ${{ matrix.perl }} ${{ matrix.architecture }}"
+        echo "== download Strawberry perl ${{ matrix.perl }} ${{ matrix.architecture }}"
         Invoke-WebRequest ${{ matrix.strawberry_distr }} -OutFile strawberry.zip
         echo "================================================================="
         echo "== unpack strawberry-perl ${{ matrix.perl }}"
@@ -122,13 +116,12 @@ jobs:
         echo "================================================================="
         echo "== a new version of Perl (should be '${{ matrix.perl }}'):"
         perl --version
-        echo "================================================================="
 
     ######################
     # preparing linux OS #
     ######################
 
-    - name: Setup perl ${{ matrix.perl }} on linux
+    - name: (Linux) Setup perl ${{ matrix.perl }} on linux
       if: runner.os == 'Linux'
       uses: shogo82148/actions-setup-perl@v1
       with:
@@ -140,7 +133,7 @@ jobs:
 
     - name: Environment check
       run: |
-        echo "python version check:"
+        echo "== python version check:"
         python -V
         echo "======================"
         echo "== perl version check:"
@@ -159,7 +152,7 @@ jobs:
     # building XSTools #
     ####################
 
-    - name: make XSTools.dll and NetRedirect.dll
+    - name: (Windows) make XSTools.dll and NetRedirect.dll
       if: runner.os == 'Windows'
       env:
           OS: ${{ matrix.os }}
@@ -173,7 +166,7 @@ jobs:
         dir src\auto\XSTools\ | findstr "dll"
         echo "These XSTools.dll and NetRedirect.dll are built using: $env:OS + python $env:PYTHON $env:ARCHITECTURE + strawberry perl $env:PERL $env:ARCHITECTURE + strawberry g++ x86" > src\auto\XSTools\XSTools_notes.txt
 
-    - name: make XSTools.so
+    - name: (Linux) make XSTools.so
       if: runner.os == 'Linux'
       env:
           OS: ${{ matrix.os }}
@@ -193,7 +186,7 @@ jobs:
     # making artifacts #
     ####################
 
-    - name: Making artifacts on Windows
+    - name: (Windows) Making artifacts on Windows
       if: runner.os == 'Windows'
       uses: actions/upload-artifact@v2
       with:
@@ -203,7 +196,7 @@ jobs:
           src\auto\XSTools\XSTools.dll
           src\auto\XSTools\NetRedirect.dll
 
-    - name: Making artifacts on Linux
+    - name: (Linux) Making artifacts on Linux
       if: runner.os == 'Linux'
       uses: actions/upload-artifact@v2
       with:
@@ -250,16 +243,24 @@ jobs:
     # preparing windows OS #
     ########################
 
-    - name:  Remove default Strawberry perl, XSTools.dll
+    - name: (Windows) Remove default Strawberry perl, XSTools.dll
       if: runner.os == 'Windows'
-      shell: bash
       run: |
-        echo -e "\e[34m# mv /c/Strawberry/* /c/Temp/"
-        mv /c/Strawberry/* /c/Temp/
-        echo -e "\e[34m# rm -f XSTools.dll"
-        rm -f XSTools.dll
+        $OS = "${{ matrix.os }}"
+        if ( $OS -eq "windows-2022" ) {
+          echo "Add the path to strawberry to the PATH variable"
+          echo "C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
+          echo "====================="
+        }
+        if ( Test-Path "c:/Strawberry/" ) {
+          echo 'rm -Force -Recurse -Path "c:/Strawberry/"'
+          rm -Force -Recurse -Path "c:/Strawberry/"
+          echo "====================="
+        }
+        echo "rm XSTools.dll"
+        rm XSTools.dll
 
-    - name: Check the Strawberry cache
+    - name: (Windows) Check the Strawberry cache
       id: cache-strawberry
       if: runner.os == 'Windows'
       uses: actions/cache@v2
@@ -267,7 +268,7 @@ jobs:
         path: c:\Strawberry
         key: ${{ runner.os }}-strawberry-${{ matrix.perl }}
 
-    - name: Display an error if the cache is found
+    - name: (Windows) Display an error if the cache is found
       if: runner.os == 'Windows' && steps.cache-strawberry.outputs.cache-hit != 'true'
       shell: bash
       run: |
@@ -278,7 +279,7 @@ jobs:
     # preparing linux OS #
     ######################
 
-    - name: Setup perl ${{ matrix.perl }}
+    - name: (Linux) Setup perl ${{ matrix.perl }}
       if: runner.os == 'Linux'
       uses: shogo82148/actions-setup-perl@v1
       with:
@@ -308,13 +309,13 @@ jobs:
     # make test #
     #############
 
-    - name: running tests on Windows
+    - name: (Windows) running tests on Windows
       if: runner.os == 'Windows'
       run: |
         cd src\test
         perl unittests.pl
 
-    - name: running tests on Linux
+    - name: (Linux) running tests on Linux
       if: runner.os == 'Linux'
       run: |
         make test
