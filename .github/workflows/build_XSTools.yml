@@ -69,19 +69,16 @@ jobs:
     - name: (Windows) Remove default Strawberry perl and g++
       if: runner.os == 'Windows'
       run: |
-        $OS = "${{ matrix.os }}"
-        if ( $OS -eq "windows-2022" ) {
+        if ( "${{ matrix.os }}" -eq "windows-2022" ) {
           echo "Add the path to strawberry to the PATH variable"
           echo "C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
           echo "====================="
         }
         if ( Test-Path "c:/Strawberry/" ) {
-          echo 'rm -Force -Recurse -Path "c:/Strawberry/"'
-          rm -Force -Recurse -Path "c:/Strawberry/"
+          echo 'rm -r "c:/Strawberry/*"'
+          rm -r "c:/Strawberry/*"
           echo "====================="
         }
-        echo "== g++ version check:"
-        g++ --version
         echo "== remove g++ x64"
         echo 'rm c:/ProgramData/Chocolatey/bin/g++.exe"'
         rm c:/ProgramData/Chocolatey/bin/g++.exe
@@ -102,11 +99,6 @@ jobs:
         echo "== previous version of Perl:"
         perl --version
         echo "================================================================="
-        if ( Test-Path "c:/Strawberry/" ) {
-          echo "== remove the default Strawberry perl"
-          rm -r C:/Strawberry/*
-          echo "================================================================="
-        }
         echo "== download Strawberry perl ${{ matrix.perl }} ${{ matrix.architecture }}"
         Invoke-WebRequest ${{ matrix.strawberry_distr }} -OutFile strawberry.zip
         echo "================================================================="
