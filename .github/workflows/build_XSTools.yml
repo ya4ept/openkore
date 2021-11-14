@@ -68,9 +68,7 @@ jobs:
     - name: TEST Windows
       if: runner.os == 'Windows'
       run: |
-        echo "C:\Strawberry\c\bin" >> $GITHUB_PATH
-        echo "C:\Strawberry\perl\site\bin" >> $GITHUB_PATH
-        echo "C:\Strawberry\perl\bin" >> $GITHUB_PATH
+        echo "C:\Strawberry\perl\bin" | Out-File -FilePath $env:GITHUB_PATH -Append # no need for -Encoding utf8
         echo "====================="
         echo $Env:Path
         echo "====================="
