@@ -55,7 +55,7 @@ jobs:
     # - windows-2019 + python 2.7 x86 + strawberry perl 5.12 x86 + strawberry g++ x86
     # - windows-2022 + python 3   x86 + strawberry perl 5.32 x86 + strawberry g++ x86
     # - ubuntu-18.04 + python 2.7 x64 +            perl 5.12 x64
-    # - ubuntu-20.04 + python 3   x64 +            perl 5.32 x64
+    # - ubuntu-20.04 + python 3   x64 +            perl last (5.34 x64)
     - name: Setup python ${{ matrix.python }} ${{ matrix.architecture }}
       uses: actions/setup-python@v2
       with:
@@ -68,26 +68,27 @@ jobs:
     - name: TEST Windows
       if: runner.os == 'Windows'
       run: |
-        echo "C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin" | Out-File -FilePath $env:GITHUB_PATH -Append # no need for -Encoding utf8
-        echo "====================="
+        $OS = "${{ matrix.os }}"
+        if ( $OS = "windows-2022" ) {
+          echo "C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
+          echo "====================="
+        }
         echo $Env:Path
         echo "====================="
-        echo $GITHUB_PATH
 
     - name: Remove default Strawberry perl and g++
       if: runner.os == 'Windows'
-      shell: bash
       run: |
-        if [ -d /c/Strawberry/ ]; then
-          echo -e "\e[34m# mv /c/Strawberry/* /c/Temp/"
-          mv /c/Strawberry/* /c/Temp/
-        fi
-        echo -e "====================="
-        echo -e "== g++ version check:"
+        if ( Test-Path "c:/Strawberry/" ) {
+          echo 'rm -Force -Recurse -Path "c:/Strawberry/"'
+          rm -Force -Recurse -Path "c:/Strawberry/"
+          echo "====================="
+        }
+        echo "== g++ version check:"
         g++ --version
-        echo -e "\e[34m== remove g++ x64"
-        echo -e "\e[34m# rm -f /c/ProgramData/Chocolatey/bin/g++.exe"
-        rm -f /c/ProgramData/Chocolatey/bin/g++.exe
+        echo "== remove g++ x64"
+        echo 'rm c:/ProgramData/Chocolatey/bin/g++.exe"'
+        rm c:/ProgramData/Chocolatey/bin/g++.exe
 
     - name: Check the Strawberry cache
       if: runner.os == 'Windows'
@@ -110,31 +111,18 @@ jobs:
         if ( Test-Path "c:/Strawberry/" ) {
           echo "== remove the default perl"
           rm -r C:/Strawberry/*
-        echo "================================================================="
+          echo "================================================================="
         }
         echo "== download strawberry perl ${{ matrix.perl }} ${{ matrix.architecture }}"
         Invoke-WebRequest ${{ matrix.strawberry_distr }} -OutFile strawberry.zip
         echo "================================================================="
-        echo "== unpack strawberry-perl"
+        echo "== unpack strawberry-perl ${{ matrix.perl }}"
         7z.exe x strawberry.zip -o"C:/Strawberry"
         rm strawberry.zip
         echo "================================================================="
-        echo "== a new version of Perl:"
+        echo "== a new version of Perl (should be '${{ matrix.perl }}'):"
         perl --version
         echo "================================================================="
-        echo "== Strawberry version of Perl:"
-        c:\Strawberry\perl\bin\perl.exe -v
-
-    - name: TEST Environment check (Windows)
-      if: runner.os == 'Windows'
-      run: |
-        echo $Env:Path
-        echo "====================="
-        echo "== TEST g++ version check:"
-        C:/Strawberry/c/bin/g++.exe --version
-        echo "====================="
-        echo "== g++ version check:"
-        g++ --version
 
     ######################
     # preparing linux OS #
