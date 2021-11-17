@@ -1,0 +1,54 @@
+# workflow syntax           https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+# runs-on                   https://github.com/actions/virtual-environments
+# setup-python              https://github.com/actions/setup-python
+# actions-setup-perl        https://github.com/marketplace/actions/setup-perl-environment
+# strawberry Perl 5.12.3.0  https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip
+# strawberry Perl 5.32.1.1  https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip
+# actions-upload-artifact   https://github.com/actions/upload-artifact
+# actions-download-artifact https://github.com/actions/download-artifact
+# actions-cache             https://github.com/actions/cache
+name: Build XSTools
+on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '*'
+  pull_request:
+
+jobs:
+  make_dist:
+
+    name: checking makedist.sh
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: GIT checkout
+      uses: actions/checkout@v2
+
+    - name: run "makedist.sh --help"
+      shell: bash
+      run: ./makedist.sh --help || echo -e "\e[34m# done"
+
+    - name: run "makedist.sh --bin"
+      shell: bash
+      run: |
+        echo "::group::script debug"
+          ./makedist.sh --bin
+        echo "::endgroup::"
+        echo -e "\e[34m# ls -lh | grep zip"
+        ls -lh | grep zip
+
+    - name: run "makedist.sh --semibin test_semibin"
+      shell: bash
+      run: |
+        mkdir test_semibin
+        echo "::group::script debug"
+          ./makedist.sh --semibin test_semibin
+        echo "::endgroup::"
+        echo -e "\e[34m# ls -lh | grep test_semibin"
+        ls -lh | grep test_semibin
+
+    - name: run "makedist.sh --unknown"
+      shell: bash
+      run: ./makedist.sh --unknown || echo -e "\e[34m# done"
