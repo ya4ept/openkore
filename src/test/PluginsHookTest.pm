@@ -16,24 +16,25 @@ sub start {
 sub testAddHook {
 	my $value;
 
-	ok(!Plugins::hasHook('hook1'));
-	ok(!Plugins::hasHook('hook2'));
-	ok(!Plugins::hasHook('hook3'));
-	ok(!Plugins::hasHook('foo hook'));
+	note "These 4 hooks have not yet been announced:";
+	ok(!Plugins::hasHook('hook1'), 'hook1');
+	ok(!Plugins::hasHook('hook2'), 'hook2'));
+	ok(!Plugins::hasHook('hook3'), 'hook3'));
+	ok(!Plugins::hasHook('foo hook'), 'foo hook');
 
 	my $handle1 = Plugins::addHook('hook1', sub { $value = 1; });
-	ok(Plugins::hasHook('hook1'));
+	ok(Plugins::hasHook('hook1'), 'added hook1');
 	ok(!Plugins::hasHook('hook2'));
 	ok(!Plugins::hasHook('hook3'));
 	ok(!Plugins::hasHook('foo hook'));
 	Plugins::callHook('hook2');
 	ok(!defined($value));
 	Plugins::callHook('hook1');
-	is($value, 1);
+	is($value, 1, 'check the value of hook1');
 
 	my $handle2 = Plugins::addHook('hook2', sub { $value = 2; });
 	ok(Plugins::hasHook('hook1'));
-	ok(Plugins::hasHook('hook2'));
+	ok(Plugins::hasHook('hook2'), 'added hook2');
 	ok(!Plugins::hasHook('hook3'));
 	ok(!Plugins::hasHook('foo hook'));
 	Plugins::callHook('hook1');
@@ -42,7 +43,7 @@ sub testAddHook {
 	is($value, 2);
 	Plugins::callHook('hook3');
 	is($value, 2);
-	
+
 	my $handle3 = Plugins::addHook('hook1', sub { $value = 3; });
 	ok(Plugins::hasHook('hook1'));
 	ok(Plugins::hasHook('hook2'));
@@ -82,7 +83,7 @@ sub testAddHook {
 
 sub testAddHooks {
 	my $value;
-	
+
 	my $handle = Plugins::addHooks(
 		['hook1', sub { $value = 1; }],
 		['hook2', sub { $value = 2; }]
