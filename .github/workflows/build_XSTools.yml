@@ -274,7 +274,7 @@ jobs:
 
     - name: Start OpenKore
       run: |
-        perl ./openkore.pl --version
+        ./start.exe --version
         if ( $? -eq "True" ) {
           echo "OpenKore started successfully"
         }
