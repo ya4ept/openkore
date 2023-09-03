@@ -133,6 +133,7 @@ our $lockdown;
 our $starting_ai;
 our $command;
 our $no_connect;
+our $test_running;
 
 
 my $pathDelimiter = ($^O eq 'MSWin32') ? ';' : ':';
@@ -206,7 +207,8 @@ sub parseArguments {
 		'help',				\$options{help},
 		'version|v',		\$options{version},
 
-		'no-connect',		\$no_connect
+		'no-connect',		\$no_connect,
+		'test-running',		\$test_running
 	);
 
 	if ($options{control}) {

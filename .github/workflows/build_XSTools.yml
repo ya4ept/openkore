@@ -442,6 +442,19 @@ jobs:
       run: |
         make test
 
+    ###################
+    # OpenKore launch #
+    ###################
+
+    - name: Start OpenKore
+      run: |
+        perl ./openkore.pl --version
+        if [ $? -eq 0 ] then
+          echo "Successfully"
+        else
+          echo "Error: $?"
+        fi
+
   #######################
   # start the third job #
   #######################
