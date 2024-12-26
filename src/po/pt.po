@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Openkore Git\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-26 21:20+0000\n"
+"POT-Creation-Date: 2024-12-26 21:27+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: alisonrag <alisonserafim@gmail.com>\n"
 "Language-Team: \n"
@@ -2774,9 +2774,9 @@ msgid "Cannot use pause command now.\n"
 msgstr "Não é possível usar o comando pause agora.\n"
 
 #: ../Commands.pm:886
-#, perl-format
+#, fuzzy
 msgid ""
-"Unknown command '%s'. Please read the documentation for a list of commands.\n"
+"Unknown command. Please read the documentation for a list of commands.\n"
 "http://openkore.com/wiki/Category:Console_Command\n"
 msgstr ""
 "Comando '%s' desconhecido. Por favor, leia a documentação para uma lista de "
