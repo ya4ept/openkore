@@ -12,8 +12,15 @@ jobs:
     - name: GIT checkout
       uses: actions/checkout@v4
 
-    - name: Run update
+    - name: Installing dependencies
+      run: sudo apt install -y gettext
+
+    - name: Run update.sh
       run: |
-        sudo apt install -y gettext
         cd src/po/
         ./update.sh
+
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: Automatic translation updates
