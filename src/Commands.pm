@@ -883,7 +883,7 @@ sub run {
 			my %params = ( switch => $switch, input => $command );
 			Plugins::callHook('Command_post', \%params);
 			if (!$params{return}) {
-				error TF("Unknown command '$switch'. Please read the documentation for a list of commands.\n"
+				error TF("Unknown command. Please read the documentation for a list of commands.\n"
 						."http://openkore.com/wiki/Category:Console_Command\n");
 			} else {
 				return $params{return}
