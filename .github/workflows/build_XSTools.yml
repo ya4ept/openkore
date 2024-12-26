@@ -511,3 +511,28 @@ jobs:
     - name: run "makedist.sh --unknown"
       shell: bash
       run: ./makedist.sh --unknown || echo -e "\e[34m# done"
+
+  #################
+  ## Translation ##
+  #################
+
+  Translation_update:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: GIT checkout
+      uses: actions/checkout@v4
+
+    - name: Installing dependencies
+      run: sudo apt install -y gettext
+
+    - name: Run update.sh
+      run: |
+        cd src/po/
+        ./update.sh
+
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: Automatic translation updates
