@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenKore Thai Edition\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-26 21:27+0000\n"
+"POT-Creation-Date: 2024-12-26 21:30+0000\n"
 "PO-Revision-Date: 2010-11-29 20:09+0100\n"
 "Last-Translator: manticora <the-manticora@yandex.ru>\n"
 "Language-Team: \n"
@@ -276,12 +276,12 @@ msgstr ""
 msgid "Calculating route to: %s(%s): %d, %d\n"
 msgstr "กำลังคำนวณหาเส้นทางไปยัง: %s(%s): %d, %d\n"
 
-#: ../ChatQueue.pm:281 ../Commands.pm:4153
+#: ../ChatQueue.pm:281 ../Commands.pm:4154
 #, perl-format
 msgid "Calculating route to: %s(%s)\n"
 msgstr "กำลังคำนวณหาเส้นทางไปยัง: %s(%s)\n"
 
-#: ../ChatQueue.pm:288 ../Commands.pm:4162
+#: ../ChatQueue.pm:288 ../Commands.pm:4163
 #, perl-format
 msgid "Map %s does not exist\n"
 msgstr "แผนที่ %s ไม่มีอยู่\n"
@@ -2876,45 +2876,45 @@ msgid ""
 "http://openkore.com/wiki/Category:Console_Command\n"
 msgstr "ไม่รู้จักคำสั่งนี้ '%s'  กรุณาอ่านคู่มือ สำหรับรายการคำสั่งที่ใช้ได้\n"
 
-#: ../Commands.pm:921
+#: ../Commands.pm:922
 #, perl-format
 msgid "Command '%s' will be overriden\n"
 msgstr ""
 
-#: ../Commands.pm:1057
+#: ../Commands.pm:1058
 msgid "AI sequences cleared\n"
 msgstr "AI sequences ถูกล้างแล้ว\n"
 
-#: ../Commands.pm:1061
+#: ../Commands.pm:1062
 #, fuzzy
 msgid " AI Sequence "
 msgstr "AI sequences ถูกล้างแล้ว\n"
 
-#: ../Commands.pm:1076
+#: ../Commands.pm:1077
 msgid "AI is already set to auto mode\n"
 msgstr "AI ได้ถูกตั้งให้เป็นระบบอัตโนมัติอยู่แล้ว\n"
 
-#: ../Commands.pm:1079 ../Commands.pm:1108
+#: ../Commands.pm:1080 ../Commands.pm:1109
 msgid "AI set to auto mode\n"
 msgstr "AI ได้ถูกตั้งให้เป็นระบบอัตโนมัติ\n"
 
-#: ../Commands.pm:1084
+#: ../Commands.pm:1085
 msgid "AI is already set to manual mode\n"
 msgstr "AI ได้ถูกตั้งให้เป็นระบบบังคับด้วยมืออยู่แล้ว\n"
 
-#: ../Commands.pm:1087 ../Commands.pm:1105
+#: ../Commands.pm:1088 ../Commands.pm:1106
 msgid "AI set to manual mode\n"
 msgstr "AI ได้ถูกตั้งให้เป็นระบบบังคับด้วยมือ\n"
 
-#: ../Commands.pm:1092
+#: ../Commands.pm:1093
 msgid "AI is already off\n"
 msgstr "AI ถูกปิดตัวลงอยู่แล้ว\n"
 
-#: ../Commands.pm:1095 ../Commands.pm:1102
+#: ../Commands.pm:1096 ../Commands.pm:1103
 msgid "AI turned off\n"
 msgstr "AI ถูกปิดตัวลง\n"
 
-#: ../Commands.pm:1112
+#: ../Commands.pm:1113
 msgid ""
 "Syntax Error in function 'ai' (AI Commands)\n"
 "Usage: ai [ clear | print | ai_v | auto | manual | off ]\n"
@@ -2922,77 +2922,77 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'ai' (คำสั่ง AI) ผิดพลาด\n"
 "รูปแบบการใช้งาน: ai [ clear | print | ai_v | auto | manual | off ]\n"
 
-#: ../Commands.pm:1121 ../Commands.pm:3083
+#: ../Commands.pm:1122 ../Commands.pm:3084
 #, perl-format
 msgid "ai_seq (off) = %s\n"
 msgstr "ai_seq (ปิด) = %s\n"
 
-#: ../Commands.pm:1123 ../Commands.pm:3085
+#: ../Commands.pm:1124 ../Commands.pm:3086
 #, perl-format
 msgid "ai_seq (manual) = %s\n"
 msgstr "ai_seq (บังคับด้วยมือl) = %s\n"
 
-#: ../Commands.pm:1125 ../Commands.pm:3087
+#: ../Commands.pm:1126 ../Commands.pm:3088
 #, perl-format
 msgid "ai_seq (auto) = %s\n"
 msgstr "ai_seq (อัตโนมัติ) = %s\n"
 
-#: ../Commands.pm:1127 ../Commands.pm:3089
+#: ../Commands.pm:1128 ../Commands.pm:3090
 msgid "solution\n"
 msgstr "ทางออก(คำตอบ)\n"
 
-#: ../Commands.pm:1128
+#: ../Commands.pm:1129
 #, perl-format
 msgid "Active tasks: %s\n"
 msgstr "Active tasks: %s\n"
 
-#: ../Commands.pm:1129
+#: ../Commands.pm:1130
 #, perl-format
 msgid "Inactive tasks: %s\n"
 msgstr "Inactive tasks: %s\n"
 
-#: ../Commands.pm:1134 ../Commands.pm:1185 ../Commands.pm:1277
-#: ../Commands.pm:1340 ../Commands.pm:1350 ../Commands.pm:1362
-#: ../Commands.pm:1396 ../Commands.pm:1429 ../Commands.pm:1553
-#: ../Commands.pm:1840 ../Commands.pm:1855 ../Commands.pm:1874
-#: ../Commands.pm:2062 ../Commands.pm:2070 ../Commands.pm:2079
-#: ../Commands.pm:2181 ../Commands.pm:2388 ../Commands.pm:2400
-#: ../Commands.pm:2444 ../Commands.pm:2479 ../Commands.pm:2543
-#: ../Commands.pm:2753 ../Commands.pm:2804 ../Commands.pm:2975
-#: ../Commands.pm:2987 ../Commands.pm:2997 ../Commands.pm:3011
-#: ../Commands.pm:3110 ../Commands.pm:3168 ../Commands.pm:3190
-#: ../Commands.pm:3200 ../Commands.pm:3209 ../Commands.pm:3234
-#: ../Commands.pm:3255 ../Commands.pm:3271 ../Commands.pm:3287
-#: ../Commands.pm:3296 ../Commands.pm:3311 ../Commands.pm:3320
-#: ../Commands.pm:3329 ../Commands.pm:3338 ../Commands.pm:3353
-#: ../Commands.pm:3368 ../Commands.pm:3383 ../Commands.pm:3398
-#: ../Commands.pm:3499 ../Commands.pm:3679 ../Commands.pm:3711
-#: ../Commands.pm:3980 ../Commands.pm:4012 ../Commands.pm:4062
-#: ../Commands.pm:4205 ../Commands.pm:4243 ../Commands.pm:4481
-#: ../Commands.pm:4498 ../Commands.pm:4912 ../Commands.pm:5009
-#: ../Commands.pm:5053 ../Commands.pm:5073 ../Commands.pm:5085
-#: ../Commands.pm:5213 ../Commands.pm:5260 ../Commands.pm:5336
-#: ../Commands.pm:5358 ../Commands.pm:5719 ../Commands.pm:5747
-#: ../Commands.pm:5960 ../Commands.pm:6007 ../Commands.pm:6052
-#: ../Commands.pm:6130 ../Commands.pm:6160 ../Commands.pm:6183
-#: ../Commands.pm:6205 ../Commands.pm:6225 ../Commands.pm:6379
-#: ../Commands.pm:6449 ../Commands.pm:6510 ../Commands.pm:6583
-#: ../Commands.pm:6705 ../Commands.pm:6852 ../Commands.pm:6968
-#: ../Commands.pm:7018 ../Commands.pm:7050 ../Commands.pm:7071
-#: ../Commands.pm:7176 ../Commands.pm:7293 ../Commands.pm:7897
-#: ../Commands.pm:7928 ../Commands.pm:7946 ../Commands.pm:8029
-#: ../Commands.pm:8134 ../Commands.pm:8162 ../Commands.pm:8250
-#: ../Commands.pm:8277 ../Commands.pm:8469 ../Commands.pm:8511
-#: ../Commands.pm:8569 ../Commands.pm:8661
+#: ../Commands.pm:1135 ../Commands.pm:1186 ../Commands.pm:1278
+#: ../Commands.pm:1341 ../Commands.pm:1351 ../Commands.pm:1363
+#: ../Commands.pm:1397 ../Commands.pm:1430 ../Commands.pm:1554
+#: ../Commands.pm:1841 ../Commands.pm:1856 ../Commands.pm:1875
+#: ../Commands.pm:2063 ../Commands.pm:2071 ../Commands.pm:2080
+#: ../Commands.pm:2182 ../Commands.pm:2389 ../Commands.pm:2401
+#: ../Commands.pm:2445 ../Commands.pm:2480 ../Commands.pm:2544
+#: ../Commands.pm:2754 ../Commands.pm:2805 ../Commands.pm:2976
+#: ../Commands.pm:2988 ../Commands.pm:2998 ../Commands.pm:3012
+#: ../Commands.pm:3111 ../Commands.pm:3169 ../Commands.pm:3191
+#: ../Commands.pm:3201 ../Commands.pm:3210 ../Commands.pm:3235
+#: ../Commands.pm:3256 ../Commands.pm:3272 ../Commands.pm:3288
+#: ../Commands.pm:3297 ../Commands.pm:3312 ../Commands.pm:3321
+#: ../Commands.pm:3330 ../Commands.pm:3339 ../Commands.pm:3354
+#: ../Commands.pm:3369 ../Commands.pm:3384 ../Commands.pm:3399
+#: ../Commands.pm:3500 ../Commands.pm:3680 ../Commands.pm:3712
+#: ../Commands.pm:3981 ../Commands.pm:4013 ../Commands.pm:4063
+#: ../Commands.pm:4206 ../Commands.pm:4244 ../Commands.pm:4482
+#: ../Commands.pm:4499 ../Commands.pm:4913 ../Commands.pm:5010
+#: ../Commands.pm:5054 ../Commands.pm:5074 ../Commands.pm:5086
+#: ../Commands.pm:5214 ../Commands.pm:5261 ../Commands.pm:5337
+#: ../Commands.pm:5359 ../Commands.pm:5720 ../Commands.pm:5748
+#: ../Commands.pm:5961 ../Commands.pm:6008 ../Commands.pm:6053
+#: ../Commands.pm:6131 ../Commands.pm:6161 ../Commands.pm:6184
+#: ../Commands.pm:6206 ../Commands.pm:6226 ../Commands.pm:6380
+#: ../Commands.pm:6450 ../Commands.pm:6511 ../Commands.pm:6584
+#: ../Commands.pm:6706 ../Commands.pm:6853 ../Commands.pm:6969
+#: ../Commands.pm:7019 ../Commands.pm:7051 ../Commands.pm:7072
+#: ../Commands.pm:7177 ../Commands.pm:7294 ../Commands.pm:7898
+#: ../Commands.pm:7929 ../Commands.pm:7947 ../Commands.pm:8030
+#: ../Commands.pm:8135 ../Commands.pm:8163 ../Commands.pm:8251
+#: ../Commands.pm:8278 ../Commands.pm:8470 ../Commands.pm:8512
+#: ../Commands.pm:8570 ../Commands.pm:8662
 #, perl-format
 msgid "You must be logged in the game to use this command '%s'\n"
 msgstr ""
 
-#: ../Commands.pm:1142
+#: ../Commands.pm:1143
 msgid "Item To Craft"
 msgstr ""
 
-#: ../Commands.pm:1152
+#: ../Commands.pm:1153
 #, fuzzy
 msgid ""
 "Error in function 'arrowcraft' (Create Arrows)\n"
@@ -3001,7 +3001,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'arrowcraft' (สร้างลูกธนู)\n"
 "ป้อน 'arrowcraft use' เพื่อดูรายการ\n"
 
-#: ../Commands.pm:1159
+#: ../Commands.pm:1160
 #, fuzzy
 msgid ""
 "Error in function 'arrowcraft use' (Create Arrows)\n"
@@ -3010,7 +3010,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'arrowcraft' (สร้างลูกธนู)\n"
 "คุณไม่มีสกิลในการสร้างลูกธนู\n"
 
-#: ../Commands.pm:1168 ../Commands.pm:1515 ../Commands.pm:1518
+#: ../Commands.pm:1169 ../Commands.pm:1516 ../Commands.pm:1519
 #, perl-format
 msgid ""
 "Error in function 'arrowcraft forceuse #' (Create Arrows)\n"
@@ -3019,7 +3019,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'arrowcraft forceuse #' (สร้างลูกธนู)\n"
 "คุณไม่มีไอเท็ม %s อยู่ในต้ว\n"
 
-#: ../Commands.pm:1176
+#: ../Commands.pm:1177
 msgid ""
 "Error in function 'arrowcraft' (Create Arrows)\n"
 "Usage: arrowcraft [<identify #>]\n"
@@ -3029,14 +3029,14 @@ msgstr ""
 "รูปแบบการใช้งาน: arrowcraft [<identify #>]\n"
 "ป้อน 'arrowcraft use' เพื่อดูรายการ\n"
 
-#: ../Commands.pm:1193
+#: ../Commands.pm:1194
 #, fuzzy
 msgid "Poison List"
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:1203
+#: ../Commands.pm:1204
 #, fuzzy
 msgid ""
 "Error in function 'poison' (Apply Poison)\n"
@@ -3045,7 +3045,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'arrowcraft' (สร้างลูกธนู)\n"
 "ป้อน 'arrowcraft use' เพื่อดูรายการ\n"
 
-#: ../Commands.pm:1210
+#: ../Commands.pm:1211
 #, fuzzy
 msgid ""
 "Error in function 'poison use' (Use Poison)\n"
@@ -3054,7 +3054,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'arrowcraft' (สร้างลูกธนู)\n"
 "คุณไม่มีสกิลในการสร้างลูกธนู\n"
 
-#: ../Commands.pm:1218
+#: ../Commands.pm:1219
 #, fuzzy
 msgid ""
 "Error in function 'poison' (Apply Poison)\n"
@@ -3065,7 +3065,7 @@ msgstr ""
 "รูปแบบการใช้งาน: arrowcraft [<identify #>]\n"
 "ป้อน 'arrowcraft use' เพื่อดูรายการ\n"
 
-#: ../Commands.pm:1229
+#: ../Commands.pm:1230
 #, perl-format
 msgid ""
 "Error in function 'a' (Attack Monster)\n"
@@ -3074,7 +3074,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'a' (โจมตีมอนสเตอร์)\n"
 "มอนสเตอร์ %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:1241
+#: ../Commands.pm:1242
 msgid ""
 "Syntax Error in function 'a' (Attack Monster)\n"
 "Usage: attack <monster # | no | yes >\n"
@@ -3082,12 +3082,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'a' (โจมตีมอนสเตอร์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: attack <monster # | no | yes >\n"
 
-#: ../Commands.pm:1254
+#: ../Commands.pm:1255
 #, perl-format
 msgid "Stopped attacking %s (%s)\n"
 msgstr "ยุติการโจมตีกับ %s (%s) แล้ว\n"
 
-#: ../Commands.pm:1265
+#: ../Commands.pm:1266
 msgid ""
 "Syntax Error in function 'auth' (Overall Authorize)\n"
 "Usage: auth <username> <flag>\n"
@@ -3095,7 +3095,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'auth' (การให้อำนาจ) ผิดพลาด\n"
 "รูปแบบการใช้งาน: auth <username> <flag>\n"
 
-#: ../Commands.pm:1286
+#: ../Commands.pm:1287
 #, fuzzy
 msgid ""
 "Syntax Error in function 'attendance'\n"
@@ -3104,47 +3104,47 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'a' (โจมตีมอนสเตอร์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: attack <monster # | no | yes >\n"
 
-#: ../Commands.pm:1292
+#: ../Commands.pm:1293
 msgid "Initiating auto-buy.\n"
 msgstr "กำลังเริ่มทำการ ซื้ออัตโนมัติ\n"
 
-#: ../Commands.pm:1302
+#: ../Commands.pm:1303
 #, fuzzy
 msgid " Items to sell (simulation) "
 msgstr "----------------- รายการไอเท็มที่สามารถทำลูกธนูได้ -----------------\n"
 
-#: ../Commands.pm:1303
+#: ../Commands.pm:1304
 msgid "Amount  Item Name\n"
 msgstr ""
 
-#: ../Commands.pm:1312
+#: ../Commands.pm:1313
 msgid " (if unequipped)"
 msgstr ""
 
-#: ../Commands.pm:1321
+#: ../Commands.pm:1322
 msgid "Initiating auto-sell.\n"
 msgstr "กำลังเริ่มทำการ ขายอัตโนมัติ\n"
 
-#: ../Commands.pm:1328
+#: ../Commands.pm:1329
 msgid "Initiating auto-storage.\n"
 msgstr "กำลังเริ่มทำการ ใช้ที่เก็บของอัตโนมัติ\n"
 
-#: ../Commands.pm:1333
+#: ../Commands.pm:1334
 msgid ""
 "Error in function 'autostorage' (Automatic storage of items)\n"
 "You cannot use the Storage Service. Very low level of basic skills or not "
 "enough zeny.\n"
 msgstr ""
 
-#: ../Commands.pm:1369
+#: ../Commands.pm:1370
 msgid "Bank: You have to open bank before try to use the commands.\n"
 msgstr ""
 
-#: ../Commands.pm:1375
+#: ../Commands.pm:1376
 msgid "Bank: You don't have that amount of zeny to DEPOSIT in Bank.\n"
 msgstr ""
 
-#: ../Commands.pm:1378
+#: ../Commands.pm:1379
 #, fuzzy
 msgid ""
 "Syntax Error in function 'bank' (Banking)\n"
@@ -3153,7 +3153,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'e' (Emotion) ผิดพลาด\n"
 "รูปแบบการใช้งาน: e <command>\n"
 
-#: ../Commands.pm:1385
+#: ../Commands.pm:1386
 #, fuzzy
 msgid ""
 "Syntax Error in function 'bank' (Banking)\n"
@@ -3162,7 +3162,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'take' (เก็บไอเท็ม) ผิดพลาด\n"
 "รูปแบบการใช้งาน: take <item #>\n"
 
-#: ../Commands.pm:1389
+#: ../Commands.pm:1390
 #, fuzzy
 msgid ""
 "Syntax Error in function 'bank' (Banking)\n"
@@ -3171,7 +3171,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'c' (พูดคุย) ผิดพลาด\n"
 "รูปแบบการใช้งาน: c <message>\n"
 
-#: ../Commands.pm:1407
+#: ../Commands.pm:1408
 #, fuzzy
 msgid ""
 "Syntax Error in function 'buy' (Buy Store Item)\n"
@@ -3180,7 +3180,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'buy' (ซื้อของจากร้านค้า) ผิดพลาด\n"
 "รูปแบบการใช้งาน: buy <item #> [<amount>]\n"
 
-#: ../Commands.pm:1412
+#: ../Commands.pm:1413
 #, perl-format
 msgid ""
 "Error in function 'buy' (Buy Store Item)\n"
@@ -3189,17 +3189,17 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'buy' (ซื้อของจากร้านค้า)\n"
 "ไอเท็ม %s ไม่มีอยู่ในร้าน\n"
 
-#: ../Commands.pm:1439
+#: ../Commands.pm:1440
 msgid ""
 "Error in function 'bingbing' (Change look direction)\n"
 "Can't use command while not connected to server.\n"
 msgstr ""
 
-#: ../Commands.pm:1444
+#: ../Commands.pm:1445
 msgid "Cancelling card merge.\n"
 msgstr "ยกเลิกการรวมการ์ด\n"
 
-#: ../Commands.pm:1446
+#: ../Commands.pm:1447
 msgid ""
 "Error in function 'card mergecancel' (Cancel a card merge request)\n"
 "You are not currently in a card merge session.\n"
@@ -3207,12 +3207,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'card mergecancel' (ยกเลิกการร้องขอการรวมการ์ด)\n"
 "คุณยังไม่ได้ส่งคำขอรวมการ์ด\n"
 
-#: ../Commands.pm:1452
+#: ../Commands.pm:1453
 #, fuzzy
 msgid " Card Merge Candidates "
 msgstr "-----รายการไอเท็มที่สามารถรวมกับการ์ดได้-----\n"
 
-#: ../Commands.pm:1462
+#: ../Commands.pm:1463
 msgid ""
 "Error in function 'card mergelist' (List availible card merge items)\n"
 "You are not currently in a card merge session.\n"
@@ -3220,7 +3220,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'card mergelist' (List availible card merge items)\n"
 "You are not currently in a card merge session.\n"
 
-#: ../Commands.pm:1473
+#: ../Commands.pm:1474
 #, perl-format
 msgid ""
 "Error in function 'card merge' (Finalize card merging onto item)\n"
@@ -3229,7 +3229,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'card merge' (ทำการรวมการ์ดใส่ไอเท็ม)\n"
 "ไม่พบไอเท็ม %s ในรายการรวมการ์ด\n"
 
-#: ../Commands.pm:1476
+#: ../Commands.pm:1477
 msgid ""
 "Error in function 'card merge' (Finalize card merging onto item)\n"
 "You are not currently in a card merge session.\n"
@@ -3237,7 +3237,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'card merge' (ทำการรวมการ์ดใส่ไอเท็ม)\n"
 "คุณยังไม่ได้ส่งคำขอรวมการ์ด\n"
 
-#: ../Commands.pm:1481
+#: ../Commands.pm:1482
 msgid ""
 "Syntax Error in function 'card merge' (Finalize card merging onto item)\n"
 "Usage: card merge <item number>\n"
@@ -3247,12 +3247,12 @@ msgstr ""
 "รูปแบบการใช้งาน: card merge <item number>\n"
 "<item number> - หมายเลขไอเท็มที่จะทำการรวม  ป้อน 'card mergelist' เพื่อดูหมายเลข\n"
 
-#: ../Commands.pm:1490
+#: ../Commands.pm:1491
 #, perl-format
 msgid "Sending merge list request for %s...\n"
 msgstr "ส่งคำขอรายการไอเท็มเพื่อรวมกับ %s...\n"
 
-#: ../Commands.pm:1493
+#: ../Commands.pm:1494
 #, perl-format
 msgid ""
 "Error in function 'card use' (Request list of items for merging with card)\n"
@@ -3261,7 +3261,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'card use' (ส่งคำขอรายการไอเท็มเพื่อรวมกับการ์ด)\n"
 "การ์ด %s ไม่มีอยุ่\n"
 
-#: ../Commands.pm:1497
+#: ../Commands.pm:1498
 msgid ""
 "Syntax Error in function 'card use' (Request list of items for merging with "
 "card)\n"
@@ -3272,14 +3272,14 @@ msgstr ""
 "รูปแบบการใช้งาน: card use <item number>\n"
 "<item number> - หมายเลขของการ์ดที่อยู่ในตัว  ป้อน 'i' เพื่อดูหมายเลข\n"
 
-#: ../Commands.pm:1502
+#: ../Commands.pm:1503
 #, fuzzy
 msgid " Card List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:1525
+#: ../Commands.pm:1526
 msgid ""
 "Syntax Error in function 'card' (Card Compounding)\n"
 "Usage: card <use|mergelist|mergecancel|merge>\n"
@@ -3287,7 +3287,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'card' (การผสมการ์ด) ผิดพลาด\n"
 "รูปแบบการใช้งาน: card <use|mergelist|mergecancel|merge>\n"
 
-#: ../Commands.pm:1535
+#: ../Commands.pm:1536
 msgid ""
 "Error in function 'cart' (Cart Management)\n"
 "You do not have a cart.\n"
@@ -3295,31 +3295,31 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'cart' (การจัดการรถเข็น)\n"
 "คุณไม่มีรถเข็น\n"
 
-#: ../Commands.pm:1540
+#: ../Commands.pm:1541
 msgid "Cart inventory is not available.\n"
 msgstr "ไม่มีของในรถเข็น\n"
 
-#: ../Commands.pm:1550
+#: ../Commands.pm:1551
 msgid "Usage: cart desc <cart item #>\n"
 msgstr ""
 
-#: ../Commands.pm:1560
+#: ../Commands.pm:1561
 msgid "Usage: cart add <inventory item> <amount>\n"
 msgstr ""
 
-#: ../Commands.pm:1566
+#: ../Commands.pm:1567
 msgid "Usage: cart get <cart item> <amount>\n"
 msgstr ""
 
-#: ../Commands.pm:1570
+#: ../Commands.pm:1571
 msgid "Trying to released the cart...\n"
 msgstr ""
 
-#: ../Commands.pm:1576
+#: ../Commands.pm:1577
 msgid "Usage: cart change <1-5>\n"
 msgstr ""
 
-#: ../Commands.pm:1580
+#: ../Commands.pm:1581
 #, perl-format
 msgid ""
 "Error in function 'cart'\n"
@@ -3328,7 +3328,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'cart'\n"
 "คำสั่ง '%s' เป็นคำสั่งที่ไม่รู้จัก\n"
 
-#: ../Commands.pm:1588
+#: ../Commands.pm:1589
 #, perl-format
 msgid ""
 "Syntax Error in function 'cart desc' (Show Cart Item Description)\n"
@@ -3337,7 +3337,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart desc' (แสดงรายละเอียดของไอเท็มที่อยู่ในรถเข็น) ผิดพลาด\n"
 "'%s' หมายเลขนี้ไม่ถูกต้อง\n"
 
-#: ../Commands.pm:1593
+#: ../Commands.pm:1594
 #, perl-format
 msgid ""
 "Error in function 'cart desc' (Show Cart Item Description)\n"
@@ -3348,40 +3348,40 @@ msgstr ""
 
 #. Translation Comment: Mark to tell item not identified
 #. Translation Comment: Mark to show not identified items
-#: ../Commands.pm:1619 ../Commands.pm:3815 ../Commands.pm:6070
-#: ../Commands.pm:7122 ../Commands.pm:7506 ../Misc.pm:3894
+#: ../Commands.pm:1620 ../Commands.pm:3816 ../Commands.pm:6071
+#: ../Commands.pm:7123 ../Commands.pm:7507 ../Misc.pm:3894
 msgid "Not Identified"
 msgstr "ยังไม่ได้ตรวจสอบ"
 
-#: ../Commands.pm:1627
+#: ../Commands.pm:1628
 msgid " Cart "
 msgstr ""
 
-#: ../Commands.pm:1628
+#: ../Commands.pm:1629
 msgid "#  Name\n"
 msgstr ""
 
 #. Translation Comment: List of usable items
-#: ../Commands.pm:1631 ../Commands.pm:3868 ../Commands.pm:7133
-#: ../Commands.pm:7516
+#: ../Commands.pm:1632 ../Commands.pm:3869 ../Commands.pm:7134
+#: ../Commands.pm:7517
 msgid "-- Usable --\n"
 msgstr "-- สามารถใช้ได้ --\n"
 
-#: ../Commands.pm:1644 ../Commands.pm:7146 ../Commands.pm:7527
+#: ../Commands.pm:1645 ../Commands.pm:7147 ../Commands.pm:7528
 #, fuzzy
 msgid ""
 "\n"
 "-- Equipment --\n"
 msgstr "-- อุปกรณ์สวมใส่ --\n"
 
-#: ../Commands.pm:1655 ../Commands.pm:7157 ../Commands.pm:7536
+#: ../Commands.pm:1656 ../Commands.pm:7158 ../Commands.pm:7537
 #, fuzzy
 msgid ""
 "\n"
 "-- Non-Usable --\n"
 msgstr "-- ไม่สามารถใช้ได้ --\n"
 
-#: ../Commands.pm:1667
+#: ../Commands.pm:1668
 #, perl-format
 msgid ""
 "\n"
@@ -3390,32 +3390,32 @@ msgstr ""
 "\n"
 "ความจุ: %d/%d  น้ำหนัก: %d/%d\n"
 
-#: ../Commands.pm:1685 ../Commands.pm:5598
+#: ../Commands.pm:1686 ../Commands.pm:5599
 #, fuzzy, perl-format
 msgid "Inventory item '%s' does not exist.\n"
 msgstr "ไอเท็ม '%s' ไม่มีอยู่ในตัว\n"
 
-#: ../Commands.pm:1704 ../Commands.pm:5615
+#: ../Commands.pm:1705 ../Commands.pm:5616
 #, fuzzy, perl-format
 msgid "Cart item '%s' does not exist.\n"
 msgstr "ไอเท็ม '%s' ไม่มีอยู่ในรถเข็น\n"
 
-#: ../Commands.pm:1717
+#: ../Commands.pm:1718
 #, fuzzy
 msgid "Cash shop already opened this session\n"
 msgstr "ร้านได้เปิดอยู่แล้ว\n"
 
-#: ../Commands.pm:1727 ../Commands.pm:1736
+#: ../Commands.pm:1728 ../Commands.pm:1737
 #, fuzzy
 msgid "Cash shop is not open\n"
 msgstr "ร้านยังไม่ได้เปิด\n"
 
-#: ../Commands.pm:1737
+#: ../Commands.pm:1738
 #, fuzzy
 msgid "Please use 'cash open' first\n"
 msgstr "กรุณาใส่ลูกธนูก่อน\n"
 
-#: ../Commands.pm:1743
+#: ../Commands.pm:1744
 #, fuzzy
 msgid ""
 "Syntax Error in function 'cash buy' (Cash shop)\n"
@@ -3424,7 +3424,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'c' (พูดคุย) ผิดพลาด\n"
 "รูปแบบการใช้งาน: c <message>\n"
 
-#: ../Commands.pm:1753
+#: ../Commands.pm:1754
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'cash buy': invalid item name '%s' or tables needs to be "
@@ -3433,23 +3433,23 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk num' (ตอบสนองต่อ NPC)\n"
 "%s ไม่ใช่หมายเลขที่ใช้ได้\n"
 
-#: ../Commands.pm:1773
+#: ../Commands.pm:1774
 #, perl-format
 msgid ""
 "You don't have that many kafra shop points (Requested: %d, Available: %d)"
 msgstr ""
 
-#: ../Commands.pm:1781
+#: ../Commands.pm:1782
 #, perl-format
 msgid "Not enough cash to buy item %s x %d (%sC), we have %sC\n"
 msgstr ""
 
-#: ../Commands.pm:1788
+#: ../Commands.pm:1789
 #, perl-format
 msgid "Buying %s from cash shop \n"
 msgstr ""
 
-#: ../Commands.pm:1795
+#: ../Commands.pm:1796
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'cash buy': item %s not found or shop list is not ready "
@@ -3458,55 +3458,55 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk num' (ตอบสนองต่อ NPC)\n"
 "%s ไม่ใช่หมายเลขที่ใช้ได้\n"
 
-#: ../Commands.pm:1801 ../Network/Receive.pm:4470
+#: ../Commands.pm:1802 ../Network/Receive.pm:4470
 #, perl-format
 msgid "Cash Points: %sC - Kafra Points: %sC\n"
 msgstr ""
 
-#: ../Commands.pm:1807 ../Network/Receive.pm:4443
+#: ../Commands.pm:1808 ../Network/Receive.pm:4443
 msgid "New"
 msgstr ""
 
-#: ../Commands.pm:1808 ../Network/Receive.pm:4444
+#: ../Commands.pm:1809 ../Network/Receive.pm:4444
 msgid "Popular"
 msgstr ""
 
-#: ../Commands.pm:1809 ../Network/Receive.pm:4445
+#: ../Commands.pm:1810 ../Network/Receive.pm:4445
 msgid "Limited"
 msgstr ""
 
-#: ../Commands.pm:1810 ../Network/Receive.pm:4446
+#: ../Commands.pm:1811 ../Network/Receive.pm:4446
 msgid "Rental"
 msgstr ""
 
-#: ../Commands.pm:1811 ../Network/Receive.pm:4447
+#: ../Commands.pm:1812 ../Network/Receive.pm:4447
 msgid "Perpetuity"
 msgstr ""
 
-#: ../Commands.pm:1812 ../Network/Receive.pm:4448
+#: ../Commands.pm:1813 ../Network/Receive.pm:4448
 msgid "Buff"
 msgstr ""
 
-#: ../Commands.pm:1813 ../Network/Receive.pm:4449
+#: ../Commands.pm:1814 ../Network/Receive.pm:4449
 msgid "Recovery"
 msgstr ""
 
-#: ../Commands.pm:1814 ../Network/Receive.pm:4450
+#: ../Commands.pm:1815 ../Network/Receive.pm:4450
 msgid "Etc"
 msgstr ""
 
-#: ../Commands.pm:1819
+#: ../Commands.pm:1820
 msgid " Tab: "
 msgstr ""
 
-#: ../Commands.pm:1820
+#: ../Commands.pm:1821
 #, fuzzy
 msgid "ID      Item Name                            Price\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:1833
+#: ../Commands.pm:1834
 #, fuzzy
 msgid ""
 "Syntax Error in function 'cash' (Cash shop)\n"
@@ -3515,7 +3515,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'c' (พูดคุย) ผิดพลาด\n"
 "รูปแบบการใช้งาน: c <message>\n"
 
-#: ../Commands.pm:1860
+#: ../Commands.pm:1861
 #, fuzzy, perl-format
 msgid ""
 "Syntax Error in function '%1$s' (Chat)\n"
@@ -3524,11 +3524,11 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'c' (พูดคุย) ผิดพลาด\n"
 "รูปแบบการใช้งาน: c <message>\n"
 
-#: ../Commands.pm:1869
+#: ../Commands.pm:1870
 msgid "Chat log cleared.\n"
 msgstr "บันทึกการสนธนาถูกลบแล้ว\n"
 
-#: ../Commands.pm:1889
+#: ../Commands.pm:1890
 msgid ""
 "Error in function 'chat bestow' (Bestow Admin in Chat)\n"
 "You are not in a Chat Room.\n"
@@ -3536,7 +3536,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat bestow' (มอบอำนาจห้องสนธนาให้ผู้อื่น)\n"
 "คุณไม่ได้อยู่ในห้องสนธนา\n"
 
-#: ../Commands.pm:1892
+#: ../Commands.pm:1893
 msgid ""
 "Syntax Error in function 'chat bestow' (Bestow Admin in Chat)\n"
 "Usage: chat bestow <user #>\n"
@@ -3544,7 +3544,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'chat bestow' (มอบอำนาจห้องสนธนาให้ผู้อื่น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: chat bestow <user #>\n"
 
-#: ../Commands.pm:1895
+#: ../Commands.pm:1896
 #, perl-format
 msgid ""
 "Error in function 'chat bestow' (Bestow Admin in Chat)\n"
@@ -3553,7 +3553,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat bestow' (มอบอำนาจห้องสนธนาให้ผู้อื่น)\n"
 "ผู้เล่นท่านนี้ %s ไม่ได้อยู่ในห้อง; ป้อน 'chat info' เพื่อแสดงรายการผู้เล่นที่อยู่ในห้อง\n"
 
-#: ../Commands.pm:1908
+#: ../Commands.pm:1909
 msgid ""
 "Syntax Error in function 'chatmod' (Modify Chat Room)\n"
 "Usage: chat modify \"<title>\" [<limit #> <public flag> <password>]\n"
@@ -3561,7 +3561,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'chatmod' (เปลี่ยนแปลงคุณสมบัติห้องสนธนา) ผิดพลาด\n"
 "รูปแบบการใช้งาน: chat modify \"<title>\" [<limit #> <public flag> <password>]\n"
 
-#: ../Commands.pm:1924
+#: ../Commands.pm:1925
 msgid ""
 "Error in function 'chat kick' (Kick from Chat)\n"
 "You are not in a Chat Room.\n"
@@ -3569,7 +3569,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat kick' (ไล่ผู้เล่นออกจากห้องสนธนา)\n"
 "คุณไม่ได้อยู่ในห้องสนธนา\n"
 
-#: ../Commands.pm:1927
+#: ../Commands.pm:1928
 msgid ""
 "Syntax Error in function 'chat kick' (Kick from Chat)\n"
 "Usage: chat kick <user #>\n"
@@ -3577,7 +3577,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'chat kick' (ไล่ออกจากห้องสนธนา) ผิดพลาด\n"
 "รูปแบบการใช้งาน: chat kick <user #>\n"
 
-#: ../Commands.pm:1930
+#: ../Commands.pm:1931
 #, perl-format
 msgid ""
 "Error in function 'chat kick' (Kick from Chat)\n"
@@ -3586,7 +3586,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat kick' (ไล่ออกจากห้องสนธนา)\n"
 "ผู้เล่น %s ไม่ได้อยู่ในห้องสนธนา\n"
 
-#: ../Commands.pm:1941
+#: ../Commands.pm:1942
 msgid ""
 "Syntax Error in function 'chat join' (Join Chat Room)\n"
 "Usage: chat join <chat room #> [<password>]\n"
@@ -3594,7 +3594,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'chat join' (เข้าห้องสนธนา) ผิดพลาด\n"
 "รูปแบบการใช้งาน: chat join <chat room #> [<password>]\n"
 
-#: ../Commands.pm:1944
+#: ../Commands.pm:1945
 msgid ""
 "Error in function 'chat join' (Join Chat Room)\n"
 "You are already in a chat room.\n"
@@ -3602,7 +3602,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat join' (เข้าห้องสนธนา)\n"
 "คุณอยู่ในห้องสนธนาอยู่แล้ว\n"
 
-#: ../Commands.pm:1947
+#: ../Commands.pm:1948
 #, perl-format
 msgid ""
 "Error in function 'chat join' (Join Chat Room)\n"
@@ -3611,7 +3611,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat join' (เข้าห้องสนธนา)\n"
 "ห้องสนธนา %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:1955
+#: ../Commands.pm:1956
 msgid ""
 "Error in function 'chat leave' (Leave Chat Room)\n"
 "You are not in a Chat Room.\n"
@@ -3619,7 +3619,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat leave' (ออกจากห้องสนธนา)\n"
 "คุณไม่ได้อยู่ในห้องสนธนา\n"
 
-#: ../Commands.pm:1968
+#: ../Commands.pm:1969
 msgid ""
 "Syntax Error in function 'chat create' (Create Chat Room)\n"
 "Usage: chat create \"<title>\" [<limit #> <public flag> <password>]\n"
@@ -3627,7 +3627,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'chat create' (สร้างห้องสนธนา) ผิดพลาด\n"
 "รูปแบบการใช้งาน: chat create \"<title>\" [<limit #> <public flag> <password>]\n"
 
-#: ../Commands.pm:1971
+#: ../Commands.pm:1972
 msgid ""
 "Error in function 'chat create' (Create Chat Room)\n"
 "You are already in a chat room.\n"
@@ -3635,12 +3635,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat create' (สร้างห้องสนธนา)\n"
 "คุณอยู่ในห้องสนธนาอยู่แล้ว\n"
 
-#: ../Commands.pm:1992
+#: ../Commands.pm:1993
 #, fuzzy
 msgid " Chat Room List "
 msgstr "สร้างห้องสนธนาแล้ว\n"
 
-#: ../Commands.pm:1993
+#: ../Commands.pm:1994
 #, fuzzy
 msgid ""
 "#   Title                                  Owner                Users   "
@@ -3649,15 +3649,15 @@ msgstr ""
 "%s\n"
 "#  ชื่อ                                       ชนิด           จำนวน       ราคา\n"
 
-#: ../Commands.pm:2008
+#: ../Commands.pm:2009
 msgid "There is no chat room info - you are not in a chat room\n"
 msgstr "ไม่มีข้อมูลห้องสนธนา - คุณไม่ได้อยู่ในห้องสนธนา\n"
 
-#: ../Commands.pm:2010
+#: ../Commands.pm:2011
 msgid " Chat Room Info "
 msgstr ""
 
-#: ../Commands.pm:2011
+#: ../Commands.pm:2012
 #, fuzzy
 msgid "Title                                  Users   Pub/Priv\n"
 msgstr ""
@@ -3665,11 +3665,11 @@ msgstr ""
 "ชื่อ                                      จำนวน  ราคา\n"
 
 #. Translation Comment: Users in chat room
-#: ../Commands.pm:2018
+#: ../Commands.pm:2019
 msgid "-- Users --\n"
 msgstr "-- ผู้เล่น --\n"
 
-#: ../Commands.pm:2031
+#: ../Commands.pm:2032
 msgid ""
 "Syntax Error in function 'chat' (Chat room management)\n"
 "Usage: chat <create|modify|join|kick|leave|info|list|bestow>\n"
@@ -3677,7 +3677,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'chat' (การจัดการห้องสนธนา) ผิดพลาด\n"
 "รูปแบบการใช้งาน: chat <create|modify|join|kick|leave|info|list|bestow>\n"
 
-#: ../Commands.pm:2042
+#: ../Commands.pm:2043
 msgid ""
 "Syntax Error in function 'chist' (Show Chat History)\n"
 "Usage: chist [<number of entries #>]\n"
@@ -3685,80 +3685,80 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'chist' (แสดงประวัติการสนธนา) ผิดพลาด\n"
 "รูปแบบการใช้งาน: chist [<number of entries #>]\n"
 
-#: ../Commands.pm:2047
+#: ../Commands.pm:2048
 msgid " Chat History "
 msgstr ""
 
-#: ../Commands.pm:2056 ../Commands.pm:3750
+#: ../Commands.pm:2057 ../Commands.pm:3751
 #, perl-format
 msgid "Unable to open %s\n"
 msgstr "ไม่สามารถเปิด %s\n"
 
-#: ../Commands.pm:2074
+#: ../Commands.pm:2075
 #, fuzzy
 msgid "Buying shop closed.\n"
 msgstr "ร้านปิดลงแล้ว\n"
 
-#: ../Commands.pm:2112
+#: ../Commands.pm:2113
 #, fuzzy
 msgid "Syntax Error in function 'conf' (Change a Configuration Key)\n"
 msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'conf' (เปลี่ยนแปลงค่าของ Config) ผิดพลาด\n"
 "รูปแบบการใช้งาน: conf <variable> [<value>|none]\n"
 
-#: ../Commands.pm:2113
+#: ../Commands.pm:2114
 msgid "Usage: conf [-f] <variable> [<value>|none]\n"
 msgstr ""
 
-#: ../Commands.pm:2114
+#: ../Commands.pm:2115
 msgid ""
 "  -f  force variable to be set, even if it does not already exist in config."
 "txt\n"
 msgstr ""
 
-#: ../Commands.pm:2120
+#: ../Commands.pm:2121
 #, fuzzy, perl-format
 msgid "Config variables matching %s do not exist\n"
 msgstr "Config variable %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:2121 ../Commands.pm:2132
+#: ../Commands.pm:2122 ../Commands.pm:2133
 #, perl-format
 msgid "Config '%s' is %s\n"
 msgstr "Config '%s' คือ %s\n"
 
-#: ../Commands.pm:2124
+#: ../Commands.pm:2125
 #, perl-format
 msgid "Config variable %s doesn't exist\n"
 msgstr "Config variable %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:2129
+#: ../Commands.pm:2130
 #, perl-format
 msgid "Config '%s' is not displayed\n"
 msgstr "Config '%s' ไม่สามารถแสดงได้\n"
 
-#: ../Commands.pm:2134
+#: ../Commands.pm:2135
 #, fuzzy, perl-format
 msgid "Config '%s' is not set\n"
 msgstr "Config '%s' ไม่สามารถแสดงได้\n"
 
-#: ../Commands.pm:2158
+#: ../Commands.pm:2159
 msgid "Damage Taken Report:\n"
 msgstr "รายงาน ความเสียหายที่ได้รับ:\n"
 
-#: ../Commands.pm:2167
+#: ../Commands.pm:2168
 #, perl-format
 msgid "Total Damage Taken: %s\n"
 msgstr "รวมความเสียหายที่ได้รับทั้งหมด: %s\n"
 
-#: ../Commands.pm:2168
+#: ../Commands.pm:2169
 msgid "End of report.\n"
 msgstr "สิ้นสุดการรายงาน\n"
 
-#: ../Commands.pm:2172
+#: ../Commands.pm:2173
 msgid "Damage Taken Report reset.\n"
 msgstr "เริ่มตัวนับค่าความเสียหายที่ได้รับใหม่\n"
 
-#: ../Commands.pm:2174
+#: ../Commands.pm:2175
 msgid ""
 "Syntax error in function 'damage' (Damage Report)\n"
 "Usage: damage [reset]\n"
@@ -3766,12 +3766,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'damage' (รายงานความเสียหาย) ผิดพลาด\n"
 "รูปแบบการใช้งาน: damage [reset]\n"
 
-#: ../Commands.pm:2191
+#: ../Commands.pm:2192
 #, perl-format
 msgid "Unknown player [%s]. Player not nearby?\n"
 msgstr ""
 
-#: ../Commands.pm:2198
+#: ../Commands.pm:2199
 msgid ""
 "Error in function 'deal' (Deal a Player)\n"
 "You are already in a deal\n"
@@ -3779,7 +3779,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น)\n"
 "คุณกำลังแลกเปลี่ยนอยู่แล้ว\n"
 
-#: ../Commands.pm:2201
+#: ../Commands.pm:2202
 msgid ""
 "Error in function 'deal' (Deal a Player)\n"
 "You must first cancel the incoming deal\n"
@@ -3787,7 +3787,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น)\n"
 "คุณจะต้องยกเลิกข้อเสนอการแลกเปลี่ยนก่อน\n"
 
-#: ../Commands.pm:2204
+#: ../Commands.pm:2205
 #, perl-format
 msgid ""
 "Error in function 'deal' (Deal a Player)\n"
@@ -3796,12 +3796,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น)\n"
 "ผู้เล่น %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:2209
+#: ../Commands.pm:2210
 #, perl-format
 msgid "Attempting to deal %s\n"
 msgstr "พยายามแลกเปลี่ยนกับ %s\n"
 
-#: ../Commands.pm:2213
+#: ../Commands.pm:2214
 msgid ""
 "Error in function 'deal' (Deal a Player)\n"
 "There is no incoming/current deal to cancel\n"
@@ -3809,7 +3809,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น)\n"
 "ไม่มีข้อเสนอการแลกเปลี่ยน/กำลังแลกเปลี่ยน ที่จะให้ยกเลิก\n"
 
-#: ../Commands.pm:2221
+#: ../Commands.pm:2222
 msgid ""
 "Error in function 'deal' (Deal a Player)\n"
 "There is no deal to accept\n"
@@ -3817,7 +3817,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น)\n"
 "ไม่มีการแลกเปลี่ยนให้ยอมรับ\n"
 
-#: ../Commands.pm:2224
+#: ../Commands.pm:2225
 #, perl-format
 msgid ""
 "Error in function 'deal' (Deal a Player)\n"
@@ -3826,7 +3826,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น)\n"
 "ไม่สามารถแลกเปลี่ยนได้ %s ไม่ยืนยันการแลกเปลี่ยน\n"
 
-#: ../Commands.pm:2227
+#: ../Commands.pm:2228
 msgid ""
 "Error in function 'deal' (Deal a Player)\n"
 "You already accepted the final deal\n"
@@ -3834,11 +3834,11 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น)\n"
 "คุณได้ยืนยันการแลกเปลี่ยนอยู่แล้ว\n"
 
-#: ../Commands.pm:2234
+#: ../Commands.pm:2235
 msgid "You accepted the final Deal\n"
 msgstr "คุณยืนยันการแลกเปลี่ยน\n"
 
-#: ../Commands.pm:2240
+#: ../Commands.pm:2241
 msgid ""
 "Error in function 'deal_add' (Add Item to Deal)\n"
 "No deal in progress\n"
@@ -3846,7 +3846,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal_add' (เพิ่มไอเท็มเพื่อแลกเปลี่ยน)\n"
 "คุณไม่ได้ทำการแลกเปลี่ยนอยู่\n"
 
-#: ../Commands.pm:2243
+#: ../Commands.pm:2244
 msgid ""
 "Error in function 'deal_add' (Add Item to Deal)\n"
 "Can't add any Items - You already finalized the deal\n"
@@ -3854,7 +3854,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal_add' (เพิ่มไอเท็มเพื่อแลกเปลี่ยน)\n"
 "ไม่สามารถเพิ่มไอเท็มเพื่อแลกเปลี่ยนได้ - คุณได้ยืนยันการแลกเปลี่ยนไปแล้ว\n"
 
-#: ../Commands.pm:2246
+#: ../Commands.pm:2247
 #, perl-format
 msgid ""
 "Error in function 'deal_add' (Add Item to Deal)\n"
@@ -3863,7 +3863,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal_add' (เพิ่มไอเท็มเพื่อแลกเปลี่ยน)\n"
 "คุณไม่มีไอเท็ม %s อยู่\n"
 
-#: ../Commands.pm:2249
+#: ../Commands.pm:2250
 msgid ""
 "Error in function 'deal_add' (Add Item to Deal)\n"
 "Amount must either be a number, or not specified.\n"
@@ -3871,16 +3871,16 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal_add' (เพิ่มไอเท็มเพื่อแลกเปลี่ยน)\n"
 "จำนวนจะต้องป้อนเป็นตัวเลข หรือไม่ต้องป้อน\n"
 
-#: ../Commands.pm:2256 ../Commands.pm:2274
+#: ../Commands.pm:2257 ../Commands.pm:2275
 msgid "You can't add any more items to the deal\n"
 msgstr "คุณไม่สามารถเพิ่มไอเท็มสำหรับแลกเปลี่ยนได้อีก\n"
 
-#: ../Commands.pm:2269
+#: ../Commands.pm:2270
 #, perl-format
 msgid "You put forward %sz to Deal\n"
 msgstr "คุณได้ใส่ %s เซ็นนีเพื่อแลกเปลี่ยน\n"
 
-#: ../Commands.pm:2288
+#: ../Commands.pm:2289
 msgid ""
 "Syntax Error in function 'deal' (Deal a player)\n"
 "Usage: deal [<Player # | no | add>] [<item #>] [<amount>]\n"
@@ -3888,36 +3888,36 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: deal [<Player # | no | add>] [<item #>] [<amount>]\n"
 
-#: ../Commands.pm:2295
+#: ../Commands.pm:2296
 msgid "There is no deal list - You are not in a deal\n"
 msgstr "ไม่มีรายการแลกเปลี่ยน - คุณไม่ได้กำลังทำการแลกเปลี่ยน\n"
 
-#: ../Commands.pm:2298
+#: ../Commands.pm:2299
 msgid " Current Deal "
 msgstr ""
 
-#: ../Commands.pm:2300 ../Actor/You.pm:81 ../Actor/You.pm:128
+#: ../Commands.pm:2301 ../Actor/You.pm:81 ../Actor/You.pm:128
 msgid "You"
 msgstr ""
 
-#: ../Commands.pm:2302 ../Commands.pm:2305
+#: ../Commands.pm:2303 ../Commands.pm:2306
 msgid " - Finalized"
 msgstr ""
 
-#: ../Commands.pm:2328 ../Commands.pm:2336
+#: ../Commands.pm:2329 ../Commands.pm:2337
 #, fuzzy
 msgid "Unknown "
 msgstr "ไม่รู้จักแผนที่นี้ "
 
-#: ../Commands.pm:2350
+#: ../Commands.pm:2351
 msgid "zeny: @<<<<<<<<<<<<<<<<<<<<<<<   zeny: @<<<<<<<<<<<<<<<<<<<<<<<"
 msgstr ""
 
-#: ../Commands.pm:2371
+#: ../Commands.pm:2372
 msgid " Debug information "
 msgstr ""
 
-#: ../Commands.pm:2372
+#: ../Commands.pm:2373
 #, fuzzy, perl-format, perl-brace-format
 msgid ""
 "ConState: %s\t\tConnected: %s\n"
@@ -3936,7 +3936,7 @@ msgstr ""
 "Last AI() call: %.2f secs ago\n"
 "-------------------------------------------\n"
 
-#: ../Commands.pm:2408
+#: ../Commands.pm:2409
 #, fuzzy
 msgid ""
 "Syntax Error in function 'drop' (Drop Inventory Item)\n"
@@ -3945,11 +3945,11 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'drop' (ทิ้งไอเท็ม) ผิดพลาด\n"
 "รูปแบบการใช้งาน: drop <item #> [<amount>]\n"
 
-#: ../Commands.pm:2427
+#: ../Commands.pm:2428
 msgid "No items were dropped.\n"
 msgstr "ไม่มีไอเท็มที่จะทิ้ง\n"
 
-#: ../Commands.pm:2452
+#: ../Commands.pm:2453
 msgid ""
 "Syntax Error in function 'e' (Emotion)\n"
 "Usage: e <command>\n"
@@ -3958,36 +3958,36 @@ msgstr ""
 "รูปแบบการใช้งาน: e <command>\n"
 
 #. Translation Comment: List of equiped items on each slot
-#: ../Commands.pm:2474 ../Commands.pm:2538 ../Commands.pm:6047
-#: ../Commands.pm:6125
+#: ../Commands.pm:2475 ../Commands.pm:2539 ../Commands.pm:6048
+#: ../Commands.pm:6126
 msgid "Slots:\n"
 msgstr "Slots:\n"
 
-#: ../Commands.pm:2492 ../Commands.pm:2556
+#: ../Commands.pm:2493 ../Commands.pm:2557
 #, perl-format
 msgid "No such non-equipped Inventory Item: %s\n"
 msgstr ""
 
-#: ../Commands.pm:2497 ../Commands.pm:2561
+#: ../Commands.pm:2498 ../Commands.pm:2562
 #, perl-format
 msgid "Inventory Item %s (%s) can't be equipped.\n"
 msgstr "ไอเท็ม %s (%s) ไม่สามารถสวมใส่ได้\n"
 
-#: ../Commands.pm:2510 ../Commands.pm:2575
+#: ../Commands.pm:2511 ../Commands.pm:2576
 #, fuzzy
 msgid "Character equipment not yet ready\n"
 msgstr "ตัวละครได้ถูกลบแล้ว\n"
 
-#: ../Commands.pm:2513
+#: ../Commands.pm:2514
 #, fuzzy
 msgid "=====[Character Equip List]=====\n"
 msgstr "========รายการตีอาวุธ========\n"
 
-#: ../Commands.pm:2578
+#: ../Commands.pm:2579
 msgid "=====[Equip Switch List]=====\n"
 msgstr ""
 
-#: ../Commands.pm:2593
+#: ../Commands.pm:2594
 msgid ""
 "Syntax Error in function 'eval' (Evaluate a Perl expression)\n"
 "Usage: eval <expression>\n"
@@ -3995,19 +3995,19 @@ msgstr ""
 "Syntax Error in function 'eval' (Evaluate a Perl expression)\n"
 "Usage: eval <expression>\n"
 
-#: ../Commands.pm:2630
+#: ../Commands.pm:2631
 msgid "Exp counter reset.\n"
 msgstr "เริ่มตัวนับค่าประสบการณ์ใหม่\n"
 
-#: ../Commands.pm:2635
+#: ../Commands.pm:2636
 msgid "Exp report not yet ready\n"
 msgstr ""
 
-#: ../Commands.pm:2666
+#: ../Commands.pm:2667
 msgid " Exp Report "
 msgstr ""
 
-#: ../Commands.pm:2667
+#: ../Commands.pm:2668
 #, fuzzy, perl-format
 msgid ""
 "Botting time : %s\n"
@@ -4037,34 +4037,34 @@ msgstr ""
 "Bytes Sent   : %s\n"
 "Bytes Rcvd   : %s\n"
 
-#: ../Commands.pm:2695
+#: ../Commands.pm:2696
 msgid " Monster Killed Count "
 msgstr ""
 
-#: ../Commands.pm:2696
+#: ../Commands.pm:2697
 #, fuzzy
 msgid "#   ID     Name                    Count\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:2705
+#: ../Commands.pm:2706
 #, perl-format
 msgid "Total number of killed monsters: %s\n"
 msgstr "จำนวนมอนสเตอร์ทั้งหมดที่กำจัดได้: %s\n"
 
-#: ../Commands.pm:2715
+#: ../Commands.pm:2716
 msgid " Item Change Count "
 msgstr ""
 
-#: ../Commands.pm:2716
+#: ../Commands.pm:2717
 #, fuzzy
 msgid "Name                           Count\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:2733
+#: ../Commands.pm:2734
 #, fuzzy
 msgid ""
 "Syntax error in function 'exp' (Exp Report)\n"
@@ -4073,15 +4073,15 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'exp' (รายงานค่าประสบการณ์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: exp [<report | monster | item | reset>]\n"
 
-#: ../Commands.pm:2744
+#: ../Commands.pm:2745
 msgid "Your falcon is active\n"
 msgstr "คุณมีนกปฏิบัติงานอยู่\n"
 
-#: ../Commands.pm:2746
+#: ../Commands.pm:2747
 msgid "Your falcon is inactive\n"
 msgstr "คุณไม่มีนกปฏิบัติงานอยู่\n"
 
-#: ../Commands.pm:2750
+#: ../Commands.pm:2751
 msgid ""
 "Error in function 'falcon release' (Remove Falcon Status)\n"
 "You don't possess a falcon.\n"
@@ -4089,7 +4089,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'falcon release' (ไล่นก)\n"
 "คุณไม่มีนก\n"
 
-#: ../Commands.pm:2764
+#: ../Commands.pm:2765
 msgid ""
 "Syntax Error in function 'follow' (Follow Player)\n"
 "Usage: follow <player #>\n"
@@ -4097,7 +4097,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'follow' (ติดตามผู้เล่น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: follow <player #>\n"
 
-#: ../Commands.pm:2771
+#: ../Commands.pm:2772
 #, perl-format
 msgid ""
 "Error in function 'follow' (Follow Player)\n"
@@ -4106,75 +4106,75 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'follow' (ติดตามผู้เล่น)\n"
 "ไม่สามารถมองเห็นผู้เล่น %s หรือไม่ได้อยู่ในปาร์ตี้และกำลังออนไลน์อยู่\n"
 
-#: ../Commands.pm:2793
+#: ../Commands.pm:2794
 msgid " Friends "
 msgstr ""
 
-#: ../Commands.pm:2794
+#: ../Commands.pm:2795
 #, fuzzy
 msgid "#   Name                      Online\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:2811
+#: ../Commands.pm:2812
 #, perl-format
 msgid "Player %s does not exist\n"
 msgstr "ผู้เล่น %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:2813
+#: ../Commands.pm:2814
 msgid "Player name has not been received, please try again\n"
 msgstr "ยังไม่ได้รับชื่อผู้เล่น กรุณาลองอีกครั้ง\n"
 
-#: ../Commands.pm:2823
+#: ../Commands.pm:2824
 #, perl-format
 msgid "%s is already your friend\n"
 msgstr "%s เป็นเพื่อนกับคุณอยู่แล้ว\n"
 
-#: ../Commands.pm:2825
+#: ../Commands.pm:2826
 #, perl-format
 msgid "Requesting %s to be your friend\n"
 msgstr "%s ต้องการจะเป็นเพื่อนกับคุณ\n"
 
-#: ../Commands.pm:2832 ../Commands.pm:2859
+#: ../Commands.pm:2833 ../Commands.pm:2860
 #, perl-format
 msgid "Friend #%s does not exist\n"
 msgstr "เพื่อน #%s ไม่มีอยู่\n"
 
-#: ../Commands.pm:2835
+#: ../Commands.pm:2836
 #, perl-format
 msgid "Attempting to remove %s from your friend list\n"
 msgstr "กำลังพยายามที่จะเอา %s ออกจากรายชื่อเพื่อน\n"
 
-#: ../Commands.pm:2841
+#: ../Commands.pm:2842
 msgid "Can't accept the friend request, no incoming request\n"
 msgstr "ไม่สามารถยอมรับการร้องขอความเป็นเพื่อนได้ - ไม่มีการร้องขอมา\n"
 
-#: ../Commands.pm:2843
+#: ../Commands.pm:2844
 #, perl-format
 msgid "Accepting the friend request from %s\n"
 msgstr "ยอมรับขอเสนอการเป็นเพื่อนจาก %s\n"
 
-#: ../Commands.pm:2850
+#: ../Commands.pm:2851
 msgid "Can't reject the friend request - no incoming request\n"
 msgstr "ไม่สามารถปฏิเสธการร้องขอความเป็นเพื่อนได้ - ไม่มีการร้องขอมา\n"
 
-#: ../Commands.pm:2852
+#: ../Commands.pm:2853
 #, perl-format
 msgid "Rejecting the friend request from %s\n"
 msgstr "ปฏิเสธการร้องขอความเป็นเพื่อนจาก %s\n"
 
-#: ../Commands.pm:2863
+#: ../Commands.pm:2864
 #, perl-format
 msgid "Friend %s has been added to the PM list as %s\n"
 msgstr "เพื่อน %s ได้อยู่ในรายการกระซิบแล้ว %s\n"
 
-#: ../Commands.pm:2866
+#: ../Commands.pm:2867
 #, perl-format
 msgid "Friend %s is already in the PM list\n"
 msgstr "เพื่อน %s ได้อยู่ในรายการกระซิบอยู่แล้ว\n"
 
-#: ../Commands.pm:2871
+#: ../Commands.pm:2872
 msgid ""
 "Syntax Error in function 'friend' (Manage Friends List)\n"
 "Usage: friend [request|remove|accept|reject|pm]\n"
@@ -4182,58 +4182,58 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'friend' (การจัดการรายชื่อเพื่อน) ผิดพลาด\n"
 "รูปแบบการใช้งาน: friend [request|remove|accept|reject|pm]\n"
 
-#: ../Commands.pm:2881
+#: ../Commands.pm:2882
 msgid "Error: Can't detect slaves - character is not yet ready\n"
 msgstr ""
 
-#: ../Commands.pm:2890 ../Commands.pm:2897
+#: ../Commands.pm:2891 ../Commands.pm:2898
 #, fuzzy
 msgid "Error: No slave detected.\n"
 msgstr "พบข้อผิดพลาด: ไม่สามารถตรวจพบ Homunculus ได้.\n"
 
-#: ../Commands.pm:2900
+#: ../Commands.pm:2901
 msgid "Error: Unknown command in cmdSlave\n"
 msgstr ""
 
-#: ../Commands.pm:2906
+#: ../Commands.pm:2907
 #, perl-format
 msgid "Homunculus is in rest, use skills '%s' (ss %d).\n"
 msgstr ""
 
-#: ../Commands.pm:2910
+#: ../Commands.pm:2911
 #, perl-format
 msgid "Homunculus is dead, use skills '%s' (ss %d).\n"
 msgstr ""
 
-#: ../Commands.pm:2917 ../Interface/Wx.pm:679
+#: ../Commands.pm:2918 ../Interface/Wx.pm:679
 msgid "Exp: "
 msgstr ""
 
-#: ../Commands.pm:2920
+#: ../Commands.pm:2921
 msgid "Kills: "
 msgstr ""
 
-#: ../Commands.pm:2927
+#: ../Commands.pm:2928
 msgid "Intimacy:"
 msgstr ""
 
-#: ../Commands.pm:2930
+#: ../Commands.pm:2931
 msgid "Faith:"
 msgstr ""
 
-#: ../Commands.pm:2935 ../Commands.pm:2936 ../Commands.pm:2937
-#: ../Commands.pm:2938 ../Commands.pm:2939 ../Commands.pm:2940
-#: ../Commands.pm:7266 ../Commands.pm:7267 ../Commands.pm:7268
-#: ../Commands.pm:7270 ../Commands.pm:7271 ../Commands.pm:7272
+#: ../Commands.pm:2936 ../Commands.pm:2937 ../Commands.pm:2938
+#: ../Commands.pm:2939 ../Commands.pm:2940 ../Commands.pm:2941
+#: ../Commands.pm:7267 ../Commands.pm:7268 ../Commands.pm:7269
+#: ../Commands.pm:7271 ../Commands.pm:7272 ../Commands.pm:7273
 msgid "N/A"
 msgstr ""
 
-#: ../Commands.pm:2943
+#: ../Commands.pm:2944
 #, fuzzy
 msgid " Slave Status "
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:2944
+#: ../Commands.pm:2945
 msgid ""
 "Name: @<<<<<<<<<<<<<<<<<<<<<<<<<  HP: @>>>>>>>>>>>>>>>>>>\n"
 "Type: @<<<<<<<<<<<<<<<<<<<<<<<<<  SP: @>>>>>>>>>>>>>>>>>>\n"
@@ -4241,7 +4241,7 @@ msgid ""
 "Level: @<<  @>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
 msgstr ""
 
-#: ../Commands.pm:2949
+#: ../Commands.pm:2950
 #, fuzzy
 msgid ""
 "Atk:  @>>>     Matk:     @>>>     Hunger:       @>>>\n"
@@ -4261,26 +4261,26 @@ msgstr ""
 "Flee:@>>>    Aspd:     @>>>\n"
 "--------------------------------------------------------"
 
-#: ../Commands.pm:2964 ../Commands.pm:4027
+#: ../Commands.pm:2965 ../Commands.pm:4028
 #, perl-format
 msgid "Statuses: %s \n"
 msgstr ""
 
-#: ../Commands.pm:2971
+#: ../Commands.pm:2972
 #, fuzzy
 msgid "This slave can not be feeded\n"
 msgstr "ไอเท็มนี้ไม่สามารซื้อขายได้\n"
 
-#: ../Commands.pm:2979
+#: ../Commands.pm:2980
 msgid ""
 "Your homunculus is not yet hungry. Feeding it now will lower intimacy.\n"
 msgstr "Homunculus ของคุณยังไม่หิว การให้อาหารในตอนนี้จะทำให้ความสนิทสนมลดลง\n"
 
-#: ../Commands.pm:2982
+#: ../Commands.pm:2983
 msgid "Feeding your homunculus.\n"
 msgstr "ให้อาหาร Homunculus ของคุณ\n"
 
-#: ../Commands.pm:3001
+#: ../Commands.pm:3002
 #, fuzzy, perl-format
 msgid ""
 "Error in function '%s move' (Slave Move)\n"
@@ -4289,47 +4289,47 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'homun move' (Homunculus Move)\n"
 "พิกัดที่ระบุ (%s, %s) ไม่สามารถใช้ได้\n"
 
-#: ../Commands.pm:3019
+#: ../Commands.pm:3020
 #, fuzzy
 msgid "Slave AI sequences cleared\n"
 msgstr "AI sequences ถูกล้างแล้ว\n"
 
-#: ../Commands.pm:3023
+#: ../Commands.pm:3024
 #, fuzzy
 msgid " Slave AI Sequence "
 msgstr "AI sequences ถูกล้างแล้ว\n"
 
-#: ../Commands.pm:3035
+#: ../Commands.pm:3036
 #, fuzzy
 msgid "Slave AI is already set to auto mode\n"
 msgstr "AI ได้ถูกตั้งให้เป็นระบบอัตโนมัติอยู่แล้ว\n"
 
-#: ../Commands.pm:3039 ../Commands.pm:3073
+#: ../Commands.pm:3040 ../Commands.pm:3074
 #, fuzzy
 msgid "Slave AI set to auto mode\n"
 msgstr "AI ได้ถูกตั้งให้เป็นระบบอัตโนมัติ\n"
 
-#: ../Commands.pm:3044
+#: ../Commands.pm:3045
 #, fuzzy
 msgid "Slave AI is already set to manual mode\n"
 msgstr "AI ได้ถูกตั้งให้เป็นระบบบังคับด้วยมืออยู่แล้ว\n"
 
-#: ../Commands.pm:3048 ../Commands.pm:3069
+#: ../Commands.pm:3049 ../Commands.pm:3070
 #, fuzzy
 msgid "Slave AI set to manual mode\n"
 msgstr "AI ได้ถูกตั้งให้เป็นระบบบังคับด้วยมือ\n"
 
-#: ../Commands.pm:3055 ../Commands.pm:3065
+#: ../Commands.pm:3056 ../Commands.pm:3066
 #, fuzzy
 msgid "Slave AI turned off\n"
 msgstr "AI ถูกปิดตัวลง\n"
 
-#: ../Commands.pm:3057
+#: ../Commands.pm:3058
 #, fuzzy
 msgid "Slave AI is already off\n"
 msgstr "AI ถูกปิดตัวลงอยู่แล้ว\n"
 
-#: ../Commands.pm:3077
+#: ../Commands.pm:3078
 #, fuzzy, perl-format
 msgid ""
 "Syntax Error in function 'slave ai' (Slave AI Commands)\n"
@@ -4338,21 +4338,21 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'homun ai' (คำสั่ง AI ของ homunculus) ผิดพลาด\n"
 "รูปแบบการใช้งาน: ai [ clear | print | ai_v | auto | manual | off ]\n"
 
-#: ../Commands.pm:3093
+#: ../Commands.pm:3094
 #, fuzzy
 msgid " Slave Skill List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:3094
+#: ../Commands.pm:3095
 #, fuzzy
 msgid "   # Skill Name                     Lv      SP\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:3104 ../Commands.pm:5254
+#: ../Commands.pm:3105 ../Commands.pm:5255
 #, perl-format
 msgid ""
 "\n"
@@ -4361,7 +4361,7 @@ msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:3115
+#: ../Commands.pm:3116
 #, fuzzy, perl-format
 msgid ""
 "Error in function '%s skills add' (Add Skill Point)\n"
@@ -4370,7 +4370,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'skills add' (เพิ่มเลเวลสกิล)\n"
 "สกิล %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:3118
+#: ../Commands.pm:3119
 #, fuzzy, perl-format
 msgid ""
 "Error in function '%s skills add' (Add Skill Point)\n"
@@ -4379,7 +4379,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'skills add' (เพิ่มเลเวลสกิล)\n"
 "skill point ไม่พอที่จะอัพสกิล %s\n"
 
-#: ../Commands.pm:3127
+#: ../Commands.pm:3128
 #, fuzzy, perl-format
 msgid ""
 "Error in function '%s skills desc' (Skill Description)\n"
@@ -4388,25 +4388,25 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'skills desc' (แสดงรายละเอียดสกิล)\n"
 "สกิล %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:3130 ../Commands.pm:5283 ../Misc.pm:2994
+#: ../Commands.pm:3131 ../Commands.pm:5284 ../Misc.pm:2994
 msgid "Error: No description available.\n"
 msgstr "พบข้อผิดพลาด: ไม่มีรายละเอียด\n"
 
-#: ../Commands.pm:3131 ../Commands.pm:5284
+#: ../Commands.pm:3132 ../Commands.pm:5285
 #, fuzzy
 msgid " Skill Description "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:3132
+#: ../Commands.pm:3133
 #, fuzzy, perl-format
 msgid "Skill: %s"
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:3138
+#: ../Commands.pm:3139
 #, fuzzy, perl-format
 msgid ""
 "Syntax Error in function 'slave skills' (Slave Skills Functions)\n"
@@ -4415,12 +4415,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'homun skills' (การจัดการสกิล homunculus) ผิดพลาด\n"
 "รูปแบบการใช้งาน: homun skills [(<add | desc>) [<skill #>]]\n"
 
-#: ../Commands.pm:3148
+#: ../Commands.pm:3149
 #, fuzzy
 msgid "The name can not exceed 24 characters\n"
 msgstr "สร้างตัวละครใหม่"
 
-#: ../Commands.pm:3151
+#: ../Commands.pm:3152
 #, fuzzy, perl-format
 msgid ""
 "Syntax Error in function 'slave rename' (Slave Rename)\n"
@@ -4429,11 +4429,11 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild create' (สร้างกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild create <name>\n"
 
-#: ../Commands.pm:3155
+#: ../Commands.pm:3156
 msgid "His homunculus has been named or not under conditions to be renamed!\n"
 msgstr ""
 
-#: ../Commands.pm:3159
+#: ../Commands.pm:3160
 #, fuzzy, perl-format
 msgid ""
 "Usage: %s <feed | s | status | move | standby | ai | aiv | skills | delete | "
@@ -4442,7 +4442,7 @@ msgstr ""
 "รูปแบบการใช้งาน: homun < feed | s | status | move | standby | ai | aiv | "
 "skills>\n"
 
-#: ../Commands.pm:3183
+#: ../Commands.pm:3184
 #, fuzzy
 msgid ""
 "Syntax Error in function 'misc_conf' (Misc Configuration)\n"
@@ -4451,83 +4451,83 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'switchconf' (เปลี่ยน Configuration File) ผิดพลาด\n"
 "รูปแบบการใช้งาน: switchconf <filename>\n"
 
-#: ../Commands.pm:3221
+#: ../Commands.pm:3222
 #, perl-format
 msgid "Usage: %s <MESSAGE>\n"
 msgstr ""
 
-#: ../Commands.pm:3245
+#: ../Commands.pm:3246
 msgid ""
 "Usage: gmmapmove <FIELD>\n"
 "FIELD is a field name including .gat extension, like: gef_fild01.gat\n"
 msgstr ""
 
-#: ../Commands.pm:3262
+#: ../Commands.pm:3263
 msgid ""
 "Usage: gmsummon <player name>\n"
 "Summon a player.\n"
 msgstr ""
 
-#: ../Commands.pm:3278
+#: ../Commands.pm:3279
 msgid "Usage: gmdc <player_AID>\n"
 msgstr ""
 
-#: ../Commands.pm:3302
+#: ../Commands.pm:3303
 msgid "Usage: gmcreate (<MONSTER_NAME> || <Item_Name>) \n"
 msgstr ""
 
-#: ../Commands.pm:3344
+#: ../Commands.pm:3345
 msgid "Usage: gmmute <ID> <minutes>\n"
 msgstr ""
 
-#: ../Commands.pm:3359
+#: ../Commands.pm:3360
 msgid "Usage: gmunmute <ID> <minutes>\n"
 msgstr ""
 
-#: ../Commands.pm:3374
+#: ../Commands.pm:3375
 msgid "Usage: gmwarpto <Player Name>\n"
 msgstr ""
 
-#: ../Commands.pm:3389
+#: ../Commands.pm:3390
 msgid "Usage: gmrecall [<Character Name> | <User Name>]\n"
 msgstr ""
 
-#: ../Commands.pm:3404
+#: ../Commands.pm:3405
 msgid "Usage: gmremove [<Character Name> | <User Name>]\n"
 msgstr ""
 
-#: ../Commands.pm:3418
+#: ../Commands.pm:3419
 msgid "You must be logged in the game to request guild information\n"
 msgstr ""
 
-#: ../Commands.pm:3420
+#: ../Commands.pm:3421
 msgid ""
 "Guild information is not yet available. You must login to the game and use "
 "the 'guild' command first\n"
 msgstr ""
 
-#: ../Commands.pm:3424
+#: ../Commands.pm:3425
 msgid "Requesting guild information...\n"
 msgstr "ร้องขอข้อมูลกิล...\n"
 
-#: ../Commands.pm:3443
+#: ../Commands.pm:3444
 #, fuzzy
 msgid ""
 "Enter command to view guild information: guild <info | member | request | "
 "join | leave | kick | ally | create | break>\n"
 msgstr "เพื่อดูข้อมูลกิล ป้อน: guild <info | member>\n"
 
-#: ../Commands.pm:3445
+#: ../Commands.pm:3446
 #, perl-format
 msgid "Type 'guild %s' again to view the information.\n"
 msgstr "ป้อน 'guild %s' อีกครั้งเพื่อดูข้อมูล\n"
 
-#: ../Commands.pm:3449
+#: ../Commands.pm:3450
 #, fuzzy
 msgid " Guild Information "
 msgstr "ร้องขอข้อมูลกิล...\n"
 
-#: ../Commands.pm:3450
+#: ../Commands.pm:3451
 #, perl-format
 msgid ""
 "Name    : %s\n"
@@ -4538,27 +4538,27 @@ msgid ""
 msgstr ""
 
 #. Translation Comment: List of allies. Keep the same spaces of the - Guild Information - tag.
-#: ../Commands.pm:3459
+#: ../Commands.pm:3460
 #, perl-format
 msgid "Ally    : %s (%s)\n"
 msgstr "พันธมิตร    : %s (%s)\n"
 
 #. Translation Comment: List of enemies. Keep the same spaces of the - Guild Information - tag.
-#: ../Commands.pm:3463
+#: ../Commands.pm:3464
 #, fuzzy, perl-format
 msgid "Enemy   : %s (%s)\n"
 msgstr "พันธมิตร    : %s (%s)\n"
 
-#: ../Commands.pm:3470 ../Commands.pm:3572
+#: ../Commands.pm:3471 ../Commands.pm:3573
 msgid "No guild member information available.\n"
 msgstr "ไม่มีข้อมูลสมาชิกกิลอยู่\n"
 
-#: ../Commands.pm:3474
+#: ../Commands.pm:3475
 #, fuzzy
 msgid " Guild  Member "
 msgstr "สมาชิกกิล %s ได้เข้ามาแล้ว\n"
 
-#: ../Commands.pm:3475
+#: ../Commands.pm:3476
 #, fuzzy
 msgid ""
 "#  Name                       Job           Lv  Title                    "
@@ -4569,18 +4569,18 @@ msgstr ""
 
 #. Translation Comment: Guild member online
 #. Translation Comment: Is the party user on list online?
-#: ../Commands.pm:3488 ../Commands.pm:4310 ../Commands.pm:4317
-#: ../Commands.pm:4529 ../Commands.pm:7348 ../Commands.pm:7372
+#: ../Commands.pm:3489 ../Commands.pm:4311 ../Commands.pm:4318
+#: ../Commands.pm:4530 ../Commands.pm:7349 ../Commands.pm:7373
 #: ../Network/Receive.pm:8520
 msgid "Yes"
 msgstr "ออนไลน์"
 
-#: ../Commands.pm:3488 ../Commands.pm:4317 ../Commands.pm:4529
-#: ../Commands.pm:7348 ../Commands.pm:7372 ../Network/Receive.pm:8520
+#: ../Commands.pm:3489 ../Commands.pm:4318 ../Commands.pm:4530
+#: ../Commands.pm:7349 ../Commands.pm:7373 ../Network/Receive.pm:8520
 msgid "No"
 msgstr "ไม่ได้ออนไลน์"
 
-#: ../Commands.pm:3504
+#: ../Commands.pm:3505
 msgid ""
 "Syntax Error in function 'guild join' (Accept/Deny Guild Join Request)\n"
 "Usage: guild join <flag>\n"
@@ -4588,7 +4588,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild join' (ตอบสนองข้อเสนอเข้าร่วมกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild join <flag>\n"
 
-#: ../Commands.pm:3508
+#: ../Commands.pm:3509
 msgid ""
 "Error in function 'guild join' (Join/Request to Join Guild)\n"
 "Can't accept/deny guild request - no incoming request.\n"
@@ -4596,15 +4596,15 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'guild join' (ตอบสนองข้อเสนอเข้าร่วมกิล)\n"
 "ไม่สามารถตอบสนองข้อเสนอเข้าร่วมกิลได้ - ไม่มีข้อเสนอมา\n"
 
-#: ../Commands.pm:3516
+#: ../Commands.pm:3517
 msgid "You accepted the guild join request.\n"
 msgstr "คุณยอมรับข้อเสนอเข้าร่วมกิล\n"
 
-#: ../Commands.pm:3518
+#: ../Commands.pm:3519
 msgid "You denied the guild join request.\n"
 msgstr "คุณปฏิเสธข้อเสนอเข้าร่วมกิล\n"
 
-#: ../Commands.pm:3523
+#: ../Commands.pm:3524
 msgid ""
 "Syntax Error in function 'guild create' (Create Guild)\n"
 "Usage: guild create <name>\n"
@@ -4612,40 +4612,40 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild create' (สร้างกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild create <name>\n"
 
-#: ../Commands.pm:3530
+#: ../Commands.pm:3531
 msgid "You are not in a guild.\n"
 msgstr "คุณไม่ได้อยู่ในกิล\n"
 
-#: ../Commands.pm:3535 ../Commands.pm:3548 ../Commands.pm:3946
+#: ../Commands.pm:3536 ../Commands.pm:3549 ../Commands.pm:3947
 #, perl-format
 msgid "Player %s does not exist.\n"
 msgstr "ผู้เล่น %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:3538
+#: ../Commands.pm:3539
 #, perl-format
 msgid "Sent guild join request to %s\n"
 msgstr "ส่งข้อเสนอให้เข้าร่วมกิลไปยัง %s\n"
 
-#: ../Commands.pm:3543
+#: ../Commands.pm:3544
 msgid ""
 "No guild information available. Type guild to refresh and then try again.\n"
 msgstr "ไม่มีข้อมูลของกิล ป้อน guild เพื่อรับข้อมูลใหม่ แล้วลองใหม่อีกครั้ง\n"
 
-#: ../Commands.pm:3550
+#: ../Commands.pm:3551
 msgid "You must be guildmaster to set an alliance\n"
 msgstr "คุณจะต้องเป็นหัวหน้ากิล เพื่อที่จะตั้งพันธมิตร\n"
 
-#: ../Commands.pm:3554
+#: ../Commands.pm:3555
 #, perl-format
 msgid "Sent guild alliance request to %s\n"
 msgstr "ส่งข้อเสนอเป็นพันธมิตรกับกิล %s\n"
 
-#: ../Commands.pm:3559
+#: ../Commands.pm:3560
 #, perl-format
 msgid "Sending guild leave: %s\n"
 msgstr "ออกจากกิล: %s\n"
 
-#: ../Commands.pm:3563
+#: ../Commands.pm:3564
 msgid ""
 "Syntax Error in function 'guild break' (Break Guild)\n"
 "Usage: guild break <guild name>\n"
@@ -4653,12 +4653,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild break' (ยุบกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild break <guild name>\n"
 
-#: ../Commands.pm:3567
+#: ../Commands.pm:3568
 #, perl-format
 msgid "Sending guild break: %s\n"
 msgstr "ยุบกิล: %s\n"
 
-#: ../Commands.pm:3583
+#: ../Commands.pm:3584
 #, perl-format
 msgid ""
 "Error in function 'guild kick' (Kick Guild Member)\n"
@@ -4667,7 +4667,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'guild kick' (ไล่สมาชิกกิล)\n"
 "สมาชิกกิล '%s' ไม่มีอยู่\n"
 
-#: ../Commands.pm:3587
+#: ../Commands.pm:3588
 msgid ""
 "Syntax Error in function 'guild kick' (Kick Guild Member)\n"
 "Usage: guild kick <number> <reason>\n"
@@ -4675,41 +4675,41 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild kick' (ไล่สมาชิกกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild kick <number> <reason>\n"
 
-#: ../Commands.pm:3600
+#: ../Commands.pm:3601
 msgid " Available commands "
 msgstr ""
 
-#: ../Commands.pm:3625
+#: ../Commands.pm:3626
 #, perl-format
 msgid "The command \"%s\" doesn't exist.\n"
 msgstr "คำสั่ง \"%s\" นี้ไม่มีอยู่\n"
 
-#: ../Commands.pm:3627
+#: ../Commands.pm:3628
 #, perl-format
 msgid "These commands don't exist: %s\n"
 msgstr "คำสั่งเล่านี้ไม่มีอยู่: %s\n"
 
-#: ../Commands.pm:3629
+#: ../Commands.pm:3630
 msgid "Type 'help' to see a list of all available commands.\n"
 msgstr "ป้อน 'help' เพื่อดูรายการคำสั่งที่มีอยู่\n"
 
-#: ../Commands.pm:3644
+#: ../Commands.pm:3645
 #, perl-format
 msgid " Help for '%s' "
 msgstr ""
 
-#: ../Commands.pm:3684
+#: ../Commands.pm:3685
 #, fuzzy
 msgid " Identify List "
 msgstr "ยังไม่ได้ตรวจสอบ"
 
-#: ../Commands.pm:3694
+#: ../Commands.pm:3695
 msgid ""
 "The identify list is empty, please use the identify skill or a magnifier "
 "first.\n"
 msgstr ""
 
-#: ../Commands.pm:3697
+#: ../Commands.pm:3698
 #, perl-format
 msgid ""
 "Error in function 'identify' (Identify Item)\n"
@@ -4718,7 +4718,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'identify' (ตรวจสอบไอเท็ม)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:3704
+#: ../Commands.pm:3705
 msgid ""
 "Syntax Error in function 'identify' (Identify Item)\n"
 "Usage: identify [<identify #>]\n"
@@ -4726,7 +4726,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'identify' (ตรวจสอบไอเท็ม) ผิดพลาด\n"
 "รูปแบบการใช้งาน: identify [<identify #>]\n"
 
-#: ../Commands.pm:3717
+#: ../Commands.pm:3718
 msgid ""
 "Syntax Error in function 'ignore' (Ignore Player/Everyone)\n"
 "Usage: ignore <flag> <name | all>\n"
@@ -4734,7 +4734,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'ignore' (ปิดกันการกระซิบ) ผิดพลาด\n"
 "รูปแบบการใช้งาน:  ignore <flag> <name | all>\n"
 
-#: ../Commands.pm:3734
+#: ../Commands.pm:3735
 msgid ""
 "Syntax Error in function 'ihist' (Show Item History)\n"
 "Usage: ihist [<number of entries #>]\n"
@@ -4742,40 +4742,40 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'ihist' (แสดงประวัติไอเท็ม) ผิดพลาด\n"
 "รูปแบบการใช้งาน: ihist [<number of entries #>]\n"
 
-#: ../Commands.pm:3740
+#: ../Commands.pm:3741
 msgid " Item History "
 msgstr ""
 
-#: ../Commands.pm:3791
+#: ../Commands.pm:3792
 msgid "Inventory is empty\n"
 msgstr "ไอเท็มในตัวว่างเปล่า\n"
 
-#: ../Commands.pm:3826
+#: ../Commands.pm:3827
 msgid " Inventory "
 msgstr "ไอเท็มในตัวว่างเปล่า"
 
 #. Translation Comment: List of equipment items worn by character
-#: ../Commands.pm:3830
+#: ../Commands.pm:3831
 msgid "-- Equipment (Equipped) --\n"
 msgstr "-- อุปกรณ์สวมใส่ (สวมใส่อยู่) --\n"
 
 #. Translation Comment: Tell if the item is marked to be sold
-#: ../Commands.pm:3832 ../Commands.pm:3842 ../Commands.pm:3859
-#: ../Commands.pm:3874
+#: ../Commands.pm:3833 ../Commands.pm:3843 ../Commands.pm:3860
+#: ../Commands.pm:3875
 msgid "Will be sold"
 msgstr "จะถูกขาย"
 
 #. Translation Comment: List of equipment items NOT worn
-#: ../Commands.pm:3840
+#: ../Commands.pm:3841
 msgid "-- Equipment (Not Equipped) --\n"
 msgstr "-- อุปกรณ์สวมใส่ (ไม่ได้สวมใส่อยู่) --\n"
 
 #. Translation Comment: List of non-usable items
-#: ../Commands.pm:3852
+#: ../Commands.pm:3853
 msgid "-- Non-Usable --\n"
 msgstr "-- ไม่สามารถใช้ได้ --\n"
 
-#: ../Commands.pm:3888
+#: ../Commands.pm:3889
 msgid ""
 "Syntax Error in function 'i' (Inventory List)\n"
 "Usage: i [<u|eq|neq|nu|desc>] [<inventory item>]\n"
@@ -4783,7 +4783,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'i' (รายการไอเท็มในตัว) ผิดพลาด\n"
 "รูปแบบการใช้งาน:  i [<u|eq|neq|nu|desc>] [<inventory item>]\n"
 
-#: ../Commands.pm:3898
+#: ../Commands.pm:3899
 #, perl-format
 msgid ""
 "Error in function 'i' (Inventory Item Description)\n"
@@ -4792,25 +4792,25 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'i' (รายละเอียดไอเท็มในตัว)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:3907
+#: ../Commands.pm:3908
 #, fuzzy
 msgid " Item List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:3908
+#: ../Commands.pm:3909
 #, fuzzy
 msgid "   # Name                           Coord\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:3922
+#: ../Commands.pm:3923
 msgid "Item log cleared.\n"
 msgstr "บันทึกไอเท็มถูกลบแล้ว\n"
 
-#: ../Commands.pm:3958
+#: ../Commands.pm:3959
 msgid ""
 "Syntax Error in function 'look' (Look a Direction)\n"
 "Usage: look <body dir> [<head dir>]\n"
@@ -4818,7 +4818,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'look' (มอง,หันหน้า) ผิดพลาด\n"
 "รูปแบบการใช้งาน: look <body dir> [<head dir>]\n"
 
-#: ../Commands.pm:3968
+#: ../Commands.pm:3969
 msgid ""
 "Syntax Error in function 'lookp' (Look at Player)\n"
 "Usage: lookp <player #>\n"
@@ -4826,7 +4826,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'lookp' (มอง,หันหน้า ไปยังผู้เล่น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: lookp <player #>\n"
 
-#: ../Commands.pm:3971
+#: ../Commands.pm:3972
 #, perl-format
 msgid ""
 "Error in function 'lookp' (Look at Player)\n"
@@ -4835,7 +4835,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'lookp' (มอง,หันหน้า ไปยังผู้เล่น)\n"
 "หมายเลขของผู้เล่น '%s' ไม่สามารถใช้ได้\n"
 
-#: ../Commands.pm:3987
+#: ../Commands.pm:3988
 #, perl-format
 msgid ""
 "Error in function '%s' (Manual Move)\n"
@@ -4844,27 +4844,27 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น '%s' (Manual Move)\n"
 "รูปแบบการใช้ฟังก์ชั่น: %s [distance]\n"
 
-#: ../Commands.pm:4022
+#: ../Commands.pm:4023
 msgid " Monster Info "
 msgstr ""
 
-#: ../Commands.pm:4023
+#: ../Commands.pm:4024
 #, perl-format
 msgid ""
 "%s (%d)\n"
 "Walk speed: %s secs per block\n"
 msgstr ""
 
-#: ../Commands.pm:4031
+#: ../Commands.pm:4032
 #, fuzzy, perl-format
 msgid "Monster \"%s\" does not exist.\n"
 msgstr "ผู้เล่น \"%s\" ไม่มีอยู่\n"
 
-#: ../Commands.pm:4035
+#: ../Commands.pm:4036
 msgid " Monster List "
 msgstr ""
 
-#: ../Commands.pm:4036
+#: ../Commands.pm:4037
 #, fuzzy
 msgid ""
 "#   Name                        ID      DmgTo DmgFrom  Distance    "
@@ -4873,7 +4873,7 @@ msgstr ""
 "-----------รายชื่อมอนสเตอร์-----------\n"
 "#   ชื่อ                        ID      DmgTo DmgFrom  ระยะห่าง    พิกัด\n"
 
-#: ../Commands.pm:4088
+#: ../Commands.pm:4089
 #, fuzzy
 msgid ""
 "Syntax Error in function 'move' (Move Player)\n"
@@ -4884,73 +4884,73 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'move' (เดิน) ผิดพลาด\n"
 "รูปแบบการใช้งาน: move <x> <y> &| <map>\n"
 
-#: ../Commands.pm:4106 ../Task/MapRoute.pm:233
+#: ../Commands.pm:4107 ../Task/MapRoute.pm:233
 msgid "Stopped all movement\n"
 msgstr "หยุดทุกการเคลื่อนใหว\n"
 
-#: ../Commands.pm:4110 ../Interface/Wx.pm:1482
+#: ../Commands.pm:4111 ../Interface/Wx.pm:1482
 msgid ""
 "Error in function 'move' (Move Player)\n"
 "Unable to walk while inside a chat room!\n"
 "Use the command: chat leave\n"
 msgstr ""
 
-#: ../Commands.pm:4114 ../Interface/Wx.pm:1486
+#: ../Commands.pm:4115 ../Interface/Wx.pm:1486
 msgid ""
 "Error in function 'move' (Move Player)\n"
 "Unable to walk while the shop is open!\n"
 "Use the command: closeshop\n"
 msgstr ""
 
-#: ../Commands.pm:4120
+#: ../Commands.pm:4121
 #, perl-format
 msgid "Move into portal number %s (%s,%s)\n"
 msgstr "กำลังเดินไปหา portal หมายเลข %s (%s,%s)\n"
 
-#: ../Commands.pm:4124
+#: ../Commands.pm:4125
 msgid "No portals exist.\n"
 msgstr "ไม่มี portal อยู่เลย\n"
 
-#: ../Commands.pm:4137
+#: ../Commands.pm:4138
 #, perl-format
 msgid "Coordinates %s %s are off the map %s\n"
 msgstr ""
 
-#: ../Commands.pm:4141
+#: ../Commands.pm:4142
 #, perl-format
 msgid "Coordinates %s %s are not walkable on the map %s\n"
 msgstr ""
 
-#: ../Commands.pm:4145
+#: ../Commands.pm:4146
 #, fuzzy
 msgid "Unknown Map"
 msgstr "ไม่รู้จักแผนที่นี้ "
 
-#: ../Commands.pm:4147
+#: ../Commands.pm:4148
 #, fuzzy, perl-format
 msgid "Calculating route to: %s(%s): %s, %s (Distance: %s)\n"
 msgstr "กำลังคำนวณหาเส้นทางไปยัง: %s(%s): %s, %s\n"
 
-#: ../Commands.pm:4150
+#: ../Commands.pm:4151
 #, perl-format
 msgid "Calculating route to: %s(%s): %s, %s\n"
 msgstr "กำลังคำนวณหาเส้นทางไปยัง: %s(%s): %s, %s\n"
 
-#: ../Commands.pm:4172
+#: ../Commands.pm:4173
 #, fuzzy
 msgid " NPC List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:4173
+#: ../Commands.pm:4174
 #, fuzzy
 msgid "#    Name                         Coordinates   ID\n"
 msgstr ""
 "-----------รายการ NPC-----------\n"
 "#    ชื่อ                         พิกัด   ID\n"
 
-#: ../Commands.pm:4186
+#: ../Commands.pm:4187
 msgid ""
 "Syntax Error in function 'nl' (List NPCs)\n"
 "Usage: nl [<npc #>]\n"
@@ -4958,18 +4958,18 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'nl' (แสดงรายการ NPC) ผิดพลาด\n"
 "รูปแบบการใช้งาน: nl [<npc #>]\n"
 
-#: ../Commands.pm:4256
+#: ../Commands.pm:4257
 msgid "You must be logged in the game to use this command\n"
 msgstr ""
 
-#: ../Commands.pm:4258
+#: ../Commands.pm:4259
 #, fuzzy
 msgid ""
 "Error in function 'party' (Party Functions)\n"
 "Party info not available yet\n"
 msgstr "พบข้อผิดพลาดในฟังก์ชั่น 'party' (การจัดการปาร์ตี้)\n"
 
-#: ../Commands.pm:4263
+#: ../Commands.pm:4264
 msgid ""
 "Syntax Error in function 'party create' (Organize Party)\n"
 "Usage: party create <party name>\n"
@@ -4977,7 +4977,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'party create' (สร้างปาร์ตี้) ผิดพลาด\n"
 "รูปแบบการใช้งาน: party create <party name>\n"
 
-#: ../Commands.pm:4270
+#: ../Commands.pm:4271
 msgid ""
 "Syntax Error in function 'party join' (Accept/Deny Party Join Request)\n"
 "Usage: party join <flag>\n"
@@ -4985,7 +4985,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'party join' (ยอมรับ/ปฏิเสธ ข้อเสนอเข้าร่วมปาร์ตี้) ผิดพลาด\n"
 "รูปแบบการใช้งาน: party join <flag>\n"
 
-#: ../Commands.pm:4273
+#: ../Commands.pm:4274
 msgid ""
 "Error in function 'party join' (Join/Request to Join Party)\n"
 "Can't accept/deny party request - no incoming request.\n"
@@ -4993,25 +4993,25 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'party join' (เข้าร่วมปาร์ตี้)\n"
 "ไม่สามารถ ปฏิเสธ/เข้าร่วม ปาร์ตี้ได้ - ไม่มีข้อเสนอ\n"
 
-#: ../Commands.pm:4284
+#: ../Commands.pm:4285
 #, fuzzy
 msgid ""
 "Error in function 'party' (Party Functions)\n"
 "You're not in a party.\n"
 msgstr "พบข้อผิดพลาดในฟังก์ชั่น 'party' (การจัดการปาร์ตี้)\n"
 
-#: ../Commands.pm:4288
+#: ../Commands.pm:4289
 #, fuzzy
 msgid ""
 "Error in function 'party' (Party Functions)\n"
 "You're already in a party.\n"
 msgstr "พบข้อผิดพลาดในฟังก์ชั่น 'party' (การจัดการปาร์ตี้)\n"
 
-#: ../Commands.pm:4291
+#: ../Commands.pm:4292
 msgid " Party Information "
 msgstr ""
 
-#: ../Commands.pm:4292
+#: ../Commands.pm:4293
 #, fuzzy, perl-format
 msgid ""
 "Party name: %s\n"
@@ -5023,26 +5023,26 @@ msgstr ""
 "%s\n"
 "#      ชื่อ                  แผนที่                    ออนไลน์    HP\n"
 
-#: ../Commands.pm:4296 ../Commands.pm:4297 ../Commands.pm:4298
-#: ../Commands.pm:4371 ../Commands.pm:4383 ../Commands.pm:4395
+#: ../Commands.pm:4297 ../Commands.pm:4298 ../Commands.pm:4299
+#: ../Commands.pm:4372 ../Commands.pm:4384 ../Commands.pm:4396
 msgid "Even"
 msgstr ""
 
-#: ../Commands.pm:4296 ../Commands.pm:4297 ../Commands.pm:4298
-#: ../Commands.pm:4371 ../Commands.pm:4383 ../Commands.pm:4395
+#: ../Commands.pm:4297 ../Commands.pm:4298 ../Commands.pm:4299
+#: ../Commands.pm:4372 ../Commands.pm:4384 ../Commands.pm:4396
 msgid "Individual"
 msgstr ""
 
-#: ../Commands.pm:4304
+#: ../Commands.pm:4305
 msgid "A"
 msgstr ""
 
-#: ../Commands.pm:4343
+#: ../Commands.pm:4344
 #, fuzzy
 msgid "You are the party leader.\n"
 msgstr "คุณได้ออกจากปาร์ตี้\n"
 
-#: ../Commands.pm:4350
+#: ../Commands.pm:4351
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'party %s'\n"
@@ -5051,12 +5051,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'party leave' (ออกจากปาร์ตี้)\n"
 "ไม่สามารถออกจากปาร์ตี้ได้ - คุณไม่ได้อยู่ในปาร์ตี้\n"
 
-#: ../Commands.pm:4358
+#: ../Commands.pm:4359
 #, fuzzy, perl-format
 msgid "Requesting player %s to join your party.\n"
 msgstr "%s ต้องการจะเป็นเพื่อนกับคุณ\n"
 
-#: ../Commands.pm:4362
+#: ../Commands.pm:4363
 #, perl-format
 msgid ""
 "Error in function 'party request' (Request to Join Party)\n"
@@ -5065,12 +5065,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'party request' (เสนอใหนเข้าร่วมปาร์ตี้)\n"
 "ไม่สามารถยื่นข้อเสนอได้ - ผู้เล่น %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:4371
+#: ../Commands.pm:4372
 #, fuzzy, perl-format
 msgid "Party EXP is set to '%s Take'\n"
 msgstr "ปาร์ตี้ EXP ได้ถูกตั้งให้แชร์กัน\n"
 
-#: ../Commands.pm:4373
+#: ../Commands.pm:4374
 msgid ""
 "Syntax Error in function 'party share' (Set Party Share EXP)\n"
 "Usage: party share <flag>\n"
@@ -5078,12 +5078,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'party share' (ตั้งแบ่งค่าประสบการณ์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: party share <flag>\n"
 
-#: ../Commands.pm:4383
+#: ../Commands.pm:4384
 #, fuzzy, perl-format
 msgid "Party item is set to '%s Take'\n"
 msgstr "ปาร์ตี้ EXP ได้ถูกตั้งให้แชร์กัน\n"
 
-#: ../Commands.pm:4385
+#: ../Commands.pm:4386
 #, fuzzy
 msgid ""
 "Syntax Error in function 'party shareitem' (Set Party Share Item)\n"
@@ -5092,12 +5092,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'party share' (ตั้งแบ่งค่าประสบการณ์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: party share <flag>\n"
 
-#: ../Commands.pm:4395
+#: ../Commands.pm:4396
 #, fuzzy, perl-format
 msgid "Party item division is set to '%s Take'\n"
 msgstr "ปาร์ตี้ EXP ได้ถูกตั้งให้แชร์กัน\n"
 
-#: ../Commands.pm:4397
+#: ../Commands.pm:4398
 #, fuzzy
 msgid ""
 "Syntax Error in function 'party sharediv' (Set Party Item Division)\n"
@@ -5106,7 +5106,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'party share' (ตั้งแบ่งค่าประสบการณ์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: party share <flag>\n"
 
-#: ../Commands.pm:4409
+#: ../Commands.pm:4410
 #, fuzzy
 msgid ""
 "Syntax Error in function 'party kick' (Kick Party Member)\n"
@@ -5115,7 +5115,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'party kick' (ไล่สมาชิกปาร์ตี้) ผิดพลาด\n"
 "รูปแบบการใช้งาน: party kick <party member #>\n"
 
-#: ../Commands.pm:4422 ../Commands.pm:4427
+#: ../Commands.pm:4423 ../Commands.pm:4428
 #, perl-format
 msgid ""
 "Error in function 'party kick' (Kick Party Member)\n"
@@ -5124,7 +5124,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'party kick' (ไล่สมาชิกปาร์ตี้)ไม่สามารไล่สมาชิกปาร์ตี้ - สมาชิก %s "
 "ไม่มีอยู่\n"
 
-#: ../Commands.pm:4436
+#: ../Commands.pm:4437
 #, fuzzy
 msgid ""
 "Syntax Error in function 'party leader' (Change Party Leader)\n"
@@ -5133,7 +5133,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'party create' (สร้างปาร์ตี้) ผิดพลาด\n"
 "รูปแบบการใช้งาน: party create <party name>\n"
 
-#: ../Commands.pm:4446 ../Commands.pm:4451
+#: ../Commands.pm:4447 ../Commands.pm:4452
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'party leader' (Change Party Leader)\n"
@@ -5142,12 +5142,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'party kick' (ไล่สมาชิกปาร์ตี้)ไม่สามารไล่สมาชิกปาร์ตี้ - สมาชิก %s "
 "ไม่มีอยู่\n"
 
-#: ../Commands.pm:4458
+#: ../Commands.pm:4459
 #, fuzzy
 msgid "Can't change party leader - you are already a party leader.\n"
 msgstr "ไม่สามารถตั้งปาร์ตี้ได้ เนื่องจากมีชื่อปาร์ตี้เดียวกันนี้อยู่แล้ว\n"
 
-#: ../Commands.pm:4464
+#: ../Commands.pm:4465
 #, fuzzy
 msgid ""
 "Syntax Error in function 'party' (Party Management)\n"
@@ -5157,17 +5157,17 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'party' (การจัดการปาร์ตี้) ผิดพลาด\n"
 "รูปแบบการใช้งาน: party [<create|join|request|leave|share|kick>]\n"
 
-#: ../Commands.pm:4475
+#: ../Commands.pm:4476
 #, fuzzy
 msgid "Your Pecopeco is active\n"
 msgstr "คุณขี่ Pecopeco อยู่"
 
-#: ../Commands.pm:4477
+#: ../Commands.pm:4478
 #, fuzzy
 msgid "Your Pecopeco is inactive\n"
 msgstr "คุณไม่ได้ขี่ Pecopeco อยู่"
 
-#: ../Commands.pm:4485
+#: ../Commands.pm:4486
 msgid ""
 "Error in function 'pecopeco release' (Remove Pecopeco Status)\n"
 "You don't possess a Pecopeco.\n"
@@ -5175,7 +5175,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'pecopeco release' (ลงจาก pecopeco)\n"
 "คุณไม่ได้ขี่ Pecopeco อยู่\n"
 
-#: ../Commands.pm:4504
+#: ../Commands.pm:4505
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'pet [capture|c]' (Capture Pet)\n"
@@ -5184,7 +5184,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'a' (โจมตีมอนสเตอร์)\n"
 "มอนสเตอร์ %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:4510
+#: ../Commands.pm:4511
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'pet [capture|c]' (Capture Pet)\n"
@@ -5193,7 +5193,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk text' (ตอบสนองต่อ NPC)\n"
 "คุณจะต้องระบุ ข้อความ\n"
 
-#: ../Commands.pm:4519
+#: ../Commands.pm:4520
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'pet [hatch|h] #' (Hatch Pet)\n"
@@ -5202,7 +5202,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'take' (เก็บไอเท็ม)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:4524
+#: ../Commands.pm:4525
 msgid ""
 "Error in function 'pet' (Pet Management)\n"
 "You don't have a pet.\n"
@@ -5210,34 +5210,34 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'pet' (การจัดการสัตว์เลี้ยง)\n"
 "คุณไม่มีสัตว์เลี้ยง\n"
 
-#: ../Commands.pm:4528
+#: ../Commands.pm:4529
 #, fuzzy
 msgid " Pet Status "
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:4529
+#: ../Commands.pm:4530
 #, perl-format
 msgid "Name: %-24s Renameable: %s\n"
 msgstr ""
 
-#: ../Commands.pm:4530
+#: ../Commands.pm:4531
 #, perl-format
 msgid "Type: %-24s Level: %s\n"
 msgstr ""
 
-#: ../Commands.pm:4531
+#: ../Commands.pm:4532
 #, perl-format
 msgid "Accessory: %-19s Hungry: %s\n"
 msgstr ""
 
-#: ../Commands.pm:4532
+#: ../Commands.pm:4533
 #, fuzzy, perl-format
 msgid "                               Friendly: %s\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:4557
+#: ../Commands.pm:4558
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'pet [emotion|e] <number>' (Emotion Pet)\n"
@@ -5246,34 +5246,34 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk text' (ตอบสนองต่อ NPC)\n"
 "คุณจะต้องระบุ ข้อความ\n"
 
-#: ../Commands.pm:4562
+#: ../Commands.pm:4563
 msgid ""
 "Usage: pet [capture <monster #> | hatch <item #> | status | info | feed | "
 "performance | return | unequip | name <name>] | emotion <number>\n"
 msgstr ""
 
-#: ../Commands.pm:4568
+#: ../Commands.pm:4569
 #, fuzzy
 msgid " Pet List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:4569
+#: ../Commands.pm:4570
 #, fuzzy
 msgid "#   Name                      Type             Distance  Coordinates\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:4591
+#: ../Commands.pm:4592
 #, fuzzy
 msgid " Guild Player List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:4592 ../Commands.pm:4627 ../Commands.pm:4740
+#: ../Commands.pm:4593 ../Commands.pm:4628 ../Commands.pm:4741
 #, fuzzy
 msgid ""
 "#    Name                                Sex   Lv   Job         Dist Coord\n"
@@ -5281,42 +5281,42 @@ msgstr ""
 "-----------รายการผู้เล่น-----------\n"
 "#    ชื่อ                                เพศ   Lv  อาชีพ         ระยะ  พิกัด\n"
 
-#: ../Commands.pm:4613
+#: ../Commands.pm:4614
 #, fuzzy, perl-format
 msgid "Total guild players: %s\n"
 msgstr "รวมความเสียหายที่ได้รับทั้งหมด: %s\n"
 
-#: ../Commands.pm:4615 ../Commands.pm:4650 ../Commands.pm:4755
+#: ../Commands.pm:4616 ../Commands.pm:4651 ../Commands.pm:4756
 #, fuzzy, perl-format
 msgid "Total players: %s \n"
 msgstr "รวมความเสียหายที่ได้รับทั้งหมด: %s\n"
 
-#: ../Commands.pm:4617 ../Commands.pm:4652 ../Commands.pm:4756
+#: ../Commands.pm:4618 ../Commands.pm:4653 ../Commands.pm:4757
 #, fuzzy
 msgid "There are no players near you.\n"
 msgstr "ยังไม่มีตัวละครใน ไอดี นี้\n"
 
-#: ../Commands.pm:4626
+#: ../Commands.pm:4627
 #, fuzzy
 msgid " Party Player List "
 msgstr "รวมความเสียหายที่ได้รับทั้งหมด: %s\n"
 
-#: ../Commands.pm:4648
+#: ../Commands.pm:4649
 #, fuzzy, perl-format
 msgid "Total party players: %s \n"
 msgstr "รวมความเสียหายที่ได้รับทั้งหมด: %s\n"
 
-#: ../Commands.pm:4662
+#: ../Commands.pm:4663
 #, perl-format
 msgid "Player \"%s\" does not exist.\n"
 msgstr "ผู้เล่น \"%s\" ไม่มีอยู่\n"
 
-#: ../Commands.pm:4695
+#: ../Commands.pm:4696
 #, fuzzy
 msgid " Player Info "
 msgstr "ได้ถูกห้ามกระซิบ\n"
 
-#: ../Commands.pm:4697
+#: ../Commands.pm:4698
 #, fuzzy, perl-format
 msgid ""
 "Account ID: %s (Hex: %s)\n"
@@ -5352,42 +5352,42 @@ msgstr ""
 "หัวส่วนล่าง: %-19s Hair color:      %-19s\n"
 "ความเร็วในการเดิน: %s วินาทีต่อช่อง\n"
 
-#: ../Commands.pm:4724
+#: ../Commands.pm:4725
 msgid "Player is dead.\n"
 msgstr "ผู้เล่นตาย\n"
 
-#: ../Commands.pm:4726
+#: ../Commands.pm:4727
 msgid "Player is sitting.\n"
 msgstr "ผู้เล่นกำลังนั่งอยู่\n"
 
-#: ../Commands.pm:4730
+#: ../Commands.pm:4731
 msgid "Player is facing towards you.\n"
 msgstr "ผู้เล่นกำลังจ้องมองมาทางคุณ\n"
 
-#: ../Commands.pm:4732
+#: ../Commands.pm:4733
 #, fuzzy, perl-format
 msgid ""
 "\n"
 "Statuses: %s \n"
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:4739
+#: ../Commands.pm:4740
 #, fuzzy
 msgid " Player List "
 msgstr "ผู้เล่นตาย\n"
 
-#: ../Commands.pm:4768
+#: ../Commands.pm:4769
 msgid " Currently loaded plugins "
 msgstr ""
 
-#: ../Commands.pm:4769
+#: ../Commands.pm:4770
 #, fuzzy
 msgid "#   Name                 Description\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:4788
+#: ../Commands.pm:4789
 msgid ""
 "Syntax Error in function 'plugin reload' (Reload Plugin)\n"
 "Usage: plugin reload <plugin name|plugin number#|\"all\">\n"
@@ -5395,7 +5395,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'plugin reload' (เริ่มการทำงาน Plugin ใหม่) ผิดพลาด\n"
 "รูปแบบการใช้งาน: plugin reload <plugin name|plugin number#|\"all\">\n"
 
-#: ../Commands.pm:4801
+#: ../Commands.pm:4802
 msgid ""
 "Syntax Error in function 'plugin load' (Load Plugin)\n"
 "Usage: plugin load <filename|\"all\">\n"
@@ -5403,7 +5403,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'plugin load' (โหลด Plugin) ผิดพลาด\n"
 "รูปแบบการใช้งาน: plugin load <filename|\"all\">\n"
 
-#: ../Commands.pm:4815
+#: ../Commands.pm:4816
 msgid ""
 "Syntax Error in function 'plugin unload' (Unload Plugin)\n"
 "Usage: plugin unload <plugin name|plugin number#|\"all\">\n"
@@ -5411,19 +5411,19 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'plugin unload' (เอา Plugin ออก) ผิดพลาด\n"
 "รูปแบบการใช้งาน: plugin unload <plugin name|plugin number#|\"all\">\n"
 
-#: ../Commands.pm:4821
+#: ../Commands.pm:4822
 #, fuzzy
 msgid "All plugins have been unloaded.\n"
 msgstr "รายการขายได้ถูกลบแล้ว\n"
 
-#: ../Commands.pm:4829
+#: ../Commands.pm:4830
 #, fuzzy
 msgid " Plugin command syntax "
 msgstr ""
 "ปลั๊กอินมีรูปแบบภาษาที่ผิดพลาดอยู่\n"
 "%s"
 
-#: ../Commands.pm:4830
+#: ../Commands.pm:4831
 #, fuzzy
 msgid ""
 "Command:                                              Description:\n"
@@ -5444,45 +5444,45 @@ msgstr ""
 "ใหม่\n"
 "-----------------------------------------------------\n"
 
-#: ../Commands.pm:4839
+#: ../Commands.pm:4840
 msgid "Syntax Error in function 'plugin' (Control Plugins)\n"
 msgstr "รูปแบบการใช้ฟังก์ชั่น 'plugin' (ควบคุม Plugin) ผิดพลาด\n"
 
-#: ../Commands.pm:4846
+#: ../Commands.pm:4847
 #, fuzzy
 msgid " PM List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:4860
+#: ../Commands.pm:4861
 #, fuzzy
 msgid " Portal List "
 msgstr "ไม่มี portal อยู่เลย\n"
 
-#: ../Commands.pm:4861
+#: ../Commands.pm:4862
 #, fuzzy
 msgid "#    Name                                Coordinates\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:4886
+#: ../Commands.pm:4887
 #, fuzzy, perl-format
 msgid "Files '%s' or '%s' does not exist.\n"
 msgstr "ไฟล์ %s ไม่มีอยู่"
 
-#: ../Commands.pm:4890
+#: ../Commands.pm:4891
 #, perl-format
 msgid "Recorded new portal (destination): %s (%s, %s) -> %s (%s, %s) [%s]\n"
 msgstr ""
 
-#: ../Commands.pm:4897
+#: ../Commands.pm:4898
 #, fuzzy, perl-format
 msgid "Recorded new portal (destination): %s (%s, %s) -> %s (%s, %s)\n"
 msgstr "Portal ได้ปรากฎขึ้น: %s (%s, %s) - (%s)\n"
 
-#: ../Commands.pm:4905
+#: ../Commands.pm:4906
 #, fuzzy
 msgid ""
 "Syntax Error in function 'portals' (List portals)\n"
@@ -5491,7 +5491,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'nl' (แสดงรายการ NPC) ผิดพลาด\n"
 "รูปแบบการใช้งาน: nl [<npc #>]\n"
 
-#: ../Commands.pm:4919
+#: ../Commands.pm:4920
 msgid ""
 "Syntax Error in function 'pm' (Private Message)\n"
 "Usage: pm (username) (message)\n"
@@ -5501,7 +5501,7 @@ msgstr ""
 "รูปแบบการใช้งาน: pm (username) (message)\n"
 "       pm (<#>) (message)\n"
 
-#: ../Commands.pm:4925
+#: ../Commands.pm:4926
 #, perl-format
 msgid ""
 "Error in function 'pm' (Private Message)\n"
@@ -5510,7 +5510,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'pm' (กระซิบ)\n"
 "%s ไม่มีอยู่\n"
 
-#: ../Commands.pm:4928
+#: ../Commands.pm:4929
 msgid ""
 "Error in function 'pm' (Private Message)\n"
 "You have not pm-ed anyone before\n"
@@ -5518,7 +5518,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'pm' (กระซิบ)\n"
 "คุณยังไม่เคยกระซิบใครมาก่อน\n"
 
-#: ../Commands.pm:4957
+#: ../Commands.pm:4958
 msgid ""
 "Syntax Error in function 'reload' (Reload Configuration Files)\n"
 "Usage: reload <name|\"all\">\n"
@@ -5526,11 +5526,11 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'reload' (โหลดไฟล์ Config ใหม่) ผิดพลาด\n"
 "รูปแบบการใช้งาน: reload <name|\"all\">\n"
 
-#: ../Commands.pm:4995
+#: ../Commands.pm:4996
 msgid "Invalid range in function 'relog'\n"
 msgstr ""
 
-#: ../Commands.pm:5002
+#: ../Commands.pm:5003
 msgid ""
 "Syntax Error in function 'relog' (Log out then log in.)\n"
 "Usage: relog [delay]\n"
@@ -5538,41 +5538,41 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'relog' (ล๊อกอินใหม่) ผิดพลาด\n"
 "รูปแบบการใช้งาน: relog [delay]\n"
 
-#: ../Commands.pm:5014
+#: ../Commands.pm:5015
 #, fuzzy
 msgid "'Repair List' is empty.\n"
 msgstr "รายการขายของคุณว่างเปล่า\n"
 
-#: ../Commands.pm:5017 ../Network/Receive.pm:11227
+#: ../Commands.pm:5018 ../Network/Receive.pm:11227
 #, fuzzy
 msgid " Repair List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:5018 ../Network/Receive.pm:11228
+#: ../Commands.pm:5019 ../Network/Receive.pm:11228
 #, fuzzy
 msgid "   # Short name                     Full name\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:5030
+#: ../Commands.pm:5031
 #, fuzzy, perl-format
 msgid "Attempting to repair item: %s (%d)\n"
 msgstr "ออกจากกิล: %s\n"
 
-#: ../Commands.pm:5033
+#: ../Commands.pm:5034
 #, fuzzy, perl-format
 msgid "Item with index: %s does either not exist in the 'Repair List'.\n"
 msgstr "สกิล %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5037
+#: ../Commands.pm:5038
 #, fuzzy
 msgid "Cancel repair item.\n"
 msgstr "ยกเลิกการรวมการ์ด\n"
 
-#: ../Commands.pm:5044
+#: ../Commands.pm:5045
 #, fuzzy
 msgid ""
 "Syntax Error in function 'repair' (Repair player's items)\n"
@@ -5583,50 +5583,50 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'repair' (ซ่อมไอเท็ม) ผิดพลาด\n"
 "รูปแบบการใช้งาน: repair [item number]\n"
 
-#: ../Commands.pm:5055
+#: ../Commands.pm:5056
 #, fuzzy
 msgid "Reputation Status"
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:5058 ../Network/Receive.pm:7995
+#: ../Commands.pm:5059 ../Network/Receive.pm:7995
 msgid "Type"
 msgstr ""
 
-#: ../Commands.pm:5058 ../Network/Receive.pm:7995
+#: ../Commands.pm:5059 ../Network/Receive.pm:7995
 msgid "Name"
 msgstr ""
 
-#: ../Commands.pm:5058
+#: ../Commands.pm:5059
 msgid "Lvl"
 msgstr ""
 
-#: ../Commands.pm:5058
+#: ../Commands.pm:5059
 msgid "Points"
 msgstr ""
 
-#: ../Commands.pm:5095
+#: ../Commands.pm:5096
 msgid "Your sell list is empty.\n"
 msgstr "รายการขายของคุณว่างเปล่า\n"
 
-#: ../Commands.pm:5097
+#: ../Commands.pm:5098
 #, fuzzy
 msgid " Sell List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:5098
+#: ../Commands.pm:5099
 #, fuzzy
 msgid "#   Item                           Amount\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:5111
+#: ../Commands.pm:5112
 msgid "Sell list has been cleared.\n"
 msgstr "รายการขายได้ถูกลบแล้ว\n"
 
-#: ../Commands.pm:5114
+#: ../Commands.pm:5115
 msgid ""
 "Syntax Error in function 'sell' (Sell Inventory Item)\n"
 "Usage: sell <inventory item index #> [<amount>]\n"
@@ -5640,21 +5640,21 @@ msgstr ""
 "       sell done\n"
 "       sell cancel\n"
 
-#: ../Commands.pm:5127
+#: ../Commands.pm:5128
 #, perl-format
 msgid "%s (%s) is already in the sell list.\n"
 msgstr "%s (%s) อยู่ในรายการขายไอเท็มอยู่แล้ว\n"
 
-#: ../Commands.pm:5141
+#: ../Commands.pm:5142
 #, perl-format
 msgid "Added to sell list: %s (%s) x %s\n"
 msgstr "เพิ่มเข้าในรายการขาย: %s (%s) x %s\n"
 
-#: ../Commands.pm:5143
+#: ../Commands.pm:5144
 msgid "Type 'sell done' to sell everything in your sell list.\n"
 msgstr "ป้อน 'sell done' เพื่อขายของที่อยู่ในรายการขายไอเท็ม\n"
 
-#: ../Commands.pm:5146
+#: ../Commands.pm:5147
 #, perl-format
 msgid ""
 "Error in function 'sell' (Sell Inventory Item)\n"
@@ -5663,16 +5663,16 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'sell' (ขายไอเท็มในตัว)\n"
 "'%s' ไม่ใช่หมายเลขที่ใช้ได้; ไม่มีไอเท็มใดถูเพิ่มในรายการขายไอเท็ม\n"
 
-#: ../Commands.pm:5155
+#: ../Commands.pm:5156
 #, perl-format
 msgid "You must be connected to the server to use this command (%s)\n"
 msgstr ""
 
-#: ../Commands.pm:5164
+#: ../Commands.pm:5165
 msgid "You do not have a shop open.\n"
 msgstr "คุณไม่มีร้านให้เปิด\n"
 
-#: ../Commands.pm:5170
+#: ../Commands.pm:5171
 #, fuzzy
 msgid ""
 "#  Name                                       Type                     Price "
@@ -5681,7 +5681,7 @@ msgstr ""
 "%s\n"
 "#  ชื่อ                                       ชนิด           จำนวน       ราคา\n"
 
-#: ../Commands.pm:5181
+#: ../Commands.pm:5182
 #, fuzzy, perl-format
 msgid ""
 "You have earned: %sz.\n"
@@ -5695,12 +5695,12 @@ msgstr ""
 "zeny สูงสุดที่จะได้รับ:  %sz.\n"
 "zeny สูงสุดที่จะมีได้:    %sz.\n"
 
-#: ../Commands.pm:5193
+#: ../Commands.pm:5194
 #, fuzzy
 msgid "You do not have a buying shop open.\n"
 msgstr "คุณไม่มีร้านให้เปิด\n"
 
-#: ../Commands.pm:5199 ../Network/Receive.pm:3907 ../Network/Receive.pm:9734
+#: ../Commands.pm:5200 ../Network/Receive.pm:3907 ../Network/Receive.pm:9734
 #, fuzzy
 msgid ""
 "#  Name                                       Type                     Price "
@@ -5709,14 +5709,14 @@ msgstr ""
 "%s\n"
 "#  ชื่อ                                       ชนิด           จำนวน       ราคา\n"
 
-#: ../Commands.pm:5217
+#: ../Commands.pm:5218
 #, fuzzy
 msgid ""
 "Basic Skill level 3 or New Basic Skill (Doram) is required in order to sit "
 "or stand."
 msgstr "ต้องการ Basic Skill level 3 ในการนั่ง"
 
-#: ../Commands.pm:5241
+#: ../Commands.pm:5242
 #, fuzzy
 msgid ""
 "Syntax Error in function 'skills' (Skills Functions)\n"
@@ -5725,21 +5725,21 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'skills desc' (แสดงรายละเอียดสกิล)\n"
 "สกิล %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5245
+#: ../Commands.pm:5246
 #, fuzzy
 msgid " Skill List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:5246
+#: ../Commands.pm:5247
 #, fuzzy
 msgid "   # Skill Name                          Lv      SP\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:5265
+#: ../Commands.pm:5266
 #, perl-format
 msgid ""
 "Error in function 'skills add' (Add Skill Point)\n"
@@ -5748,7 +5748,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'skills add' (เพิ่มเลเวลสกิล)\n"
 "สกิล %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5268
+#: ../Commands.pm:5269
 #, perl-format
 msgid ""
 "Error in function 'skills add' (Add Skill Point)\n"
@@ -5757,7 +5757,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'skills add' (เพิ่มเลเวลสกิล)\n"
 "skill point ไม่พอที่จะอัพสกิล %s\n"
 
-#: ../Commands.pm:5271
+#: ../Commands.pm:5272
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'skills add' (Add Skill Point)\n"
@@ -5766,7 +5766,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'skills add' (เพิ่มเลเวลสกิล)\n"
 "สกิล %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5280
+#: ../Commands.pm:5281
 #, perl-format
 msgid ""
 "Error in function 'skills desc' (Skill Description)\n"
@@ -5775,7 +5775,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'skills desc' (แสดงรายละเอียดสกิล)\n"
 "สกิล %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5285
+#: ../Commands.pm:5286
 #, fuzzy, perl-format
 msgid ""
 "Skill: %s\n"
@@ -5784,7 +5784,7 @@ msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:5291
+#: ../Commands.pm:5292
 msgid ""
 "Syntax Error in function 'skills' (Skills Functions)\n"
 "Usage: skills [<add | desc>] [<skill #>]\n"
@@ -5792,14 +5792,14 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'skills' (การจัดการสกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: skills [<add | desc>] [<skill #>]\n"
 
-#: ../Commands.pm:5298
+#: ../Commands.pm:5299
 #, fuzzy
 msgid " Slave List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:5299
+#: ../Commands.pm:5300
 #, fuzzy
 msgid ""
 "#   Name                                   Type         Distance    "
@@ -5808,18 +5808,18 @@ msgstr ""
 "-----------รายการผู้เล่น-----------\n"
 "#    ชื่อ                                เพศ   Lv  อาชีพ         ระยะ  พิกัด\n"
 
-#: ../Commands.pm:5318
+#: ../Commands.pm:5319
 msgid " Area Effects List "
 msgstr ""
 
-#: ../Commands.pm:5319
+#: ../Commands.pm:5320
 #, fuzzy
 msgid "  # Type                 Source                   X   Y  Range lvl\n"
 msgstr ""
 "-----------รายการพื้นที่ๆมีผลของสกิล-----------\n"
 "  # ชนิด                 ผู้กระทำ                   X   Y\n"
 
-#: ../Commands.pm:5348
+#: ../Commands.pm:5349
 #, fuzzy
 msgid ""
 "Syntax Error in function 'starplace' (starplace agree)\n"
@@ -5828,16 +5828,16 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild create' (สร้างกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild create <name>\n"
 
-#: ../Commands.pm:5380
+#: ../Commands.pm:5381
 #, fuzzy
 msgid "Character stats information not yet available.\n"
 msgstr "ไม่มีของในรถเข็น\n"
 
-#: ../Commands.pm:5388
+#: ../Commands.pm:5389
 msgid "You must be logged in the game to use this command 'st add'\n"
 msgstr ""
 
-#: ../Commands.pm:5393
+#: ../Commands.pm:5394
 #, fuzzy
 msgid ""
 "Syntax Error in function 'st add' (Add Status Point)\n"
@@ -5846,7 +5846,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'stat_add' (เพิ่มค่า Status) ผิดพลาด\n"
 "รูปแบบการใช้งาน: stat_add <str | agi | vit | int | dex | luk>\n"
 
-#: ../Commands.pm:5397
+#: ../Commands.pm:5398
 #, fuzzy
 msgid ""
 "Error in function 'st add' (Add Status Point)\n"
@@ -5855,7 +5855,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'stat_add' (เพิ่มค่า Status)\n"
 "คุณไม่สามารถเพิ่ม stat points เกิน 99 ได้\n"
 
-#: ../Commands.pm:5401
+#: ../Commands.pm:5402
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'st add' (Add Status Point)\n"
@@ -5864,16 +5864,16 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'stat_add' (เพิ่มค่า Status)\n"
 "มี status point ไม่พอที่จะอัพ to increase %s\n"
 
-#: ../Commands.pm:5424 ../Misc.pm:2236
+#: ../Commands.pm:5425 ../Misc.pm:2236
 msgid "None"
 msgstr "ไม่มี"
 
-#: ../Commands.pm:5425
+#: ../Commands.pm:5426
 #, fuzzy
 msgid " Char Stats "
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:5427
+#: ../Commands.pm:5428
 #, fuzzy, perl-format
 msgid ""
 "Str: @<<+@<< #@< Atk:  @<<+@<< Def:  @<<+@<<\n"
@@ -5898,12 +5898,12 @@ msgstr ""
 "Walk speed: %.2f secs per block\n"
 "--------------------------------"
 
-#: ../Commands.pm:5444
+#: ../Commands.pm:5445
 #, fuzzy
 msgid "Trait Stats"
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:5446
+#: ../Commands.pm:5447
 msgid ""
 "Pow: @<<<   #@<< P.Atk:    @<<<   Res:    @<<<\n"
 "Sta: @<<<   #@<< S.Matk:   @<<<   Mres:   @<<<\n"
@@ -5913,21 +5913,21 @@ msgid ""
 "Crt: @<<<   #@<<"
 msgstr ""
 
-#: ../Commands.pm:5460 ../Network/Receive.pm:2595
+#: ../Commands.pm:5461 ../Network/Receive.pm:2595
 msgid "You are sitting.\n"
 msgstr "คุณกำลังนั่งอยู่\n"
 
-#: ../Commands.pm:5471
+#: ../Commands.pm:5472
 #, fuzzy
 msgid "Character status information not yet available.\n"
 msgstr "ไม่มีของในรถเข็น\n"
 
-#: ../Commands.pm:5521
+#: ../Commands.pm:5522
 #, fuzzy
 msgid " Status "
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:5523
+#: ../Commands.pm:5524
 #, fuzzy, perl-format
 msgid ""
 "@<<<<<<<<<<<<<<<<<<<<<<<         HP: @>>>>>>>>>>>>>>>>>>\n"
@@ -5956,16 +5956,16 @@ msgstr ""
 "ใช้เวลากำจัดมอนสเตอร์ตัวล่าสุด (วินาที): @>>>>>>>\n"
 "--------------------------------------------------------"
 
-#: ../Commands.pm:5538
+#: ../Commands.pm:5539
 #, fuzzy, perl-format
 msgid "Statuses: %s\n"
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:5575
+#: ../Commands.pm:5576
 msgid "Cannot get/add/close storage because storage is not opened\n"
 msgstr ""
 
-#: ../Commands.pm:5578
+#: ../Commands.pm:5579
 #, fuzzy
 msgid ""
 "Syntax Error in function 'storage' (Storage Functions)\n"
@@ -5988,12 +5988,12 @@ msgstr ""
 "       storage desc <storage_item_#>\n"
 "       storage log"
 
-#: ../Commands.pm:5589
+#: ../Commands.pm:5590
 msgid ""
 "No information about storage; it has not been opened before in this session\n"
 msgstr "ไม่มีข้อมูลคลังเก็บของ เนื่องจากยังไม่เคยเปิดคลังเก็บของในการเชื่อมต่อครั้งนี้\n"
 
-#: ../Commands.pm:5609 ../Commands.pm:5638
+#: ../Commands.pm:5610 ../Commands.pm:5639
 #, fuzzy
 msgid ""
 "Error in function 'storage_gettocart' (Cart Management)\n"
@@ -6002,12 +6002,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'cart' (การจัดการรถเข็น)\n"
 "คุณไม่มีรถเข็น\n"
 
-#: ../Commands.pm:5627 ../Commands.pm:5644
+#: ../Commands.pm:5628 ../Commands.pm:5645
 #, fuzzy, perl-format
 msgid "Storage item '%s' does not exist.\n"
 msgstr "ไอเท็ม '%s' ไม่มีอยู่ในคลังเก็บของ\n"
 
-#: ../Commands.pm:5663
+#: ../Commands.pm:5664
 #, perl-format
 msgid ""
 "Error in function 'storage desc' (Show Storage Item Description)\n"
@@ -6016,19 +6016,19 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'storage desc' (แสดงรายละเอียดไอเท็มในคลังเก็บของ)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5676
+#: ../Commands.pm:5677
 #, perl-format
 msgid " Store List (%s) "
 msgstr ""
 
-#: ../Commands.pm:5677
+#: ../Commands.pm:5678
 #, fuzzy
 msgid "#  Name                    Type                       Price   Amount\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:5692
+#: ../Commands.pm:5693
 #, perl-format
 msgid ""
 "Error in function 'store desc' (Store Item Description)\n"
@@ -6037,7 +6037,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'store desc' (รายละเอียดไอเท็มจากร้านค้า)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5698
+#: ../Commands.pm:5699
 msgid ""
 "Syntax Error in function 'store' (Store Functions)\n"
 "Usage: store [<desc>] [<store item #>]\n"
@@ -6045,7 +6045,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'store' (จัดการร้านค้า) ผิดพลาด\n"
 "รูปแบบการใช้งาน: store [<desc>] [<store item #>]\n"
 
-#: ../Commands.pm:5706
+#: ../Commands.pm:5707
 msgid ""
 "Syntax Error in function 'switchconf' (Switch Configuration File)\n"
 "Usage: switchconf <filename>\n"
@@ -6053,7 +6053,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'switchconf' (เปลี่ยน Configuration File) ผิดพลาด\n"
 "รูปแบบการใช้งาน: switchconf <filename>\n"
 
-#: ../Commands.pm:5709
+#: ../Commands.pm:5710
 #, perl-format
 msgid ""
 "Syntax Error in function 'switchconf' (Switch Configuration File)\n"
@@ -6062,12 +6062,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'switchconf' (เปลี่ยน Configuration File) ผิดพลาด\n"
 "ไฟล์ %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5713
+#: ../Commands.pm:5714
 #, perl-format
 msgid "Switched config file to \"%s\".\n"
 msgstr "เปลี่ยนไฟล์ config เป็น \"%s\"\n"
 
-#: ../Commands.pm:5729
+#: ../Commands.pm:5730
 msgid ""
 "Syntax Error in function 'take' (Take Item)\n"
 "Usage: take <item #>\n"
@@ -6075,7 +6075,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'take' (เก็บไอเท็ม) ผิดพลาด\n"
 "รูปแบบการใช้งาน: take <item #>\n"
 
-#: ../Commands.pm:5732
+#: ../Commands.pm:5733
 msgid ""
 "Error in function 'take first' (Take Item)\n"
 "There are no items near.\n"
@@ -6083,7 +6083,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'take first' (เก็บไอเท็ม)\n"
 "ไม่มีไอเท็มตกอยู่ใกล้ๆ\n"
 
-#: ../Commands.pm:5738
+#: ../Commands.pm:5739
 #, perl-format
 msgid ""
 "Error in function 'take' (Take Item)\n"
@@ -6092,7 +6092,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'take' (เก็บไอเท็ม)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5754
+#: ../Commands.pm:5755
 msgid ""
 "Error in function 'talk resp' (Respond to NPC)\n"
 "No NPC response list available.\n"
@@ -6100,15 +6100,15 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk resp' (ตอบสนองต่อ NPC)\n"
 "ไม่มีรายการตอบสนองสำหรับ NPC\n"
 
-#: ../Commands.pm:5759
+#: ../Commands.pm:5760
 msgid " Responses ("
 msgstr ""
 
-#: ../Commands.pm:5760
+#: ../Commands.pm:5761
 msgid "#  Response\n"
 msgstr ""
 
-#: ../Commands.pm:5775 ../Commands.pm:5882
+#: ../Commands.pm:5776 ../Commands.pm:5883
 #, fuzzy
 msgid ""
 "Syntax Error in function 'talk' (Talk to NPC)\n"
@@ -6118,7 +6118,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'talk' (คุยกับ NPC) ผิดพลาด\n"
 "รูปแบบการใช้งาน: talk <NPC # | cont | resp | num> [<response #>|<number #>]\n"
 
-#: ../Commands.pm:5836
+#: ../Commands.pm:5837
 #, fuzzy
 msgid ""
 "Error in function 'talk resp' (Respond to NPC)\n"
@@ -6127,7 +6127,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk text' (ตอบสนองต่อ NPC)\n"
 "คุณจะต้องระบุ ข้อความ\n"
 
-#: ../Commands.pm:5841
+#: ../Commands.pm:5842
 #, fuzzy
 msgid ""
 "Error in function 'talk resp' (Respond to NPC)\n"
@@ -6136,7 +6136,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk resp' (ตอบสนองต่อ NPC)\n"
 "ตัวเลือก %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5848
+#: ../Commands.pm:5849
 msgid ""
 "Error in function 'talk num' (Respond to NPC)\n"
 "You must specify a number.\n"
@@ -6144,7 +6144,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk num' (ตอบสนองต่อ NPC)\n"
 "คุณจะต้องระบุตัวเลข\n"
 
-#: ../Commands.pm:5853
+#: ../Commands.pm:5854
 #, perl-format
 msgid ""
 "Error in function 'talk num' (Respond to NPC)\n"
@@ -6153,7 +6153,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk num' (ตอบสนองต่อ NPC)\n"
 "%s ไม่ใช่หมายเลขที่ใช้ได้\n"
 
-#: ../Commands.pm:5863
+#: ../Commands.pm:5864
 msgid ""
 "Error in function 'talk text' (Respond to NPC)\n"
 "You must specify a string.\n"
@@ -6161,7 +6161,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'talk text' (ตอบสนองต่อ NPC)\n"
 "คุณจะต้องระบุ ข้อความ\n"
 
-#: ../Commands.pm:5906
+#: ../Commands.pm:5907
 msgid ""
 "Syntax Error in function 'talknpc' (Talk to an NPC)\n"
 "Usage: talknpc <x> <y> <sequence>\n"
@@ -6169,12 +6169,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'talknpc' (คุยกับ NPC) ผิดพลาด\n"
 "รูปแบบการใช้งาน: talknpc <x> <y> <sequence>\n"
 
-#: ../Commands.pm:5911
+#: ../Commands.pm:5912
 #, perl-format
 msgid "Talking to NPC at (%d, %d) using sequence: %s\n"
 msgstr "คุยกับ NPC ที่พิกัด (%d, %d) โดยใช้ลำดับการคุย: %s\n"
 
-#: ../Commands.pm:5920
+#: ../Commands.pm:5921
 #, fuzzy
 msgid ""
 "Syntax Error in function 'tank' (Tank for a Player/Slave)\n"
@@ -6183,7 +6183,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'tank' (แทงค์ให้กับผู้เล่น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: tank <player #|player name>\n"
 
-#: ../Commands.pm:5928
+#: ../Commands.pm:5929
 #, perl-format
 msgid ""
 "Error in function 'tank' (Tank for a Player)\n"
@@ -6192,7 +6192,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'tank' (แทงค์ให้กับผู้เล่น)\n"
 "ผู้เล่น %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5952
+#: ../Commands.pm:5953
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'tank' (Tank for a Player/Slave)\n"
@@ -6201,19 +6201,19 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'tank' (แทงค์ให้กับผู้เล่น)\n"
 "ผู้เล่น %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5977
+#: ../Commands.pm:5978
 #, fuzzy
 msgid "Name                                                    Price  Amount\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:5982
+#: ../Commands.pm:5983
 #, perl-format
 msgid "Total of %d items to sell.\n"
 msgstr "รวมทั้งหมด %d ไอเท็มที่จะขาย\n"
 
-#: ../Commands.pm:5992
+#: ../Commands.pm:5993
 msgid ""
 "Syntax Error in function 'timeout' (set a timeout)\n"
 "Usage: timeout <type> [<seconds>]\n"
@@ -6221,7 +6221,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'timeout' (ตั้งค่า timeout) ผิดพลาด\n"
 "รูปแบบการใช้งาน: timeout <type> [<seconds>]\n"
 
-#: ../Commands.pm:5995
+#: ../Commands.pm:5996
 #, perl-format
 msgid ""
 "Error in function 'timeout' (set a timeout)\n"
@@ -6230,12 +6230,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'timeout' (ตั้งค่า timeout)\n"
 "Timeout %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:5998
+#: ../Commands.pm:5999
 #, perl-format
 msgid "Timeout '%s' is %s\n"
 msgstr "Timeout '%s' คือ %s\n"
 
-#: ../Commands.pm:6014
+#: ../Commands.pm:6015
 msgid ""
 "Function 'top10' (Show Top 10 Lists)\n"
 "Usage: top10 <b|a|t|p> | <black|alche|tk|pk> | <blacksmith|alchemist|taekwon|"
@@ -6245,7 +6245,7 @@ msgstr ""
 "รูปแบบการใช้งาน: top10 <b|a|t|p> | <black|alche|tk|pk> | <blacksmith|alchemist|"
 "taekwon|pvp>\n"
 
-#: ../Commands.pm:6025
+#: ../Commands.pm:6026
 msgid ""
 "Syntax Error in function 'top10' (Show Top 10 Lists)\n"
 "Usage: top10 <b|a|t|p> |\n"
@@ -6257,21 +6257,21 @@ msgstr ""
 "             <black|alche|tk|pk> |\n"
 "             <blacksmith|alchemist|taekwon|pvp>\n"
 
-#: ../Commands.pm:6093 ../Commands.pm:6144
+#: ../Commands.pm:6094 ../Commands.pm:6145
 msgid "undefined"
 msgstr ""
 
-#: ../Commands.pm:6094 ../Commands.pm:6145 ../Actor/Item.pm:512
+#: ../Commands.pm:6095 ../Commands.pm:6146 ../Actor/Item.pm:512
 #, perl-format
 msgid "No such equipped Inventory Item: %s in slot: %s\n"
 msgstr ""
 
-#: ../Commands.pm:6099 ../Commands.pm:6150
+#: ../Commands.pm:6100 ../Commands.pm:6151
 #, fuzzy, perl-format
 msgid "Inventory Item %s (%s) can't be unequipped.\n"
 msgstr "ไอเท็ม %s (%s) ไม่สามารถสวมใส่ได้\n"
 
-#: ../Commands.pm:6168
+#: ../Commands.pm:6169
 msgid ""
 "Syntax Error in function 'im' (Use Item on Monster)\n"
 "Usage: im <item #> <monster #>\n"
@@ -6279,7 +6279,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'im' (ใช้ไอเท็มกับมอนสเตอร์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: im <item #> <monster #>\n"
 
-#: ../Commands.pm:6171
+#: ../Commands.pm:6172
 #, perl-format
 msgid ""
 "Error in function 'im' (Use Item on Monster)\n"
@@ -6288,7 +6288,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'im' (ใช้ไอเท็มกับมอนสเตอร์)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6174
+#: ../Commands.pm:6175
 #, perl-format
 msgid ""
 "Error in function 'im' (Use Item on Monster)\n"
@@ -6297,7 +6297,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'im' (ใช้ไอเท็มกับมอนสเตอร์)\n"
 "มอนสเตอร์ %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6190
+#: ../Commands.pm:6191
 msgid ""
 "Syntax Error in function 'ip' (Use Item on Player)\n"
 "Usage: ip <item #> <player #>\n"
@@ -6305,7 +6305,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'ip' (ใช้ไอเท็มกับผู้เล่นอื่น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: ip <item #> <player #>\n"
 
-#: ../Commands.pm:6193
+#: ../Commands.pm:6194
 #, perl-format
 msgid ""
 "Error in function 'ip' (Use Item on Player)\n"
@@ -6314,7 +6314,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'ip' (ใช้ไอเท็มกับผู้เล่นอื่น)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6196
+#: ../Commands.pm:6197
 #, perl-format
 msgid ""
 "Error in function 'ip' (Use Item on Player)\n"
@@ -6323,7 +6323,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'ip' (ใช้ไอเท็มกับผู้เล่นอื่น)\n"
 "ผู้เล่น %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6210
+#: ../Commands.pm:6211
 msgid ""
 "Syntax Error in function 'is' (Use Item on Yourself)\n"
 "Usage: is <item>\n"
@@ -6331,7 +6331,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'is' (ใช้ไอเท็มกับตัวคุณเอง) ผิดพลาด\n"
 "รูปแบบการใช้งาน: is <item>\n"
 
-#: ../Commands.pm:6216
+#: ../Commands.pm:6217
 #, perl-format
 msgid ""
 "Error in function 'is' (Use Item on Yourself)\n"
@@ -6340,7 +6340,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'is' (ใช้ไอเท็มกับตัวคุณเอง)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6247
+#: ../Commands.pm:6248
 #, fuzzy
 msgid ""
 "Syntax error in function 'sl' (Use Skill on Location)\n"
@@ -6349,7 +6349,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'sl' (ใช้สกิลไปยังพื้น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: sl <skill #> <x> <y> [level]\n"
 
-#: ../Commands.pm:6251
+#: ../Commands.pm:6252
 msgid ""
 "Error in function 'sl' (Use Skill on Location)\n"
 "Invalid coordinates given.\n"
@@ -6357,7 +6357,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น  'sl' (ใช้สกิลไปยังพื้น) ผิดพลาด\n"
 "พื้นที่ที่ให้มาไม่สามารถใช้สกิลได้\n"
 
-#: ../Commands.pm:6266
+#: ../Commands.pm:6267
 #, fuzzy
 msgid ""
 "Syntax error in function 'ss start' (Start Use Skill on Self)\n"
@@ -6366,16 +6366,16 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'ss' (ใช้สกิลกับตัวเอง) ผิดพลาด\n"
 "รูปแบบการใช้งาน: ss <skill #> [level]\n"
 
-#: ../Commands.pm:6275
+#: ../Commands.pm:6276
 msgid "Skill Stop failed (continuous skills not detected)\n"
 msgstr ""
 
-#: ../Commands.pm:6278
+#: ../Commands.pm:6279
 #, fuzzy
 msgid "Sending Skill Stop\n"
 msgstr "ออกจากกิล: %s\n"
 
-#: ../Commands.pm:6282
+#: ../Commands.pm:6283
 msgid ""
 "Syntax error in function 'ss' (Use Skill on Self)\n"
 "Usage: ss <skill #> [level]\n"
@@ -6383,7 +6383,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'ss' (ใช้สกิลกับตัวเอง) ผิดพลาด\n"
 "รูปแบบการใช้งาน: ss <skill #> [level]\n"
 
-#: ../Commands.pm:6292
+#: ../Commands.pm:6293
 msgid ""
 "Syntax error in function 'sp' (Use Skill on Player)\n"
 "Usage: sp <skill #> <player #> [level]\n"
@@ -6391,7 +6391,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'sp' (ใช้สกิลกับผู้เล่น) ผิดพลาด\n"
 "Usage: sp <skill #> <player #> [level]\n"
 
-#: ../Commands.pm:6298
+#: ../Commands.pm:6299
 #, perl-format
 msgid ""
 "Error in function 'sp' (Use Skill on Player)\n"
@@ -6400,7 +6400,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'sp' (ใช้สกิลกับผู้เล่น)\n"
 "ผู้เล่น '%s' ไม่มีอยู่\n"
 
-#: ../Commands.pm:6308
+#: ../Commands.pm:6309
 msgid ""
 "Syntax error in function 'sm' (Use Skill on Monster)\n"
 "Usage: sm <skill #> <monster #> [level]\n"
@@ -6408,7 +6408,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'sm' (ใช้สกิลกับมอนสเตอร์) ผิดพลาด\n"
 "รูปแบบการใช้งาน:  sm <skill #> <monster #> [level]\n"
 
-#: ../Commands.pm:6314
+#: ../Commands.pm:6315
 #, perl-format
 msgid ""
 "Error in function 'sm' (Use Skill on Monster)\n"
@@ -6417,7 +6417,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'sm' (ใช้สกิลกับมอนสเตอร์)\n"
 "มอนสเตอร์ %d ไม่มีอยู่\n"
 
-#: ../Commands.pm:6324
+#: ../Commands.pm:6325
 #, fuzzy
 msgid ""
 "Syntax error in function 'ssl' (Use Skill on Slave)\n"
@@ -6426,7 +6426,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'sp' (ใช้สกิลกับผู้เล่น) ผิดพลาด\n"
 "Usage: sp <skill #> <player #> [level]\n"
 
-#: ../Commands.pm:6330
+#: ../Commands.pm:6331
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'ssl' (Use Skill on Slave)\n"
@@ -6435,7 +6435,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'sp' (ใช้สกิลกับผู้เล่น)\n"
 "ผู้เล่น '%s' ไม่มีอยู่\n"
 
-#: ../Commands.pm:6340
+#: ../Commands.pm:6341
 msgid ""
 "Syntax error in function 'ssp' (Use Skill on Area Spell Location)\n"
 "Usage: ssp <skill #> <spell #> [level]\n"
@@ -6443,24 +6443,24 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'ssp' (ใช้สกิลบนพื้นที่เวทย์มนต์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: ssp <skill #> <spell #> [level]\n"
 
-#: ../Commands.pm:6346
+#: ../Commands.pm:6347
 #, perl-format
 msgid "Spell %d does not exist.\n"
 msgstr "สกิล %d ไม่มีอยู่\n"
 
-#: ../Commands.pm:6357
+#: ../Commands.pm:6358
 #, fuzzy, perl-format
 msgid "Skill '%s' cannot be used because you have no such skill.\n"
 msgstr "สกิล %s ไม่สามารถใช้ได้เนื่องจากคุณไม่มีสกิลนี้"
 
-#: ../Commands.pm:6360
+#: ../Commands.pm:6361
 #, perl-format
 msgid ""
 "You are trying to use the skill '%s' level %d, but only level %d is "
 "available to you.\n"
 msgstr ""
 
-#: ../Commands.pm:6395
+#: ../Commands.pm:6396
 #, fuzzy
 msgid ""
 "Syntax error in function 'vender' (Vender Shop)\n"
@@ -6469,7 +6469,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'vender' (Vender Shop) ผิดพลาด\n"
 "รูปแบบการใช้งาน: vender <vender # | end> [<item #> <amount>]\n"
 
-#: ../Commands.pm:6398
+#: ../Commands.pm:6399
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'vender' (Vender Shop)\n"
@@ -6478,7 +6478,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ร้าน %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6403
+#: ../Commands.pm:6404
 msgid ""
 "Error in function 'vender' (Vender Shop)\n"
 "Vender ID is wrong.\n"
@@ -6486,7 +6486,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ID ของร้านผิด\n"
 
-#: ../Commands.pm:6406
+#: ../Commands.pm:6407
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'vender' (Vender Shop)\n"
@@ -6495,28 +6495,28 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ร้าน %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6416
+#: ../Commands.pm:6417
 msgid " Vender List "
 msgstr ""
 
-#: ../Commands.pm:6417 ../Commands.pm:6433
+#: ../Commands.pm:6418 ../Commands.pm:6434
 #, fuzzy
 msgid "#    Title                                 Coords      Owner\n"
 msgstr ""
 "-----------รายการร้านขายของ-----------\n"
 "#   ชื่อร้าน                                พิกัด     เจ้าของ\n"
 
-#: ../Commands.pm:6432
+#: ../Commands.pm:6433
 msgid " Buyer List "
 msgstr ""
 
-#: ../Commands.pm:6472
+#: ../Commands.pm:6473
 msgid ""
 "Syntax Error in function 'booking recruit' (Booking recruit)\n"
 "Usage: booking recruit \"<level>\" \"<MapID>\" \"<job 1 ~ 6x>\"\n"
 msgstr ""
 
-#: ../Commands.pm:6503
+#: ../Commands.pm:6504
 #, fuzzy
 msgid ""
 "Syntax error in function 'booking'\n"
@@ -6525,7 +6525,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'exp' (รายงานค่าประสบการณ์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: exp [<report | monster | item | reset>]\n"
 
-#: ../Commands.pm:6519
+#: ../Commands.pm:6520
 #, fuzzy
 msgid ""
 "Syntax error in function 'buyer' (Buyer Shop)\n"
@@ -6534,7 +6534,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'vender' (Vender Shop) ผิดพลาด\n"
 "รูปแบบการใช้งาน: vender <vender # | end> [<item #> <amount>]\n"
 
-#: ../Commands.pm:6528
+#: ../Commands.pm:6529
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'buyer' (Buyer Shop)\n"
@@ -6543,7 +6543,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ร้าน %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6539
+#: ../Commands.pm:6540
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'buyer' (Buyer Shop)\n"
@@ -6552,7 +6552,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ร้าน %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6543
+#: ../Commands.pm:6544
 #, fuzzy
 msgid ""
 "Error in function 'buyer' (Buyer Shop)\n"
@@ -6561,28 +6561,28 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ID ของร้านผิด\n"
 
-#: ../Commands.pm:6554
+#: ../Commands.pm:6555
 #, fuzzy
 msgid "Error in function 'buyer', shop item not defined.\n"
 msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ร้าน %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6561
+#: ../Commands.pm:6562
 #, fuzzy
 msgid "Error in function 'buyer', char item not defined.\n"
 msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ร้าน %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6569
+#: ../Commands.pm:6570
 #, fuzzy
 msgid "Error in function 'buyer', trying to sell aboce max price limit.\n"
 msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ร้าน %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:6589
+#: ../Commands.pm:6590
 #, fuzzy
 msgid ""
 "Error in function 'warp' (Open/List Warp Portal)\n"
@@ -6591,47 +6591,47 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'warp' (เปิด/ดูรายการ Warp Portal)\n"
 "รูปแบบการใช้ฟังก์ชั่น: warp <map name | map number# | list>\n"
 
-#: ../Commands.pm:6594 ../Commands.pm:6610
+#: ../Commands.pm:6595 ../Commands.pm:6611
 msgid "You didn't cast warp portal.\n"
 msgstr "คุณไม่ได้ร่าย warp portal\n"
 
-#: ../Commands.pm:6599
+#: ../Commands.pm:6600
 #, perl-format
 msgid "Invalid map number %s.\n"
 msgstr "หมายเลขของแผนที่ใช้ไม่ได้ %s.\n"
 
-#: ../Commands.pm:6603 ../Commands.pm:6633
+#: ../Commands.pm:6604 ../Commands.pm:6634
 #, perl-format
 msgid "Attempting to open a warp portal to %s (%s)\n"
 msgstr "พยายามเปิดวาปไปยัง %s (%s)\n"
 
-#: ../Commands.pm:6614 ../Network/Receive.pm:3528
+#: ../Commands.pm:6615 ../Network/Receive.pm:3528
 msgid " Warp Portal "
 msgstr ""
 
-#: ../Commands.pm:6615 ../Network/Receive.pm:3529
+#: ../Commands.pm:6616 ../Network/Receive.pm:3529
 #, fuzzy
 msgid "#  Place                           Map\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:6625
+#: ../Commands.pm:6626
 #, fuzzy
 msgid "Attempting to cancel the warp portal\n"
 msgstr "พยายามเปิดวาปไปยัง %s (%s)\n"
 
-#: ../Commands.pm:6629
+#: ../Commands.pm:6630
 #, perl-format
 msgid "Map '%s' does not exist.\n"
 msgstr "แผนที่ '%s' ไม่มีอยู่\n"
 
-#: ../Commands.pm:6641
+#: ../Commands.pm:6642
 #, fuzzy
 msgid "Character weight information not yet available.\n"
 msgstr "ไม่มีของในรถเข็น\n"
 
-#: ../Commands.pm:6649
+#: ../Commands.pm:6650
 msgid ""
 "Syntax error in function 'weight' (Inventory Weight Info)\n"
 "Usage: weight [item weight]\n"
@@ -6639,36 +6639,36 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'weight' (ข้อมูลน้ำหนักบรรทุก) ผิดพลาด\n"
 "รูปแบบการใช้งาน: weight [item weight]\n"
 
-#: ../Commands.pm:6655
+#: ../Commands.pm:6656
 msgid "Weight: %s/%s (%s%)\n"
 msgstr "น้ำหนัก: %s/%s (%s%)\n"
 
-#: ../Commands.pm:6659 ../Commands.pm:6665
+#: ../Commands.pm:6660 ../Commands.pm:6666
 #, perl-format
 msgid "You can carry %s%s before %s overweight.\n"
 msgstr "คุณสามารถบรรทุก %s%s ก่อน %s น้ำหนักเกิน\n"
 
-#: ../Commands.pm:6662 ../Commands.pm:6668
+#: ../Commands.pm:6663 ../Commands.pm:6669
 #, perl-format
 msgid "You are %s overweight.\n"
 msgstr "คุณน้ำหนักเกิน %s\n"
 
-#: ../Commands.pm:6674
+#: ../Commands.pm:6675
 #, fuzzy
 msgid "Location not yet available.\n"
 msgstr "ไม่มีของในรถเข็น\n"
 
-#: ../Commands.pm:6678
+#: ../Commands.pm:6679
 #, fuzzy, perl-format
 msgid "Location: %s : (baseName: %s) : %d, %d\n"
 msgstr "พิกัด %s (%s) : %d, %d\n"
 
-#: ../Commands.pm:6691
+#: ../Commands.pm:6692
 #, fuzzy
 msgid "Character information not yet available.\n"
 msgstr "ไม่มีของในรถเข็น\n"
 
-#: ../Commands.pm:6696
+#: ../Commands.pm:6697
 #, perl-format
 msgid ""
 "Name:    %s (Level %s %s %s)\n"
@@ -6679,17 +6679,17 @@ msgstr ""
 "Char ID: %s\n"
 "Acct ID: %s\n"
 
-#: ../Commands.pm:6714
+#: ../Commands.pm:6715
 #, fuzzy
 msgid "Your Mailbox is already opened.\n"
 msgstr "ร้านได้เปิดอยู่แล้ว\n"
 
-#: ../Commands.pm:6716
+#: ../Commands.pm:6717
 #, fuzzy
 msgid "Sending request to open Mailbox.\n"
 msgstr "ทำการส่งรหัสผ่านโดยการเข้ารหัส...\n"
 
-#: ../Commands.pm:6725
+#: ../Commands.pm:6726
 #, fuzzy
 msgid ""
 "Syntax Error in function 'mail read' (Mailbox)\n"
@@ -6698,17 +6698,17 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild break' (ยุบกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild break <guild name>\n"
 
-#: ../Commands.pm:6728 ../Commands.pm:6740
+#: ../Commands.pm:6729 ../Commands.pm:6741
 #, fuzzy
 msgid "Your Mailbox is not open. Use the command 'mail open'.\n"
 msgstr "คุณได้เข้าร่วมห้องสนธนา %s\n"
 
-#: ../Commands.pm:6730 ../Commands.pm:6742
+#: ../Commands.pm:6731 ../Commands.pm:6743
 #, perl-format
 msgid "No mail found with index: %s\n"
 msgstr ""
 
-#: ../Commands.pm:6737
+#: ../Commands.pm:6738
 #, fuzzy
 msgid ""
 "Syntax Error in function 'mail get' (Mailbox)\n"
@@ -6717,7 +6717,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'e' (Emotion) ผิดพลาด\n"
 "รูปแบบการใช้งาน: e <command>\n"
 
-#: ../Commands.pm:6753
+#: ../Commands.pm:6754
 #, fuzzy
 msgid ""
 "Syntax Error in function 'mail setzeny' (Mailbox)\n"
@@ -6726,7 +6726,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:6759
+#: ../Commands.pm:6760
 #, fuzzy
 msgid ""
 "Syntax Error in function 'mail add' (Mailbox)\n"
@@ -6735,17 +6735,17 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'im' (ใช้ไอเท็มกับมอนสเตอร์) ผิดพลาด\n"
 "รูปแบบการใช้งาน: im <item #> <monster #>\n"
 
-#: ../Commands.pm:6767
+#: ../Commands.pm:6768
 #, fuzzy, perl-format
 msgid "Attention: Inventory Item '%s' is equipped.\n"
 msgstr "ไอเท็ม '%s' ถูกสวมใส่\n"
 
-#: ../Commands.pm:6770
+#: ../Commands.pm:6771
 #, fuzzy, perl-format
 msgid "Inventory Item '%s' does not exist.\n"
 msgstr "ไอเท็ม '%s' ไม่มีอยู่ในตัว\n"
 
-#: ../Commands.pm:6776
+#: ../Commands.pm:6777
 #, fuzzy
 msgid ""
 "Syntax Error in function 'mail send' (Mailbox)\n"
@@ -6754,7 +6754,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild break' (ยุบกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild break <guild name>\n"
 
-#: ../Commands.pm:6785
+#: ../Commands.pm:6786
 #, fuzzy
 msgid ""
 "Syntax Error in function 'mail delete' (Mailbox)\n"
@@ -6763,17 +6763,17 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:6789
+#: ../Commands.pm:6790
 #, perl-format
 msgid "No mail found with index: %d. (might need to re-open mailbox)\n"
 msgstr ""
 
-#: ../Commands.pm:6791 ../Commands.pm:6811
+#: ../Commands.pm:6792 ../Commands.pm:6812
 #, fuzzy
 msgid "Mailbox has not been opened or is empty.\n"
 msgstr "ร้านยังไม่ได้เปิด\n"
 
-#: ../Commands.pm:6805
+#: ../Commands.pm:6806
 #, fuzzy
 msgid ""
 "Syntax Error in function 'mail retutn' (Mailbox)\n"
@@ -6782,47 +6782,47 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild create' (สร้างกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild create <name>\n"
 
-#: ../Commands.pm:6809
+#: ../Commands.pm:6810
 #, perl-format
 msgid "No mail found with index: %s. (might need to re-open mailbox)\n"
 msgstr ""
 
-#: ../Commands.pm:6819
+#: ../Commands.pm:6820
 #, fuzzy
 msgid "Your Mailbox is is closed.\n"
 msgstr "การร่ายเวทย์ได้ถูกยกเลิก"
 
-#: ../Commands.pm:6821
+#: ../Commands.pm:6822
 #, fuzzy
 msgid "Your Mailbox is empty.\n"
 msgstr "รายการขายของคุณว่างเปล่า\n"
 
-#: ../Commands.pm:6823 ../Network/Receive.pm:10756
+#: ../Commands.pm:6824 ../Network/Receive.pm:10756
 msgid "Inbox"
 msgstr ""
 
-#: ../Commands.pm:6827 ../Network/Receive.pm:10761
+#: ../Commands.pm:6828 ../Network/Receive.pm:10761
 msgid "R"
 msgstr ""
 
-#: ../Commands.pm:6827 ../Network/Receive.pm:10761
+#: ../Commands.pm:6828 ../Network/Receive.pm:10761
 msgid "Title"
 msgstr ""
 
-#: ../Commands.pm:6827 ../Network/Receive.pm:10761
+#: ../Commands.pm:6828 ../Network/Receive.pm:10761
 msgid "Sender"
 msgstr ""
 
-#: ../Commands.pm:6827 ../Network/Receive.pm:10761
+#: ../Commands.pm:6828 ../Network/Receive.pm:10761
 msgid "Date"
 msgstr ""
 
-#: ../Commands.pm:6835
+#: ../Commands.pm:6836
 #, fuzzy
 msgid "the mail was deleted"
 msgstr "ไม่มีไอเท็มที่จะทิ้ง\n"
 
-#: ../Commands.pm:6845
+#: ../Commands.pm:6846
 #, fuzzy
 msgid ""
 "Syntax Error in function 'mail' (Mailbox)\n"
@@ -6831,125 +6831,125 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'e' (Emotion) ผิดพลาด\n"
 "รูปแบบการใช้งาน: e <command>\n"
 
-#: ../Commands.pm:6863
+#: ../Commands.pm:6864
 msgid "Usage: aua (<item #>|<item name>) <amount>\n"
 msgstr ""
 
-#: ../Commands.pm:6874
+#: ../Commands.pm:6875
 msgid "Usage: auc <current price> <instant buy price> <hours>\n"
 msgstr ""
 
-#: ../Commands.pm:6882
+#: ../Commands.pm:6883
 msgid "Usage: aub <id> <price>\n"
 msgstr ""
 
-#: ../Commands.pm:6886 ../Commands.pm:6910 ../Commands.pm:6925
+#: ../Commands.pm:6887 ../Commands.pm:6911 ../Commands.pm:6926
 #, perl-format
 msgid ""
 "No auction item found with index: %s. (might need to re-open auction "
 "window)\n"
 msgstr ""
 
-#: ../Commands.pm:6888 ../Commands.pm:6912 ../Commands.pm:6927
+#: ../Commands.pm:6889 ../Commands.pm:6913 ../Commands.pm:6928
 #, fuzzy
 msgid "Auction window has not been opened or is empty.\n"
 msgstr "ร้านยังไม่ได้เปิด\n"
 
-#: ../Commands.pm:6898
+#: ../Commands.pm:6899
 msgid "Usage: aui (selling|buying)\n"
 msgstr ""
 
-#: ../Commands.pm:6906
+#: ../Commands.pm:6907
 msgid "Usage: aud <index>\n"
 msgstr ""
 
-#: ../Commands.pm:6921
+#: ../Commands.pm:6922
 msgid "Usage: aue <index>\n"
 msgstr ""
 
-#: ../Commands.pm:6937
+#: ../Commands.pm:6938
 msgid ""
 "Usage: aus <type> [<price>|<text>]\n"
 "      types (0:Armor 1:Weapon 2:Card 3:Misc 4:By Text 5:By Price 6:Sell 7:"
 "Buy)\n"
 msgstr ""
 
-#: ../Commands.pm:6945
+#: ../Commands.pm:6946
 msgid "Usage: aus 5 <text>\n"
 msgstr ""
 
-#: ../Commands.pm:6952
+#: ../Commands.pm:6953
 msgid "Usage: aus 6 <price>\n"
 msgstr ""
 
-#: ../Commands.pm:6957
+#: ../Commands.pm:6958
 msgid ""
 "Possible value's for the <type> parameter are:\n"
 "(0:Armor 1:Weapon 2:Card 3:Misc 4:By Text 5:By Price 6:Sell 7:Buy)\n"
 msgstr ""
 
-#: ../Commands.pm:6962
+#: ../Commands.pm:6963
 msgid "Auction commands: aua, aur, auc, aub, aui, aud, aue, aus\n"
 msgstr ""
 
-#: ../Commands.pm:6978
+#: ../Commands.pm:6979
 msgid "Usage: quest set <questID> <on|off>\n"
 msgstr ""
 
-#: ../Commands.pm:6982
+#: ../Commands.pm:6983
 msgid "Quest List"
 msgstr ""
 
-#: ../Commands.pm:6986 ../Commands.pm:7003
+#: ../Commands.pm:6987 ../Commands.pm:7004
 msgid "active"
 msgstr ""
 
-#: ../Commands.pm:6986 ../Commands.pm:7003
+#: ../Commands.pm:6987 ../Commands.pm:7004
 msgid "inactive"
 msgstr ""
 
-#: ../Commands.pm:7000
+#: ../Commands.pm:7001
 msgid "Quest Info"
 msgstr ""
 
-#: ../Commands.pm:7002
+#: ../Commands.pm:7003
 #, fuzzy, perl-format
 msgid "Objective: %s\n"
 msgstr "Active tasks: %s\n"
 
-#: ../Commands.pm:7006
+#: ../Commands.pm:7007
 #, fuzzy
 msgid "Unknown quest\n"
 msgstr "Unknown error %s\n"
 
-#: ../Commands.pm:7009
+#: ../Commands.pm:7010
 msgid "Usage: quest info <questID>\n"
 msgstr ""
 
-#: ../Commands.pm:7012
+#: ../Commands.pm:7013
 #, fuzzy
 msgid "Quest commands: set, list, info\n"
 msgstr "คำสั่งเล่านี้ไม่มีอยู่: %s\n"
 
-#: ../Commands.pm:7026
+#: ../Commands.pm:7027
 #, fuzzy, perl-format
 msgid "Requesting equipment information for: %s\n"
 msgstr "ร้องขอข้อมูลกิล...\n"
 
-#: ../Commands.pm:7028
+#: ../Commands.pm:7029
 #, perl-format
 msgid "No player found with specified information: %s\n"
 msgstr ""
 
-#: ../Commands.pm:7030
+#: ../Commands.pm:7031
 msgid "Usage: showeq p <index|name|partialname>\n"
 msgstr ""
 
-#: ../Commands.pm:7035
+#: ../Commands.pm:7036
 msgid "Usage: showeq [p <index|name|partialname>] | [me <on|off>]\n"
 msgstr ""
 
-#: ../Commands.pm:7062
+#: ../Commands.pm:7063
 #, fuzzy
 msgid ""
 "Syntax error in function 'cook' (Cook food)\n"
@@ -6958,17 +6958,17 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'lookp' (มอง,หันหน้า ไปยังผู้เล่น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: lookp <player #>\n"
 
-#: ../Commands.pm:7065
+#: ../Commands.pm:7066
 #, fuzzy, perl-format
 msgid "Item with 'Cooking List' index: %s not found.\n"
 msgstr "Unable to reload code: %s not found\n"
 
-#: ../Commands.pm:7080
+#: ../Commands.pm:7081
 #, fuzzy, perl-format
 msgid "Item with 'refine' index: %s not found.\n"
 msgstr "Unable to reload code: %s not found\n"
 
-#: ../Commands.pm:7082
+#: ../Commands.pm:7083
 #, fuzzy
 msgid ""
 "Error in function 'refine'\n"
@@ -6977,13 +6977,13 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'guild create' (สร้างกิล) ผิดพลาด\n"
 "รูปแบบการใช้งาน: guild create <name>\n"
 
-#: ../Commands.pm:7130
+#: ../Commands.pm:7131
 #, fuzzy
 msgid " Storage "
 msgstr "บันทึกคลังเก็บของแล้ว\n"
 
 #. Translation Comment: Storage Capacity
-#: ../Commands.pm:7169 ../Misc.pm:3900
+#: ../Commands.pm:7170 ../Misc.pm:3900
 #, perl-format
 msgid ""
 "\n"
@@ -6992,16 +6992,16 @@ msgstr ""
 "\n"
 "ความจุ: %d/%d\n"
 
-#: ../Commands.pm:7181
+#: ../Commands.pm:7182
 msgid " Dead Time Record "
 msgstr ""
 
-#: ../Commands.pm:7188
+#: ../Commands.pm:7189
 #, fuzzy
 msgid "You have not died yet.\n"
 msgstr "คุณได้ตายแล้ว\n"
 
-#: ../Commands.pm:7199
+#: ../Commands.pm:7200
 msgid ""
 "Syntax Error in function 'achieve'\n"
 "Usage: achieve [<list|reward>] [<achievemente_id>]\n"
@@ -7010,49 +7010,49 @@ msgid ""
 "id achievemente_id\n"
 msgstr ""
 
-#: ../Commands.pm:7211
+#: ../Commands.pm:7212
 msgid "'Achievement List' is empty.\n"
 msgstr ""
 
-#: ../Commands.pm:7217 ../Commands.pm:7247
+#: ../Commands.pm:7218 ../Commands.pm:7248
 #, fuzzy, perl-format
 msgid "You don't have the achievement %s.\n"
 msgstr "คุณไม่มีสกิลขายของ\n"
 
-#: ../Commands.pm:7220 ../Commands.pm:7250
+#: ../Commands.pm:7221 ../Commands.pm:7251
 #, fuzzy, perl-format
 msgid "You haven't completed the achievement %s.\n"
 msgstr "คุณได้เข้าร่วมห้องสนธนา %s\n"
 
-#: ../Commands.pm:7223 ../Commands.pm:7253
+#: ../Commands.pm:7224 ../Commands.pm:7254
 #, fuzzy, perl-format
 msgid "You have already claimed the achievement %s reward.\n"
 msgstr "คุณได้เข้าร่วมห้องสนธนา %s\n"
 
-#: ../Commands.pm:7226 ../Commands.pm:7256
+#: ../Commands.pm:7227 ../Commands.pm:7257
 #, perl-format
 msgid "Sending request for reward of achievement %s.\n"
 msgstr ""
 
-#: ../Commands.pm:7235 ../Commands.pm:7276
+#: ../Commands.pm:7236 ../Commands.pm:7277
 #, fuzzy
 msgid "complete"
 msgstr "ซื้อของเรียบร้อยแล้ว\n"
 
-#: ../Commands.pm:7235 ../Commands.pm:7276
+#: ../Commands.pm:7236 ../Commands.pm:7277
 #, fuzzy
 msgid "incomplete"
 msgstr "ซื้อของเรียบร้อยแล้ว\n"
 
-#: ../Commands.pm:7235 ../Commands.pm:7276
+#: ../Commands.pm:7236 ../Commands.pm:7277
 msgid "rewarded"
 msgstr ""
 
-#: ../Commands.pm:7235 ../Commands.pm:7276
+#: ../Commands.pm:7236 ../Commands.pm:7277
 msgid "not rewarded"
 msgstr ""
 
-#: ../Commands.pm:7243
+#: ../Commands.pm:7244
 #, fuzzy
 msgid ""
 "Syntax Error in function 'achieve reward' (Receiving an award)\n"
@@ -7061,71 +7061,71 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'reload' (โหลดไฟล์ Config ใหม่) ผิดพลาด\n"
 "รูปแบบการใช้งาน: reload <name|\"all\">\n"
 
-#: ../Commands.pm:7264
+#: ../Commands.pm:7265
 #, fuzzy
 msgid "Achievement Info"
 msgstr "ได้ถูกห้ามกระซิบ\n"
 
-#: ../Commands.pm:7265
+#: ../Commands.pm:7266
 #, fuzzy, perl-format
 msgid "ID: %s - Title: %s\n"
 msgstr "ขาย: %s - %s %sz\n"
 
-#: ../Commands.pm:7266
+#: ../Commands.pm:7267
 #, fuzzy, perl-format
 msgid "Group: %s\n"
 msgstr "%s ได้ถูกขายไปแล้ว\n"
 
-#: ../Commands.pm:7267
+#: ../Commands.pm:7268
 #, fuzzy, perl-format
 msgid "Summary: %s\n"
 msgstr "[สมาชิกปาร์ตี้] %s\n"
 
-#: ../Commands.pm:7268
+#: ../Commands.pm:7269
 #, fuzzy, perl-format
 msgid "Details: %s\n"
 msgstr "Active tasks: %s\n"
 
-#: ../Commands.pm:7269
+#: ../Commands.pm:7270
 msgid "Rewards:\n"
 msgstr ""
 
-#: ../Commands.pm:7270
+#: ../Commands.pm:7271
 #, fuzzy, perl-format
 msgid "  Item: %s\n"
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:7271
+#: ../Commands.pm:7272
 #, fuzzy, perl-format
 msgid "  Buff: %s\n"
 msgstr "%s ได้ล้มเหลวในการร่าย %s\n"
 
-#: ../Commands.pm:7272
+#: ../Commands.pm:7273
 #, fuzzy, perl-format
 msgid "  Title: %s\n"
 msgstr "ข้อมูลสูญหาย: %s.fld\n"
 
-#: ../Commands.pm:7273
+#: ../Commands.pm:7274
 #, fuzzy
 msgid "Status: "
 msgstr "เป้าหมายตายแล้ว\n"
 
-#: ../Commands.pm:7276
+#: ../Commands.pm:7277
 #, fuzzy, perl-format
 msgid "%s %s\n"
 msgstr "%s มี %s "
 
-#: ../Commands.pm:7278
+#: ../Commands.pm:7279
 msgid "N/A\n"
 msgstr ""
 
-#: ../Commands.pm:7283
+#: ../Commands.pm:7284
 msgid "The achievement was not found. Update the 'achievement_list.txt' file\n"
 msgstr ""
 
-#: ../Commands.pm:7286
+#: ../Commands.pm:7287
 #, fuzzy
 msgid ""
 "Syntax Error in function 'achieve'\n"
@@ -7134,65 +7134,65 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'p' (พูดคุยภายในปาร์ตี้) ผิดพลาด\n"
 "รูปแบบการใช้งาน: p <message>\n"
 
-#: ../Commands.pm:7303
+#: ../Commands.pm:7304
 #, fuzzy
 msgid "Your rodex mail box is already opened.\n"
 msgstr "ร้านได้เปิดอยู่แล้ว\n"
 
-#: ../Commands.pm:7310
+#: ../Commands.pm:7311
 msgid "Sending request to open rodex account mailbox.\n"
 msgstr ""
 
-#: ../Commands.pm:7312
+#: ../Commands.pm:7313
 msgid "Sending request to open rodex returned mailbox.\n"
 msgstr ""
 
-#: ../Commands.pm:7314 ../Commands.pm:7318
+#: ../Commands.pm:7315 ../Commands.pm:7319
 #, fuzzy
 msgid "Sending request to open rodex normal mailbox.\n"
 msgstr "ทำการส่งรหัสผ่านโดยการเข้ารหัส...\n"
 
-#: ../Commands.pm:7325 ../Commands.pm:7335 ../Commands.pm:7358
-#: ../Commands.pm:7390 ../Commands.pm:7398 ../Commands.pm:7428
-#: ../Commands.pm:7445 ../Commands.pm:7458 ../Commands.pm:7483
-#: ../Commands.pm:7551 ../Commands.pm:7577 ../Commands.pm:7600
-#: ../Commands.pm:7626 ../Commands.pm:7672 ../Commands.pm:7694
-#: ../Commands.pm:7724 ../Commands.pm:7751 ../Commands.pm:7796
-#: ../Commands.pm:7841 ../Commands.pm:7858
+#: ../Commands.pm:7326 ../Commands.pm:7336 ../Commands.pm:7359
+#: ../Commands.pm:7391 ../Commands.pm:7399 ../Commands.pm:7429
+#: ../Commands.pm:7446 ../Commands.pm:7459 ../Commands.pm:7484
+#: ../Commands.pm:7552 ../Commands.pm:7578 ../Commands.pm:7601
+#: ../Commands.pm:7627 ../Commands.pm:7673 ../Commands.pm:7695
+#: ../Commands.pm:7725 ../Commands.pm:7752 ../Commands.pm:7797
+#: ../Commands.pm:7842 ../Commands.pm:7859
 msgid "Your rodex mail box is closed.\n"
 msgstr ""
 
-#: ../Commands.pm:7330
+#: ../Commands.pm:7331
 #, fuzzy
 msgid "Your rodex mail box has been closed.\n"
 msgstr "การร่ายเวทย์ได้ถูกยกเลิก"
 
-#: ../Commands.pm:7339
+#: ../Commands.pm:7340
 #, fuzzy
 msgid "Your rodex mail box is empty.\n"
 msgstr "รายการขายของคุณว่างเปล่า\n"
 
-#: ../Commands.pm:7342
+#: ../Commands.pm:7343
 msgid "Rodex Mail List"
 msgstr ""
 
-#: ../Commands.pm:7343 ../Commands.pm:7379 ../Network/Receive.pm:8492
+#: ../Commands.pm:7344 ../Commands.pm:7380 ../Network/Receive.pm:8492
 #, fuzzy
 msgid " #  ID       From                    Att  New  Expire    Title\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:7348 ../Commands.pm:7372 ../Network/Receive.pm:8520
+#: ../Commands.pm:7349 ../Commands.pm:7373 ../Network/Receive.pm:8520
 msgid "Days"
 msgstr ""
 
-#: ../Commands.pm:7378 ../Network/Receive.pm:8491
+#: ../Commands.pm:7379 ../Network/Receive.pm:8491
 #, perl-format
 msgid "Rodex Mail Page %d"
 msgstr ""
 
-#: ../Commands.pm:7402
+#: ../Commands.pm:7403
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex read' (Read rodex mail)\n"
@@ -7201,40 +7201,40 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'reload' (โหลดไฟล์ Config ใหม่) ผิดพลาด\n"
 "รูปแบบการใช้งาน: reload <name|\"all\">\n"
 
-#: ../Commands.pm:7419 ../Commands.pm:7783 ../Commands.pm:7828
-#: ../Commands.pm:7879
+#: ../Commands.pm:7420 ../Commands.pm:7784 ../Commands.pm:7829
+#: ../Commands.pm:7880
 #, fuzzy, perl-format
 msgid "The rodex mail of ID '%d' doesn't exist.\n"
 msgstr "สกิล %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:7432
+#: ../Commands.pm:7433
 #, fuzzy
 msgid "You are already writing a rodex mail.\n"
 msgstr "คุณไม่สามารถเพิ่มไอเท็มสำหรับแลกเปลี่ยนได้อีก\n"
 
-#: ../Commands.pm:7439
+#: ../Commands.pm:7440
 #, perl-format
 msgid "Opening rodex mail write box. Recipient: %s\n"
 msgstr ""
 
-#: ../Commands.pm:7449 ../Commands.pm:7462 ../Commands.pm:7487
-#: ../Commands.pm:7555 ../Commands.pm:7581 ../Commands.pm:7604
-#: ../Commands.pm:7630 ../Commands.pm:7676 ../Commands.pm:7698
-#: ../Commands.pm:7728
+#: ../Commands.pm:7450 ../Commands.pm:7463 ../Commands.pm:7488
+#: ../Commands.pm:7556 ../Commands.pm:7582 ../Commands.pm:7605
+#: ../Commands.pm:7631 ../Commands.pm:7677 ../Commands.pm:7699
+#: ../Commands.pm:7729
 #, fuzzy
 msgid "You are not writing a rodex mail.\n"
 msgstr "คุณไม่ได้อยู่ในกิล\n"
 
-#: ../Commands.pm:7453
+#: ../Commands.pm:7454
 msgid "Closing rodex mail write box.\n"
 msgstr ""
 
-#: ../Commands.pm:7466
+#: ../Commands.pm:7467
 #, fuzzy
 msgid "You have already set the mail target.\n"
 msgstr "คุณได้เข้าร่วมห้องสนธนา %s\n"
 
-#: ../Commands.pm:7470
+#: ../Commands.pm:7471
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex settarget' (Set target of rodex mail)\n"
@@ -7243,16 +7243,16 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7478
+#: ../Commands.pm:7479
 #, perl-format
 msgid "Setting target of rodex mail to '%s'.\n"
 msgstr ""
 
-#: ../Commands.pm:7514
+#: ../Commands.pm:7515
 msgid "Rodex mail item list"
 msgstr ""
 
-#: ../Commands.pm:7559
+#: ../Commands.pm:7560
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex settitle' (Set title of rodex mail)\n"
@@ -7261,22 +7261,22 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7563
+#: ../Commands.pm:7564
 #, fuzzy
 msgid "The title must be 4 to 24 characters long\n"
 msgstr "PIN จะต้องมีความยาวระหว่าง 4 ถึง 9 ตัวอักษร"
 
-#: ../Commands.pm:7568
+#: ../Commands.pm:7569
 #, perl-format
 msgid "Changed the rodex mail message title to '%s'.\n"
 msgstr ""
 
-#: ../Commands.pm:7570
+#: ../Commands.pm:7571
 #, perl-format
 msgid "Set the rodex mail message title to '%s'.\n"
 msgstr ""
 
-#: ../Commands.pm:7585
+#: ../Commands.pm:7586
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex setbody' (Set body of rodex mail)\n"
@@ -7285,17 +7285,17 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'reload' (โหลดไฟล์ Config ใหม่) ผิดพลาด\n"
 "รูปแบบการใช้งาน: reload <name|\"all\">\n"
 
-#: ../Commands.pm:7591
+#: ../Commands.pm:7592
 #, fuzzy, perl-format
 msgid "Changed the rodex mail message body to '%s'.\n"
 msgstr "คุณได้รับไอเท็ม: %s (%d) x %d - %s"
 
-#: ../Commands.pm:7593
+#: ../Commands.pm:7594
 #, fuzzy, perl-format
 msgid "Set the rodex mail message body to '%s'.\n"
 msgstr "คุณได้รับไอเท็ม: %s (%d) x %d - %s"
 
-#: ../Commands.pm:7608
+#: ../Commands.pm:7609
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex setzeny' (Set zeny of rodex mail)\n"
@@ -7304,22 +7304,22 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7612
+#: ../Commands.pm:7613
 #, fuzzy
 msgid "You can't add more zeny than you have to the rodex mail.\n"
 msgstr "คุณไม่สามารถเพิ่มไอเท็มสำหรับแลกเปลี่ยนได้อีก\n"
 
-#: ../Commands.pm:7617
+#: ../Commands.pm:7618
 #, fuzzy, perl-format
 msgid "Changed the rodex mail message zeny to '%d'.\n"
 msgstr "คุณได้รับไอเท็ม: %s (%d) x %d - %s"
 
-#: ../Commands.pm:7619
+#: ../Commands.pm:7620
 #, perl-format
 msgid "Set the rodex mail message zeny to '%d'.\n"
 msgstr ""
 
-#: ../Commands.pm:7634
+#: ../Commands.pm:7635
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex add' (Add item to rodex mail)\n"
@@ -7328,12 +7328,12 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart add' (นำไอเท็มใส่รถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน: cart add <item>\n"
 
-#: ../Commands.pm:7641
+#: ../Commands.pm:7642
 #, fuzzy
 msgid "You can't add any more items to the rodex mail.\n"
 msgstr "คุณไม่สามารถเพิ่มไอเท็มสำหรับแลกเปลี่ยนได้อีก\n"
 
-#: ../Commands.pm:7651
+#: ../Commands.pm:7652
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'rodex add' (Add item to rodex mail)\n"
@@ -7342,58 +7342,58 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal_add' (เพิ่มไอเท็มเพื่อแลกเปลี่ยน)\n"
 "คุณไม่มีไอเท็ม %s อยู่\n"
 
-#: ../Commands.pm:7655
+#: ../Commands.pm:7656
 #, perl-format
 msgid "Inventory Item '%s' is equipped.\n"
 msgstr "ไอเท็ม '%s' ถูกสวมใส่\n"
 
-#: ../Commands.pm:7658
+#: ../Commands.pm:7659
 #, perl-format
 msgid ""
 "You can't add more of Item '%s' to rodex mail because you have already added "
 "all you have of it.\n"
 msgstr ""
 
-#: ../Commands.pm:7667
+#: ../Commands.pm:7668
 #, fuzzy, perl-format
 msgid "Adding amount %d of item '%s' to rodex mail.\n"
 msgstr "คุณไม่สามารถเพิ่มไอเท็มสำหรับแลกเปลี่ยนได้อีก\n"
 
-#: ../Commands.pm:7680
+#: ../Commands.pm:7681
 #, perl-format
 msgid "Draft mail for %s"
 msgstr ""
 
-#: ../Commands.pm:7681
+#: ../Commands.pm:7682
 msgid "Recepient:"
 msgstr ""
 
-#: ../Commands.pm:7681 ../Network/Receive.pm:8726
+#: ../Commands.pm:7682 ../Network/Receive.pm:8726
 msgid "Base Level:"
 msgstr ""
 
-#: ../Commands.pm:7682 ../Network/Receive.pm:8727
+#: ../Commands.pm:7683 ../Network/Receive.pm:8727
 msgid "Char ID:"
 msgstr ""
 
-#: ../Commands.pm:7682 ../Network/Receive.pm:8727
+#: ../Commands.pm:7683 ../Network/Receive.pm:8727
 msgid "Class:"
 msgstr ""
 
-#: ../Commands.pm:7684 ../Network/Receive.pm:8569
+#: ../Commands.pm:7685 ../Network/Receive.pm:8569
 msgid "Title:"
 msgstr ""
 
-#: ../Commands.pm:7685 ../Network/Receive.pm:8570
+#: ../Commands.pm:7686 ../Network/Receive.pm:8570
 #, fuzzy
 msgid "Message:"
 msgstr "ข้อมูลสูญหาย: %s.fld\n"
 
-#: ../Commands.pm:7686 ../Network/Receive.pm:8574
+#: ../Commands.pm:7687 ../Network/Receive.pm:8574
 msgid "Zeny:"
 msgstr ""
 
-#: ../Commands.pm:7702
+#: ../Commands.pm:7703
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex remove' (Remove item from rodex mail)\n"
@@ -7402,7 +7402,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7711
+#: ../Commands.pm:7712
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'rodex remove' (Remove item from rodex mail)\n"
@@ -7411,12 +7411,12 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น)\n"
 "ไอเท็ม %s ไม่มีอยู่ในรถเข็น\n"
 
-#: ../Commands.pm:7719
+#: ../Commands.pm:7720
 #, fuzzy, perl-format
 msgid "Removing amount %d of item '%s' from rodex mail.\n"
 msgstr "คุณไม่สามารถเพิ่มไอเท็มสำหรับแลกเปลี่ยนได้อีก\n"
 
-#: ../Commands.pm:7732
+#: ../Commands.pm:7733
 #, fuzzy
 msgid ""
 "Error in function 'rodex send' (Send finished rodex mail)\n"
@@ -7426,29 +7426,29 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7742
+#: ../Commands.pm:7743
 #, perl-format
 msgid ""
 "The current tax for this rodex mail is %dz, you don't have enough zeny to "
 "pay for it.\n"
 msgstr ""
 
-#: ../Commands.pm:7746
+#: ../Commands.pm:7747
 #, fuzzy
 msgid "Sending rodex mail.\n"
 msgstr "ทำการส่งรหัสผ่านโดยการเข้ารหัส...\n"
 
-#: ../Commands.pm:7755 ../Commands.pm:7800 ../Commands.pm:7845
+#: ../Commands.pm:7756 ../Commands.pm:7801 ../Commands.pm:7846
 #, fuzzy
 msgid "You are writing a rodex mail.\n"
 msgstr "คุณไม่ได้อยู่ในกิล\n"
 
-#: ../Commands.pm:7759 ../Commands.pm:7804
+#: ../Commands.pm:7760 ../Commands.pm:7805
 #, fuzzy
 msgid "You are not reading a rodex mail.\n"
 msgstr "คุณไม่ได้อยู่ในกิล\n"
 
-#: ../Commands.pm:7763
+#: ../Commands.pm:7764
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex getitems' (Get items of rodex mail)\n"
@@ -7457,17 +7457,17 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7786
+#: ../Commands.pm:7787
 #, fuzzy, perl-format
 msgid "The rodex mail '%d' has no items.\n"
 msgstr "การร่ายเวทย์ได้ถูกยกเลิก"
 
-#: ../Commands.pm:7791
+#: ../Commands.pm:7792
 #, fuzzy, perl-format
 msgid "Requesting items of rodex mail '%d'.\n"
 msgstr "%s ต้องการจะเป็นเพื่อนกับคุณ\n"
 
-#: ../Commands.pm:7808
+#: ../Commands.pm:7809
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex getzeny' (Get zeny of rodex mail)\n"
@@ -7476,26 +7476,26 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7831
+#: ../Commands.pm:7832
 #, fuzzy, perl-format
 msgid "The rodex mail '%d' has no zeny.\n"
 msgstr "การร่ายเวทย์ได้ถูกยกเลิก"
 
-#: ../Commands.pm:7836
+#: ../Commands.pm:7837
 #, fuzzy, perl-format
 msgid "Requesting zeny of rodex mail '%d'.\n"
 msgstr "%s ต้องการจะเป็นเพื่อนกับคุณ\n"
 
-#: ../Commands.pm:7849
+#: ../Commands.pm:7850
 #, fuzzy
 msgid "You have already reached the last rodex mail page.\n"
 msgstr "คุณได้เข้าร่วมห้องสนธนา %s\n"
 
-#: ../Commands.pm:7853
+#: ../Commands.pm:7854
 msgid "Requesting the next page of rodex mail.\n"
 msgstr ""
 
-#: ../Commands.pm:7862
+#: ../Commands.pm:7863
 #, fuzzy
 msgid ""
 "Syntax Error in function 'rodex delete' (Delete rodex mail)\n"
@@ -7504,7 +7504,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7887
+#: ../Commands.pm:7888
 msgid ""
 "Syntax Error in function 'rodex' (rodex mail)\n"
 "Usage: rodex [<open|close|list|refresh|nextpage|maillist|read|getitems|"
@@ -7512,35 +7512,35 @@ msgid ""
 "itemslist|draft|send>]\n"
 msgstr ""
 
-#: ../Commands.pm:7902
+#: ../Commands.pm:7903
 #, fuzzy
 msgid "Sending Roulette Open\n"
 msgstr "ออกจากกิล: %s\n"
 
-#: ../Commands.pm:7906
+#: ../Commands.pm:7907
 msgid "Roulette System Closed\n"
 msgstr ""
 
-#: ../Commands.pm:7910
+#: ../Commands.pm:7911
 #, perl-format
 msgid "Roulette: Error in command '%s', you must need open Roulette first'\n"
 msgstr ""
 
-#: ../Commands.pm:7912
+#: ../Commands.pm:7913
 #, fuzzy
 msgid "Requesting Roulette Info\n"
 msgstr "ร้องขอข้อมูลกิล...\n"
 
-#: ../Commands.pm:7915
+#: ../Commands.pm:7916
 msgid "Sending Roulette Start (roll)\n"
 msgstr ""
 
-#: ../Commands.pm:7918
+#: ../Commands.pm:7919
 #, fuzzy
 msgid "Trying to Claim Roulette Reward\n"
 msgstr "พยายามตามหาเจ้านายที่หายไป\n"
 
-#: ../Commands.pm:7921
+#: ../Commands.pm:7922
 #, fuzzy
 msgid ""
 "Syntax Error in function 'roulette'\n"
@@ -7549,58 +7549,58 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'cart get' (นำไอเท็มออกจากรถเข็น) ผิดพลาด\n"
 "รูปแบบการใช้งาน:: cart get <cart item>\n"
 
-#: ../Commands.pm:7935
+#: ../Commands.pm:7936
 msgid "You are not on a sell or store npc interaction.\n"
 msgstr ""
 
-#: ../Commands.pm:7956
+#: ../Commands.pm:7957
 msgid "This command only available after using 'Change Material' skill!\n"
 msgstr ""
 
-#: ../Commands.pm:7962
+#: ../Commands.pm:7963
 msgid "This command only available after using 'Four Spirit Analysis' skill!\n"
 msgstr ""
 
-#: ../Commands.pm:7967 ../Commands.pm:8124
+#: ../Commands.pm:7968 ../Commands.pm:8125
 msgid "Invalid usage!\n"
 msgstr ""
 
-#: ../Commands.pm:7973
+#: ../Commands.pm:7974
 #, perl-format
 msgid "Item Exchange %s is canceled.\n"
 msgstr ""
 
-#: ../Commands.pm:7992
+#: ../Commands.pm:7993
 #, perl-format
 msgid "Invalid amount! Only have %dx %s (%d).\n"
 msgstr ""
 
-#: ../Commands.pm:7994
+#: ../Commands.pm:7995
 #, perl-format
 msgid "Equipped item was selected %s (%d)!\n"
 msgstr ""
 
-#: ../Commands.pm:8000 ../Commands.pm:8056 ../Commands.pm:8078
+#: ../Commands.pm:8001 ../Commands.pm:8057 ../Commands.pm:8079
 #, fuzzy, perl-format
 msgid "Item in index '%d' is not exists.\n"
 msgstr "ไอเท็ม '%s' ไม่มีอยู่ในตัว\n"
 
-#: ../Commands.pm:8005
+#: ../Commands.pm:8006
 #, perl-format
 msgid "Number of selected items for %s: %d\n"
 msgstr ""
 
-#: ../Commands.pm:8006
+#: ../Commands.pm:8007
 #, fuzzy
 msgid "======== Exchange Item List ========\n"
 msgstr "========รายการตีอาวุธ========\n"
 
-#: ../Commands.pm:8013
+#: ../Commands.pm:8014
 #, fuzzy
 msgid "No item was selected.\n"
 msgstr "ไม่มีไอเท็มที่จะทิ้ง\n"
 
-#: ../Commands.pm:8017
+#: ../Commands.pm:8018
 #, fuzzy, perl-format
 msgid ""
 "Syntax Error in function '%s'. Usages:\n"
@@ -7610,55 +7610,55 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'buy' (ซื้อของจากร้านค้า) ผิดพลาด\n"
 "รูปแบบการใช้งาน: buy <item #> [<amount>]\n"
 
-#: ../Commands.pm:8034
+#: ../Commands.pm:8035
 msgid "Cannot use RefineUI yet.\n"
 msgstr ""
 
-#: ../Commands.pm:8042
+#: ../Commands.pm:8043
 msgid "Closing Refine UI.\n"
 msgstr ""
 
-#: ../Commands.pm:8059 ../Commands.pm:8081
+#: ../Commands.pm:8060 ../Commands.pm:8082
 #, fuzzy, perl-format
 msgid "Cannot select equipped %s (%d) item!\n"
 msgstr "ลูกธนู/ลูกกระสุน ได้ถูกสวมใส่: %s (%d)\n"
 
-#: ../Commands.pm:8063
+#: ../Commands.pm:8064
 #, perl-format
 msgid "Request info for selected item to refine: %s (%d)\n"
 msgstr ""
 
-#: ../Commands.pm:8088
+#: ../Commands.pm:8089
 #, fuzzy, perl-format
 msgid "You don't have enough '%s' (%d) as refine material.\n"
 msgstr "คุณไม่มีร้านให้เปิด\n"
 
-#: ../Commands.pm:8099
+#: ../Commands.pm:8100
 #, fuzzy, perl-format
 msgid "'%s' (%d) is not valid refine material for '%s'.\n"
 msgstr "'%s' ไม่ใช่หมายเลขปลั๊กอินที่สามารถเลือกได้\n"
 
-#: ../Commands.pm:8110
+#: ../Commands.pm:8111
 #, perl-format
 msgid "You don't have %s for RefineUI. Needed: %d!\n"
 msgstr ""
 
-#: ../Commands.pm:8120
+#: ../Commands.pm:8121
 #, perl-format
 msgid "Refining item: %s with material %s.\n"
 msgstr ""
 
-#: ../Commands.pm:8137
+#: ../Commands.pm:8138
 #, perl-format
 msgid "You must be in a Real Clan to use command '%s'\n"
 msgstr ""
 
-#: ../Commands.pm:8142
+#: ../Commands.pm:8143
 #, fuzzy
 msgid " Clan Information "
 msgstr "ร้องขอข้อมูลกิล...\n"
 
-#: ../Commands.pm:8143
+#: ../Commands.pm:8144
 #, perl-format
 msgid ""
 "ClanName : %s\n"
@@ -7671,17 +7671,17 @@ msgid ""
 "Hostile Clan Names: %s\n"
 msgstr ""
 
-#: ../Commands.pm:8168
+#: ../Commands.pm:8169
 #, fuzzy
 msgid "You don't have any elemental. Call an Elemental first.\n"
 msgstr "คุณไม่มีสกิล Teleport หรือไม่มี Fly Wing\n"
 
-#: ../Commands.pm:8172
+#: ../Commands.pm:8173
 #, fuzzy
 msgid " Elemental Information "
 msgstr "ร้องขอข้อมูลกิล...\n"
 
-#: ../Commands.pm:8173
+#: ../Commands.pm:8174
 msgid ""
 "ID: %s (%s)\n"
 "Name : %s \n"
@@ -7690,17 +7690,17 @@ msgid ""
 "Position: %s,%s\n"
 msgstr ""
 
-#: ../Commands.pm:8190
+#: ../Commands.pm:8191
 #, fuzzy, perl-format
 msgid "Elemental \"%s\" does not exist.\n"
 msgstr "ผู้เล่น \"%s\" ไม่มีอยู่\n"
 
-#: ../Commands.pm:8197
+#: ../Commands.pm:8198
 #, fuzzy
 msgid " Elemental Info "
 msgstr "ได้ถูกห้ามกระซิบ\n"
 
-#: ../Commands.pm:8199
+#: ../Commands.pm:8200
 #, perl-format
 msgid ""
 "%s (%s) \n"
@@ -7711,31 +7711,31 @@ msgid ""
 "Walk speed: %s secs per block\n"
 msgstr ""
 
-#: ../Commands.pm:8217
+#: ../Commands.pm:8218
 #, fuzzy
 msgid " Elemental List "
 msgstr ""
 "\n"
 "Skill Points: %d\n"
 
-#: ../Commands.pm:8218
+#: ../Commands.pm:8219
 #, fuzzy
 msgid "#    Name                Lv   Dist  Coord\n"
 msgstr ""
 "%s\n"
 "ชื่อ                                      จำนวน  ราคา\n"
 
-#: ../Commands.pm:8233
+#: ../Commands.pm:8234
 #, fuzzy, perl-format
 msgid "Total elementals: %s \n"
 msgstr "รวมความเสียหายที่ได้รับทั้งหมด: %s\n"
 
-#: ../Commands.pm:8234
+#: ../Commands.pm:8235
 #, fuzzy
 msgid "There are no elementals near you.\n"
 msgstr "ยังไม่มีตัวละครใน ไอดี นี้\n"
 
-#: ../Commands.pm:8240
+#: ../Commands.pm:8241
 msgid ""
 "Error in function 'elemental'\n"
 "Usage: elemental <info|list [<elemental index>]>\n"
@@ -7747,12 +7747,12 @@ msgid ""
 "\t\t\t\tlist <index number> show information about a specific elemental"
 msgstr ""
 
-#: ../Commands.pm:8263
+#: ../Commands.pm:8264
 #, fuzzy, perl-format
 msgid "Item with 'create' index: %s not found.\n"
 msgstr "Unable to reload code: %s not found\n"
 
-#: ../Commands.pm:8265
+#: ../Commands.pm:8266
 msgid ""
 "Error in function 'create'\n"
 "Usage: create <index number> <material 1 nameID> <material 2 nameID> "
@@ -7760,21 +7760,21 @@ msgid ""
 "material # nameID: can be 0 or undefined.\n"
 msgstr ""
 
-#: ../Commands.pm:8284
+#: ../Commands.pm:8285
 msgid ""
 "Error in function 'searchstore' (universal catalog)\n"
 "No catalog in use. You can't use this yet.\n"
 msgstr ""
 
-#: ../Commands.pm:8291
+#: ../Commands.pm:8292
 msgid "Closed search store catalog\n"
 msgstr ""
 
-#: ../Commands.pm:8298
+#: ../Commands.pm:8299
 msgid "Requested next page of search store catalog\n"
 msgstr ""
 
-#: ../Commands.pm:8301
+#: ../Commands.pm:8302
 #, fuzzy
 msgid ""
 "Error in function 'searchstore' (universal catalog)\n"
@@ -7783,7 +7783,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'deal' (แลกเปลี่ยนกับผู้เล่น)\n"
 "คุณได้ยืนยันการแลกเปลี่ยนอยู่แล้ว\n"
 
-#: ../Commands.pm:8308
+#: ../Commands.pm:8309
 #, fuzzy
 msgid ""
 "Error in function 'searchstore' (universal catalog)\n"
@@ -7792,13 +7792,13 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'chat leave' (ออกจากห้องสนธนา)\n"
 "คุณไม่ได้อยู่ในห้องสนธนา\n"
 
-#: ../Commands.pm:8314
+#: ../Commands.pm:8315
 msgid ""
 "Error in function 'searchstore' (universal catalog)\n"
 "No store selected. Please select a store with 'searchstore select' first\n"
 msgstr ""
 
-#: ../Commands.pm:8336
+#: ../Commands.pm:8337
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'searchstore' (universal catalog)\n"
@@ -7807,7 +7807,7 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'vender' (Vender Shop)\n"
 "ร้าน %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:8348
+#: ../Commands.pm:8349
 #, fuzzy
 msgid ""
 "Error in function 'searchstore buy' (Buy using a Gold Search Catalog\n"
@@ -7816,28 +7816,28 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'vender' (Vender Shop) ผิดพลาด\n"
 "รูปแบบการใช้งาน: vender <vender # | end> [<item #> <amount>]\n"
 
-#: ../Commands.pm:8354
+#: ../Commands.pm:8355
 #, fuzzy
 msgid ""
 "Error in function 'searchstore view' (store search view page)\n"
 "No info available yet\n"
 msgstr "พบข้อผิดพลาดในฟังก์ชั่น 'party' (การจัดการปาร์ตี้)\n"
 
-#: ../Commands.pm:8358
+#: ../Commands.pm:8359
 #, perl-format
 msgid ""
 "Error in function 'searchstore view' (store search view page)\n"
 "Page %d out of bounds (valid bounds: 0..%d)\n"
 msgstr ""
 
-#: ../Commands.pm:8375
+#: ../Commands.pm:8376
 msgid ""
 "Error in function 'searchstore search' (store search)\n"
 "Syntax: searchstore search [match|exact] \"<item name>\" [card <card name>] "
 "[price <min_price>..<max_price>] [sell|buy]\n"
 msgstr ""
 
-#: ../Commands.pm:8387
+#: ../Commands.pm:8388
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'searchstore search' (store search)\n"
@@ -7846,27 +7846,27 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'store desc' (รายละเอียดไอเท็มจากร้านค้า)\n"
 "ไอเท็ม %s ไม่มีอยู่\n"
 
-#: ../Commands.pm:8431
+#: ../Commands.pm:8432
 #, perl-format
 msgid ""
 "Error in function 'searchstore select' (store search select store)\n"
 "Page %d out of bounds (valid bounds: [0,%d])\n"
 msgstr ""
 
-#: ../Commands.pm:8437
+#: ../Commands.pm:8438
 #, perl-format
 msgid ""
 "Error in function 'searchstore select' (store search select store)\n"
 "Item %d out of bounds (valid bounds: [0,%d])\n"
 msgstr ""
 
-#: ../Commands.pm:8451
+#: ../Commands.pm:8452
 msgid ""
 "Error in function 'searchstore select' (select store)\n"
 "Syntax: searchstore select <page #> <store #> \n"
 msgstr ""
 
-#: ../Commands.pm:8456
+#: ../Commands.pm:8457
 msgid ""
 "Syntax error in 'searchstore' command (Universal catalog command)\n"
 "searchstore close : Closes search store catalog\n"
@@ -7879,35 +7879,35 @@ msgid ""
 "Universal Catalog Gold\n"
 msgstr ""
 
-#: ../Commands.pm:8474
+#: ../Commands.pm:8475
 #, fuzzy, perl-format
 msgid "You must be dead to use this command '%s'\n"
 msgstr "คุณจะต้องเป็นหัวหน้ากิล เพื่อที่จะตั้งพันธมิตร\n"
 
-#: ../Commands.pm:8494
+#: ../Commands.pm:8495
 msgid ""
 "Error in 'revive' command (incorrect syntax)\n"
 "revive [force|\"<item_name>\"|<item_ID>]\n"
 msgstr ""
 
-#: ../Commands.pm:8500
+#: ../Commands.pm:8501
 #, perl-format
 msgid ""
 "Error in 'revive' command\n"
 "Cannot use item '%s' in attempt to revive: item not found in inventory\n"
 msgstr ""
 
-#: ../Commands.pm:8505
+#: ../Commands.pm:8506
 #, perl-format
 msgid "Trying to use item %s to self-revive\n"
 msgstr ""
 
-#: ../Commands.pm:8516
+#: ../Commands.pm:8517
 #, fuzzy
 msgid "No cash shop info to buy\n"
 msgstr "ร้านยังไม่ได้เปิด\n"
 
-#: ../Commands.pm:8527 ../Commands.pm:8545
+#: ../Commands.pm:8528 ../Commands.pm:8546
 #, fuzzy
 msgid ""
 "Syntax Error in function 'cashbuy' (Buy Cash Item)\n"
@@ -7916,7 +7916,7 @@ msgstr ""
 "รูปแบบการใช้ฟังก์ชั่น 'buy' (ซื้อของจากร้านค้า) ผิดพลาด\n"
 "รูปแบบการใช้งาน: buy <item #> [<amount>]\n"
 
-#: ../Commands.pm:8536
+#: ../Commands.pm:8537
 #, fuzzy, perl-format
 msgid ""
 "Error in function 'cashbuy' (Buy Cash Item)\n"
@@ -7925,51 +7925,51 @@ msgstr ""
 "พบข้อผิดพลาดในฟังก์ชั่น 'buy' (ซื้อของจากร้านค้า)\n"
 "ไอเท็ม %s ไม่มีอยู่ในร้าน\n"
 
-#: ../Commands.pm:8557
+#: ../Commands.pm:8558
 #, perl-format
 msgid "Attempt to buy %d items from cash dealer\n"
 msgstr ""
 
-#: ../Commands.pm:8574
+#: ../Commands.pm:8575
 msgid ""
 "You cannot use this command yet. Only available after talking with Mergician-"
 "like NPC!\n"
 msgstr ""
 
-#: ../Commands.pm:8582
+#: ../Commands.pm:8583
 msgid "Available Items to merge"
 msgstr ""
 
-#: ../Commands.pm:8584
+#: ../Commands.pm:8585
 msgid "#     Item Name\n"
 msgstr ""
 
-#: ../Commands.pm:8596 ../Commands.pm:8656
+#: ../Commands.pm:8597 ../Commands.pm:8657
 msgid ""
 "To merge by item id: merge <itemid>\n"
 "Or one-by-one: merge <item #>,<item #>[,...]\n"
 msgstr ""
 
-#: ../Commands.pm:8601
+#: ../Commands.pm:8602
 msgid "Merge Item is canceled.\n"
 msgstr ""
 
-#: ../Commands.pm:8628
+#: ../Commands.pm:8629
 #, perl-format
 msgid "Selected item is not same. Index:'%d' nameID:'%d' first selected:'%d'\n"
 msgstr ""
 
-#: ../Commands.pm:8641
+#: ../Commands.pm:8642
 #, fuzzy, perl-format
 msgid "Cannot find item with id '%d'.\n"
 msgstr "ไม่พบ NPC ในตำแหน่ง (%d,%d)"
 
-#: ../Commands.pm:8647
+#: ../Commands.pm:8648
 #, fuzzy
 msgid "======== Merge Item List ========\n"
 msgstr "========รายการตีอาวุธ========\n"
 
-#: ../Commands.pm:8655
+#: ../Commands.pm:8656
 msgid "No item was selected or at least need 2 same items.\n"
 msgstr ""
 
