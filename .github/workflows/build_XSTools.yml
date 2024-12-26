@@ -8,6 +8,7 @@
 # actions upload-artifact   https://github.com/actions/upload-artifact
 # actions download-artifact https://github.com/actions/download-artifact
 # actions cache             https://github.com/actions/cache
+# git-auto-commit           https://github.com/marketplace/actions/git-auto-commit
 name: Build XSTools
 on:
   push:
@@ -536,3 +537,5 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: Automatic translation updates
+        branch: translation_update
+        create_branch: true
