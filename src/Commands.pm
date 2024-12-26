@@ -887,7 +887,6 @@ sub run {
 						."http://openkore.com/wiki/Category:Console_Command\n");
 			} else {
 				return $params{return}
-				message "test2\n";
 			}
 		}
 	}
