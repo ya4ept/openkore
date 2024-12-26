@@ -802,7 +802,7 @@ sub initHandlers {
 		# Skill Exchange Item
 		['cm', undef, \&cmdExchangeItem],
 		['analysis', undef, \&cmdExchangeItem],
-		
+
 		['searchstore', undef, \&cmdSearchStore],
 		['pause', [
 			T("Delay the next console commands."),
@@ -883,10 +883,11 @@ sub run {
 			my %params = ( switch => $switch, input => $command );
 			Plugins::callHook('Command_post', \%params);
 			if (!$params{return}) {
-				error TF("Unknown command '%s'. Please read the documentation for a list of commands.\n"
-						."http://openkore.com/wiki/Category:Console_Command\n", $switch);
+				error TF("Unknown command. Please read the documentation for a list of commands.\n"
+						."http://openkore.com/wiki/Category:Console_Command\n");
 			} else {
 				return $params{return}
+				message "test2\n";
 			}
 		}
 	}
@@ -1731,7 +1732,7 @@ sub cmdCash {
 		$messageSender->sendCashShopClose();
 		return;
 	}
-	
+
 	if (not defined $cashShop{points}) {
 		error T("Cash shop is not open\n");
 		error T("Please use 'cash open' first\n");
@@ -1801,7 +1802,7 @@ sub cmdCash {
 		message TF("Cash Points: %sC - Kafra Points: %sC\n", formatNumber($cashShop{points}->{cash}), formatNumber($cashShop{points}->{kafra}));
 		return;
 	}
-	
+
 	if ($args[0] eq 'list') {
 		my %cashitem_tab = (
 			0 => T('New'),
@@ -1826,10 +1827,10 @@ sub cmdCash {
 		}
 		$msg .= ('-'x50) . "\n";
 		message $msg, "list";
-		
+
 		return;
 	}
-	
+
 	error T("Syntax Error in function 'cash' (Cash shop)\n" .
 			"Usage: cash <open | close | buy | points | list>\n");
 }
@@ -4289,7 +4290,7 @@ sub cmdParty {
 			"You're already in a party.\n");
 	} elsif ($arg1 eq "" || $arg1 eq "info") {
 		my $msg = center(T(" Party Information "), 79, '-') ."\n".
-			TF("Party name: %s\n" . 
+			TF("Party name: %s\n" .
 			"EXP Take: %s       Item Take: %s       Item Division: %s\n\n".
 			"#    Name                   Map           Coord     Online  HP\n",
 			$char->{'party'}{'name'},
@@ -5321,7 +5322,7 @@ sub cmdSpells {
 		my $spell = $spells{$ID};
 		next unless $spell;
 
-		$msg .=  sprintf("%3d %-20s %-20s   %3d %3d\n", 
+		$msg .=  sprintf("%3d %-20s %-20s   %3d %3d\n",
 				$spell->{binID}, getSpellName($spell->{type}), main::getActorName($spell->{sourceID}), $spell->{pos}{x}, $spell->{pos}{y});
 	}
 	$msg .= ('-'x66) . "\n";
@@ -7194,14 +7195,14 @@ sub cmdAchieve {
 	my (undef, $args) = @_;
 	my ($arg1) = $args =~ /^(\w+)/;
 	my ($arg2) = $args =~ /^\w+\s+(\S.*)/;
-	
+
 	if (($arg1 ne 'list' && $arg1 ne 'reward') || ($arg1 eq 'list' && defined $arg2) || ($arg1 eq 'reward' && !defined $arg2)) {
 		error T("Syntax Error in function 'achieve'\n".
 			"Usage: achieve [<list|reward>] [<achievemente_id>]\n".
 			"Usage: achieve list: Shows all current achievements\n".
 			"Usage: achieve reward achievemente_id: Request reward for the achievement of id achievemente_id\n"
 			);
-			
+
 		return;
 	}
 	my ($cmd, $args_string) = @_;
@@ -7215,18 +7216,18 @@ sub cmdAchieve {
 	if ($arg1 eq 'reward') {
 		if (!exists $achievementList->{$arg2}) {
 			error TF("You don't have the achievement %s.\n", $arg2);
-			
+
 		} elsif ($achievementList->{$arg2}{completed} != 1) {
 			error TF("You haven't completed the achievement %s.\n", $arg2);
-		
+
 		} elsif ($achievementList->{$arg2}{reward} == 1) {
 			error TF("You have already claimed the achievement %s reward.\n", $arg2);
-			
+
 		} else {
 			message TF("Sending request for reward of achievement %s.\n", $arg2);
 			$messageSender->sendAchievementGetReward($arg2);
 		}
-	
+
 	} elsif ($arg1 eq 'list') {
 		my $msg = center(" " . "Achievement List" . " ", 79, '-') . "\n";
 		my $index = 0;
@@ -7928,7 +7929,7 @@ sub cmdCancelTransaction {
 		error TF("You must be logged in the game to use this command '%s'\n", shift);
 		return;
 	}
-	
+
 	if ($ai_v{'npc_talk'}{'talk'} eq 'buy_or_sell') {
 		cancelNpcBuySell();
 	} else {
@@ -8501,7 +8502,7 @@ sub cmdRevive {
 				"Cannot use item '%s' in attempt to revive: item not found in inventory\n", $args[0]);
 		return;
 	}
-	
+
 	message TF("Trying to use item %s to self-revive\n", $item->name());
 	$messageSender->sendAutoRevive();
 }
