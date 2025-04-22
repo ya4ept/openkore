@@ -329,14 +329,14 @@ jobs:
       run: |
         echo "== python version check:"
         python -V
-        echo "== sudo apt install python2.7:"
-        sudo apt install python2.7
+        echo "== sudo apt-get install python2.7:"
+        sudo apt-get install python2.7
         echo "== which python:"
         which python
-        echo "== rename symbolic link"
-        sudo rm -f /usr/bin/python
-        cd /usr/bin/ && sudo ln -rs python2.7 python
-        # ls -l /usr/bin/ |grep python
+        #echo "== rename symbolic link"
+        #sudo rm -f /usr/bin/python
+        #cd /usr/bin/ && sudo ln -rs python2.7 python
+        ls -l /usr/bin/ |grep python
         echo "== new python version check:"
         python -V
 
@@ -384,8 +384,8 @@ jobs:
           PERL: ${{ matrix.perl }}
           ARCHITECTURE: ${{ matrix.architecture }}
       run: |
-        sudo apt update
-        sudo apt install -y libreadline6-dev libcurl4-openssl-dev
+        sudo apt-get update
+        sudo apt-get install -y libreadline6-dev libcurl4-openssl-dev
         make all
         echo "======================================================"
         echo "DONE:"
@@ -418,11 +418,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - os: ubuntu-20.04
+        - os: ubuntu-22.04
           architecture: x64
           perl: 5.12
 
-        - os: ubuntu-22.04
+        - os: ubuntu-latest
           architecture: x64
           perl: latest
 
@@ -532,7 +532,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Installing dependencies
-      run: sudo apt install -y gettext
+      run: sudo apt-get install -y gettext
 
     - name: Run update.sh
       run: |
