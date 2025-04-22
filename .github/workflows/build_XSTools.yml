@@ -32,12 +32,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - os: windows-2022
-          python: 3
-          architecture: x86
-          perl: 5.32
-          strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
-
         - os: windows-2019
           python: 2.7.18
           architecture: x86
@@ -45,13 +39,19 @@ jobs:
           perl: 5.12
           strawberry_distr: 'https://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-portable.zip'
 
+        - os: windows-2022
+          python: 3
+          architecture: x86
+          perl: 5.32
+          strawberry_distr: 'https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-32bit-portable.zip'
+
     steps:
     - name: GIT checkout
       uses: actions/checkout@v4
 
     # setup matrix:
-    # - windows-2022 + python 3      x86 + strawberry perl 5.32 x86 + strawberry g++ x86
     # - windows-2019 + python 2.7.18 x86 + strawberry perl 5.12 x86 + strawberry g++ x86
+    # - windows-2022 + python 3      x86 + strawberry perl 5.32 x86 + strawberry g++ x86
 
     ########################
     # preparing Windows OS #
@@ -63,6 +63,33 @@ jobs:
       with:
         python-version: ${{ matrix.python }}
         architecture: ${{ matrix.architecture }}
+
+    - name: (Windows 2019) Check the Python2 cache
+      if: matrix.os == 'windows-2019'
+      id: cache-python2
+      uses: actions/cache@v4
+      with:
+        path: c:\python27
+        key: ${{ runner.os }}-python-${{ matrix.python }}
+
+    - name: (Windows 2019) Replace python to ${{ matrix.python }} ${{ matrix.architecture }}
+      if: matrix.os == 'windows-2019' && steps.cache-python2.outputs.cache-hit != 'true'
+      run: |
+        echo "::warning ::cache '${{ runner.os }}-python-${{ matrix.python }}' was NOT found, download the Python2"
+        echo "== python version check:"
+        python -V
+        if ( Test-Path "C:/hostedtoolcache/windows/Python/" ) {
+          echo '== Remove default Python 3:'
+          echo 'rm -r "C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe"'
+          rm -r "C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe"
+        }
+        echo "================================"
+        echo "== download python ${{ matrix.python }} (${{ matrix.architecture }})"
+        Invoke-WebRequest ${{ matrix.python_distr }} -OutFile python-2.7.18.msi
+        echo "== install python-2.7.18.msi"
+        cmd /c start /wait msiexec.exe /passive /i python-2.7.18.msi /norestart /L*V "python_install.log" ADDLOCAL=ALL ALLUSERS=1 TARGETDIR=c:\python27
+        echo "== add the path to python27 to the PATH variable"
+        echo "c:\python27" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Remove default Strawberry perl and g++
       run: |
@@ -85,35 +112,6 @@ jobs:
           echo 'rm c:/mingw64/bin/g++.exe'
           rm c:/mingw64/bin/g++.exe
         }
-
-    - name: (Windows 2019) Check the Python2 cache
-      if: matrix.os == 'windows-2019'
-      id: cache-python2
-      uses: actions/cache@v4
-      with:
-        path: c:\python27
-        key: ${{ runner.os }}-python-${{ matrix.python }}
-
-    - name: (Windows 2019) Replace python to ${{ matrix.python }} ${{ matrix.architecture }}
-      if: matrix.os == 'windows-2019' && steps.cache-python2.outputs.cache-hit != 'true'
-      run: |
-        echo "::warning ::cache '${{ runner.os }}-python-${{ matrix.python }}' was NOT found, download the Python2"
-        echo "== python version check:"
-        python -V
-        $python_path = python -c "import os, sys; print(os.path.dirname(sys.executable))"
-        echo $python_path
-        if ( Test-Path $python_path ) {
-          echo '== Remove default Python 3:'
-          echo "rm -r $python_path\python.exe"
-          rm -r $python_path\python.exe
-        }
-        echo "================================"
-        echo "== download python ${{ matrix.python }} (${{ matrix.architecture }})"
-        Invoke-WebRequest ${{ matrix.python_distr }} -OutFile python-2.7.18.msi
-        echo "== install python-2.7.18.msi"
-        cmd /c start /wait msiexec.exe /passive /i python-2.7.18.msi /norestart /L*V "python_install.log" ADDLOCAL=ALL ALLUSERS=1 TARGETDIR=c:\python27
-        echo "== add the path to python27 to the PATH variable"
-        echo "c:\python27" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Check the Strawberry cache
       id: cache-strawberry
@@ -302,37 +300,37 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - os: ubuntu-latest
-          python: 3
-          architecture: x64
-          perl: latest
-
-        - os: ubuntu-22.04
+        - os: ubuntu-20.04
           python: 2.7
           architecture: x64
           perl: 5.12
+
+        - os: ubuntu-22.04
+          python: 3
+          architecture: x64
+          perl: latest
 
     steps:
     - name: GIT checkout
       uses: actions/checkout@v4
 
     # setup matrix:
-    # - ubuntu-latest (24.04) + python 3      x64 + perl last (5.38) x64
-    # - ubuntu-22.04          + python 2.7.18 x64 + perl 5.12        x64
+    # - ubuntu-20.04 + python 2.7.18 x64 + perl 5.12 x64
+    # - ubuntu-22.04 + python 3      x64 + perl last (5.38) x64
 
     ######################
     # preparing Linux OS #
     ######################
 
-    - name: (${{ matrix.os }}) Setup python ${{ matrix.python }} ${{ matrix.architecture }}
-      if: matrix.os == 'ubuntu-latest'
+    - name: (Ubuntu-22.04) Setup python ${{ matrix.python }} ${{ matrix.architecture }}
+      if: matrix.os == 'ubuntu-22.04'
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python }}
         architecture: ${{ matrix.architecture }}
 
-    - name: (${{ matrix.os }}) Setup python ${{ matrix.python }} ${{ matrix.architecture }}
-      if: matrix.os == 'ubuntu-22.04'
+    - name: (Ubuntu-20.04) Setup python ${{ matrix.python }} ${{ matrix.architecture }}
+      if: matrix.os == 'ubuntu-20.04'
       run: |
         echo "== python version check:"
         python -V
@@ -414,13 +412,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - os: ubuntu-latest
+        - os: ubuntu-20.04
           architecture: x64
-          perl: latest
+          perl: 5.12
 
         - os: ubuntu-22.04
           architecture: x64
-          perl: 5.12
+          perl: latest
 
     steps:
     - name: GIT checkout
