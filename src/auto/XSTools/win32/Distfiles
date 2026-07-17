@@ -1,7 +1,0 @@
-common.h
-locale.c
-netredirect.cpp
-utils.cpp
-utils.h
-utils-netredirect.cpp
-wrapper.xs
