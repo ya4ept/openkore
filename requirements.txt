@@ -1,0 +1,19 @@
+# --- MkDocs и тема Material ---
+mkdocs==1.6.1
+mkdocs-material==9.7.6
+
+# --- Markdown-расширения (используются в mkdocs.yml) ---
+# pymdown-extensions — это правильное имя (НЕ mkdocs-pymdownx-material-extensions).
+# Включает superfences, highlight, tabbed, tasklist, details, tilde и т.д.
+# Тема Material сама тянет нужную версию, но фиксируем минор для воспроизводимости.
+pymdown-extensions>=10.7
+
+# Mermaid-диаграммы (если в статьях есть graph TD / sequenceDiagram)
+mkdocs-mermaid2-plugin>=1.1.1
+
+# Минификация HTML при сборке (plugins: - minify)
+mkdocs-minify-plugin>=0.8.0
+
+# Нафигация в виде отдельных файлов
+# https://lukasgeiter.github.io/mkdocs-awesome-nav/
+mkdocs-awesome-nav

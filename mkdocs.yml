@@ -1,0 +1,185 @@
+# ==========================================================================
+#  mkdocs.yml — конфигурация OpenKore Wiki на MkDocs Material
+#
+#  После генерации навигации (04_build_nav/gen_nav.py) скопируйте содержимое
+#  файла mkdocs.yml.nav целиком в секцию nav: ниже (заменив заглушку).
+# ==========================================================================
+#d9dfe4
+site_name: OpenKore Wiki
+site_url: https://ya4ept.github.io/
+site_description: >-
+  Документация OpenKore — открытого бота для Ragnarok Online.
+  Мигрировано с MediaWiki на MkDocs Material.
+site_author: OpenKore Community
+
+repo_url: https://github.com/ya4ept/openkore
+repo_name: openkore/openkore_docs
+edit_uri: edit/openkore_docs/docs/   # правка на GitHub
+
+# --- Тема Material ---
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant      # SPA-режим: мгновенная загрузка страниц
+    - navigation.tabs         # верхние вкладки для разделов 1-го уровня
+    - navigation.tabs.sticky  # вкладки остаются видимыми при скролле
+    # - navigation.sections     # разделы в боковой панели группируются
+    # - navigation.expand       # раскрыть все разделы по умолчанию
+    - navigation.indexes      # у раздела может быть index.md как у «главной»
+    - navigation.top          # кнопка «наверх»
+    - search.suggest          # подсказки в поиске
+    - search.highlight        # подсветка найденного
+    - search.share            # share-ссылка на результат поиска
+    - content.code.copy       # кнопка «копировать» в кодовых блоках
+    - content.code.annotate   # аннотации в коде
+    - content.tabs.link       # синхронизация вкладок
+    - toc.follow              # боковой TOC следует за скроллом
+  palette:
+    # Переключатель светлой/тёмной темы
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: grey
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark theme
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: grey
+      accent: yellow
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light theme
+  font:
+    text: Roboto
+    code: Roboto Mono
+  #icon:
+  #  logo: material/book-open-page-variant
+  logo: assets/images/kore_2g_logo3.png
+  favicon: assets/favicon.ico
+
+# --- Плагины ---
+plugins:
+  - search:
+      lang:
+        # - ru
+        - en
+  - tags:                      # теги из frontmatter (categories)
+      tags_file: tags.md       # страница-агрегатор тегов
+  - minify:
+      minify_html: true
+  - mermaid2
+  # - redirects:
+  #     redirect_maps:
+  #       # Сюда вставляем карту редиректов из redirects.csv
+  #       # (можно сгенерировать отдельным скриптом):
+  #       # "wiki/old-page-name.md": "new-page-name.md"
+  #       #"control/config.txt/homunculus_attackAuto_considerDamagedAggressive.md": "control/config.txt/attackAuto_considerDamagedAggressive.md"
+  - meta # метаинформация для всех файлов в папке (нужен pandoc 9.7.6)
+  #- alias
+  - awesome-nav # https://lukasgeiter.github.io/mkdocs-awesome-nav/
+  - categories: # https://codeberg.org/luten/mkdocs-categories-plugin
+      generate_index: true
+      verbose: false
+      base_name: 'cat'
+      section_title: 'AAAAAAAAAAAA' # не понятно, что это?
+      no_nav: false # отключает боковое меню. Не работает при использовании "awesome-nav"
+      category_separator: '|'
+
+# --- Markdown-расширения ---
+markdown_extensions:
+  # Admonitions — именно в этот формат постобработчик превращает {{Note|...}}
+  - admonition # блок кода https://squidfunk.github.io/mkdocs-material/reference/admonitions/
+  - pymdownx.details
+  - pymdownx.superfences # https://github.com/squidfunk/mkdocs-material/blob/master/docs/setup/extensions/python-markdown-extensions.md
+  # Подсветка синтаксиса
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  # Таблицы, списки задач, клавиши
+  - tables
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  # Генерация оглавления (вместо __TOC__ MediaWiki)
+  - toc:
+      permalink: "🔗" # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/?h=permalink#table-of-contents
+      toc_depth: 3
+      separator: "_"
+  # Tabbed content: https://squidfunk.github.io/mkdocs-material/reference/content-tabs/
+  - pymdownx.tabbed:
+      alternate_style: true
+  # Сноски и определения
+  - footnotes
+  - attr_list   # позволяет { .class } на картинках и т.д.
+  - md_in_html
+  # Иконки: https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  # test для инклюда одной страницы в другую
+  - pymdownx.snippets:
+      base_path: docs  # Указывает корневую папку, откуда искать файлы
+  # - def_list # Использзование определений как в midiawiki https://squidfunk.github.io/mkdocs-material/reference/lists/#using-definition-lists
+
+# --- Дополнительные настройки ---
+extra:
+  homepage: https://openkore.com
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/OpenKore/openkore
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/hdAhPM6
+    - icon: material/forum
+      link: http://forums.openkore.com
+  # alternate: # Перевод на русский
+  #   - name: Russian
+  #     link: /ru/
+  #     lang: ru
+  #   - name: English
+  #     link: /
+  #     lang: en
+  # Аналитика (опционально, раскомментируйте при необходимости)
+  # analytics:
+  #   provider: google
+  #   property: G-XXXXXXXXXX
+
+# extra_css:
+#   - assets/css/extra.css      # кастомные стили (создайте при необходимости)
+
+# --- Каталог с документацией ---
+docs_dir: docs
+
+# ==========================================================================
+#  НАВИГАЦИЯ
+#
+#  ВАРИАНТ A (ручной): оставьте эту заглушку и расширяйте по мере чистки.
+#
+#  ВАРИАНТ B (авто): запустите  python ../04_build_nav/gen_nav.py
+#  затем скопируйте содержимое ../05_mkdocs/mkdocs.yml.nav сюда целиком.
+# ==========================================================================
+# nav:
+#    - Home: index.md
+# #   # - config.txt:
+# #   #   - control\config.txt\index.md
+# #   #   - attack:
+# #   #     - control\config.txt\attackAuto.md
+# #   #     - control\config.txt\attackAuto_considerDamagedAggressive.md
+# #   #     - control\config.txt\homunculus_attackAuto_considerDamagedAggressive.md
+# #   #     - control\config.txt\mercenary_attackAuto_considerDamagedAggressive.md
+# #   #   - control\config.txt\!include.md
+#    - OpenKore folder:
+#      - control:
+#        - control\index.md
+# #       - arrowcraft.txt: control\arrowcraft.txt.md
+# #       - avoid.txt: control\avoid.txt.md
+# #       - config.txt: 
+# #         - control\config.txt\index.md
+# #         - control\config.txt\!include.md
+# #         - control\config.txt\master.md
+# #         - control\config.txt\attackAuto.md
+# #     - fields: control\Field_file_format.md
+#    - Manual: manual.md
+#    - Tags: tags.md

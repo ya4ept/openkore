@@ -1,0 +1,9 @@
+nav:
+  - Home: index.md
+  - OpenKore folder:
+    - control: control
+    - fields: manuals/Field_file_format.md
+    - plugin
+  - Manuals: manuals
+  - Tags: tags.md
+  - Categories: cat

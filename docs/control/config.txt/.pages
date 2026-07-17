@@ -1,0 +1,11 @@
+title: config.txt
+nav:
+  - Login options and server-specific options:
+    - attackAuto.md
+  - attackAuto:
+    - attackAuto.md
+    - attackAuto_inLockOnly.md
+    - attackAuto_notInTown.md
+  - homunculus:
+    - attackAuto_inLockOnly.md
+  - ...
